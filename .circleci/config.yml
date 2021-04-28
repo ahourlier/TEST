@@ -1,0 +1,182 @@
+version: 2.1
+
+executors:
+#  sonar-executor:
+#    docker:
+#      - image: gcr.io/cirruseo-continuous-int/sonar_scanner/alpine_sonar_scanner:latest
+#        auth:
+#          username: _json_key
+#          password: $GCR_CREDS
+#    working_directory: /home/circleci/project
+
+commands:
+  setenv:
+    description: "Set environment variables"
+    steps:
+      - run:
+          name: "Settings environment variables"
+          command: |
+            set -o pipefail
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo "export PROJECT_ID=$PROD_PROJECT_ID" >> $BASH_ENV
+              echo "export GCLOUD_CREDS='${GCLOUD_SA_PROD_CREDS}'" >> $BASH_ENV
+              echo "export GSUITE_SA_KEY='${GSUITE_SA_PROD_KEY}'" >> $BASH_ENV
+              echo "export FIREBASE_SA_KEY='${FIREBASE_SA_PROD_KEY}'" >> $BASH_ENV
+            elif [[ "${CIRCLE_BRANCH}" =~ ^release\/.* ]]; then
+              echo "export PROJECT_ID=$PREPROD_PROJECT_ID" >> $BASH_ENV
+              echo "export GCLOUD_CREDS='${GCLOUD_SA_PREPROD_CREDS}'" >> $BASH_ENV
+              echo "export GSUITE_SA_KEY='${GSUITE_SA_PREPROD_KEY}'" >> $BASH_ENV
+              echo "export FIREBASE_SA_KEY='${FIREBASE_SA_PREPROD_KEY}'" >> $BASH_ENV
+            else
+              echo "export PROJECT_ID=${DEV_PROJECT_ID}" >> $BASH_ENV
+              echo "export GCLOUD_CREDS='${GCLOUD_SA_DEV_CREDS}'" >> $BASH_ENV
+              echo "export GSUITE_SA_KEY='${GSUITE_SA_DEV_KEY}'" >> $BASH_ENV
+              echo "export FIREBASE_SA_KEY='${FIREBASE_SA_DEV_KEY}'" >> $BASH_ENV
+            fi
+
+jobs:
+  checkout_and_dependencies:
+    docker:
+      - image: circleci/python:3.7.6
+
+    steps:
+      - checkout
+      - run:
+          name: Create virtual environment
+          command: |
+            python -m virtualenv venv
+            . venv/bin/activate
+
+      - restore_cache:
+          name: Restore python dependencies from cache
+          keys:
+            - py-dep-v1-{{ checksum "requirements-test.txt" }}-{{ checksum "requirements.txt"}}
+
+      - run:
+          name: Install python dependencies
+          command: |
+            pip install -r requirements-test.txt --upgrade
+
+      - save_cache:
+          name: Save python dependencies to cache
+          key: py-dep-v1-{{ checksum "requirements-test.txt" }}-{{ checksum "requirements.txt"}}
+          paths:
+            - ~/.cache/pip
+            - venv
+
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .
+  lint_and_tests:
+    docker:
+      - image: circleci/python:3.7.6
+
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Activate virtual environment
+          command: . venv/bin/activate
+      - run:
+          name: Linting
+          command: |
+            black --check .
+#      - run:
+#          name: Run unit tests
+#          command: |
+#            pytest --cov=app --cov-report=xml --cov-config=.coveragerc app
+
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .
+
+#  sonar_analysis:
+#    executor: sonar-executor
+#    steps:
+#      - attach_workspace:
+#          at: /home/circleci
+#      - run:
+#          name: Execute Sonar Scanner
+#          command: sonar-scanner
+
+  deploy:
+    docker:
+      - image: google/cloud-sdk
+    steps:
+      - attach_workspace:
+          at: ~/
+      - setenv
+      - run:
+          name: 'Removing venv'
+          command: |
+            rm -fr venv
+      - run:
+          name: Retreiving configuration file
+          command: |
+            echo ${GCLOUD_CREDS} > gcloud-service-key.json
+            echo ${GSUITE_SA_KEY} > app/sa-key.json
+            echo ${FIREBASE_SA_KEY} > app/firebase-key.json
+            gcloud auth activate-service-account --key-file=gcloud-service-key.json
+            gcloud --quiet config set project ${PROJECT_ID}
+            gcloud secrets versions access latest --secret="${BACKEND_ENV_SECRET_KEY}" > .env
+      - run:
+          name: Deploying service to Google App Engine
+          command: |
+            gcloud app deploy app.yaml manager.yaml dispatch.yaml queue.yaml --quiet
+
+  release:
+    docker:
+      - image: circleci/node:erbium
+    steps:
+      - checkout
+      - run: yarn install
+      - run: yarn run semantic-release
+
+workflows:
+  "Test and Deploy":
+    jobs:
+      - checkout_and_dependencies:
+          context: Cirruseo Google Cloud Repository
+          filters:
+            branches:
+              only:
+                - /.*/
+
+      - lint_and_tests:
+          context: Cirruseo Google Cloud Repository
+          filters:
+            branches:
+              only:
+                - /.*/
+          requires:
+            - checkout_and_dependencies
+
+#      - sonar_analysis:
+#          context: Cirruseo Google Cloud Repository
+#          requires:
+#            - lint_and_tests
+
+      - deploy:
+          context: Cirruseo Google Cloud Repository
+          requires:
+            - lint_and_tests
+#            - sonar_analysis
+          filters:
+            branches:
+              only:
+                - develop
+                - /release\/.*/
+                - master
+
+      - release:
+          context: Cirruseo Google Cloud Repository
+          filters:
+            branches:
+              only:
+                - master
+                - /release\/.*/
+          requires:
+            - deploy
+

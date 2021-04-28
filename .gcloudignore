@@ -1,0 +1,38 @@
+# Global
+.git
+.gitignore
+
+# IDE
+.idea
+
+# GCloud
+.gcloudignore
+gcloud-service-key.json
+
+# Build & CI
+.circleci
+.coveragerc
+node_modules
+package.json
+sonar-project.properties
+yarn.lock
+.pre-commit-config.yaml
+.releaserc
+pyproject.toml
+
+# Tests
+.pytest_cache
+pytest.ini
+requirements-test.txt
+*_test.py
+test
+
+# Db
+migrations
+
+# Docs
+README.md
+docs
+
+*.dbak
+*.lobak

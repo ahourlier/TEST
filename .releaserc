@@ -1,0 +1,21 @@
+{
+  "branches": [
+    "master",
+    {
+      "name": "release\/([a-zA-Z0-9-_#.]+)",
+      "channel": "beta",
+      "prerelease": "rc"
+    }
+  ],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    ["@semantic-release/changelog", {
+      "changelogFile": "docs/CHANGELOG.md",
+    }],
+    '@semantic-release/github',
+    ["@semantic-release/git", {
+      "assets": ["docs/CHANGELOG.md"],
+    }],
+  ]
+}

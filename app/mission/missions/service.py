@@ -1,0 +1,276 @@
+import os
+
+from flask_sqlalchemy import Pagination
+from sqlalchemy import or_
+
+import app.admin.agencies.service as agency_service
+import app.admin.antennas.service as antenna_service
+import app.admin.clients.service as client_service
+from flask import request, g, jsonify
+from app import db
+from app.admin.agencies.exceptions import AgencyNotFoundException
+from app.admin.antennas.exceptions import AntennaNotFoundException
+from app.admin.clients.exceptions import ClientNotFoundException
+from app.common.config_error_messages import (
+    KEY_SHARED_DRIVE_CREATION_EXCEPTION,
+    KEY_SHARED_DRIVE_FOLDER_CREATION_EXCEPTION,
+    KEY_GOOGLE_GROUP_CREATION_EXCEPTION,
+    KEY_SHARED_DRIVE_RENAME_EXCEPTION,
+    KEY_SHARED_DRIVE_COPY_EXCEPTION,
+    KEY_GOOGLE_GROUP_VISIBILITY_CHANGE_EXCEPTION,
+)
+from app.common.drive_utils import DriveUtils, DRIVE_DEFAULT_FIELDS
+from app.common.exceptions import (
+    InconsistentUpdateIdException,
+    SharedDriveException,
+    GoogleGroupsException,
+)
+from app.common.google_apis import DriveService, DirectoryService, GroupsSettingsService
+from app.common.group_utils import GroupUtils
+from app.common.tasks import create_task
+from app.common.search import sort_query
+from app.mission.missions import Mission
+from app.mission.missions.error_handlers import MissionNotFoundException
+from app.mission.missions.interface import MissionInterface
+from app.mission.teams import Team
+
+import app.auth.users.service as users_service
+
+MISSIONS_DEFAULT_PAGE = 1
+MISSIONS_DEFAULT_PAGE_SIZE = 20
+MISSIONS_DEFAULT_SORT_FIELD = "created_at"
+MISSIONS_DEFAULT_SORT_DIRECTION = "desc"
+
+SD_MISSION_DOC_TEMPLATES_FOLDER_NAME = "Modèle de documents"
+SD_MISSION_DOC_INFO_FOLDER_NAME = "Documents d'information"
+SD_MISSION_PROJECTS_FOLDER_NAME = "Projets"
+
+MISSION_INIT_QUEUE_NAME = "mission-queue"
+
+MISSION_DELETE_SD_PREFIX = "ZZ - [ARCHIVE]"
+
+
+class MissionService:
+    @staticmethod
+    def get_all(
+        page=MISSIONS_DEFAULT_PAGE,
+        size=MISSIONS_DEFAULT_PAGE_SIZE,
+        term=None,
+        sort_by=MISSIONS_DEFAULT_SORT_FIELD,
+        direction=MISSIONS_DEFAULT_SORT_DIRECTION,
+        agency_id=None,
+        antenna_id=None,
+        client_id=None,
+        user=None,
+    ) -> Pagination:
+        import app.mission.permissions as mission_permissions
+
+        q = sort_query(Mission.query, sort_by, direction)
+        q = q.filter(or_(Mission.is_deleted == False, Mission.is_deleted == None))
+        if term is not None:
+            search_term = f"%{term}%"
+            q = q.filter(
+                or_(
+                    Mission.name.ilike(search_term),
+                    Mission.status.ilike(search_term),
+                    Mission.comment.ilike(search_term),
+                )
+            )
+
+        if agency_id is not None:
+            q = q.filter(Mission.agency_id == agency_id)
+        if antenna_id is not None:
+            q = q.filter(Mission.antenna_id == antenna_id)
+        if client_id is not None:
+            q = q.filter(Mission.client_id == client_id)
+
+        if user is not None:
+            q = mission_permissions.MissionPermission.filter_query_mission_by_user_permissions(
+                q, user
+            )
+
+        return q.paginate(page=page, per_page=size)
+
+    @staticmethod
+    def get_by_id(mission_id: int) -> Mission:
+        db_mission = Mission.query.get(mission_id)
+        if db_mission is None:
+            raise MissionNotFoundException
+        return db_mission
+
+    @staticmethod
+    def create(new_attrs: MissionInterface) -> Mission:
+        """ Create a new mission with linked agency, antenna, and client """
+        try:
+            agency_service.AgencyService.get_by_id(new_attrs.get("agency_id"))
+        except AgencyNotFoundException as e:
+            raise e
+        if new_attrs.get("antenna_id"):
+            try:
+                antenna_service.AntennaService.get_by_id(new_attrs.get("antenna_id"))
+            except AntennaNotFoundException as e:
+                raise e
+        try:
+            client_service.ClientService.get_by_id(new_attrs.get("client_id"))
+        except ClientNotFoundException as e:
+            raise e
+        else:
+            mission = Mission(**new_attrs)
+            db.session.add(mission)
+            db.session.commit()
+            create_task(
+                project=os.getenv("GOOGLE_CLOUD_PROJECT"),
+                location=os.getenv("QUEUES_LOCATION"),
+                queue=MISSION_INIT_QUEUE_NAME,
+                uri=f"{request.host_url}_internal/missions/init-drive",
+                method="POST",
+                payload={"mission_id": mission.id,},
+            )
+            return mission
+
+    @staticmethod
+    def update(
+        mission: Mission, changes: MissionInterface, force_update: bool = False
+    ) -> Mission:
+        if force_update or MissionService.has_changed(mission, changes):
+            # If one tries to update entity id, a error must be raised
+            if changes.get("id") and changes.get("id") != mission.id:
+                raise InconsistentUpdateIdException()
+            mission.update(changes)
+            db.session.commit()
+        return mission
+
+    @staticmethod
+    def has_changed(mission: Mission, changes: MissionInterface) -> bool:
+        for key, value in changes.items():
+            if getattr(mission, key) != value:
+                return True
+        return False
+
+    @staticmethod
+    def delete_by_id(mission_id: int) -> int:
+        import app.project.projects.service as projects_service
+
+        mission = Mission.query.filter(Mission.id == mission_id).first()
+        if not mission:
+            raise MissionNotFoundException
+        projects_id = [project.id for project in mission.projects]
+        projects_service.ProjectService.delete_list(projects_id)
+        mission.soft_delete()
+        db.session.commit()
+        MissionService.rename_sd(
+            mission,
+            f"{MISSION_DELETE_SD_PREFIX} {os.getenv('SD_ENV_PREFIX', '')}{mission.name}",
+        )
+        return mission_id
+
+    @staticmethod
+    def create_drive_structure(mission: Mission) -> Mission:
+        """ Creates the drive structure for a mission
+        Root
+        |-> Modèle de documents
+        |-> Documents d'information
+        |-> Projets
+        """
+
+        client = DriveService(os.getenv("TECHNICAL_ACCOUNT_EMAIL")).get()
+
+        if not mission.sd_root_folder_id:
+            sd_id = DriveUtils.create_shared_drive(
+                f"{os.getenv('SD_ENV_PREFIX', '')}Mission : {mission.name}"
+            )
+            if not sd_id:
+                raise SharedDriveException(KEY_SHARED_DRIVE_CREATION_EXCEPTION)
+            mission.sd_root_folder_id = sd_id
+
+        def batch_folder_callback(request_id, response, exception):
+            if exception is not None:
+                raise SharedDriveException(KEY_SHARED_DRIVE_FOLDER_CREATION_EXCEPTION)
+            else:
+                setattr(mission, request_id, response.get("id"))
+
+        batch = client.new_batch_http_request(callback=batch_folder_callback)
+
+        for existing, name in [
+            ("sd_document_templates_folder_id", SD_MISSION_DOC_TEMPLATES_FOLDER_NAME),
+            ("sd_information_documents_folder_id", SD_MISSION_DOC_INFO_FOLDER_NAME),
+            ("sd_projects_folder_id", SD_MISSION_PROJECTS_FOLDER_NAME),
+        ]:
+            if not getattr(mission, existing):
+                batch.add(
+                    DriveUtils.create_folder(
+                        name, mission.sd_root_folder_id, client=client, batch=True
+                    ),
+                    request_id=existing,
+                )
+
+        if len(batch._order) > 0:
+            batch.execute()
+
+        db.session.commit()
+
+        return mission
+
+    @staticmethod
+    def init_mission_group(mission: Mission):
+        """
+        Init mission google group
+        """
+
+        client = DirectoryService(os.getenv("TECHNICAL_ACCOUNT_EMAIL")).get()
+
+        if not mission.google_group_id:
+            group_email = f"{os.getenv('GROUP_EMAIL_ENV_PREFIX', '')}oslo-mission-{mission.code_name}@{os.getenv('GSUITE_DOMAIN')}"
+            group_id = GroupUtils.get_google_group(group_email, client=client)
+            if not group_id:
+                group_id = GroupUtils.create_google_group(
+                    email=group_email,
+                    name=f"{os.getenv('GROUP_NAME_ENV_PREFIX')}OSLO - Mission {mission.name}",
+                    client=client,
+                )
+            if group_id:
+                mission.google_group_id = group_id
+                db.session.commit()
+            else:
+                raise GoogleGroupsException(KEY_GOOGLE_GROUP_CREATION_EXCEPTION)
+
+            groups_client = GroupsSettingsService(
+                os.getenv("TECHNICAL_ACCOUNT_EMAIL")
+            ).get()
+            group_updated = GroupUtils.set_group_visibility_private(
+                group_email, client=groups_client
+            )
+            if not group_updated:
+                raise GoogleGroupsException(
+                    KEY_GOOGLE_GROUP_VISIBILITY_CHANGE_EXCEPTION
+                )
+
+    @staticmethod
+    def rename_sd(mission: Mission, name: str):
+        if mission.sd_root_folder_id:
+            res = DriveUtils.rename_shared_drive(mission.sd_root_folder_id, name)
+            if not res:
+                raise SharedDriveException(KEY_SHARED_DRIVE_RENAME_EXCEPTION)
+
+    @staticmethod
+    def add_document(mission: Mission, files_id: str, kind: str, user_email: str):
+        dest_folder = None
+        if kind == "ATTACHMENT":
+            dest_folder = mission.sd_information_documents_folder_id
+
+        response = []
+        for file_id in files_id:
+            if dest_folder is not None:
+                resp = DriveUtils.copy_file(
+                    file_id,
+                    dest_folder,
+                    properties=dict(missionId=mission.id, kind=kind),
+                    user_email=user_email,
+                    fields=DRIVE_DEFAULT_FIELDS,
+                )
+                if not resp:
+                    raise SharedDriveException(KEY_SHARED_DRIVE_COPY_EXCEPTION)
+                else:
+                    response.append(resp)
+
+        return response

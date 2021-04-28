@@ -1,0 +1,8 @@
+{% extends 'admin/model/list.html' %}
+{% block list_row_actions scoped %}
+  {% for action in list_row_actions %}
+      {% if not row.private or not 'DeleteRowAction' in action.__class__.__name__ %}
+        {{ action.render_ctx(get_pk_value(row), row) }}
+      {%- endif -%}
+  {% endfor %}
+{% endblock %}
