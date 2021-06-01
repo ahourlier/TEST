@@ -247,7 +247,17 @@ class Simulation(BaseMixin, db.Model):
             }
             for simulation_funder in self.simulation_funders
         ]
-
+    
+    @hybrid_property
+    def base_funders(self):
+        # Return all base funders linked to the simulation
+        return [
+            {
+                "funder": simulation_funder.base_funder,
+            }
+            for simulation_funder in self.simulation_funders
+        ]
+    
     @hybrid_property
     def deposit_funders(self):
         # Return all deposit funders linked to the simulation
