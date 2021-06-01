@@ -276,7 +276,7 @@ class ProjectService:
         # Create work_types :
         if work_types:
             work_type_service.WorkTypeService.create_list(work_types, project.id)
-        if project.requester.type == "PO":
+        if project.requester.type in ["PO", "Locataire", "SDC (Syndicat des Copropriétaires)"]:
             logging.info(f"Creating accommodation for project {project.id}")
             accommodations_service.AccommodationService.create({}, project.id)
         db.session.commit()
