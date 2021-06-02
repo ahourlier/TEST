@@ -266,6 +266,7 @@ class ProjectService:
         del new_attrs["requester"]
         new_project = ProjectInterface(**new_attrs)
         project = Project(**new_project)
+        ProjectService.update_dates_status(project.status, project)
         db.session.add(project)
         db.session.commit()
         # Create project_leads
