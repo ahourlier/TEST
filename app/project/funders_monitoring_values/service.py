@@ -166,7 +166,9 @@ class FunderMonitoringValueService:
         # because we want the call to create the monitor if it does not exist yet
         monitor = monitors_service.MonitorService.get_by_mission_id(project.mission.id)
 
-        simulations: Pagination = simulations_service.SimulationService.get_all(project_id=project_id)
+        simulations: Pagination = simulations_service.SimulationService.get_all(
+            project_id=project_id
+        )
 
         q_project_level = FunderMonitoringValue.query.filter(
             FunderMonitoringValue.project_id == project.id
@@ -190,7 +192,7 @@ class FunderMonitoringValueService:
                     # No need to check if funder is duplicate
                     # because we are iterating only base funders from simulation
                     continue
-                
+
                 funders_id.append(funder.id)
                 funder_item = {"funder": funder}
                 funder_monitoring_values = []

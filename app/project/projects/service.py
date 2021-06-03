@@ -122,7 +122,7 @@ class ProjectService:
             remove_unauthorized=True,
         )
 
-        q = q.filter(Project.status != 'Sans suite')
+        q = q.filter(Project.status != "Sans suite")
 
         if unique_page:
             # Retrieve all projects in one unique page
@@ -176,11 +176,7 @@ class ProjectService:
         ):
             raise InvalidSearchFieldException()
         if requester_type is not None:
-            q = q.filter(
-                Project.requester.has(
-                    Requester.type == RequesterTypes[requester_type].value
-                )
-            )
+            q = q.filter(Project.requester.has(Requester.type == requester_type))
         # Filter by project status
         if project_status is not None:
             if not isinstance(project_status, list):
@@ -277,7 +273,11 @@ class ProjectService:
         # Create work_types :
         if work_types:
             work_type_service.WorkTypeService.create_list(work_types, project.id)
-        if project.requester.type in ["PO", "Locataire", "SDC (Syndicat des Copropriétaires)"]:
+        if project.requester.type in [
+            "PO",
+            "TENANT",
+            "SDC",
+        ]:
             logging.info(f"Creating accommodation for project {project.id}")
             accommodations_service.AccommodationService.create({}, project.id)
         db.session.commit()
