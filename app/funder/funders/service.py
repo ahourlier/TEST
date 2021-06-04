@@ -49,7 +49,10 @@ class FunderService:
             q = q.filter(Funder.is_national.is_(True))
 
         # Filter by requester_type
-        if requester_type is not None and requester_type not in RequesterTypes.__members__:
+        if (
+            requester_type is not None
+            and requester_type not in RequesterTypes.__members__
+        ):
             raise InvalidSearchFieldException()
         if requester_type is not None:
             q = q.filter(Funder.requester_type == requester_type)

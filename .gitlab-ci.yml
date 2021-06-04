@@ -1,0 +1,119 @@
+stages:
+  - Test
+  - Deploy
+
+# Change pip's cache directory to be inside the project directory since we can
+# only cache local items.
+variables:
+    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+# Pip's cache doesn't store the python packages
+# https://pip.pypa.io/en/stable/reference/pip_install/#caching
+#
+# If you want to also cache the installed packages, you have to install
+# them in a virtualenv and cache it as well.
+cache:
+  paths:
+    - .cache/pip
+
+# flake8:
+#   stage: Test
+#   image: python:3.7-slim
+#   allow_failure: true
+#   before_script:
+#     - python --version
+#     - pip install flake8
+#   script:
+#     - flake8
+
+black:
+  stage: Test
+  image: python:3.7-slim
+  allow_failure: true
+  before_script:
+  - python --version
+  - pip install black  
+  script:
+  - black . --check
+
+# mypy:
+#   stage: Test
+#   image: python:3.7-slim
+#   allow_failure: true
+#   before_script:
+#     - python --version
+#     - pip install -r requirements-dev.txt
+#   script:
+#     - mypy app
+
+# pytest:
+#   stage: Test
+#   image: python:3.7-slim
+#   before_script:
+#     - python --version
+#     - pip install -r requirements-dev.txt
+#   script:
+#     - pytest --cov=app --cov-report=xml --cov-config=.coveragerc app
+#   artifacts:
+#     reports:
+#       junit: report.xml
+
+deploy_dev:
+  stage: Deploy
+  image: google/cloud-sdk:alpine
+  environment: 
+    name: dev
+    url: https://api-dot-$DEV_PROJECT_ID.appspot.com/
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+      when: manual
+  before_script:
+    - gcloud --version
+    - gcloud components update --quiet
+  script:
+    - cp $DEV_GSUITE_SA_KEY app/sa-key.json
+    - cp $DEV_FIREBASE_SA_KEY app/firebase-key.json
+    - gcloud auth activate-service-account --key-file $DEV_CI_SA_KEY
+    - gcloud --quiet config set project $DEV_PROJECT_ID
+    - gcloud secrets versions access latest --secret="$BACKEND_ENV_SECRET_KEY" > .env
+    - gcloud app deploy app.yaml manager.yaml dispatch.yaml queue.yaml --quiet
+
+deploy_preprod:
+  stage: Deploy
+  image: google/cloud-sdk:alpine
+  environment: 
+    name: preprod
+    url: https://api-dot-$PREPROD_PROJECT_ID.appspot.com/
+  rules:
+    - if: '$CI_COMMIT_BRANCH =~ /^release\/.*/'
+      when: manual
+  before_script:
+    - gcloud --version
+    - gcloud components update --quiet
+  script:
+    - cp $PREPROD_GSUITE_SA_KEY app/sa-key.json
+    - cp $PREPROD_FIREBASE_SA_KEY app/firebase-key.json
+    - gcloud auth activate-service-account --key-file $PREPROD_CI_SA_KEY
+    - gcloud --quiet config set project $PREPROD_PROJECT_ID
+    - gcloud secrets versions access latest --secret="$BACKEND_ENV_SECRET_KEY" > .env
+    - gcloud app deploy app.yaml manager.yaml dispatch.yaml queue.yaml --quiet
+
+deploy_prod:
+  stage: Deploy
+  image: google/cloud-sdk:alpine
+  environment: 
+    name: prod
+    url: https://api-dot-$PROD_PROJECT_ID.appspot.com/
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: manual
+  before_script:
+    - gcloud --version
+    - gcloud components update --quiet
+  script:
+    - cp $PROD_GSUITE_SA_KEY app/sa-key.json
+    - cp $PROD_FIREBASE_SA_KEY app/firebase-key.json
+    - gcloud auth activate-service-account --key-file $PROD_CI_SA_KEY
+    - gcloud --quiet config set project $PROD_PROJECT_ID
+    - gcloud secrets versions access latest --secret="$BACKEND_ENV_SECRET_KEY" > .env
+    - gcloud app deploy app.yaml manager.yaml dispatch.yaml queue.yaml --quiet
