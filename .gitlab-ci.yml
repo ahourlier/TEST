@@ -1,5 +1,6 @@
 stages:
   - Test
+  - Release
   - Deploy
 
 # Change pip's cache directory to be inside the project directory since we can
@@ -57,6 +58,17 @@ black:
 #   artifacts:
 #     reports:
 #       junit: report.xml
+
+release:
+  image: node:14
+  stage: Release
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH =~ /^release\/.*/'
+  script:
+    - npm install @semantic-release/gitlab @semantic-release/exec
+    - npx semantic-release
 
 deploy_dev:
   stage: Deploy
