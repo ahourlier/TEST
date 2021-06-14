@@ -219,3 +219,20 @@ class ProjectDocumentResource(AuthenticatedApi):
             db_project, data.get("files_id"), data.get("kind"), data, g.user.email
         )
         return jsonify(response)
+
+
+@api.route("/locations/")
+class ProjectLocation(AuthenticatedApi):
+    """ Projects locations """
+
+    @accepts(
+        *SEARCH_PARAMS,
+        api=api,
+    )
+    # @requires(has_multiple_projects_permission)
+    def get(self) -> Response:
+        """Delete multiple project"""
+        locations = ProjectService.get_project_locations(
+            term=request.args.get("term"),
+        )
+        return jsonify(dict(status="Success", items=locations))
