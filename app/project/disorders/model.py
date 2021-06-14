@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, select
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship, backref
 
 from app import db
@@ -24,6 +25,14 @@ class Disorder(BaseMixin, db.Model):
     common_area = relationship(
         "CommonArea", backref=backref("disorders", cascade="all, delete-orphan")
     )
+
+    @hybrid_property
+    def analyse_types(self):
+        return [t for t in self.disorder_types if t.is_analysis]
+
+    @hybrid_property
+    def recommendation_types(self):
+        return [t for t in self.disorder_types if not t.is_analysis]
 
 
 class DisorderType(BaseMixin, db.Model):
