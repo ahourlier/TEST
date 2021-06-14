@@ -67,8 +67,8 @@ release:
     - if: '$CI_COMMIT_BRANCH == "master"'
     - if: '$CI_COMMIT_BRANCH =~ /^release\/.*/'
   script:
-    - npm install @semantic-release/gitlab @semantic-release/exec
-    - npx semantic-release
+    - yarn install
+    - yarn run semantic-release
 
 deploy_dev:
   stage: Deploy
