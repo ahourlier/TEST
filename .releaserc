@@ -2,8 +2,8 @@
   "branches": [
     "master",
     {
-      "name": "release\/([a-zA-Z0-9-_#.]+)",
-      "channel": "beta",
+      "name": "next",
+      "channel": "rc",
       "prerelease": "rc"
     }
   ],

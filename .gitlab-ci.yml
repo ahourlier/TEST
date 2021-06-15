@@ -65,7 +65,7 @@ release:
   rules:
     - if: '$CI_COMMIT_BRANCH == "develop"'
     - if: '$CI_COMMIT_BRANCH == "master"'
-    - if: '$CI_COMMIT_BRANCH =~ /^release\/.*/'
+    - if: '$CI_COMMIT_BRANCH == "next"'
   script:
     - yarn install
     - yarn run semantic-release
@@ -97,7 +97,7 @@ deploy_preprod:
     name: preprod
     url: https://api-dot-$PREPROD_PROJECT_ID.appspot.com/
   rules:
-    - if: '$CI_COMMIT_BRANCH =~ /^release\/.*/'
+    - if: '$CI_COMMIT_BRANCH == "next"'
       when: manual
   before_script:
     - gcloud --version

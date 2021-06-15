@@ -27,7 +27,7 @@ class Disorder(BaseMixin, db.Model):
     )
 
     @hybrid_property
-    def analyse_types(self):
+    def analysis_types(self):
         return [t for t in self.disorder_types if t.is_analysis]
 
     @hybrid_property
