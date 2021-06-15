@@ -1,3 +1,18 @@
+# [1.2.0-rc.1](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.1.1...v1.2.0-rc.1) (2021-06-15)
+
+
+### Bug Fixes
+
+* **ci:** add next branch ([c6c07cb](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/c6c07cbf7bc480d30a239b6db75e9f18f1914265))
+* **ci:** add semantic-release/gitlab ([fab224d](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/fab224d5772318eb0690444f76b2e0a73557d05d))
+* **ci:** install all semrel deps ([4e68638](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/4e686380f0bddf7070124953a8db405d06b3996a))
+
+
+### Features
+
+* **semrel:** add semantic release ([2b5743d](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/2b5743dc8ef4789f1c4430f08dd16a56d6489e7d))
+* **separate disorder types:** add hybrid properties to accomodation and disorder models ([9cf9385](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/9cf9385001e68b6d55207593b9119da5ce1cc733))
+
 ## [1.1.4](https://github.com/apps-cirruseo/urbanis-oslo-back/compare/v1.1.3...v1.1.4) (2021-03-22)
 
 
