@@ -1,3 +1,4 @@
+from app.project.quotes.model import Quote
 from flask_admin.contrib.sqla import ModelView
 from sqlalchemy import func
 from wtforms import StringField, BooleanField
@@ -231,3 +232,8 @@ class ProjectTechnicalRecommendation(EnumBaseAdminView):
     ENUM_KIND = "ProjectTechnicalRecommendation"
     FIELD_MODEL = DisorderType
     FIELD_REF = "type_name"
+
+class QuoteCompanyOrigin(EnumBaseAdminView):
+    ENUM_KIND = "QuoteCompanyOrigin"
+    FIELD_MODEL = Quote
+    FIELD_REF = "company_origin"
