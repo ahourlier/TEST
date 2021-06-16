@@ -233,6 +233,7 @@ class ProjectTechnicalRecommendation(EnumBaseAdminView):
     FIELD_MODEL = DisorderType
     FIELD_REF = "type_name"
 
+
 class QuoteCompanyOrigin(EnumBaseAdminView):
     ENUM_KIND = "QuoteCompanyOrigin"
     FIELD_MODEL = Quote

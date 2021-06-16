@@ -4,6 +4,7 @@ from flask import request, Response, jsonify, g
 from flask_accepts import accepts, responds
 from flask_allows import requires
 from flask_sqlalchemy import Pagination
+from flask_restx import inputs
 
 from . import api, Mission
 from .interface import MissionInterface
@@ -84,11 +85,22 @@ class MissionResource(AuthenticatedApi):
 @api.param("missionId", "Mission unique ID")
 class MissionIdResource(AuthenticatedApi):
     @responds(schema=MissionSchema(), api=api)
+    @accepts(dict(name="check_drive_structure", type=inputs.boolean))
     @requires(is_contributor)
     def get(self, mission_id: int) -> Mission:
         """ Get single mission """
         db_mission = MissionService.get_by_id(mission_id)
-        if db_mission.drive_init not in ["IN PROGRESS", "DONE"]:
+
+        check_drive_structure = (
+            True
+            if request.args.get("check_drive_structure", "true").lower() == "true"
+            else False
+        )
+
+        if (
+            db_mission.drive_init not in ["IN PROGRESS", "DONE"]
+            and check_drive_structure
+        ):
             if (
                 db_mission.sd_root_folder_id
                 and db_mission.sd_projects_folder_id
