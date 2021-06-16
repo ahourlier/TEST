@@ -597,8 +597,11 @@ class ProjectService:
     @staticmethod
     def get_project_locations(term):
         search_term = f"%{term}%"
-        db_locations = Project.query\
-            .filter(Project.address_location.ilike(search_term))\
-            .distinct(Project.address_location).all()
-        return [{"address_location": d.address_location, "id": d.id} for d in db_locations]
-
+        db_locations = (
+            Project.query.filter(Project.address_location.ilike(search_term))
+            .distinct(Project.address_location)
+            .all()
+        )
+        return [
+            {"address_location": d.address_location, "id": d.id} for d in db_locations
+        ]
