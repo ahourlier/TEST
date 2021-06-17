@@ -43,6 +43,7 @@ from app.mission.teams.model import UserTeamPositions
 from app.mission.missions import Mission
 from app.mission.teams import Team
 from app.project.permissions import ProjectPermission
+from app.project.project_custom_fields.model import ProjectCustomField
 from app.project.project_leads.model import ProjectLead
 
 from app.project.projects import Project, api
@@ -601,4 +602,22 @@ class ProjectService:
             .filter(Project.address_location.ilike(search_term))\
             .distinct(Project.address_location).all()
         return [{"address_location": d.address_location, "id": d.id} for d in db_locations]
+
+    @staticmethod
+    def get_project_fields(term: str):
+        one_project = Project.query.first()
+        one_project_dict = one_project.__dict__
+        all_keys = []
+        for key in one_project_dict.keys():
+            if key == '_sa_instance_state':
+                continue
+            if '_id' in key or 'date' in key:
+                continue
+            if term.lower() in key:
+                all_keys.append({"key": key})
+        custom_fields = ProjectCustomField.query.distinct(ProjectCustomField.custom_field_id).all()
+        for c in custom_fields:
+            if term.lower() in c.custom_field.name:
+                all_keys.append({"key": c.custom_field.name})
+        return all_keys
 
