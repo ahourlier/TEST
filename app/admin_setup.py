@@ -21,6 +21,7 @@ from app.referential.enums.admin import (
     ProjectHeatingRecommendation,
     ProjectAdaptationRecommendation,
     ProjectTechnicalRecommendation,
+    QuoteCompanyOrigin,
 )
 
 
@@ -212,5 +213,14 @@ def register_admin_views(admin, db):
             "Recommandation techniques",
             url="recommendation-technical",
             endpoint="manage_technical_recommendation",
+        )
+    )
+    admin.add_view(
+        QuoteCompanyOrigin(
+            AppEnum,
+            db.session,
+            "Origine de l'entreprise",
+            url="company-origin",
+            endpoint="manage_company_origin",
         )
     )

@@ -1,5 +1,6 @@
 stages:
   - Test
+  - Release
   - Deploy
 
 # Change pip's cache directory to be inside the project directory since we can
@@ -32,7 +33,7 @@ black:
   allow_failure: true
   before_script:
   - python --version
-  - pip install black  
+  - pip install black==19.10b0
   script:
   - black . --check
 
@@ -57,6 +58,17 @@ black:
 #   artifacts:
 #     reports:
 #       junit: report.xml
+
+release:
+  image: node:14
+  stage: Release
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == "next"'
+  script:
+    - yarn install
+    - yarn run semantic-release
 
 deploy_dev:
   stage: Deploy
@@ -85,7 +97,7 @@ deploy_preprod:
     name: preprod
     url: https://api-dot-$PREPROD_PROJECT_ID.appspot.com/
   rules:
-    - if: '$CI_COMMIT_BRANCH =~ /^release\/.*/'
+    - if: '$CI_COMMIT_BRANCH == "next"'
       when: manual
   before_script:
     - gcloud --version

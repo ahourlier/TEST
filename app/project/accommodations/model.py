@@ -103,3 +103,19 @@ class Accommodation(HasPhones, BaseMixin, db.Model):
             .filter(Scenario.is_initial_state == False)
             .all()
         )
+
+    @hybrid_property
+    def analyses(self):
+        return [
+            d
+            for d in self.disorders
+            if len([t for t in d.disorder_types if t.is_analysis]) > 0
+        ]
+
+    @hybrid_property
+    def recommendations(self):
+        return [
+            d
+            for d in self.disorders
+            if len([t for t in d.disorder_types if not t.is_analysis]) > 0
+        ]

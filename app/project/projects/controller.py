@@ -103,6 +103,7 @@ class ProjectIdResource(AuthenticatedApi):
     @filter_response_with_clients_access(
         projects_permissions.ProjectPermission.filter_project_fields
     )
+    @accepts(dict(name="check_drive_structure", type=inputs.boolean))
     @responds(schema=ProjectSchema(), api=api)
     @requires(has_project_employee_or_client_permission)
     def get(self, project_id: int) -> Project:
@@ -115,7 +116,16 @@ class ProjectIdResource(AuthenticatedApi):
         ):
             AccommodationService.create({}, db_project.id)
 
-        if db_project.drive_init not in ["IN PROGRESS", "DONE"]:
+        check_drive_structure = (
+            True
+            if request.args.get("check_drive_structure", "true").lower() == "true"
+            else False
+        )
+
+        if (
+            db_project.drive_init not in ["IN PROGRESS", "DONE"]
+            and check_drive_structure
+        ):
             if (
                 db_project.sd_root_folder_id
                 and db_project.sd_quotes_folder_id
@@ -226,8 +236,7 @@ class ProjectLocation(AuthenticatedApi):
     """ Projects locations """
 
     @accepts(
-        *SEARCH_PARAMS,
-        api=api,
+        *SEARCH_PARAMS, api=api,
     )
     # @requires(has_multiple_projects_permission)
     def get(self) -> Response:
