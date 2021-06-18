@@ -4,7 +4,8 @@ import os
 from datetime import date
 from typing import List
 
-from flask import request, g
+import requests
+from flask import request, g, current_app
 from flask_sqlalchemy import Pagination
 from sqlalchemy import or_, and_
 
@@ -608,16 +609,26 @@ class ProjectService:
         one_project = Project.query.first()
         one_project_dict = one_project.__dict__
         all_keys = []
+        translations = ProjectService.get_project_translations()
         for key in one_project_dict.keys():
-            if key == '_sa_instance_state':
+            if key == '_sa_instance_state' or key == 'status':
                 continue
             if '_id' in key or 'date' in key:
                 continue
-            if term.lower() in key:
-                all_keys.append({"key": key})
+            print(f"project.{key}")
+            if not term or term.lower() in translations[key].lower():
+                all_keys.append({"key": key, "custom": False})
         custom_fields = ProjectCustomField.query.distinct(ProjectCustomField.custom_field_id).all()
         for c in custom_fields:
-            if term.lower() in c.custom_field.name:
-                all_keys.append({"key": c.custom_field.name})
+            if not term or term.lower() in c.custom_field.name.lower():
+                all_keys.append({
+                    "label": c.custom_field.name,
+                    "custom": True,
+                    "key": c.custom_field_id
+                })
         return all_keys
 
+    @staticmethod
+    def get_project_translations():
+        res = requests.get(current_app.config.get('TRANSLATION_URL'))
+        return res.json()['project']

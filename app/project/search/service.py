@@ -12,6 +12,7 @@ from app.common.exceptions import InconsistentUpdateIdException, ForbiddenExcept
 from app.mission.missions import Mission
 from app.mission.teams import Team
 from app.mission.teams.model import UserTeamPositions
+from app.project.project_custom_fields.model import ProjectCustomField
 from app.project.projects import Project
 from app.project.requesters import Requester
 
@@ -50,7 +51,19 @@ class ProjectSearchService:
     ) -> Pagination:
         """Extract specific project case : MANAGERS """
         manager_filter = None
+        custom_fields = []
         for f in search["filters"]:
+            try:
+                # check if field is a custom field
+                custom_field_id = int(f.get('field'))
+                custom_fields.append({
+                    "custom_field_id": custom_field_id,
+                    "values": f.get('values')
+                })
+                search['filters'].remove(f)
+            except ValueError:
+                # not a custom field
+                pass
             if f["field"] == MANAGER_FILTER:
                 manager_filter = f
                 search["filters"].remove(f)
@@ -58,6 +71,11 @@ class ProjectSearchService:
         # Filter specificaly on managers :
         if manager_filter:
             q = ProjectSearchService.filter_on_managers(q, manager_filter)
+
+        # Filter on custom fields
+        if len(custom_fields) > 0:
+            q = ProjectSearchService.filter_on_custom_fields(q, custom_fields)
+
         # Deactivated projects must not be retrieved
         q = q.filter(Project.active == True)
         # Filter query on current user access
@@ -99,6 +117,18 @@ class ProjectSearchService:
                 )
             )
         )
+        return q
+
+    @staticmethod
+    def filter_on_custom_fields(q, custom_fields):
+        q = q.join(ProjectCustomField)
+        for c in custom_fields:
+            q = q.filter(
+                and_(
+                    ProjectCustomField.custom_field_id == c.get('custom_field_id'),
+                    ProjectCustomField.value.in_(c.get('values'))
+                )
+            )
         return q
 
     @staticmethod
