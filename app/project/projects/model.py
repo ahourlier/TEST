@@ -171,15 +171,15 @@ class Project(BaseMixin, db.Model):
         mission_alias = aliased(Mission)
         return (
             select([concat(mission_alias.code_name, "-", cls.id)])
-                .where(mission_alias.id == cls.mission_id)
-                .label("code_name")
+            .where(mission_alias.id == cls.mission_id)
+            .label("code_name")
         )
 
     @hybrid_property
     def accommodation(self):
         if (
-                self.requester.type != RequesterTypes.PB.value
-                and len(self.accommodations) > 0
+            self.requester.type != RequesterTypes.PB.value
+            and len(self.accommodations) > 0
         ):
             return self.accommodations[0]
         else:

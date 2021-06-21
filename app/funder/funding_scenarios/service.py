@@ -255,7 +255,7 @@ class FundingScenarioService:
                 criterion["field"] = "secondary_case_type"
                 accommodation_criteria.append(criterion)
                 continue
-            
+
             if (
                 accommodation_id is not None
                 and criterion["field"] == "accommodations.type_rent_after_renovation"
