@@ -56,7 +56,9 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
     TESTING = False
     SQLALCHEMY_ECHO = False
-    TRANSLATION_URL = 'https://storage.googleapis.com/app-oslo-dev-locales/oslo-fr-FR.json'
+    TRANSLATION_URL = (
+        "https://storage.googleapis.com/app-oslo-dev-locales/oslo-fr-FR.json"
+    )
 
 
 class TestingConfig(BaseConfig):

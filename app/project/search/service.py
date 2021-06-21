@@ -55,12 +55,11 @@ class ProjectSearchService:
         for f in search["filters"]:
             try:
                 # check if field is a custom field
-                custom_field_id = int(f.get('field'))
-                custom_fields.append({
-                    "custom_field_id": custom_field_id,
-                    "values": f.get('values')
-                })
-                search['filters'].remove(f)
+                custom_field_id = int(f.get("field"))
+                custom_fields.append(
+                    {"custom_field_id": custom_field_id, "values": f.get("values")}
+                )
+                search["filters"].remove(f)
             except ValueError:
                 # not a custom field
                 pass
@@ -125,8 +124,11 @@ class ProjectSearchService:
         for c in custom_fields:
             q = q.filter(
                 and_(
-                    ProjectCustomField.custom_field_id == c.get('custom_field_id'),
-                    *[ProjectCustomField.value.ilike(f"%{v}%") for v in c.get('values')]
+                    ProjectCustomField.custom_field_id == c.get("custom_field_id"),
+                    *[
+                        ProjectCustomField.value.ilike(f"%{v}%")
+                        for v in c.get("values")
+                    ],
                 )
             )
         return q

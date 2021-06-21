@@ -241,9 +241,7 @@ class ProjectLocation(AuthenticatedApi):
     # @requires(has_multiple_projects_permission)
     def get(self) -> Response:
         """Search possible project locations"""
-        locations = ProjectService.get_project_locations(
-            term=request.args.get("term"),
-        )
+        locations = ProjectService.get_project_locations(term=request.args.get("term"),)
         return jsonify(dict(status="Success", items=locations))
 
 
@@ -252,13 +250,10 @@ class ProjectFields(AuthenticatedApi):
     """ Projects fields """
 
     @accepts(
-        *SEARCH_PARAMS,
-        api=api,
+        *SEARCH_PARAMS, api=api,
     )
     # @requires(has_multiple_projects_permission)
     def get(self) -> Response:
         """Search possible project fields for filter"""
-        fields = ProjectService.get_project_fields(
-            term=request.args.get("term"),
-        )
+        fields = ProjectService.get_project_fields(term=request.args.get("term"),)
         return jsonify(dict(status="Success", items=fields))

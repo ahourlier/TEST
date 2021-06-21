@@ -599,10 +599,14 @@ class ProjectService:
     @staticmethod
     def get_project_locations(term):
         search_term = f"%{term}%"
-        db_locations = Project.query\
-            .filter(Project.address_location.ilike(search_term))\
-            .distinct(Project.address_location).all()
-        return [{"address_location": d.address_location, "id": d.id} for d in db_locations]
+        db_locations = (
+            Project.query.filter(Project.address_location.ilike(search_term))
+            .distinct(Project.address_location)
+            .all()
+        )
+        return [
+            {"address_location": d.address_location, "id": d.id} for d in db_locations
+        ]
 
     @staticmethod
     def get_project_fields(term: str):
@@ -611,24 +615,28 @@ class ProjectService:
         all_keys = []
         translations = ProjectService.get_project_translations()
         for key in one_project_dict.keys():
-            if key == '_sa_instance_state' or key == 'status':
+            if key == "_sa_instance_state" or key == "status":
                 continue
-            if '_id' in key or 'date' in key:
+            if "_id" in key or "date" in key:
                 continue
             print(f"project.{key}")
             if not term or term.lower() in translations[key].lower():
                 all_keys.append({"key": key, "custom": False})
-        custom_fields = ProjectCustomField.query.distinct(ProjectCustomField.custom_field_id).all()
+        custom_fields = ProjectCustomField.query.distinct(
+            ProjectCustomField.custom_field_id
+        ).all()
         for c in custom_fields:
             if not term or term.lower() in c.custom_field.name.lower():
-                all_keys.append({
-                    "label": c.custom_field.name,
-                    "custom": True,
-                    "key": c.custom_field_id
-                })
+                all_keys.append(
+                    {
+                        "label": c.custom_field.name,
+                        "custom": True,
+                        "key": c.custom_field_id,
+                    }
+                )
         return all_keys
 
     @staticmethod
     def get_project_translations():
-        res = requests.get(current_app.config.get('TRANSLATION_URL'))
-        return res.json()['project']
+        res = requests.get(current_app.config.get("TRANSLATION_URL"))
+        return res.json()["project"]
