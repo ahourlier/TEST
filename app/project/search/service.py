@@ -126,7 +126,7 @@ class ProjectSearchService:
             q = q.filter(
                 and_(
                     ProjectCustomField.custom_field_id == c.get('custom_field_id'),
-                    ProjectCustomField.value.in_(c.get('values'))
+                    *[ProjectCustomField.value.ilike(f"%{v}%") for v in c.get('values')]
                 )
             )
         return q
