@@ -1,3 +1,18 @@
+# [1.2.0-rc.2](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.0-rc.1...v1.2.0-rc.2) (2021-06-21)
+
+
+### Bug Fixes
+
+* **custom-search:** now using islike for custom search case insensitive ([efd83a4](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/efd83a4e545c235e21b464f0df2f14386b0fa8bb))
+* **duplicate drive folder:** add param making possible to disable folder creation when we get a project ([6fa60ce](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/6fa60ce9168a2cf017c2d8211b4cbab2d4e0d5ad))
+* **manager:** fix memory exceeded on manager UI ([ad875fe](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/ad875fe08d0888846407ce9d1cf38d0b17cb7847))
+
+
+### Features
+
+* **quote:** add company origin ([a7fbe4f](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/a7fbe4f21b0b48d65195528b190a1bc58431775d))
+* **search:** fetching all fields + custom fieldes + search ([112dda0](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/112dda084e1df3c7331a8fadd34cc1249ec504ab))
+
 # [1.2.0-rc.1](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.1.1...v1.2.0-rc.1) (2021-06-15)
 
 
