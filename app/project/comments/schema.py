@@ -10,6 +10,7 @@ class CommentSchema(SQLAlchemyAutoSchema):
     is_important = fields.Boolean(required=False)
     author_first_name = fields.String(dump_only=True, required=False)
     author_last_name = fields.String(dump_only=True, required=False)
+    created_at = fields.String(required=False)
 
     class Meta:
         model = Comment
