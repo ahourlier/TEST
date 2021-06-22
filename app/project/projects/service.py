@@ -638,5 +638,5 @@ class ProjectService:
 
     @staticmethod
     def get_project_translations():
-        res = requests.get(current_app.config.get("TRANSLATION_URL"))
+        res = requests.get(os.getenv("TRANSLATION_URL"))
         return res.json()["project"]
