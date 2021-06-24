@@ -116,8 +116,6 @@ class SimulationSubResultService:
         """
         Duplicate all sub_results from a simulation to another
         """
-        print("coucou")
-
         source_simulation = simulations_service.SimulationService.get_by_id(
             source_simulation_id
         )
