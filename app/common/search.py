@@ -5,6 +5,7 @@ from app.common.exceptions import (
     InvalidSearchFieldException,
     InvalidSearchOperatorException,
 )
+from app.project import Requester
 
 SEARCH_PARAMS = [
     dict(name="page", type=int),
