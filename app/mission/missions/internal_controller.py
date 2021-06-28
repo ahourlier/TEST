@@ -1,3 +1,4 @@
+from app.mission.teams.model import UserTeamPositions
 import logging
 import os
 
@@ -48,6 +49,7 @@ class MissionInitPermissions(InternalAPIView):
         try:
             MissionService.init_mission_group(db_mission)
 
+            # admins group is organizer
             permission = DriveUtils.insert_permission(
                 db_mission.sd_root_folder_id,
                 "organizer",
@@ -56,6 +58,20 @@ class MissionInitPermissions(InternalAPIView):
             )
             if not permission:
                 raise SharedDriveException(KEY_SHARED_DRIVE_PERMISSION_EXCEPTION)
+
+            # mission managers are organizers
+            for team in db_mission.teams:
+                if team.user_position == UserTeamPositions.MISSION_MANAGER:
+                    permission = DriveUtils.insert_permission(
+                        db_mission.sd_root_folder_id,
+                        "organizer",
+                        "user",
+                        team.user.email,
+                    )
+                    if not permission:
+                        raise SharedDriveException(
+                            KEY_SHARED_DRIVE_PERMISSION_EXCEPTION
+                        )
 
             permission = DriveUtils.insert_permission(
                 db_mission.sd_root_folder_id,

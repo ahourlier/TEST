@@ -59,6 +59,7 @@ import app.common.anonymization_utils as anonymization_utils
 
 import app.project.work_types.service as work_type_service
 from app.project.requesters.model import RequesterTypes
+from app.project.search.model import FORBIDDEN_FIELDS
 
 PROJECTS_DEFAULT_PAGE = 1
 PROJECTS_DEFAULT_PAGE_SIZE = 20
@@ -614,12 +615,35 @@ class ProjectService:
         one_project_dict = one_project.__dict__
         all_keys = []
         translations = ProjectService.get_project_translations()
-        for key in one_project_dict.keys():
-            if key == "_sa_instance_state" or key == "status":
+        project_keys = list(one_project_dict.keys())
+        project_keys.extend(
+            [
+                "requester.address_location",
+                "requester.address_street",
+                "project.accommodation.accommodation_type",
+                "project.accommodation.condominium",
+                "mission.client.name",
+                "mission.agency.name",
+                "mission.antenna.name",
+            ]
+        )
+        for key in project_keys:
+            if key in FORBIDDEN_FIELDS:
                 continue
             if "_id" in key or "date" in key:
                 continue
-            print(f"project.{key}")
+            if key not in translations and "." in key:
+                splitted_key = key.split(".")
+                if splitted_key[0] not in translations:
+                    continue
+                if (
+                    not term
+                    or term.lower()
+                    in translations[splitted_key[0]][splitted_key[1]].lower()
+                ):
+                    all_keys.append({"key": key, "custom": False})
+                    continue
+                continue
             if not term or term.lower() in translations[key].lower():
                 all_keys.append({"key": key, "custom": False})
         custom_fields = ProjectCustomField.query.distinct(

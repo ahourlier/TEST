@@ -177,7 +177,6 @@ class FundingScenarioService:
                 and match_accommodation is not None
                 and work_types_criteria_match
             )
-
         return match_project is not None and work_types_criteria_match
 
     @staticmethod
@@ -254,6 +253,16 @@ class FundingScenarioService:
                 # If accommodation_id have been provided,
                 # the "secondary_case_type" criteria must be extracted to be injected in a specific "Accommodation search"
                 criterion["field"] = "secondary_case_type"
+                accommodation_criteria.append(criterion)
+                continue
+
+            if (
+                accommodation_id is not None
+                and criterion["field"] == "accommodations.type_rent_after_renovation"
+            ):
+                # If accommodation_id have been provided,
+                # the "type_rent_after_renovation" criteria must be extracted to be injected in a specific "Accommodation search"
+                criterion["field"] = "type_rent_after_renovation"
                 accommodation_criteria.append(criterion)
                 continue
 
