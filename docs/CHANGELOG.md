@@ -1,3 +1,13 @@
+# [1.2.0-rc.3](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.0-rc.2...v1.2.0-rc.3) (2021-06-28)
+
+
+### Features
+
+* **comment-date:** update comment now accepts date ([e7d31f1](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/e7d31f1295a5591f1679926ebb3e6a6388c01a46))
+* **drive:** mission managers as drive organizers ([50d451a](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/50d451a0b7593919ac4255ac816c7c1a2a874272))
+* **funder scenario:** add rent type ([8c71b9c](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/8c71b9c69e53a3b5b53b645097e519b331601931))
+* **new-filters:** added new filters ([817473a](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/817473a84224b52ba1eae97a592b51786585d6a1))
+
 # [1.2.0-rc.2](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.0-rc.1...v1.2.0-rc.2) (2021-06-21)
 
 
