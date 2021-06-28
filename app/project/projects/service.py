@@ -618,13 +618,13 @@ class ProjectService:
         project_keys = list(one_project_dict.keys())
         project_keys.extend(
             [
-                'requester.address_location',
-                'requester.address_street',
-                'project.accommodation.accommodation_type',
-                'project.accommodation.condominium',
-                'mission.client.name',
-                'mission.agency.name',
-                'mission.antenna.name',
+                "requester.address_location",
+                "requester.address_street",
+                "project.accommodation.accommodation_type",
+                "project.accommodation.condominium",
+                "mission.client.name",
+                "mission.agency.name",
+                "mission.antenna.name",
             ]
         )
         for key in project_keys:
@@ -632,11 +632,15 @@ class ProjectService:
                 continue
             if "_id" in key or "date" in key:
                 continue
-            if key not in translations and '.' in key:
-                splitted_key = key.split('.')
+            if key not in translations and "." in key:
+                splitted_key = key.split(".")
                 if splitted_key[0] not in translations:
                     continue
-                if not term or term.lower() in translations[splitted_key[0]][splitted_key[1]].lower():
+                if (
+                    not term
+                    or term.lower()
+                    in translations[splitted_key[0]][splitted_key[1]].lower()
+                ):
                     all_keys.append({"key": key, "custom": False})
                     continue
                 continue

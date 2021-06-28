@@ -48,7 +48,7 @@ class MissionInitPermissions(InternalAPIView):
 
         try:
             MissionService.init_mission_group(db_mission)
-            
+
             # admins group is organizer
             permission = DriveUtils.insert_permission(
                 db_mission.sd_root_folder_id,
@@ -69,7 +69,9 @@ class MissionInitPermissions(InternalAPIView):
                         team.user.email,
                     )
                     if not permission:
-                        raise SharedDriveException(KEY_SHARED_DRIVE_PERMISSION_EXCEPTION)
+                        raise SharedDriveException(
+                            KEY_SHARED_DRIVE_PERMISSION_EXCEPTION
+                        )
 
             permission = DriveUtils.insert_permission(
                 db_mission.sd_root_folder_id,

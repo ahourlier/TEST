@@ -41,18 +41,18 @@ MANAGER_FILTER = "mission_manager"
 ACCOMMODATION_FILTERS = [
     "accommodation.accommodation_type",
     "accommodation.condominium",
-    "accommodation.vacant"
+    "accommodation.vacant",
 ]
 
 
 class ProjectSearchService:
     @staticmethod
     def search_projects(
-            search: JSON,
-            page=SEARCH_DEFAULT_PAGE,
-            size=SEARCH_DEFAULT_PAGE_SIZE,
-            sort_by=SEARCH_DEFAULT_SORT_FIELD,
-            direction=SEARCH_DEFAULT_SORT_DIRECTION,
+        search: JSON,
+        page=SEARCH_DEFAULT_PAGE,
+        size=SEARCH_DEFAULT_PAGE_SIZE,
+        sort_by=SEARCH_DEFAULT_SORT_FIELD,
+        direction=SEARCH_DEFAULT_SORT_DIRECTION,
     ) -> Pagination:
         """Extract specific project case : MANAGERS """
         manager_filter = None
@@ -76,7 +76,7 @@ class ProjectSearchService:
                 search["filters"].remove(f)
 
             if f["field"] in ACCOMMODATION_FILTERS:
-                splitted = f["field"].split('.')
+                splitted = f["field"].split(".")
                 field_name = splitted[1]
                 accommodation_filters[field_name] = f["values"]
                 search["filters"].remove(f)
@@ -108,7 +108,9 @@ class ProjectSearchService:
 
         # Filter on common area condominium
         if len(condominium_common_areas) > 0:
-            q = ProjectSearchService.filter_on_common_areas_condominium(q, condominium_common_areas[0])
+            q = ProjectSearchService.filter_on_common_areas_condominium(
+                q, condominium_common_areas[0]
+            )
 
         # Deactivated projects must not be retrieved
         q = q.filter(Project.active == True)
@@ -227,10 +229,10 @@ class ProjectRegisterSearchService:
 
     @staticmethod
     def get_all_paginated(
-            page=SAVED_SEARCH_DEFAULT_PAGE,
-            size=SAVED_SEARCH_DEFAULT_PAGE_SIZE,
-            sort_by=SAVED_SEARCH_DEFAULT_SORT_FIELD,
-            direction=SAVED_SEARCH_DEFAULT_SORT_DIRECTION,
+        page=SAVED_SEARCH_DEFAULT_PAGE,
+        size=SAVED_SEARCH_DEFAULT_PAGE_SIZE,
+        sort_by=SAVED_SEARCH_DEFAULT_SORT_FIELD,
+        direction=SAVED_SEARCH_DEFAULT_SORT_DIRECTION,
     ) -> Pagination:
         base_q = sort_query(Search.query, sort_by, direction)
         q = base_q.filter(Search.user_id == g.user.id)
@@ -247,7 +249,7 @@ class ProjectRegisterSearchService:
 
     @staticmethod
     def update(
-            search: Search, changes: SearchInterface, force_update: bool = False
+        search: Search, changes: SearchInterface, force_update: bool = False
     ) -> Search:
         if force_update or ProjectSearchService.has_changed(search, changes):
             # If one tries to update entity id, a error must be raised
