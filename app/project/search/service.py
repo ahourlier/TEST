@@ -187,7 +187,6 @@ class ProjectSearchService:
                 )
             )
 
-        print(q.statement)
         return q
 
     @staticmethod
