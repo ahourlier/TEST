@@ -650,14 +650,19 @@ class ProjectService:
             ProjectCustomField.custom_field_id
         ).all()
         for c in custom_fields:
+            append_field = True
             if not term or term.lower() in c.custom_field.name.lower():
-                all_keys.append(
-                    {
-                        "label": c.custom_field.name,
-                        "custom": True,
-                        "key": c.custom_field_id,
-                    }
-                )
+                for k in all_keys:
+                    if k.get('label') == c.custom_field.name:
+                        append_field = False
+                if append_field:
+                    all_keys.append(
+                        {
+                            "label": c.custom_field.name,
+                            "custom": True,
+                            "key": c.custom_field_id,
+                        }
+                    )
         return all_keys
 
     @staticmethod
