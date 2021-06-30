@@ -9,6 +9,7 @@ from sqlalchemy.sql.elements import or_, and_
 from app import db
 from app.auth.users.model import UserRole
 from app.common.exceptions import InconsistentUpdateIdException, ForbiddenException
+from app.mission.custom_fields import CustomField
 from app.mission.missions import Mission
 from app.mission.teams import Team
 from app.mission.teams.model import UserTeamPositions
@@ -65,7 +66,11 @@ class ProjectSearchService:
                 # check if field is a custom field
                 custom_field_id = int(f.get("field"))
                 custom_fields.append(
-                    {"custom_field_id": custom_field_id, "values": f.get("values")}
+                    {
+                        "custom_field_id": custom_field_id,
+                        "label": f.get("label"),
+                        "values": f.get("values")
+                    }
                 )
                 search["filters"].remove(f)
             except ValueError:
@@ -171,15 +176,19 @@ class ProjectSearchService:
     def filter_on_custom_fields(q, custom_fields):
         q = q.join(ProjectCustomField)
         for c in custom_fields:
+            same_name_fields = CustomField.query.filter(CustomField.name == c.get("label")).all()
             q = q.filter(
                 and_(
-                    ProjectCustomField.custom_field_id == c.get("custom_field_id"),
+                    ProjectCustomField.custom_field_id.in_(
+                        tuple([snf.id for snf in same_name_fields])
+                    ),
                     *[
                         ProjectCustomField.value.ilike(f"%{v}%")
                         for v in c.get("values")
-                    ],
+                    ]
                 )
             )
+
         return q
 
     @staticmethod
