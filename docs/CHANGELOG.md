@@ -1,3 +1,10 @@
+# [1.2.0-rc.4](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.0-rc.3...v1.2.0-rc.4) (2021-06-30)
+
+
+### Bug Fixes
+
+* **project search fields:** unique custom fields and searching in all projects with same custom field name ([b2f5a11](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/b2f5a11b5336fe23e93025960b766d9a72b9d02a))
+
 # [1.2.0-rc.3](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.0-rc.2...v1.2.0-rc.3) (2021-06-28)
 
 
