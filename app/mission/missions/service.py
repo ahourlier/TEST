@@ -115,7 +115,7 @@ class MissionService:
         except ClientNotFoundException as e:
             raise e
         else:
-            mission = Mission(**new_attrs)
+            mission = Mission(**new_attrs, creator=g.user.email)
             db.session.add(mission)
             db.session.commit()
             create_task(
