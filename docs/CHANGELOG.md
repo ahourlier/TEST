@@ -1,3 +1,10 @@
+# [1.2.0-rc.5](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.0-rc.4...v1.2.0-rc.5) (2021-07-09)
+
+
+### Bug Fixes
+
+* **mission:** mission creator is now drive organizer ([8605350](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/8605350d44b257d6343cd3f837233d06e3c7500b))
+
 # [1.2.0-rc.4](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.0-rc.3...v1.2.0-rc.4) (2021-06-30)
 
 
