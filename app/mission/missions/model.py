@@ -62,6 +62,7 @@ class Mission(SoftDeletableMixin, BaseMixin, db.Model):
     ca_documents = db.Column(Boolean, nullable=True, default=False)
     ca_follow_up = db.Column(Boolean, nullable=True, default=False)
     drive_init = db.Column(String(255), default="TODO")
+    creator = db.Column(String(255), nullable=True)
 
     @hybrid_property
     def code_name(self):

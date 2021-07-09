@@ -59,19 +59,17 @@ class MissionInitPermissions(InternalAPIView):
             if not permission:
                 raise SharedDriveException(KEY_SHARED_DRIVE_PERMISSION_EXCEPTION)
 
-            # mission managers are organizers
-            for team in db_mission.teams:
-                if team.user_position == UserTeamPositions.MISSION_MANAGER:
-                    permission = DriveUtils.insert_permission(
-                        db_mission.sd_root_folder_id,
-                        "organizer",
-                        "user",
-                        team.user.email,
-                    )
-                    if not permission:
-                        raise SharedDriveException(
-                            KEY_SHARED_DRIVE_PERMISSION_EXCEPTION
-                        )
+            # mission creator is organizer
+            permission = DriveUtils.insert_permission(
+                db_mission.sd_root_folder_id,
+                "organizer",
+                "user",
+                db_mission.creator,
+            )
+            if not permission:
+                raise SharedDriveException(
+                    KEY_SHARED_DRIVE_PERMISSION_EXCEPTION
+                )
 
             permission = DriveUtils.insert_permission(
                 db_mission.sd_root_folder_id,
