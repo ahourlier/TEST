@@ -4,7 +4,8 @@ import os
 from datetime import date
 from typing import List
 
-from flask import request, g
+import requests
+from flask import request, g, current_app
 from flask_sqlalchemy import Pagination
 from sqlalchemy import or_, and_
 
@@ -43,6 +44,7 @@ from app.mission.teams.model import UserTeamPositions
 from app.mission.missions import Mission
 from app.mission.teams import Team
 from app.project.permissions import ProjectPermission
+from app.project.project_custom_fields.model import ProjectCustomField
 from app.project.project_leads.model import ProjectLead
 
 from app.project.projects import Project, api
@@ -57,6 +59,7 @@ import app.common.anonymization_utils as anonymization_utils
 
 import app.project.work_types.service as work_type_service
 from app.project.requesters.model import RequesterTypes
+from app.project.search.model import FORBIDDEN_FIELDS
 
 PROJECTS_DEFAULT_PAGE = 1
 PROJECTS_DEFAULT_PAGE_SIZE = 20
@@ -122,6 +125,8 @@ class ProjectService:
             remove_unauthorized=True,
         )
 
+        q = q.filter(Project.status != "Sans suite")
+
         if unique_page:
             # Retrieve all projects in one unique page
             size = q.count()
@@ -174,11 +179,7 @@ class ProjectService:
         ):
             raise InvalidSearchFieldException()
         if requester_type is not None:
-            q = q.filter(
-                Project.requester.has(
-                    Requester.type == RequesterTypes[requester_type].value
-                )
-            )
+            q = q.filter(Project.requester.has(Requester.type == requester_type))
         # Filter by project status
         if project_status is not None:
             if not isinstance(project_status, list):
@@ -264,6 +265,7 @@ class ProjectService:
         del new_attrs["requester"]
         new_project = ProjectInterface(**new_attrs)
         project = Project(**new_project)
+        ProjectService.update_dates_status(project.status, project)
         db.session.add(project)
         db.session.commit()
         # Create project_leads
@@ -274,7 +276,11 @@ class ProjectService:
         # Create work_types :
         if work_types:
             work_type_service.WorkTypeService.create_list(work_types, project.id)
-        if project.requester.type == "PO":
+        if project.requester.type in [
+            "PO",
+            "TENANT",
+            "SDC",
+        ]:
             logging.info(f"Creating accommodation for project {project.id}")
             accommodations_service.AccommodationService.create({}, project.id)
         db.session.commit()
@@ -590,3 +596,76 @@ class ProjectService:
                 raise ProjectNotFoundException
 
         return db_projects
+
+    @staticmethod
+    def get_project_locations(term):
+        search_term = f"%{term}%"
+        db_locations = (
+            Project.query.filter(Project.address_location.ilike(search_term))
+            .distinct(Project.address_location)
+            .all()
+        )
+        return [
+            {"address_location": d.address_location, "id": d.id} for d in db_locations
+        ]
+
+    @staticmethod
+    def get_project_fields(term: str):
+        one_project = Project.query.first()
+        one_project_dict = one_project.__dict__
+        all_keys = []
+        translations = ProjectService.get_project_translations()
+        project_keys = list(one_project_dict.keys())
+        project_keys.extend(
+            [
+                "requester.address_location",
+                "requester.address_street",
+                "project.accommodation.accommodation_type",
+                "project.accommodation.condominium",
+                "mission.client.name",
+                "mission.agency.name",
+                "mission.antenna.name",
+            ]
+        )
+        for key in project_keys:
+            if key in FORBIDDEN_FIELDS:
+                continue
+            if "_id" in key or "date" in key:
+                continue
+            if key not in translations and "." in key:
+                splitted_key = key.split(".")
+                if splitted_key[0] not in translations:
+                    continue
+                if (
+                    not term
+                    or term.lower()
+                    in translations[splitted_key[0]][splitted_key[1]].lower()
+                ):
+                    all_keys.append({"key": key, "custom": False})
+                    continue
+                continue
+            if not term or term.lower() in translations[key].lower():
+                all_keys.append({"key": key, "custom": False})
+        custom_fields = ProjectCustomField.query.distinct(
+            ProjectCustomField.custom_field_id
+        ).all()
+        for c in custom_fields:
+            append_field = True
+            if not term or term.lower() in c.custom_field.name.lower():
+                for k in all_keys:
+                    if k.get('label') == c.custom_field.name:
+                        append_field = False
+                if append_field:
+                    all_keys.append(
+                        {
+                            "label": c.custom_field.name,
+                            "custom": True,
+                            "key": c.custom_field_id,
+                        }
+                    )
+        return all_keys
+
+    @staticmethod
+    def get_project_translations():
+        res = requests.get(os.getenv("TRANSLATION_URL"))
+        return res.json()["project"]

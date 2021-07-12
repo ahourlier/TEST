@@ -6,6 +6,18 @@ from sqlalchemy.orm import relationship
 from app import db
 from app.common.base_model import BaseMixin
 
+FORBIDDEN_FIELDS = [
+    "_sa_instance_state",
+    "status",
+    "address_location",
+    "type",
+    "work_type",
+    "closed",
+    "closure_motive",
+    "urgent_visit",
+    "secondary_case_type",
+]
+
 
 class Search(BaseMixin, db.Model):
     """ Search  """

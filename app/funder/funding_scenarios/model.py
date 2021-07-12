@@ -64,6 +64,13 @@ FUNDING_SCENARIOS_CRITERIA_CONFIGURATION = {
         "field_model": "Project",
         "field_ref": "secondary_case_type",
     },
+    "accommodations.type_rent_after_renovation": {
+        "type": "enum",
+        "operators": ["="],
+        "enumKind": "ProjectAccommodationRentTypeAfterRenovation",
+        "field_model": "Accommodation",
+        "field_ref": "type_rent_after_renovation",
+    },
 }
 
 

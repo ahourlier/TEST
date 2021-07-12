@@ -55,7 +55,7 @@ class FunderService:
         ):
             raise InvalidSearchFieldException()
         if requester_type is not None:
-            q = q.filter(Funder.requester_type == RequesterTypes[requester_type].value)
+            q = q.filter(Funder.requester_type == requester_type)
 
         # Only orignal funders (and no clones) should be retrieved
         q = q.filter(Funder.is_duplicate == False)

@@ -14,6 +14,7 @@ import app.project.projects.service as projects_service
 import app.mission.monitors.service as monitors_service
 import app.funder.funders.service as funders_service
 import app.project.comments.service as comments_service
+import app.project.simulations.service as simulations_service
 from app.project.comments.service import (
     FUNDER_ADVANCE_DATE_UPDATE,
     FUNDER_DEPOSIT_DATE_UPDATE,
@@ -165,49 +166,68 @@ class FunderMonitoringValueService:
         # because we want the call to create the monitor if it does not exist yet
         monitor = monitors_service.MonitorService.get_by_mission_id(project.mission.id)
 
+        simulations: Pagination = simulations_service.SimulationService.get_all(
+            project_id=project_id
+        )
+
         q_project_level = FunderMonitoringValue.query.filter(
             FunderMonitoringValue.project_id == project.id
         )
-        for funder in project.mission.funders:
-            funder_has_right_type = funder.requester_type == project.requester.type
-            if funder.is_deleted or funder.is_duplicate or not funder_has_right_type:
-                # We do no fetch fields for deleted or duplicated funders
-                # (About duplicated funders, see "project.simulations.service/SimulationFunderService.)
+
+        funders_id = []
+
+        # We get base funders from project simulations
+        for simulation in simulations.items:
+            # If simulation does not have any use case ("Dépot", "Dossier agréé", "Paiement")
+            # we ignore its funders
+            if not simulation.use_cases:
                 continue
-            funder_item = {"funder": funder}
-            funder_monitoring_values = []
 
-            FMV_by_funder = q_project_level.filter(
-                FunderMonitoringValue.funder_id == funder.id
-            ).all()
-            funders_fields = {
-                FMV.monitor_field.id: ind for ind, FMV in enumerate(FMV_by_funder)
-            }
+            for simulation_funder in simulation.base_funders:
+                funder = simulation_funder.get("funder")
+                funder_already_added = funder.id in funders_id
+                if funder.is_deleted or funder_already_added:
+                    # We do no fetch fields for deleted funder
+                    # We also ignore funder already added
+                    # No need to check if funder is duplicate
+                    # because we are iterating only base funders from simulation
+                    continue
 
-            for field in monitor.fields:
-                if field.id in funders_fields:
-                    # The monitoring value already exist so we append it to the list
-                    monitoring_value_index = funders_fields[field.id]
-                    funder_monitoring_values.append(
-                        FMV_by_funder[monitoring_value_index]
-                    )
-                else:
-                    # The monitoring value does not exist so we create it
-                    new_funder_monitoring_value = {
-                        "monitor_field_id": field.id,
-                        "project_id": project_id,
-                        "funder_id": funder.id,
-                        "date_value": None,
-                        "boolean_value": None,
-                    }
-                    # We can skip the "unicity check" during the new funder_monitoring_value creation,
-                    # because the above filter have already checked it.
-                    funder_monitoring_value = FunderMonitoringValueService.create(
-                        new_funder_monitoring_value, skip_unicity_check=True
-                    )
-                    funder_monitoring_values.append(funder_monitoring_value)
+                funders_id.append(funder.id)
+                funder_item = {"funder": funder}
+                funder_monitoring_values = []
 
-            funder_item["fields"] = funder_monitoring_values
-            funders_items_list.append(funder_item)
+                FMV_by_funder = q_project_level.filter(
+                    FunderMonitoringValue.funder_id == funder.id
+                ).all()
+                funders_fields = {
+                    FMV.monitor_field.id: ind for ind, FMV in enumerate(FMV_by_funder)
+                }
+
+                for field in monitor.fields:
+                    if field.id in funders_fields:
+                        # The monitoring value already exist so we append it to the list
+                        monitoring_value_index = funders_fields[field.id]
+                        funder_monitoring_values.append(
+                            FMV_by_funder[monitoring_value_index]
+                        )
+                    else:
+                        # The monitoring value does not exist so we create it
+                        new_funder_monitoring_value = {
+                            "monitor_field_id": field.id,
+                            "project_id": project_id,
+                            "funder_id": funder.id,
+                            "date_value": None,
+                            "boolean_value": None,
+                        }
+                        # We can skip the "unicity check" during the new funder_monitoring_value creation,
+                        # because the above filter have already checked it.
+                        funder_monitoring_value = FunderMonitoringValueService.create(
+                            new_funder_monitoring_value, skip_unicity_check=True
+                        )
+                        funder_monitoring_values.append(funder_monitoring_value)
+
+                funder_item["fields"] = funder_monitoring_values
+                funders_items_list.append(funder_item)
 
         return funders_items_list

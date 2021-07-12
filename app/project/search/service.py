@@ -9,11 +9,14 @@ from sqlalchemy.sql.elements import or_, and_
 from app import db
 from app.auth.users.model import UserRole
 from app.common.exceptions import InconsistentUpdateIdException, ForbiddenException
+from app.mission.custom_fields import CustomField
 from app.mission.missions import Mission
 from app.mission.teams import Team
 from app.mission.teams.model import UserTeamPositions
+from app.project.project_custom_fields.model import ProjectCustomField
 from app.project.projects import Project
 from app.project.requesters import Requester
+from app.project import Accommodation, CommonArea
 
 from app.project.search.error_handlers import SearchNotFoundException
 from app.project.search.interface import SearchInterface
@@ -30,13 +33,17 @@ SAVED_SEARCH_DEFAULT_PAGE_SIZE = 5
 SAVED_SEARCH_DEFAULT_SORT_FIELD = "id"
 SAVED_SEARCH_DEFAULT_SORT_DIRECTION = "desc"
 
-
 SEARCH_TERM_DEFAULT_FIELDS = [
     "code_name",
     "requester.first_name",
     "requester.last_name",
 ]
 MANAGER_FILTER = "mission_manager"
+ACCOMMODATION_FILTERS = [
+    "accommodation.accommodation_type",
+    "accommodation.condominium",
+    "accommodation.vacant",
+]
 
 
 class ProjectSearchService:
@@ -50,14 +57,66 @@ class ProjectSearchService:
     ) -> Pagination:
         """Extract specific project case : MANAGERS """
         manager_filter = None
+        custom_fields = []
+        accommodation_filters = {}
+        work_types = []
+        condominium_common_areas = []
         for f in search["filters"]:
+            try:
+                # check if field is a custom field
+                custom_field_id = int(f.get("field"))
+                custom_fields.append(
+                    {
+                        "custom_field_id": custom_field_id,
+                        "label": f.get("label"),
+                        "values": f.get("values")
+                    }
+                )
+                search["filters"].remove(f)
+            except ValueError:
+                # not a custom field
+                pass
             if f["field"] == MANAGER_FILTER:
                 manager_filter = f
                 search["filters"].remove(f)
+
+            if f["field"] in ACCOMMODATION_FILTERS:
+                splitted = f["field"].split(".")
+                field_name = splitted[1]
+                accommodation_filters[field_name] = f["values"]
+                search["filters"].remove(f)
+
+            if f["field"] == "work_type":
+                work_types = f["values"]
+                search["filters"].remove(f)
+
+            if f["field"] == "common_area.condominium":
+                condominium_common_areas.extend(f["values"])
+                search["filters"].remove(f)
+
         q = SearchService.search_into_model(Project, search, SEARCH_TERM_DEFAULT_FIELDS)
         # Filter specificaly on managers :
         if manager_filter:
             q = ProjectSearchService.filter_on_managers(q, manager_filter)
+
+        # Filter on custom fields
+        if len(custom_fields) > 0:
+            q = ProjectSearchService.filter_on_custom_fields(q, custom_fields)
+
+        # Filter on work types
+        if len(work_types) > 0:
+            q = ProjectSearchService.filter_on_work_types(q, work_types)
+
+        # Filter on accommodation
+        if len(accommodation_filters.keys()) > 0:
+            q = ProjectSearchService.filter_on_accommodation(q, accommodation_filters)
+
+        # Filter on common area condominium
+        if len(condominium_common_areas) > 0:
+            q = ProjectSearchService.filter_on_common_areas_condominium(
+                q, condominium_common_areas[0]
+            )
+
         # Deactivated projects must not be retrieved
         q = q.filter(Project.active == True)
         # Filter query on current user access
@@ -73,6 +132,18 @@ class ProjectSearchService:
             q = sort_query(q, sort_by, direction)
 
         return q.paginate(page=page, per_page=size)
+
+    @staticmethod
+    def filter_on_work_types(q, work_types):
+        from app.project import WorkType
+
+        q = q.join(WorkType).filter(WorkType.type_name.in_(work_types))
+        return q
+
+    @staticmethod
+    def filter_on_common_areas_condominium(q, condominium):
+        q = q.join(CommonArea).filter(CommonArea.condominium == condominium)
+        return q
 
     @staticmethod
     def filter_on_managers(q, manager_filter):
@@ -99,6 +170,32 @@ class ProjectSearchService:
                 )
             )
         )
+        return q
+
+    @staticmethod
+    def filter_on_custom_fields(q, custom_fields):
+        q = q.join(ProjectCustomField)
+        for c in custom_fields:
+            same_name_fields = CustomField.query.filter(CustomField.name == c.get("label")).all()
+            q = q.filter(
+                and_(
+                    ProjectCustomField.custom_field_id.in_(
+                        tuple([snf.id for snf in same_name_fields])
+                    ),
+                    *[
+                        ProjectCustomField.value.ilike(f"%{v}%")
+                        for v in c.get("values")
+                    ]
+                )
+            )
+
+        return q
+
+    @staticmethod
+    def filter_on_accommodation(q, accommodation_fields):
+        q = q.join(Accommodation)
+        for f, value in accommodation_fields.items():
+            q = q.filter(getattr(Accommodation, f).in_(tuple(value)))
         return q
 
     @staticmethod

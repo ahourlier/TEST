@@ -34,6 +34,7 @@ class Quote(BaseMixin, db.Model):
     is_bill = Column(Boolean, nullable=True)
     name = Column(String(255), nullable=True)
     company = Column(String(255), nullable=True)
+    company_origin = Column(String(255), nullable=True)
     precision = Column(String(255), nullable=True)
     price_excl_tax = Column(Float(), nullable=True)
     price_incl_tax = Column(Float(), nullable=True)

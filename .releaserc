@@ -2,8 +2,8 @@
   "branches": [
     "master",
     {
-      "name": "release\/([a-zA-Z0-9-_#.]+)",
-      "channel": "beta",
+      "name": "next",
+      "channel": "rc",
       "prerelease": "rc"
     }
   ],
@@ -13,7 +13,7 @@
     ["@semantic-release/changelog", {
       "changelogFile": "docs/CHANGELOG.md",
     }],
-    '@semantic-release/github',
+    '@semantic-release/gitlab',
     ["@semantic-release/git", {
       "assets": ["docs/CHANGELOG.md"],
     }],

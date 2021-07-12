@@ -1,3 +1,57 @@
+# [1.2.0-rc.5](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.0-rc.4...v1.2.0-rc.5) (2021-07-09)
+
+
+### Bug Fixes
+
+* **mission:** mission creator is now drive organizer ([8605350](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/8605350d44b257d6343cd3f837233d06e3c7500b))
+
+# [1.2.0-rc.4](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.0-rc.3...v1.2.0-rc.4) (2021-06-30)
+
+
+### Bug Fixes
+
+* **project search fields:** unique custom fields and searching in all projects with same custom field name ([b2f5a11](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/b2f5a11b5336fe23e93025960b766d9a72b9d02a))
+
+# [1.2.0-rc.3](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.0-rc.2...v1.2.0-rc.3) (2021-06-28)
+
+
+### Features
+
+* **comment-date:** update comment now accepts date ([e7d31f1](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/e7d31f1295a5591f1679926ebb3e6a6388c01a46))
+* **drive:** mission managers as drive organizers ([50d451a](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/50d451a0b7593919ac4255ac816c7c1a2a874272))
+* **funder scenario:** add rent type ([8c71b9c](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/8c71b9c69e53a3b5b53b645097e519b331601931))
+* **new-filters:** added new filters ([817473a](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/817473a84224b52ba1eae97a592b51786585d6a1))
+
+# [1.2.0-rc.2](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.0-rc.1...v1.2.0-rc.2) (2021-06-21)
+
+
+### Bug Fixes
+
+* **custom-search:** now using islike for custom search case insensitive ([efd83a4](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/efd83a4e545c235e21b464f0df2f14386b0fa8bb))
+* **duplicate drive folder:** add param making possible to disable folder creation when we get a project ([6fa60ce](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/6fa60ce9168a2cf017c2d8211b4cbab2d4e0d5ad))
+* **manager:** fix memory exceeded on manager UI ([ad875fe](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/ad875fe08d0888846407ce9d1cf38d0b17cb7847))
+
+
+### Features
+
+* **quote:** add company origin ([a7fbe4f](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/a7fbe4f21b0b48d65195528b190a1bc58431775d))
+* **search:** fetching all fields + custom fieldes + search ([112dda0](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/112dda084e1df3c7331a8fadd34cc1249ec504ab))
+
+# [1.2.0-rc.1](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.1.1...v1.2.0-rc.1) (2021-06-15)
+
+
+### Bug Fixes
+
+* **ci:** add next branch ([c6c07cb](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/c6c07cbf7bc480d30a239b6db75e9f18f1914265))
+* **ci:** add semantic-release/gitlab ([fab224d](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/fab224d5772318eb0690444f76b2e0a73557d05d))
+* **ci:** install all semrel deps ([4e68638](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/4e686380f0bddf7070124953a8db405d06b3996a))
+
+
+### Features
+
+* **semrel:** add semantic release ([2b5743d](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/2b5743dc8ef4789f1c4430f08dd16a56d6489e7d))
+* **separate disorder types:** add hybrid properties to accomodation and disorder models ([9cf9385](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/9cf9385001e68b6d55207593b9119da5ce1cc733))
+
 ## [1.1.4](https://github.com/apps-cirruseo/urbanis-oslo-back/compare/v1.1.3...v1.1.4) (2021-03-22)
 
 

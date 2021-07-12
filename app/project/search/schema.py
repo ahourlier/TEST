@@ -7,6 +7,7 @@ from app.project.search.model import Search
 
 class FilterSchema(SQLAlchemySchema):
     field = fields.String(required=True)
+    label = fields.String(required=False, nullable=True, allow_none=True)
     op = fields.String(required=True)
     values = fields.List(fields.Raw(allow_none=True), required=True)
 

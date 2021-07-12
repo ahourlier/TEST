@@ -103,6 +103,7 @@ class ProjectIdResource(AuthenticatedApi):
     @filter_response_with_clients_access(
         projects_permissions.ProjectPermission.filter_project_fields
     )
+    @accepts(dict(name="check_drive_structure", type=inputs.boolean))
     @responds(schema=ProjectSchema(), api=api)
     @requires(has_project_employee_or_client_permission)
     def get(self, project_id: int) -> Project:
@@ -115,7 +116,16 @@ class ProjectIdResource(AuthenticatedApi):
         ):
             AccommodationService.create({}, db_project.id)
 
-        if db_project.drive_init not in ["IN PROGRESS", "DONE"]:
+        check_drive_structure = (
+            True
+            if request.args.get("check_drive_structure", "true").lower() == "true"
+            else False
+        )
+
+        if (
+            db_project.drive_init not in ["IN PROGRESS", "DONE"]
+            and check_drive_structure
+        ):
             if (
                 db_project.sd_root_folder_id
                 and db_project.sd_quotes_folder_id
@@ -219,3 +229,31 @@ class ProjectDocumentResource(AuthenticatedApi):
             db_project, data.get("files_id"), data.get("kind"), data, g.user.email
         )
         return jsonify(response)
+
+
+@api.route("/locations/")
+class ProjectLocation(AuthenticatedApi):
+    """ Projects locations """
+
+    @accepts(
+        *SEARCH_PARAMS, api=api,
+    )
+    # @requires(has_multiple_projects_permission)
+    def get(self) -> Response:
+        """Search possible project locations"""
+        locations = ProjectService.get_project_locations(term=request.args.get("term"),)
+        return jsonify(dict(status="Success", items=locations))
+
+
+@api.route("/fields/")
+class ProjectFields(AuthenticatedApi):
+    """ Projects fields """
+
+    @accepts(
+        *SEARCH_PARAMS, api=api,
+    )
+    # @requires(has_multiple_projects_permission)
+    def get(self) -> Response:
+        """Search possible project fields for filter"""
+        fields = ProjectService.get_project_fields(term=request.args.get("term"),)
+        return jsonify(dict(status="Success", items=fields))

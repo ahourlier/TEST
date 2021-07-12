@@ -64,7 +64,7 @@ class RequesterService:
         if type is not None and type not in RequesterTypes.__members__:
             raise InvalidSearchFieldException()
         if type is not None:
-            q = q.filter(Requester.type == RequesterTypes[type].value)
+            q = q.filter(Requester.type == type)
 
         # Check current user permissions for the projects list
         if user is not None and user.role != UserRole.ADMIN:
