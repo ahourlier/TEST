@@ -104,7 +104,7 @@ class DocumentGenerationService:
                 project=os.getenv("GOOGLE_CLOUD_PROJECT"),
                 location=os.getenv("QUEUES_LOCATION"),
                 queue=DOC_EDIT_QUEUE_NAME,
-                uri=f"{request.host_url}api/_internal/documents/edit",
+                uri=f"{os.getenv('API_URL')}/_internal/documents/edit",
                 method="POST",
                 payload={"document_id": document.id, "user_email": user_email},
             )
@@ -222,7 +222,7 @@ class DocumentService:
             project=os.getenv("GOOGLE_CLOUD_PROJECT"),
             location=os.getenv("QUEUES_LOCATION"),
             queue=DOC_GENERATION_QUEUE_NAME,
-            uri=f"{request.host_url}api/_internal/documents/generate",
+            uri=f"{os.getenv('API_URL')}/_internal/documents/generate",
             method="POST",
             payload={"document_id": document.id, "user_email": g.user.email},
         )

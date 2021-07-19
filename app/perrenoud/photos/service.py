@@ -266,7 +266,7 @@ class PhotoService:
             project=os.getenv("GOOGLE_CLOUD_PROJECT"),
             location=os.getenv("QUEUES_LOCATION"),
             queue=RENAME_PHOTOS_QUEUE_NAME,
-            uri=f"{request.host_url}api/_internal/rename_photos/multiple",
+            uri=f"{os.getenv('API_URL')}/_internal/rename_photos/multiple",
             method="POST",
             payload={
                 "project_id": project.id,

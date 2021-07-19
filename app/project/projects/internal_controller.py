@@ -56,7 +56,7 @@ class ProjectDeleteFilesView(InternalAPIView):
                 project=os.getenv("GOOGLE_CLOUD_PROJECT"),
                 location=os.getenv("QUEUES_LOCATION"),
                 queue=PROJECT_INIT_QUEUE_NAME,
-                uri=f"{request.host_url}api/_internal/projects/init-drive",
+                uri=f"{os.getenv('API_URL')}/_internal/projects/init-drive",
                 method="POST",
                 payload={"project_id": db_project.id,},
             )

@@ -214,7 +214,7 @@ class TeamService:
             project=os.getenv("GOOGLE_CLOUD_PROJECT"),
             location=os.getenv("QUEUES_LOCATION"),
             queue=MISSION_INIT_QUEUE_NAME,
-            uri=f"{request.host_url}api/_internal/missions/compute-permissions",
+            uri=f"{os.getenv('API_URL')}/_internal/missions/compute-permissions",
             method="POST",
             payload={"mission_id": new_attrs.get("mission_id"), "update": update},
         )
