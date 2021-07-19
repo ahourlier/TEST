@@ -77,7 +77,7 @@ class DataImportService:
             project=os.getenv("GOOGLE_CLOUD_PROJECT"),
             location=os.getenv("QUEUES_LOCATION"),
             queue=IMPORT_PROJECTS_QUEUE_NAME,
-            uri=f"{request.host_url}_internal/data_import/projects",
+            uri=f"{request.host_url}api/_internal/data_import/projects",
             method="POST",
             payload={
                 "mission_id": mission.id,
@@ -468,7 +468,7 @@ class DataImportService:
             project=os.getenv("GOOGLE_CLOUD_PROJECT"),
             location=os.getenv("QUEUES_LOCATION"),
             queue=REGISTER_ENTITY_QUEUE_NAME,
-            uri=f"{request.host_url}_internal/data_import/register",
+            uri=f"{request.host_url}api/_internal/data_import/register",
             method="POST",
             payload={
                 "mission_id": mission_id,
@@ -516,7 +516,7 @@ class DataImportService:
             project=os.getenv("GOOGLE_CLOUD_PROJECT"),
             location=os.getenv("QUEUES_LOCATION"),
             queue=ACTIVATE_PROJECTS_QUEUE_NAME,
-            uri=f"{request.host_url}_internal/data_import/activate",
+            uri=f"{request.host_url}api/_internal/data_import/activate",
             method="POST",
             payload={"projects_id_list": projects_id_list,},
         )
@@ -530,7 +530,7 @@ class DataImportService:
             project=os.getenv("GOOGLE_CLOUD_PROJECT"),
             location=os.getenv("QUEUES_LOCATION"),
             queue=CLOSE_IMPORT_QUEUE_NAME,
-            uri=f"{request.host_url}_internal/data_import/close",
+            uri=f"{request.host_url}api/_internal/data_import/close",
             method="POST",
             payload={"import_id": import_id,},
         )
@@ -546,7 +546,7 @@ class DataImportService:
                 project=os.getenv("GOOGLE_CLOUD_PROJECT"),
                 location=os.getenv("QUEUES_LOCATION"),
                 queue=PROJECT_INIT_QUEUE_NAME,
-                uri=f"{request.host_url}_internal/projects/init-drive",
+                uri=f"{request.host_url}api/_internal/projects/init-drive",
                 method="POST",
                 payload={"project_id": project_id,},
             )
@@ -558,7 +558,7 @@ class DataImportService:
             project=os.getenv("GOOGLE_CLOUD_PROJECT"),
             location=os.getenv("QUEUES_LOCATION"),
             queue=DELETE_PROJECT_QUEUE_NAME,
-            uri=f"{request.host_url}_internal/data_import/rollback",
+            uri=f"{request.host_url}api/_internal/data_import/rollback",
             method="POST",
             payload={"projects_id_list": projects_id_list,},
         )

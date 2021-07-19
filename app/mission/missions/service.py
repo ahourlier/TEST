@@ -122,7 +122,7 @@ class MissionService:
                 project=os.getenv("GOOGLE_CLOUD_PROJECT"),
                 location=os.getenv("QUEUES_LOCATION"),
                 queue=MISSION_INIT_QUEUE_NAME,
-                uri=f"{request.host_url}_internal/missions/init-drive",
+                uri=f"{request.host_url}api/_internal/missions/init-drive",
                 method="POST",
                 payload={"mission_id": mission.id,},
             )

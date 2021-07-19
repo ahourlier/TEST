@@ -23,7 +23,7 @@ class RenamePhotosRoomView(InternalAPIView):
                 project=os.getenv("GOOGLE_CLOUD_PROJECT"),
                 location=os.getenv("QUEUES_LOCATION"),
                 queue=RENAME_PHOTO_QUEUE_NAME,
-                uri=f"{request.host_url}_internal/rename_photos/single",
+                uri=f"{request.host_url}api/_internal/rename_photos/single",
                 method="POST",
                 payload={
                     "room_id": data.get("room_id"),

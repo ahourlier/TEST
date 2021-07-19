@@ -288,7 +288,7 @@ class ProjectService:
             project=os.getenv("GOOGLE_CLOUD_PROJECT"),
             location=os.getenv("QUEUES_LOCATION"),
             queue=PROJECT_INIT_QUEUE_NAME,
-            uri=f"{request.host_url}_internal/projects/init-drive",
+            uri=f"{request.host_url}api/_internal/projects/init-drive",
             method="POST",
             payload={"project_id": project.id,},
         )
@@ -431,7 +431,7 @@ class ProjectService:
                 project=os.getenv("GOOGLE_CLOUD_PROJECT"),
                 location=os.getenv("QUEUES_LOCATION"),
                 queue=PROJECT_DELETE_DOCS_QUEUE_NAME,
-                uri=f"{request.host_url}_internal/projects/delete-files",
+                uri=f"{request.host_url}api/_internal/projects/delete-files",
                 method="POST",
                 payload={"project_id": project.id},
             )

@@ -33,7 +33,7 @@ class MissionsInitDriveView(InternalAPIView):
             project=os.getenv("GOOGLE_CLOUD_PROJECT"),
             location=os.getenv("QUEUES_LOCATION"),
             queue=MISSION_INIT_QUEUE_NAME,
-            uri=f"{request.host_url}/api/_internal/missions/init-permissions",
+            uri=f"{request.host_url}api/_internal/missions/init-permissions",
             method="POST",
             payload={"mission_id": db_mission.id},
         )
@@ -108,7 +108,7 @@ class MissionInitPermissions(InternalAPIView):
                         project=os.getenv("GOOGLE_CLOUD_PROJECT"),
                         location=os.getenv("QUEUES_LOCATION"),
                         queue="project-queue",
-                        uri=f"{request.host_url}_internal/projects/init-drive",
+                        uri=f"{request.host_url}api/_internal/projects/init-drive",
                         method="POST",
                         payload={"project_id": db_project.id,},
                     )
@@ -126,7 +126,7 @@ class MissionComputePermissions(InternalAPIView):
                     project=os.getenv("GOOGLE_CLOUD_PROJECT"),
                     location=os.getenv("QUEUES_LOCATION"),
                     queue=MISSION_INIT_QUEUE_NAME,
-                    uri=f"{request.host_url}_internal/missions/compute-permissions",
+                    uri=f"{request.host_url}api/_internal/missions/compute-permissions",
                     method="POST",
                     payload={"mission_id": db_mission.id, "update": False},
                 )
@@ -159,7 +159,7 @@ class MissionComputePermissions(InternalAPIView):
                     project=os.getenv("GOOGLE_CLOUD_PROJECT"),
                     location=os.getenv("QUEUES_LOCATION"),
                     queue=MISSION_INIT_QUEUE_NAME,
-                    uri=f"{request.host_url}_internal/missions/add-member",
+                    uri=f"{request.host_url}api/_internal/missions/add-member",
                     method="POST",
                     payload={
                         "group_id": db_mission.google_group_id,
@@ -172,7 +172,7 @@ class MissionComputePermissions(InternalAPIView):
                     project=os.getenv("GOOGLE_CLOUD_PROJECT"),
                     location=os.getenv("QUEUES_LOCATION"),
                     queue=MISSION_INIT_QUEUE_NAME,
-                    uri=f"{request.host_url}_internal/missions/remove-member",
+                    uri=f"{request.host_url}api/_internal/missions/remove-member",
                     method="POST",
                     payload={
                         "group_id": db_mission.google_group_id,

@@ -104,7 +104,7 @@ class EmailService:
             project=os.getenv("GOOGLE_CLOUD_PROJECT"),
             location=os.getenv("QUEUES_LOCATION"),
             queue=EMAILS_QUEUE_NAME,
-            uri=f"{request.host_url}_internal/emails/send",
+            uri=f"{request.host_url}api/_internal/emails/send",
             method="POST",
             payload={"emailId": email.id},
         )
