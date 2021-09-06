@@ -1,4 +1,5 @@
 import os
+from datetime import datetime, timedelta
 
 from flask_allows import requires
 from flask_restx import inputs
@@ -122,8 +123,15 @@ class ProjectIdResource(AuthenticatedApi):
             else False
         )
 
+        # after 3 minutes, project is certainly blocked on status IN PROGRESS
+        three_minutes_ago = datetime.now() - timedelta(minutes=3)
+
         if (
-            db_project.drive_init not in ["IN PROGRESS", "DONE"]
+            db_project.drive_init != "DONE"
+            and not (
+                db_project.drive_init == "IN PROGRESS"
+                and db_project.updated_at > three_minutes_ago
+            )
             and check_drive_structure
         ):
             if (
