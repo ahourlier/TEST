@@ -69,7 +69,7 @@ class ProjectSearchService:
                     {
                         "custom_field_id": custom_field_id,
                         "label": f.get("label"),
-                        "values": f.get("values")
+                        "values": f.get("values"),
                     }
                 )
                 search["filters"].remove(f)
@@ -176,7 +176,9 @@ class ProjectSearchService:
     def filter_on_custom_fields(q, custom_fields):
         q = q.join(ProjectCustomField)
         for c in custom_fields:
-            same_name_fields = CustomField.query.filter(CustomField.name == c.get("label")).all()
+            same_name_fields = CustomField.query.filter(
+                CustomField.name == c.get("label")
+            ).all()
             q = q.filter(
                 and_(
                     ProjectCustomField.custom_field_id.in_(
@@ -185,7 +187,7 @@ class ProjectSearchService:
                     *[
                         ProjectCustomField.value.ilike(f"%{v}%")
                         for v in c.get("values")
-                    ]
+                    ],
                 )
             )
 
