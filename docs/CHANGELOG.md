@@ -1,3 +1,11 @@
+## [1.2.1-rc.2](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.1-rc.1...v1.2.1-rc.2) (2021-09-06)
+
+
+### Bug Fixes
+
+* project drive init ([2d83abc](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/2d83abcc580d5b29716706cf8f5f01404df6fef1))
+* reqs ([7efc9ee](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/7efc9eeb66a498c92b3cdd3e6095a6f77ada6276))
+
 ## [1.2.1-rc.1](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.0...v1.2.1-rc.1) (2021-07-19)
 
 
