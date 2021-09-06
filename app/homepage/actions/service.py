@@ -242,6 +242,8 @@ class RequiredActionsService:
         )
         return (
             payment_request_date is None
+            and certification_delay
+            and project.mission.monitor.payment_alert
             and certification_delay > project.mission.monitor.payment_alert
         )
 
