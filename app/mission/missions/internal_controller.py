@@ -61,15 +61,10 @@ class MissionInitPermissions(InternalAPIView):
 
             # mission creator is organizer
             permission = DriveUtils.insert_permission(
-                db_mission.sd_root_folder_id,
-                "organizer",
-                "user",
-                db_mission.creator,
+                db_mission.sd_root_folder_id, "organizer", "user", db_mission.creator,
             )
             if not permission:
-                raise SharedDriveException(
-                    KEY_SHARED_DRIVE_PERMISSION_EXCEPTION
-                )
+                raise SharedDriveException(KEY_SHARED_DRIVE_PERMISSION_EXCEPTION)
 
             permission = DriveUtils.insert_permission(
                 db_mission.sd_root_folder_id,

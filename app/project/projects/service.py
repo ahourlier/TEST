@@ -653,7 +653,7 @@ class ProjectService:
             append_field = True
             if not term or term.lower() in c.custom_field.name.lower():
                 for k in all_keys:
-                    if k.get('label') == c.custom_field.name:
+                    if k.get("label") == c.custom_field.name:
                         append_field = False
                 if append_field:
                     all_keys.append(
