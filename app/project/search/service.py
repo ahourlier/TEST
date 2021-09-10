@@ -4,6 +4,7 @@ from typing import List
 from flask import g
 from flask_sqlalchemy import Pagination
 from psycopg2.extensions import JSON
+from sqlalchemy.orm.util import aliased
 from sqlalchemy.sql.elements import or_, and_
 
 from app import db
@@ -13,7 +14,7 @@ from app.mission.custom_fields import CustomField
 from app.mission.missions import Mission
 from app.mission.teams import Team
 from app.mission.teams.model import UserTeamPositions
-from app.project.project_custom_fields.model import ProjectCustomField
+from app.project.project_custom_fields.model import CustomFieldValue, ProjectCustomField
 from app.project.projects import Project
 from app.project.requesters import Requester
 from app.project import Accommodation, CommonArea
@@ -61,7 +62,9 @@ class ProjectSearchService:
         accommodation_filters = {}
         work_types = []
         condominium_common_areas = []
-        for f in search["filters"]:
+        
+        # iterate through a copy of the list beacause we delete
+        for f in search["filters"][:]:
             try:
                 # check if field is a custom field
                 custom_field_id = int(f.get("field"))
@@ -76,6 +79,7 @@ class ProjectSearchService:
             except ValueError:
                 # not a custom field
                 pass
+
             if f["field"] == MANAGER_FILTER:
                 manager_filter = f
                 search["filters"].remove(f)
@@ -93,8 +97,9 @@ class ProjectSearchService:
             if f["field"] == "common_area.condominium":
                 condominium_common_areas.extend(f["values"])
                 search["filters"].remove(f)
-
+        
         q = SearchService.search_into_model(Project, search, SEARCH_TERM_DEFAULT_FIELDS)
+        
         # Filter specificaly on managers :
         if manager_filter:
             q = ProjectSearchService.filter_on_managers(q, manager_filter)
@@ -116,7 +121,7 @@ class ProjectSearchService:
             q = ProjectSearchService.filter_on_common_areas_condominium(
                 q, condominium_common_areas[0]
             )
-
+        
         # Deactivated projects must not be retrieved
         q = q.filter(Project.active == True)
         # Filter query on current user access
@@ -130,7 +135,7 @@ class ProjectSearchService:
             )
         else:
             q = sort_query(q, sort_by, direction)
-
+        
         return q.paginate(page=page, per_page=size)
 
     @staticmethod
@@ -174,23 +179,29 @@ class ProjectSearchService:
 
     @staticmethod
     def filter_on_custom_fields(q, custom_fields):
-        q = q.join(ProjectCustomField)
         for c in custom_fields:
+            alias = aliased(ProjectCustomField)
+            q = q.join(alias)
             same_name_fields = CustomField.query.filter(
                 CustomField.name == c.get("label")
             ).all()
             q = q.filter(
                 and_(
-                    ProjectCustomField.custom_field_id.in_(
+                    alias.custom_field_id.in_(
                         tuple([snf.id for snf in same_name_fields])
                     ),
-                    *[
-                        ProjectCustomField.value.ilike(f"%{v}%")
-                        for v in c.get("values")
-                    ],
+                    or_(
+                        *[
+                            alias.value.__eq__(v)
+                            for v in c.get("values")
+                        ],
+                        *[
+                            CustomFieldValue.value.__eq__(v)
+                            for v in c.get("values")
+                        ]
+                    )
                 )
             )
-
         return q
 
     @staticmethod
