@@ -1,3 +1,10 @@
+## [1.2.1-rc.3](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.1-rc.2...v1.2.1-rc.3) (2021-09-10)
+
+
+### Bug Fixes
+
+* custom select filter ([4e40eaf](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/4e40eaf3591de434161c4b6e129ea10aa3f73128))
+
 ## [1.2.1-rc.2](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.1-rc.1...v1.2.1-rc.2) (2021-09-06)
 
 
