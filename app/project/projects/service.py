@@ -661,8 +661,11 @@ class ProjectService:
                             "custom": True,
                             "key": c.id,
                             "type": "select" if c.type == "list" else "text",
-                            "options": [{"value": v.value, "text": v.value} for v in c.available_values],
-                            "multiple": c.is_multiple
+                            "options": [
+                                {"value": v.value, "text": v.value}
+                                for v in c.available_values
+                            ],
+                            "multiple": c.is_multiple,
                         }
                     )
         return all_keys

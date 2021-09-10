@@ -62,7 +62,7 @@ class ProjectSearchService:
         accommodation_filters = {}
         work_types = []
         condominium_common_areas = []
-        
+
         # iterate through a copy of the list beacause we delete
         for f in search["filters"][:]:
             try:
@@ -97,9 +97,9 @@ class ProjectSearchService:
             if f["field"] == "common_area.condominium":
                 condominium_common_areas.extend(f["values"])
                 search["filters"].remove(f)
-        
+
         q = SearchService.search_into_model(Project, search, SEARCH_TERM_DEFAULT_FIELDS)
-        
+
         # Filter specificaly on managers :
         if manager_filter:
             q = ProjectSearchService.filter_on_managers(q, manager_filter)
@@ -121,7 +121,7 @@ class ProjectSearchService:
             q = ProjectSearchService.filter_on_common_areas_condominium(
                 q, condominium_common_areas[0]
             )
-        
+
         # Deactivated projects must not be retrieved
         q = q.filter(Project.active == True)
         # Filter query on current user access
@@ -135,7 +135,7 @@ class ProjectSearchService:
             )
         else:
             q = sort_query(q, sort_by, direction)
-        
+
         return q.paginate(page=page, per_page=size)
 
     @staticmethod
@@ -191,15 +191,9 @@ class ProjectSearchService:
                         tuple([snf.id for snf in same_name_fields])
                     ),
                     or_(
-                        *[
-                            alias.value.__eq__(v)
-                            for v in c.get("values")
-                        ],
-                        *[
-                            CustomFieldValue.value.__eq__(v)
-                            for v in c.get("values")
-                        ]
-                    )
+                        *[alias.value.__eq__(v) for v in c.get("values")],
+                        *[CustomFieldValue.value.__eq__(v) for v in c.get("values")],
+                    ),
                 )
             )
         return q
