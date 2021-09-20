@@ -1,5 +1,4 @@
 import logging
-import operator
 import os
 from datetime import date
 from typing import List
@@ -43,8 +42,9 @@ from app.common.tasks import create_task
 from app.mission.teams.model import UserTeamPositions
 from app.mission.missions import Mission
 from app.mission.teams import Team
+from app.mission.custom_fields.model import CustomField
 from app.project.permissions import ProjectPermission
-from app.project.project_custom_fields.model import ProjectCustomField
+from app.project.project_custom_fields.model import CustomFieldValue, ProjectCustomField
 from app.project.project_leads.model import ProjectLead
 
 from app.project.projects import Project, api
@@ -646,21 +646,26 @@ class ProjectService:
                 continue
             if not term or term.lower() in translations[key].lower():
                 all_keys.append({"key": key, "custom": False})
-        custom_fields = ProjectCustomField.query.distinct(
-            ProjectCustomField.custom_field_id
-        ).all()
+        custom_fields = CustomField.query.all()
         for c in custom_fields:
             append_field = True
-            if not term or term.lower() in c.custom_field.name.lower():
+            if not term or term.lower() in c.name.lower():
                 for k in all_keys:
-                    if k.get('label') == c.custom_field.name:
+                    if k.get("label") == c.name:
                         append_field = False
+                        break
                 if append_field:
                     all_keys.append(
                         {
-                            "label": c.custom_field.name,
+                            "label": c.name,
                             "custom": True,
-                            "key": c.custom_field_id,
+                            "key": c.id,
+                            "type": "select" if c.type == "list" else "text",
+                            "options": [
+                                {"value": v.value, "text": v.value}
+                                for v in c.available_values
+                            ],
+                            "multiple": c.is_multiple,
                         }
                     )
         return all_keys

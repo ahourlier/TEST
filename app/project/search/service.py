@@ -4,6 +4,7 @@ from typing import List
 from flask import g
 from flask_sqlalchemy import Pagination
 from psycopg2.extensions import JSON
+from sqlalchemy.orm.util import aliased
 from sqlalchemy.sql.elements import or_, and_
 
 from app import db
@@ -13,7 +14,7 @@ from app.mission.custom_fields import CustomField
 from app.mission.missions import Mission
 from app.mission.teams import Team
 from app.mission.teams.model import UserTeamPositions
-from app.project.project_custom_fields.model import ProjectCustomField
+from app.project.project_custom_fields.model import CustomFieldValue, ProjectCustomField
 from app.project.projects import Project
 from app.project.requesters import Requester
 from app.project import Accommodation, CommonArea
@@ -61,7 +62,9 @@ class ProjectSearchService:
         accommodation_filters = {}
         work_types = []
         condominium_common_areas = []
-        for f in search["filters"]:
+
+        # iterate through a copy of the list beacause we delete
+        for f in search["filters"][:]:
             try:
                 # check if field is a custom field
                 custom_field_id = int(f.get("field"))
@@ -69,13 +72,14 @@ class ProjectSearchService:
                     {
                         "custom_field_id": custom_field_id,
                         "label": f.get("label"),
-                        "values": f.get("values")
+                        "values": f.get("values"),
                     }
                 )
                 search["filters"].remove(f)
             except ValueError:
                 # not a custom field
                 pass
+
             if f["field"] == MANAGER_FILTER:
                 manager_filter = f
                 search["filters"].remove(f)
@@ -95,6 +99,7 @@ class ProjectSearchService:
                 search["filters"].remove(f)
 
         q = SearchService.search_into_model(Project, search, SEARCH_TERM_DEFAULT_FIELDS)
+
         # Filter specificaly on managers :
         if manager_filter:
             q = ProjectSearchService.filter_on_managers(q, manager_filter)
@@ -174,21 +179,23 @@ class ProjectSearchService:
 
     @staticmethod
     def filter_on_custom_fields(q, custom_fields):
-        q = q.join(ProjectCustomField)
         for c in custom_fields:
-            same_name_fields = CustomField.query.filter(CustomField.name == c.get("label")).all()
+            alias = aliased(ProjectCustomField)
+            q = q.join(alias)
+            same_name_fields = CustomField.query.filter(
+                CustomField.name == c.get("label")
+            ).all()
             q = q.filter(
                 and_(
-                    ProjectCustomField.custom_field_id.in_(
+                    alias.custom_field_id.in_(
                         tuple([snf.id for snf in same_name_fields])
                     ),
-                    *[
-                        ProjectCustomField.value.ilike(f"%{v}%")
-                        for v in c.get("values")
-                    ]
+                    or_(
+                        *[alias.value.__eq__(v) for v in c.get("values")],
+                        *[CustomFieldValue.value.__eq__(v) for v in c.get("values")],
+                    ),
                 )
             )
-
         return q
 
     @staticmethod
