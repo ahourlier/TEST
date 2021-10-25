@@ -35,6 +35,8 @@ class User(BaseMixin, db.Model):
     title = Column(String(10), nullable=True)
     comment = Column(String(2083), nullable=True)
     role = Column(String(255), ForeignKey("role.name"), unique=False)
+    preferred_app_id = Column(Integer(), ForeignKey("preferred_app.id"), unique=False)
+    preferred_app = relationship("PreferredApp", backref="user")
     role_data = relationship("Role", backref="user")
     active = Column(Boolean(create_constraint=False), default=True, nullable=False)
     kind = Column(String(20), default=UserKind.EMPLOYEE, nullable=False)
