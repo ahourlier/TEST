@@ -14,6 +14,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql.functions import concat
 
 from app import db
+from app.auth.preferred_app.model import App
 from app.common.base_model import BaseMixin, SoftDeletableMixin
 
 # for relationships
@@ -35,7 +36,7 @@ class Mission(SoftDeletableMixin, BaseMixin, db.Model):
     id = Column(Integer(), primary_key=True, autoincrement=True)
     status = Column(String(255), nullable=False, default=MissionStatus.NOT_STARTED)
     name = Column(String(255), nullable=True)
-    mission_type = Column(String(255), nullable=False, default="INDIVIDUEL")
+    mission_type = Column(String(255), nullable=False, default=App.INDIVIDUAL)
     agency_id = Column(Integer, ForeignKey("agency.id"), nullable=True)
     agency = relationship("Agency", backref="missions")
     antenna_id = Column(Integer, ForeignKey("antenna.id"), nullable=True)
