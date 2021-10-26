@@ -21,7 +21,7 @@ class UserGroupSchema(SQLAlchemyAutoSchema):
 
 class UserSchema(SQLAlchemyAutoSchema):
     groups = fields.List(fields.Nested(UserGroupSchema()), dump_only=True)
-    preferred_app = fields.List(fields.Nested(PreferredAppSchema()), dump_only=True)
+    # preferred_app = fields.Nested(PreferredAppSchema())
 
     class Meta:
         model = User
@@ -38,6 +38,7 @@ class UserAuthSchema(SQLAlchemyAutoSchema):
     groups = fields.List(fields.Nested(UserGroupSchema()), dump_only=True)
     permissions = fields.List(fields.Nested(UserPermissionSchema), dump_only=True)
     projects_id = fields.List(fields.Integer, dump_only=True)
+    preferred_app = fields.Nested(PreferredAppSchema())
 
     class Meta:
         model = User

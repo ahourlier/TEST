@@ -10,7 +10,7 @@ from app.auth.users import User
 
 class App:
     COPRO = "COPROPRIETE"
-    INDIVIDUAL = "INDIVUDUEL"
+    INDIVIDUAL = "INDIVIDUEL"
 
 
 class PreferredApp(BaseMixin, db.Model):
@@ -21,6 +21,6 @@ class PreferredApp(BaseMixin, db.Model):
     id = Column(Integer(), primary_key=True, autoincrement=True)
     preferred_app = Column(String(11))
     first_connection = Column(Boolean(), nullable=False)
-    user = relationship("User", backref="preferred_app")
+    user = relationship("User")
 
 

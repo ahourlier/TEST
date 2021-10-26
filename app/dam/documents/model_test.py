@@ -4,7 +4,7 @@ from app.dam.documents import Document
 
 # FIXTURES IMPORT
 from app.test.fixtures import app, db
-from .test.fixtures import document
+# from .test.fixtures import document
 
 
 def test_document_create(document: Document):
