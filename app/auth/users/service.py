@@ -86,10 +86,9 @@ class UserService:
         if new_attrs.get("kind") == UserKind.OTHER:
             new_attrs = UserService.signup_new_user(new_attrs)
 
-        preferred_app = PreferredApp(**{
-            "preferred_app": App.INDIVIDUAL,
-            "first_connection": True
-        })
+        preferred_app = PreferredApp(
+            **{"preferred_app": App.INDIVIDUAL, "first_connection": True}
+        )
 
         db.session.add(preferred_app)
         db.session.commit()

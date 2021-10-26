@@ -1,7 +1,8 @@
 from werkzeug.exceptions import HTTPException
 
 from app.common.config_error_messages import (
-    KEY_USER_NOT_FOUND_EXCEPTION, PREFERRED_APP_NOT_FOUND,
+    KEY_USER_NOT_FOUND_EXCEPTION,
+    PREFERRED_APP_NOT_FOUND,
 )
 
 
@@ -11,4 +12,3 @@ class PreferredAppNotFoundException(HTTPException):
         self.key = KEY_USER_NOT_FOUND_EXCEPTION
         self.message = message
         self.status = "NOT FOUND"
-

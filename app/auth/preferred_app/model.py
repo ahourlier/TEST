@@ -17,5 +17,3 @@ class PreferredApp(BaseMixin, db.Model):
     id = Column(Integer(), primary_key=True, autoincrement=True)
     preferred_app = Column(String(11))
     first_connection = Column(Boolean(), nullable=False)
-
-

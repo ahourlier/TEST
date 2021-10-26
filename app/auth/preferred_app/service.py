@@ -7,7 +7,6 @@ from ..users.model import User
 
 
 class PreferredAppService:
-
     @staticmethod
     def create(new_attrs: PreferredAppInterface) -> PreferredApp:
 

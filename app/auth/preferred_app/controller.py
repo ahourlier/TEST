@@ -12,7 +12,6 @@ from ...common.permissions import is_admin
 
 @api.route("/me")
 class PreferredAppMe(AuthenticatedApi):
-
     @responds(schema=PreferredAppSchema)
     def get(self):
         return PreferredAppService.get_my_preferred_app(g.user)
@@ -31,7 +30,6 @@ class PreferredApp(AuthenticatedApi):
 @api.route("/<int:preferred_app_id>")
 @api.param("preferredAppId", "Preferred app unique id")
 class PreferredAppId(AuthenticatedApi):
-
     @responds(schema=PreferredAppSchema)
     @accepts(schema=PreferredAppSchema, api=api)
     def put(self, preferred_app_id: int):
@@ -45,7 +43,6 @@ class PreferredAppId(AuthenticatedApi):
 
 @api.route("/user/<int:user_id>")
 class PreferredAppUserId(AuthenticatedApi):
-
     @responds(schema=PreferredAppSchema)
     @accepts(schema=PreferredAppSchema, api=api)
     def post(self, user_id: int) -> User:

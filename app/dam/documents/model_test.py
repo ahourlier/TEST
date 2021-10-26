@@ -4,6 +4,7 @@ from app.dam.documents import Document
 
 # FIXTURES IMPORT
 from app.test.fixtures import app, db
+
 # from .test.fixtures import document
 
 

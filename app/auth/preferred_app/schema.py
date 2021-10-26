@@ -3,6 +3,5 @@ from .model import PreferredApp
 
 
 class PreferredAppSchema(SQLAlchemyAutoSchema):
-
     class Meta:
         model = PreferredApp
