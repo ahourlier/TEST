@@ -14,6 +14,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql.functions import concat
 
 from app import db
+from app.auth.preferred_app.model import App
 from app.common.base_model import BaseMixin, SoftDeletableMixin
 
 # for relationships
@@ -35,6 +36,7 @@ class Mission(SoftDeletableMixin, BaseMixin, db.Model):
     id = Column(Integer(), primary_key=True, autoincrement=True)
     status = Column(String(255), nullable=False, default=MissionStatus.NOT_STARTED)
     name = Column(String(255), nullable=True)
+    mission_type = Column(String(255), nullable=False, default=App.INDIVIDUAL)
     agency_id = Column(Integer, ForeignKey("agency.id"), nullable=True)
     agency = relationship("Agency", backref="missions")
     antenna_id = Column(Integer, ForeignKey("antenna.id"), nullable=True)
@@ -44,11 +46,14 @@ class Mission(SoftDeletableMixin, BaseMixin, db.Model):
     comment = db.Column(db.Text, nullable=True)
     start_date = db.Column(db.Date, nullable=True)
     end_date = db.Column(db.Date, nullable=True)
+    mission_start_date = db.Column(db.Date, nullable=True)
+    mission_end_date = db.Column(db.Date, nullable=True)
     sd_root_folder_id = db.Column(String(255), nullable=True)
     sd_document_templates_folder_id = db.Column(String(255), nullable=True)
     sd_information_documents_folder_id = db.Column(String(255), nullable=True)
     sd_projects_folder_id = db.Column(String(255), nullable=True)
     google_group_id = db.Column(String(255), nullable=True)
+    # individual
     ca_requester = db.Column(Boolean, nullable=True, default=False)
     ca_accommodation = db.Column(Boolean, nullable=True, default=False)
     ca_common_area = db.Column(Boolean, nullable=True, default=False)
@@ -61,6 +66,13 @@ class Mission(SoftDeletableMixin, BaseMixin, db.Model):
     ca_funders = db.Column(Boolean, nullable=True, default=False)
     ca_documents = db.Column(Boolean, nullable=True, default=False)
     ca_follow_up = db.Column(Boolean, nullable=True, default=False)
+    # copro
+    ca_mission_screen = db.Column(Boolean, nullable=True, default=False)
+    ca_asl_screen = db.Column(Boolean, nullable=True, default=False)
+    ca_copro_screen = db.Column(Boolean, nullable=True, default=False)
+    ca_building_screen = db.Column(Boolean, nullable=True, default=False)
+    ca_lot_screen = db.Column(Boolean, nullable=True, default=False)
+
     drive_init = db.Column(String(255), default="TODO")
     creator = db.Column(String(255), nullable=True)
 
