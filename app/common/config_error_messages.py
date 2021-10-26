@@ -430,3 +430,8 @@ MISSING_PERRENOUD_DATA_EXCEPTION = (
     "Perrenoud Analysis failed due to missing Perrenoud Data"
 )
 KEY_MISSING_PERRENOUD_DATA_EXCEPTION = "MISSING_PERRENOUD_DATA_EXCEPTION"
+
+PREFERRED_APP_NOT_FOUND = "Could not determine preferred app"
+KEY_PREFERRED_APP_NOT_FOUND = (
+    "PREFERRED_APP_NOT_FOUND_EXCEPTION"  # todo add in translation
+)
