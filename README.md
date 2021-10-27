@@ -19,14 +19,23 @@ Example of basic .env file for local environment:
 ```
 DEV_SERVER=True
 FLASK_ENV=dev
-
+IS_LOCAL=True
 DB_IP_ADDRESS=localhost
 DB_PORT=5432
 DB_NAME=oslo
-DB_USER=username
-DB_PASSWORD=password
-
-SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://${DB_USER}:${DB_PASSWORD}@${DB_IP_ADDRESS}:${DB_PORT}/${DB_NAME}
+DB_USER=postgres
+DB_PASSWORD=root
+TECHNICAL_ACCOUNT_EMAIL={{DELEGATED_ACCOUNT}}
+SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://postgres:root@localhost:5432/oslo
+GOOGLE_CLOUD_PROJECT=app-oslo-dev
+QUEUES_LOCATION=europe-west1
+TRANSLATION_URL="https://storage.googleapis.com/app-oslo-dev-locales/oslo-fr-FR.json"
+APPLICATION_MEMBERS_GOOGLE_GROUP="{{GOOGLE_GROUP_EMAIL}}"
+API_URL="http://localhost:5000"
+GROUP_NAME_ENV_PREFIX="{{SOME NAME PREFIX}}"
+GROUP_EMAIL_ENV_PREFIX="{{SOME EMAIL PREFIX}}"
+GSUITE_DOMAIN="{{GOOGLE_WORKSPACE_DOMAIN}}"
+APPLICATION_ADMINS_GOOGLE_GROUP="{{A GOOGLE GROUP CREATED BEFORE ON WORKSPACE}}"
 ```
 
 This will automatically setup the proper configuration at runtime.
@@ -126,3 +135,20 @@ To apply all migrations not already performed
 ```bash
 flask db upgrade
 ```
+
+
+## Cloud Task emulator
+Cloud Task is used on this project in order to create Drives, Google Groups and such.
+
+We use this [emulator](https://pypi.org/project/gcloud-tasks-emulator/).
+
+To install it, simply run this command in your venv: 
+```shell
+pip install gcloud-tasks-emulator
+```
+
+And to run it, please run:
+```shell
+gcloud-tasks-emulator start --port=9090
+```
+
