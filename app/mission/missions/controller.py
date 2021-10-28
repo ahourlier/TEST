@@ -12,6 +12,7 @@ from .schema import (
     MissionPaginatedSchema,
     MissionSchema,
     MissionDocumentSchema,
+    MissionCreateSchema,
 )
 from .service import (
     MissionService,
@@ -73,7 +74,7 @@ class MissionResource(AuthenticatedApi):
             user=g.user,
         )
 
-    @accepts(schema=MissionSchema(), api=api)
+    @accepts(schema=MissionCreateSchema(), api=api)
     @responds(schema=MissionSchema(), api=api)
     @requires(is_manager)
     def post(self) -> Mission:
