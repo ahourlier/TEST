@@ -32,6 +32,9 @@ from app.common.search import sort_query
 from app.mission.missions import Mission
 from app.mission.missions.error_handlers import MissionNotFoundException
 from app.mission.missions.interface import MissionInterface
+
+from app.admin.clients.referents.service import ReferentService
+
 from app.mission.teams import Team
 
 import app.auth.users.service as users_service
@@ -115,9 +118,20 @@ class MissionService:
         except ClientNotFoundException as e:
             raise e
         else:
+            referents = None
+            if new_attrs.get("referents"):
+                referents = new_attrs.get("referents")
+                del new_attrs["referents"]
+
             mission = Mission(**new_attrs, creator=g.user.email)
             db.session.add(mission)
             db.session.commit()
+
+            if referents:
+                for r in referents:
+                    r['mission_id'] = mission.id
+                    ReferentService.create(r)
+
             create_task(
                 project=os.getenv("GOOGLE_CLOUD_PROJECT"),
                 location=os.getenv("QUEUES_LOCATION"),
@@ -132,6 +146,8 @@ class MissionService:
     def update(
         mission: Mission, changes: MissionInterface, force_update: bool = False
     ) -> Mission:
+        if changes.get("referents"):
+            del changes["referents"]
         if force_update or MissionService.has_changed(mission, changes):
             # If one tries to update entity id, a error must be raised
             if changes.get("id") and changes.get("id") != mission.id:

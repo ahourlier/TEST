@@ -16,3 +16,17 @@ class ReferentSchema(SQLAlchemyAutoSchema):
             "phones",
             "active",
         )
+
+
+class ReferentCreateMissionSchema(SQLAlchemyAutoSchema):
+    phone_number = fields.Nested(PhoneNumberSchema, allow_none=True)
+
+    class Meta:
+        model = Referent
+        unknown = EXCLUDE
+        exclude = (
+            "phones",
+            "mission_id",
+            "id",
+            "active",
+        )
