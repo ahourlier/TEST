@@ -1,4 +1,3 @@
-
 from mypy_extensions import TypedDict
 
 

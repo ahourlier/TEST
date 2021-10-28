@@ -6,6 +6,7 @@ from sqlalchemy import or_
 from app.common.phone_number.model import PhoneNumber
 from app.common.phone_number.service import PhoneNumberService
 from .error_handlers import ReferentNotFoundException
+
 # from .exceptions import ChildReferentMissionException
 from .interface import ReferentInterface
 from .model import Referent, Referent
@@ -28,7 +29,9 @@ CLIENTS_DEFAULT_SORT_DIRECTION = "desc"
 class ReferentService:
     @staticmethod
     def get_all() -> List[Referent]:
-        return ReferentSchema().dump(Referent.query.filter(Referent.active == True).all(), many=True)
+        return ReferentSchema().dump(
+            Referent.query.filter(Referent.active == True).all(), many=True
+        )
 
     @staticmethod
     def get_by_id(referent_id: int) -> Referent:
