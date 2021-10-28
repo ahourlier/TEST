@@ -5,6 +5,7 @@ from .model import Mission
 from ..teams.schema import TeamSchema
 from ...admin.agencies import AgencySchema
 from ...admin.antennas import AntennaSchema
+from ...admin.clients.referents.schema import ReferentSchema
 from ...admin.clients.schema import ClientSchema
 from ...common.schemas import PaginatedSchema, DocumentSchema
 
@@ -13,6 +14,7 @@ class MissionSchema(SQLAlchemyAutoSchema):
     agency = fields.Nested(AgencySchema())
     antenna = fields.Nested(AntennaSchema())
     client = fields.Nested(ClientSchema())
+    referents = fields.Nested(ReferentSchema(), many=True)
     code_name = fields.String(dump_only=True)
 
     class Meta:
