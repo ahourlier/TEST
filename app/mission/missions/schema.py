@@ -5,7 +5,10 @@ from .model import Mission
 from ..teams.schema import TeamSchema
 from ...admin.agencies import AgencySchema
 from ...admin.antennas import AntennaSchema
-from ...admin.clients.referents.schema import ReferentSchema, ReferentCreateMissionSchema
+from ...admin.clients.referents.schema import (
+    ReferentSchema,
+    ReferentCreateMissionSchema,
+)
 from ...admin.clients.schema import ClientSchema
 from ...common.schemas import PaginatedSchema, DocumentSchema
 

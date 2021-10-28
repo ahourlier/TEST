@@ -129,7 +129,7 @@ class MissionService:
 
             if referents:
                 for r in referents:
-                    r['mission_id'] = mission.id
+                    r["mission_id"] = mission.id
                     ReferentService.create(r)
 
             create_task(

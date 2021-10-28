@@ -11,7 +11,8 @@ from .interface import MissionInterface
 from .schema import (
     MissionPaginatedSchema,
     MissionSchema,
-    MissionDocumentSchema, MissionCreateSchema,
+    MissionDocumentSchema,
+    MissionCreateSchema,
 )
 from .service import (
     MissionService,

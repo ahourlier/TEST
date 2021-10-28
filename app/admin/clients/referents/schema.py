@@ -9,6 +9,7 @@ class ReferentSchema(SQLAlchemyAutoSchema):
     """
     Used for read operations
     """
+
     phone_number = fields.Nested(PhoneNumberSchema, allow_none=True)
 
     class Meta:
@@ -28,6 +29,7 @@ class ReferentCreateMissionSchema(SQLAlchemyAutoSchema):
     That way, we have 2 exact representations and not one bulky representation of
     the object we need
     """
+
     phone_number = fields.Nested(PhoneNumberSchema, allow_none=True)
 
     class Meta:
