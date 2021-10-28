@@ -54,7 +54,7 @@ class Mission(SoftDeletableMixin, BaseMixin, db.Model):
     sd_information_documents_folder_id = db.Column(String(255), nullable=True)
     sd_projects_folder_id = db.Column(String(255), nullable=True)
     google_group_id = db.Column(String(255), nullable=True)
-    referents = relationship("Referent", cascade="all, delete-orphan")
+    referents = relationship("Referent", cascade="all, delete")
     # individual
     ca_requester = db.Column(Boolean, nullable=True, default=False)
     ca_accommodation = db.Column(Boolean, nullable=True, default=False)

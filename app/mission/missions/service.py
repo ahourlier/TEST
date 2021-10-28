@@ -146,6 +146,7 @@ class MissionService:
     def update(
         mission: Mission, changes: MissionInterface, force_update: bool = False
     ) -> Mission:
+        # if we find referents, remove them (supposed to used the referent WS)
         if changes.get("referents"):
             del changes["referents"]
         if force_update or MissionService.has_changed(mission, changes):
