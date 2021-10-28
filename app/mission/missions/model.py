@@ -19,6 +19,7 @@ from app.common.base_model import BaseMixin, SoftDeletableMixin
 
 # for relationships
 from app.admin.antennas import Antenna
+from app.admin.clients.referents import Referent
 
 
 class MissionStatus:
@@ -53,6 +54,7 @@ class Mission(SoftDeletableMixin, BaseMixin, db.Model):
     sd_information_documents_folder_id = db.Column(String(255), nullable=True)
     sd_projects_folder_id = db.Column(String(255), nullable=True)
     google_group_id = db.Column(String(255), nullable=True)
+    referents = relationship("Referent")
     # individual
     ca_requester = db.Column(Boolean, nullable=True, default=False)
     ca_accommodation = db.Column(Boolean, nullable=True, default=False)
