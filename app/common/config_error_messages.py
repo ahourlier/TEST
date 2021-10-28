@@ -435,3 +435,8 @@ PREFERRED_APP_NOT_FOUND = "Could not determine preferred app"
 KEY_PREFERRED_APP_NOT_FOUND = (
     "PREFERRED_APP_NOT_FOUND_EXCEPTION"  # todo add in translation
 )
+
+REFERENT_NOT_FOUND_EXCEPTION = "Could not find a referent with this id"
+KEY_REFERENT_NOT_FOUND_EXCEPTION = (
+    "REFERENT_NOT_FOUND_EXCEPTION"  # todo add in translation
+)
