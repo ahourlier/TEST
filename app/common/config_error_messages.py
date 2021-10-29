@@ -440,3 +440,6 @@ REFERENT_NOT_FOUND_EXCEPTION = "Could not find a referent with this id"
 KEY_REFERENT_NOT_FOUND_EXCEPTION = (
     "REFERENT_NOT_FOUND_EXCEPTION"  # todo add in translation
 )
+
+UNKNOWN_MISSION_TYPE_EXCEPTION = "Mission type unknown"  # todo add in translation
+KEY_UNKNOWN_MISSION_TYPE_EXCEPTION = "UNKNOWN_MISSION_TYPE_EXCEPTION"
