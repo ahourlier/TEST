@@ -67,6 +67,7 @@ release:
     - if: '$CI_COMMIT_BRANCH == "master"'
     - if: '$CI_COMMIT_BRANCH == "next"'
   script:
+    - apk add --no-cache git
     - yarn install
     - yarn run semantic-release
 
