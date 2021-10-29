@@ -72,6 +72,10 @@ class MissionResource(AuthenticatedApi):
             if request.args.get("client_id") not in [None, ""]
             else None,
             user=g.user,
+            mission_type=request.args.get(
+                "missionType"
+            ) if request.args.get("missionType") not in [None, ""]
+            else None
         )
 
     @accepts(schema=MissionCreateSchema(), api=api)
@@ -175,6 +179,10 @@ class MissionByUserResource(AuthenticatedApi):
             if request.args.get("client_id") not in [None, ""]
             else None,
             user=user,
+            mission_type=request.args.get(
+                "missionType"
+            ) if request.args.get("missionType") not in [None, ""]
+            else None
         )
 
 

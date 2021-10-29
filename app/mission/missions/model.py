@@ -14,7 +14,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql.functions import concat
 
 from app import db
-from app.auth.preferred_app.model import App
+from app.common.app_name import App
 from app.common.base_model import BaseMixin, SoftDeletableMixin
 
 # for relationships
