@@ -1,7 +1,7 @@
 from flask_marshmallow.sqla import SQLAlchemyAutoSchema
 from marshmallow import fields, EXCLUDE, validate, Schema
 
-from app.email.emails import Email
+from app.mail.mails import Email
 
 
 class EmailSchema(SQLAlchemyAutoSchema):
