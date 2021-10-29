@@ -29,7 +29,7 @@ cache:
 
 black:
   stage: Test
-  image: python:3.7-slim
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/python:3.7.12-slim
   allow_failure: true
   before_script:
   - python --version
@@ -60,7 +60,7 @@ black:
 #       junit: report.xml
 
 release:
-  image: node:14
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/node:14.18.1-alpine3.14
   stage: Release
   rules:
     - if: '$CI_COMMIT_BRANCH == "develop"'
@@ -72,7 +72,7 @@ release:
 
 deploy_dev:
   stage: Deploy
-  image: google/cloud-sdk:alpine
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/google/cloud-sdk:alpine
   environment: 
     name: dev
     url: https://api-dot-$DEV_PROJECT_ID.appspot.com/
@@ -92,7 +92,7 @@ deploy_dev:
 
 deploy_preprod:
   stage: Deploy
-  image: google/cloud-sdk:alpine
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/google/cloud-sdk:alpine
   environment: 
     name: preprod
     url: https://api-dot-$PREPROD_PROJECT_ID.appspot.com/
@@ -112,7 +112,7 @@ deploy_preprod:
 
 deploy_prod:
   stage: Deploy
-  image: google/cloud-sdk:alpine
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/google/cloud-sdk:alpine
   environment: 
     name: prod
     url: https://api-dot-$PROD_PROJECT_ID.appspot.com/
