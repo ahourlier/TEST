@@ -2,13 +2,13 @@ from flask import request, g
 from flask_accepts import accepts, responds
 
 from app.common.api import AuthenticatedApi
-from app.email.emails import api, Email
-from app.email.emails.schema import (
+from app.mail.mails import api, Email
+from app.mail.mails.schema import (
     EmailSchema,
     EmailProjectsRecipientsInput,
     EmailProjectsRecipientsOutput,
 )
-from app.email.emails.service import EmailService
+from app.mail.mails.service import EmailService
 
 
 @api.route("/")
