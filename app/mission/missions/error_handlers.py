@@ -1,5 +1,5 @@
 from . import api
-from .exceptions import MissionNotFoundException
+from .exceptions import MissionNotFoundException, UnknownMissionTypeException
 from app.common.error_handlers import parse_exception
 from app.common.exceptions import SharedDriveException, GoogleGroupsException
 
@@ -16,4 +16,9 @@ def shared_drive_exception(error):  # pragma: no cover
 
 @api.errorhandler(GoogleGroupsException)
 def google_groups_exception(error):  # pragma: no cover
+    return parse_exception(error)
+
+
+@api.errorhandler(UnknownMissionTypeException)
+def unknown_mission_type_exception(error):  # pragma: no cover
     return parse_exception(error)

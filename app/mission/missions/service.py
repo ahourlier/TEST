@@ -32,6 +32,7 @@ from app.common.tasks import create_task
 from app.common.search import sort_query
 from app.mission.missions import Mission
 from app.mission.missions.error_handlers import MissionNotFoundException
+from app.mission.missions.exceptions import UnknownMissionTypeException
 from app.mission.missions.interface import MissionInterface
 
 from app.admin.clients.referents.service import ReferentService
@@ -89,7 +90,10 @@ class MissionService:
         if client_id is not None:
             q = q.filter(Mission.client_id == client_id)
         if mission_type is not None:
-            q = q.filter(Mission.mission_type == mission_type)
+            if mission_type not in [App.INDIVIDUAL, App.COPRO]:
+                raise UnknownMissionTypeException
+            else:
+                q = q.filter(Mission.mission_type == mission_type)
 
         if user is not None:
             q = mission_permissions.MissionPermission.filter_query_mission_by_user_permissions(
