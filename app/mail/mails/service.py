@@ -22,14 +22,14 @@ from app.common.drive_utils import DriveUtils
 from app.common.gmail_utils import GmailUtils
 from app.common.google_apis import GMailService, DriveService
 from app.common.tasks import create_task
-from app.email.emails import Email
-from app.email.emails.error_handlers import (
+from app.mail.mails import Email
+from app.mail.mails.error_handlers import (
     EmailNotFoundException,
     EmailMissingRecipientException,
     EmailNotInternalSenderException,
 )
-from app.email.emails.model import EmailStatus
-from app.email.emails.schema import RECIPIENT_REFERRER_KIND, RECIPIENT_REQUESTER_KIND
+from app.mail.mails.model import EmailStatus
+from app.mail.mails.schema import RECIPIENT_REFERRER_KIND, RECIPIENT_REQUESTER_KIND
 from app.project.comments.service import (
     AutomaticCommentService,
     EMAIL_SENT,
