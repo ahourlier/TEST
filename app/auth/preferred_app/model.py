@@ -4,11 +4,6 @@ from app import db
 from app.common.base_model import BaseMixin
 
 
-class App:
-    COPRO = "COPROPRIETE"
-    INDIVIDUAL = "INDIVIDUEL"
-
-
 class PreferredApp(BaseMixin, db.Model):
     """ Application User """
 

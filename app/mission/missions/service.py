@@ -11,6 +11,7 @@ from app import db
 from app.admin.agencies.exceptions import AgencyNotFoundException
 from app.admin.antennas.exceptions import AntennaNotFoundException
 from app.admin.clients.exceptions import ClientNotFoundException
+from app.common.app_name import App
 from app.common.config_error_messages import (
     KEY_SHARED_DRIVE_CREATION_EXCEPTION,
     KEY_SHARED_DRIVE_FOLDER_CREATION_EXCEPTION,
@@ -31,6 +32,7 @@ from app.common.tasks import create_task
 from app.common.search import sort_query
 from app.mission.missions import Mission
 from app.mission.missions.error_handlers import MissionNotFoundException
+from app.mission.missions.exceptions import UnknownMissionTypeException
 from app.mission.missions.interface import MissionInterface
 
 from app.admin.clients.referents.service import ReferentService
@@ -56,15 +58,16 @@ MISSION_DELETE_SD_PREFIX = "ZZ - [ARCHIVE]"
 class MissionService:
     @staticmethod
     def get_all(
-        page=MISSIONS_DEFAULT_PAGE,
-        size=MISSIONS_DEFAULT_PAGE_SIZE,
-        term=None,
-        sort_by=MISSIONS_DEFAULT_SORT_FIELD,
-        direction=MISSIONS_DEFAULT_SORT_DIRECTION,
-        agency_id=None,
-        antenna_id=None,
-        client_id=None,
-        user=None,
+            page=MISSIONS_DEFAULT_PAGE,
+            size=MISSIONS_DEFAULT_PAGE_SIZE,
+            term=None,
+            sort_by=MISSIONS_DEFAULT_SORT_FIELD,
+            direction=MISSIONS_DEFAULT_SORT_DIRECTION,
+            agency_id=None,
+            antenna_id=None,
+            client_id=None,
+            user=None,
+            mission_type=None
     ) -> Pagination:
         import app.mission.permissions as mission_permissions
 
@@ -86,6 +89,11 @@ class MissionService:
             q = q.filter(Mission.antenna_id == antenna_id)
         if client_id is not None:
             q = q.filter(Mission.client_id == client_id)
+        if mission_type is not None:
+            if mission_type not in [App.INDIVIDUAL, App.COPRO]:
+                raise UnknownMissionTypeException
+            else:
+                q = q.filter(Mission.mission_type == mission_type)
 
         if user is not None:
             q = mission_permissions.MissionPermission.filter_query_mission_by_user_permissions(
@@ -138,13 +146,13 @@ class MissionService:
                 queue=MISSION_INIT_QUEUE_NAME,
                 uri=f"{os.getenv('API_URL')}/_internal/missions/init-drive",
                 method="POST",
-                payload={"mission_id": mission.id,},
+                payload={"mission_id": mission.id, },
             )
             return mission
 
     @staticmethod
     def update(
-        mission: Mission, changes: MissionInterface, force_update: bool = False
+            mission: Mission, changes: MissionInterface, force_update: bool = False
     ) -> Mission:
         # if we find referents, remove them (supposed to used the referent WS)
         if changes.get("referents"):

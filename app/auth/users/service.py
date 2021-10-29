@@ -17,11 +17,11 @@ from .interface import UserInterface
 from .model import User, UserKind, UserRole, UserGroup
 from app import db
 from ..preferred_app import PreferredApp
-from ..preferred_app.model import App
 from ...admin.agencies import Agency
 from ...admin.antennas import Antenna
 from ...common import Permission, Role
 from app.auth.error_handlers import InvalidSearchFieldException
+from ...common.app_name import App
 from ...common.google_apis import DirectoryService, CloudIdentityService
 from ...common.group_utils import GroupUtils
 from ...common.identity_utils import IdentityUtils
