@@ -6,7 +6,7 @@ def register_routes(api, app, root="api"):
     from app.project import register_routes as attach_project
     from app.referential import register_routes as attach_referential
     from app.funder import register_routes as attach_funder
-    from app.email import register_routes as attach_emails
+    from app.mail import register_routes as attach_emails
     from app.homepage import register_routes as attach_homepage
     from app.data_import import register_routes as attach_data_import
     from app.perrenoud import register_routes as attach_perrenoud
