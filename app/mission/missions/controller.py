@@ -8,6 +8,7 @@ from flask_restx import inputs
 
 from . import api, Mission
 from .interface import MissionInterface
+from .mission_details.schema import MissionDetailSchema
 from .schema import (
     MissionPaginatedSchema,
     MissionSchema,
@@ -198,3 +199,12 @@ class MissionDocumentResource(AuthenticatedApi):
             db_mission, data.get("files_id"), data.get("kind"), g.user.email
         )
         return jsonify(resp)
+
+
+@api.route("/<int:mission_id>/details")
+@api.param("missionId", "Mission unique ID")
+class MissionDetailsResource(AuthenticatedApi):
+
+    @responds(schema=MissionDetailSchema(), api=api)
+    def get(self, mission_id: int):
+        return MissionService.get_details_by_mission_id(mission_id)

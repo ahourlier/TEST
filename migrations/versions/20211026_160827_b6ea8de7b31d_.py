@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-from app.auth.preferred_app.model import App
+from app.common.app_name import App
 
 revision = 'b6ea8de7b31d'
 down_revision = '4e8156e991ce'

@@ -36,6 +36,8 @@ from app.mission.missions.exceptions import UnknownMissionTypeException
 from app.mission.missions.interface import MissionInterface
 
 from app.admin.clients.referents.service import ReferentService
+from app.mission.missions.mission_details import MissionDetail
+from app.mission.missions.mission_details.exceptions import MissionDetailNotFoundException
 
 from app.mission.teams import Team
 
@@ -134,6 +136,12 @@ class MissionService:
             mission = Mission(**new_attrs, creator=g.user.email)
             db.session.add(mission)
             db.session.commit()
+
+            if mission.mission_type == App.COPRO:
+                mission_details = MissionDetail()
+                mission_details.mission_id = mission.id
+                db.session.add(mission_details)
+                db.session.commit()
 
             if referents:
                 for r in referents:
@@ -299,3 +307,12 @@ class MissionService:
                     response.append(resp)
 
         return response
+
+    @staticmethod
+    def get_details_by_mission_id(mission_id):
+        mission_detail = MissionDetail.query.filter(MissionDetail.mission_id == mission_id).first()
+
+        if not mission_detail:
+            raise MissionDetailNotFoundException
+
+        return mission_detail
