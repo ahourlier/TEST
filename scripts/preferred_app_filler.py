@@ -1,7 +1,7 @@
-from app import db, create_app
+from app import db
 from app.auth.preferred_app import PreferredApp
-from app.auth.preferred_app.model import App
 from app.auth.users import User
+from app.common.app_name import App
 
 
 def fill_preferred_app():
