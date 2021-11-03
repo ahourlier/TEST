@@ -14,8 +14,8 @@ class Referent(HasPhones, BaseMixin, db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     first_name = Column(String(255), nullable=False)
     last_name = Column(String(255), nullable=False)
-    email = Column(String(255), nullable=False)
-    function = Column(String(255), nullable=False)
+    email = Column(String(255), nullable=True)
+    function = Column(String(255), nullable=True)
     mission_id = Column(
         Integer(), ForeignKey("mission.id"), unique=False, nullable=False
     )
