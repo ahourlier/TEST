@@ -45,7 +45,7 @@ class ReferentService:
         if "phone_number" in new_attrs:
             if new_attrs.get("phone_number", None):
                 new_attrs["phones"] = [PhoneNumber(**new_attrs.get("phone_number"))]
-                del new_attrs["phone_number"]
+            del new_attrs["phone_number"]
         new_referent = Referent(**new_attrs)
         db.session.add(new_referent)
         db.session.commit()
@@ -72,12 +72,13 @@ class ReferentService:
 
     @staticmethod
     def delete_by_id(referent_id: int) -> int or None:
-        referent = Referent.query.filter(Referent.id == referent_id).first()
-        if not referent:
+        referent_q = Referent.query.filter(Referent.id == referent_id)
+        if not referent_q.first():
             raise ReferentNotFoundException
         # if referent.missions:
         #     A mission depends of this referent. Must not be deleted.
         # raise ChildReferentMissionException
-        referent.active = False
+        # referent.active = False
+        referent_q.delete()
         db.session.commit()
         return referent_id
