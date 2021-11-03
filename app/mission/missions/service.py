@@ -11,6 +11,8 @@ from app import db
 from app.admin.agencies.exceptions import AgencyNotFoundException
 from app.admin.antennas.exceptions import AntennaNotFoundException
 from app.admin.clients.exceptions import ClientNotFoundException
+from app.admin.clients.referents.schema import ReferentSchema
+from app.admin.clients.schema import ClientSchema
 from app.common.app_name import App
 from app.common.config_error_messages import (
     KEY_SHARED_DRIVE_CREATION_EXCEPTION,
@@ -30,12 +32,18 @@ from app.common.google_apis import DriveService, DirectoryService, GroupsSetting
 from app.common.group_utils import GroupUtils
 from app.common.tasks import create_task
 from app.common.search import sort_query
-from app.mission.missions import Mission
+from app.mission.missions import Mission, MissionSchema
 from app.mission.missions.error_handlers import MissionNotFoundException
 from app.mission.missions.exceptions import UnknownMissionTypeException
 from app.mission.missions.interface import MissionInterface
 
 from app.admin.clients.referents.service import ReferentService
+from app.mission.missions.mission_details.exceptions import (
+    MissionDetailNotFoundException,
+)
+from app.mission.missions.mission_details.model import MissionDetail
+from app.mission.missions.mission_details.schema import MissionDetailSchema
+from app.mission.missions.schema import MissionLightSchema
 
 from app.mission.teams import Team
 
@@ -134,6 +142,12 @@ class MissionService:
             mission = Mission(**new_attrs, creator=g.user.email)
             db.session.add(mission)
             db.session.commit()
+
+            if mission.mission_type == App.COPRO:
+                mission_details = MissionDetail()
+                mission_details.mission_id = mission.id
+                db.session.add(mission_details)
+                db.session.commit()
 
             if referents:
                 for r in referents:
@@ -299,3 +313,35 @@ class MissionService:
                     response.append(resp)
 
         return response
+
+    @staticmethod
+    def get_details_by_mission_id(mission_id):
+        mission_detail = MissionDetail.query.filter(
+            MissionDetail.mission_id == mission_id
+        ).first()
+
+        if not mission_detail:
+            raise MissionDetailNotFoundException
+
+        mission_detail_dump = MissionDetailSchema().dump(mission_detail)
+
+        mission = MissionService.get_by_id(mission_id)
+
+        if not mission:
+            raise MissionNotFoundException
+
+        dumped_mission = MissionLightSchema().dump(mission)
+
+        mission_detail_dump["referents"] = (
+            [ReferentSchema().dump(r) for r in mission.referents]
+            if mission.referents
+            else None
+        )
+        mission_detail_dump["name"] = mission.name
+        mission_detail_dump["client"] = (
+            ClientSchema().dump(mission.client) if mission.client else None
+        )
+        mission_detail_dump["mission_start_date"] = dumped_mission["mission_start_date"]
+        mission_detail_dump["mission_end_date"] = dumped_mission["mission_end_date"]
+
+        return jsonify(mission_detail_dump)
