@@ -58,16 +58,16 @@ MISSION_DELETE_SD_PREFIX = "ZZ - [ARCHIVE]"
 class MissionService:
     @staticmethod
     def get_all(
-            page=MISSIONS_DEFAULT_PAGE,
-            size=MISSIONS_DEFAULT_PAGE_SIZE,
-            term=None,
-            sort_by=MISSIONS_DEFAULT_SORT_FIELD,
-            direction=MISSIONS_DEFAULT_SORT_DIRECTION,
-            agency_id=None,
-            antenna_id=None,
-            client_id=None,
-            user=None,
-            mission_type=None
+        page=MISSIONS_DEFAULT_PAGE,
+        size=MISSIONS_DEFAULT_PAGE_SIZE,
+        term=None,
+        sort_by=MISSIONS_DEFAULT_SORT_FIELD,
+        direction=MISSIONS_DEFAULT_SORT_DIRECTION,
+        agency_id=None,
+        antenna_id=None,
+        client_id=None,
+        user=None,
+        mission_type=None,
     ) -> Pagination:
         import app.mission.permissions as mission_permissions
 
@@ -146,13 +146,13 @@ class MissionService:
                 queue=MISSION_INIT_QUEUE_NAME,
                 uri=f"{os.getenv('API_URL')}/_internal/missions/init-drive",
                 method="POST",
-                payload={"mission_id": mission.id, },
+                payload={"mission_id": mission.id,},
             )
             return mission
 
     @staticmethod
     def update(
-            mission: Mission, changes: MissionInterface, force_update: bool = False
+        mission: Mission, changes: MissionInterface, force_update: bool = False
     ) -> Mission:
         # if we find referents, remove them (supposed to used the referent WS)
         if changes.get("referents"):
