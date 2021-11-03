@@ -10,9 +10,7 @@ class ReferentSchema(SQLAlchemyAutoSchema):
     Used for read operations
     """
 
-    phone_number = fields.Nested(PhoneNumberSchema,
-                                 allow_none=True,
-                                 skip_none=True)
+    phone_number = fields.Nested(PhoneNumberSchema, allow_none=True, skip_none=True)
 
     class Meta:
         model = Referent
