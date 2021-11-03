@@ -5,7 +5,6 @@ from app.mission.missions.mission_details.job.model import Job
 
 
 class JobSchema(SQLAlchemyAutoSchema):
-
     class Meta:
         model = Job
         include_fk = True

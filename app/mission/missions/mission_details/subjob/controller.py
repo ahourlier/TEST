@@ -7,8 +7,6 @@ from flask_accepts import responds
 
 @api.route("")
 class SubjobsResource(AuthenticatedApi):
-
     @responds(schema=SubjobSchema, many=True, api=api)
     def get(self):
         return SubjobService.get_all()
-

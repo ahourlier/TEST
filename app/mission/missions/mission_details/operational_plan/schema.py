@@ -5,7 +5,6 @@ from app.mission.missions.mission_details.operational_plan.model import Operatio
 
 
 class OperationalPlanSchema(SQLAlchemyAutoSchema):
-
     class Meta:
         model = OperationalPlan
         include_fk = True

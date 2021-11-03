@@ -13,10 +13,16 @@ class MissionDetail(BaseMixin, db.Model):
     __tablename__ = "mission_detail"
     id = Column(Integer(), primary_key=True, autoincrement=True)
     # general
-    mission_id = Column(Integer(), ForeignKey("mission.id"), unique=True, nullable=False)
-    operational_plan = Column(String(255), ForeignKey("operational_plan.value"), unique=False)
+    mission_id = Column(
+        Integer(), ForeignKey("mission.id"), unique=True, nullable=False
+    )
+    operational_plan = Column(
+        String(255), ForeignKey("operational_plan.value"), unique=False
+    )
     job = Column(String(255), ForeignKey("job.value"), unique=False, nullable=True)
-    subjob = Column(String(255), ForeignKey("subjob.value"), unique=False, nullable=True)
+    subjob = Column(
+        String(255), ForeignKey("subjob.value"), unique=False, nullable=True
+    )
     previous_running_meeting = Column(db.Date, nullable=True)
     # marche et facturation
     market_number = Column(Integer(), nullable=True)
@@ -29,7 +35,3 @@ class MissionDetail(BaseMixin, db.Model):
     smq_starting_meeting = Column(db.Date, nullable=True)
     smq_engagement_meeting = Column(db.Date, nullable=True)
     smq_previous_meeting = Column(db.Date, nullable=True)
-
-
-
-

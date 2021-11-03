@@ -8,7 +8,9 @@ from flask_restx import inputs
 
 from . import api, Mission
 from .interface import MissionInterface
+from .mission_details.interface import MissionDetailInterface
 from .mission_details.schema import MissionDetailSchema
+from .mission_details.service import MissionDetailService
 from .schema import (
     MissionPaginatedSchema,
     MissionSchema,
@@ -73,10 +75,9 @@ class MissionResource(AuthenticatedApi):
             if request.args.get("client_id") not in [None, ""]
             else None,
             user=g.user,
-            mission_type=request.args.get(
-                "missionType"
-            ) if request.args.get("missionType") not in [None, ""]
-            else None
+            mission_type=request.args.get("missionType")
+            if request.args.get("missionType") not in [None, ""]
+            else None,
         )
 
     @accepts(schema=MissionCreateSchema(), api=api)
@@ -180,10 +181,9 @@ class MissionByUserResource(AuthenticatedApi):
             if request.args.get("client_id") not in [None, ""]
             else None,
             user=user,
-            mission_type=request.args.get(
-                "missionType"
-            ) if request.args.get("missionType") not in [None, ""]
-            else None
+            mission_type=request.args.get("missionType")
+            if request.args.get("missionType") not in [None, ""]
+            else None,
         )
 
 
@@ -204,7 +204,13 @@ class MissionDocumentResource(AuthenticatedApi):
 @api.route("/<int:mission_id>/details")
 @api.param("missionId", "Mission unique ID")
 class MissionDetailsResource(AuthenticatedApi):
-
-    @responds(schema=MissionDetailSchema(), api=api)
+    @responds(api=api)
     def get(self, mission_id: int):
         return MissionService.get_details_by_mission_id(mission_id)
+
+    @responds(schema=MissionDetailSchema, api=api)
+    @accepts(schema=MissionDetailSchema, api=api)
+    def put(self, mission_id):
+        changes: MissionDetailInterface = request.parsed_obj
+        db_mission_details = MissionDetailService.get_by_mission_id(mission_id)
+        return MissionDetailService.update(db_mission_details, changes)

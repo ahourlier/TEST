@@ -6,8 +6,6 @@ from .service import JobService
 
 @api.route("")
 class JobResource(AuthenticatedApi):
-
     @responds(schema=JobSchema, many=True, api=api)
     def get(self):
         return JobService.get_all()
-

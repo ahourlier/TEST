@@ -26,6 +26,13 @@ class MissionSchema(SQLAlchemyAutoSchema):
         unknown = EXCLUDE
 
 
+class MissionLightSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = Mission
+        include_fk = False
+        unknown = EXCLUDE
+
+
 class MissionCreateSchema(SQLAlchemyAutoSchema):
     agency = fields.Nested(AgencySchema())
     antenna = fields.Nested(AntennaSchema())

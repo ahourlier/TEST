@@ -11,6 +11,8 @@ from app import db
 from app.admin.agencies.exceptions import AgencyNotFoundException
 from app.admin.antennas.exceptions import AntennaNotFoundException
 from app.admin.clients.exceptions import ClientNotFoundException
+from app.admin.clients.referents.schema import ReferentSchema
+from app.admin.clients.schema import ClientSchema
 from app.common.app_name import App
 from app.common.config_error_messages import (
     KEY_SHARED_DRIVE_CREATION_EXCEPTION,
@@ -30,14 +32,18 @@ from app.common.google_apis import DriveService, DirectoryService, GroupsSetting
 from app.common.group_utils import GroupUtils
 from app.common.tasks import create_task
 from app.common.search import sort_query
-from app.mission.missions import Mission
+from app.mission.missions import Mission, MissionSchema
 from app.mission.missions.error_handlers import MissionNotFoundException
 from app.mission.missions.exceptions import UnknownMissionTypeException
 from app.mission.missions.interface import MissionInterface
 
 from app.admin.clients.referents.service import ReferentService
-from app.mission.missions.mission_details import MissionDetail
-from app.mission.missions.mission_details.exceptions import MissionDetailNotFoundException
+from app.mission.missions.mission_details.exceptions import (
+    MissionDetailNotFoundException,
+)
+from app.mission.missions.mission_details.model import MissionDetail
+from app.mission.missions.mission_details.schema import MissionDetailSchema
+from app.mission.missions.schema import MissionLightSchema
 
 from app.mission.teams import Team
 
@@ -60,16 +66,16 @@ MISSION_DELETE_SD_PREFIX = "ZZ - [ARCHIVE]"
 class MissionService:
     @staticmethod
     def get_all(
-            page=MISSIONS_DEFAULT_PAGE,
-            size=MISSIONS_DEFAULT_PAGE_SIZE,
-            term=None,
-            sort_by=MISSIONS_DEFAULT_SORT_FIELD,
-            direction=MISSIONS_DEFAULT_SORT_DIRECTION,
-            agency_id=None,
-            antenna_id=None,
-            client_id=None,
-            user=None,
-            mission_type=None
+        page=MISSIONS_DEFAULT_PAGE,
+        size=MISSIONS_DEFAULT_PAGE_SIZE,
+        term=None,
+        sort_by=MISSIONS_DEFAULT_SORT_FIELD,
+        direction=MISSIONS_DEFAULT_SORT_DIRECTION,
+        agency_id=None,
+        antenna_id=None,
+        client_id=None,
+        user=None,
+        mission_type=None,
     ) -> Pagination:
         import app.mission.permissions as mission_permissions
 
@@ -154,13 +160,13 @@ class MissionService:
                 queue=MISSION_INIT_QUEUE_NAME,
                 uri=f"{os.getenv('API_URL')}/_internal/missions/init-drive",
                 method="POST",
-                payload={"mission_id": mission.id, },
+                payload={"mission_id": mission.id,},
             )
             return mission
 
     @staticmethod
     def update(
-            mission: Mission, changes: MissionInterface, force_update: bool = False
+        mission: Mission, changes: MissionInterface, force_update: bool = False
     ) -> Mission:
         # if we find referents, remove them (supposed to used the referent WS)
         if changes.get("referents"):
@@ -310,9 +316,32 @@ class MissionService:
 
     @staticmethod
     def get_details_by_mission_id(mission_id):
-        mission_detail = MissionDetail.query.filter(MissionDetail.mission_id == mission_id).first()
+        mission_detail = MissionDetail.query.filter(
+            MissionDetail.mission_id == mission_id
+        ).first()
 
         if not mission_detail:
             raise MissionDetailNotFoundException
 
-        return mission_detail
+        mission_detail_dump = MissionDetailSchema().dump(mission_detail)
+
+        mission = MissionService.get_by_id(mission_id)
+
+        if not mission:
+            raise MissionNotFoundException
+
+        dumped_mission = MissionLightSchema().dump(mission)
+
+        mission_detail_dump["referents"] = (
+            [ReferentSchema().dump(r) for r in mission.referents]
+            if mission.referents
+            else None
+        )
+        mission_detail_dump["name"] = mission.name
+        mission_detail_dump["client"] = (
+            ClientSchema().dump(mission.client) if mission.client else None
+        )
+        mission_detail_dump["mission_start_date"] = dumped_mission["mission_start_date"]
+        mission_detail_dump["mission_end_date"] = dumped_mission["mission_end_date"]
+
+        return jsonify(mission_detail_dump)
