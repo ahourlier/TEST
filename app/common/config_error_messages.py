@@ -448,3 +448,6 @@ MISSION_DETAIL_NOT_FOUND_EXCEPTION = "Could not find a mission detail with this 
 KEY_MISSION_DETAIL_NOT_FOUND_EXCEPTION = (
     "MISSION_DETAIL_NOT_FOUND_EXCEPTION"  # todo add in translation
 )
+
+PARTNER_NOT_FOUND_EXCEPTION = "Partner not found"  # todo add in translation
+KEY_PARTNER_NOT_FOUND_EXCEPTION = "PARTNER_NOT_FOUND_EXCEPTION"
