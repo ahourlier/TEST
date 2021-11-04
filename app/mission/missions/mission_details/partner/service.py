@@ -1,17 +1,18 @@
 from app import db
 from app.common.address.model import Address
-from app.mission.missions.mission_details.partner.exceptions import PartnerNotFoundException
+from app.mission.missions.mission_details.partner.exceptions import (
+    PartnerNotFoundException,
+)
 from app.mission.missions.mission_details.partner.model import Partner
 
 
 class PartnerService:
-
     @staticmethod
     def create(partner):
         address = None
-        if "address" in partner and partner.get('address') is not None:
-            address = partner.get('address')
-            del partner['address']
+        if "address" in partner and partner.get("address") is not None:
+            address = partner.get("address")
+            del partner["address"]
 
         address_id = None
         if address:
@@ -38,7 +39,9 @@ class PartnerService:
         if "address" in new_attrs:
             if new_attrs.get("address") is not None:
                 if not db_partner.address_id:
-                    db_partner.address_id = PartnerService.create_address(new_attrs.get("address"))
+                    db_partner.address_id = PartnerService.create_address(
+                        new_attrs.get("address")
+                    )
                 else:
                     db_address = Address.query.get(db_partner.address_id)
                     db_address.update(new_attrs.get("address"))
@@ -74,4 +77,3 @@ class PartnerService:
         db.session.add(new_address)
         db.session.commit()
         return new_address.id
-

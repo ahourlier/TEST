@@ -9,7 +9,6 @@ from .service import PartnerService
 
 @api.route("/")
 class PartnerResource(AuthenticatedApi):
-
     @accepts(schema=PartnerSchema, api=api)
     @responds(schema=PartnerSchema, api=api)
     def post(self):
@@ -19,7 +18,6 @@ class PartnerResource(AuthenticatedApi):
 @api.route("/<int:partner_id>")
 @api.param("partnerId", "Partner unique ID")
 class PartnerResource(AuthenticatedApi):
-
     @accepts(schema=PartnerUpdateSchema, api=api)
     @responds(schema=PartnerSchema, api=api)
     def put(self, partner_id: int):
