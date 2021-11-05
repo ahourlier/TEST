@@ -130,7 +130,7 @@ class MissionIdResource(AuthenticatedApi):
                 )
         return db_mission
 
-    @requires(has_mission_permission)
+    @requires(is_manager)
     def delete(self, mission_id: int) -> Response:
         """Delete single mission"""
 
