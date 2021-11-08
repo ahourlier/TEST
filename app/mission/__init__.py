@@ -14,11 +14,21 @@ def register_routes(api, app, root="api"):
     from .teams.controller import api as teams_api
     from .custom_fields.controller import api as custom_fields_api
     from .monitors.controller import api as monitors_api
+    from .missions.mission_details.job.controller import api as job_api
+    from .missions.mission_details.subjob.controller import api as subjob_api
+    from .missions.mission_details.operational_plan.controller import (
+        api as operational_plans_api,
+    )
+    from .missions.mission_details.partner.controller import api as partner_api
 
     api.add_namespace(missions_api, path=f"/{root}/{BASE_ROUTE}/missions")
     api.add_namespace(teams_api, path=f"/{root}/{BASE_ROUTE}/teams")
     api.add_namespace(custom_fields_api, path=f"/{root}/{BASE_ROUTE}/custom_fields")
     api.add_namespace(monitors_api, path=f"/{root}/{BASE_ROUTE}/monitors")
+    api.add_namespace(job_api, path=f"/{root}/jobs")
+    api.add_namespace(subjob_api, path=f"/{root}/subjobs")
+    api.add_namespace(operational_plans_api, path=f"/{root}/operational_plans")
+    api.add_namespace(partner_api, path=f"/{root}/partners")
 
 
 def register_internal_routes(bp):

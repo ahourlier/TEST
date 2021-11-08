@@ -29,7 +29,7 @@ cache:
 
 black:
   stage: Test
-  image: python:3.7-slim
+  image: python:3.7.12-slim
   allow_failure: true
   before_script:
   - python --version
@@ -60,13 +60,15 @@ black:
 #       junit: report.xml
 
 release:
-  image: node:14
+  image: node:14.18.1-alpine3.14
   stage: Release
   rules:
     - if: '$CI_COMMIT_BRANCH == "develop"'
     - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
     - if: '$CI_COMMIT_BRANCH == "next"'
   script:
+    - apk add --no-cache git
     - yarn install
     - yarn run semantic-release
 

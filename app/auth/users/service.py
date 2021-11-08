@@ -16,10 +16,12 @@ from .error_handlers import UserNotFoundException, UnknownConnexionEmail, Inacti
 from .interface import UserInterface
 from .model import User, UserKind, UserRole, UserGroup
 from app import db
+from ..preferred_app import PreferredApp
 from ...admin.agencies import Agency
 from ...admin.antennas import Antenna
 from ...common import Permission, Role
 from app.auth.error_handlers import InvalidSearchFieldException
+from ...common.app_name import App
 from ...common.google_apis import DirectoryService, CloudIdentityService
 from ...common.group_utils import GroupUtils
 from ...common.identity_utils import IdentityUtils
@@ -83,8 +85,18 @@ class UserService:
     def create(new_attrs: UserInterface) -> User:
         if new_attrs.get("kind") == UserKind.OTHER:
             new_attrs = UserService.signup_new_user(new_attrs)
+
+        preferred_app = PreferredApp(
+            **{"preferred_app": App.INDIVIDUAL, "first_connection": True}
+        )
+
+        db.session.add(preferred_app)
+        db.session.commit()
+
         new_user = User(**new_attrs)
+        new_user.preferred_app_id = preferred_app.id
         db.session.add(new_user)
+
         db.session.commit()
 
         if new_user.role in [UserRole.ADMIN, UserRole.MANAGER, UserRole.CONTRIBUTOR]:
@@ -200,6 +212,7 @@ class UserService:
         if user.uid is not None:
             IdentityUtils.delete_user(user.uid)
         db.session.delete(user)
+        PreferredApp.query.filter_by(id=user.preferred_app_id).delete()
         db.session.commit()
         return user_id
 

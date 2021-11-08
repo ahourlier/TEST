@@ -1,9 +1,9 @@
 import logging
 from flask import request
 
-from app.email.emails.model import EmailStatus
+from app.mail.mails.model import EmailStatus
 from app.internal_api.base import InternalAPIView
-from app.email.emails.service import EmailService
+from app.mail.mails.service import EmailService
 
 
 class EmailSendView(InternalAPIView):
