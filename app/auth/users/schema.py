@@ -5,6 +5,7 @@ from marshmallow.fields import String
 
 from . import UserGroup
 from .model import User
+from ..preferred_app import PreferredAppSchema
 from ...admin.agencies import AgencySchema
 from ...admin.antennas import AntennaSchema
 from ...common.schemas import PaginatedSchema
@@ -20,6 +21,7 @@ class UserGroupSchema(SQLAlchemyAutoSchema):
 
 class UserSchema(SQLAlchemyAutoSchema):
     groups = fields.List(fields.Nested(UserGroupSchema()), dump_only=True)
+    # preferred_app = fields.Nested(PreferredAppSchema())
 
     class Meta:
         model = User
@@ -36,6 +38,7 @@ class UserAuthSchema(SQLAlchemyAutoSchema):
     groups = fields.List(fields.Nested(UserGroupSchema()), dump_only=True)
     permissions = fields.List(fields.Nested(UserPermissionSchema), dump_only=True)
     projects_id = fields.List(fields.Integer, dump_only=True)
+    preferred_app = fields.Nested(PreferredAppSchema())
 
     class Meta:
         model = User

@@ -1,6 +1,6 @@
 BASE_ROUTE = "email"
 
-from .emails.controller import api as emails_api
+from .mails.controller import api as emails_api
 
 
 def register_routes(api, app, root="api"):
@@ -8,7 +8,7 @@ def register_routes(api, app, root="api"):
 
 
 def register_internal_routes(bp):
-    from .emails.internal_controller import EmailSendView
+    from .mails.internal_controller import EmailSendView
 
     prefix = "/emails"
     bp.add_url_rule(

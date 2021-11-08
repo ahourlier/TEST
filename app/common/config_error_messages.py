@@ -430,3 +430,24 @@ MISSING_PERRENOUD_DATA_EXCEPTION = (
     "Perrenoud Analysis failed due to missing Perrenoud Data"
 )
 KEY_MISSING_PERRENOUD_DATA_EXCEPTION = "MISSING_PERRENOUD_DATA_EXCEPTION"
+
+PREFERRED_APP_NOT_FOUND = "Could not determine preferred app"
+KEY_PREFERRED_APP_NOT_FOUND = (
+    "PREFERRED_APP_NOT_FOUND_EXCEPTION"  # todo add in translation
+)
+
+REFERENT_NOT_FOUND_EXCEPTION = "Could not find a referent with this id"
+KEY_REFERENT_NOT_FOUND_EXCEPTION = (
+    "REFERENT_NOT_FOUND_EXCEPTION"  # todo add in translation
+)
+
+UNKNOWN_MISSION_TYPE_EXCEPTION = "Mission type unknown"  # todo add in translation
+KEY_UNKNOWN_MISSION_TYPE_EXCEPTION = "UNKNOWN_MISSION_TYPE_EXCEPTION"
+
+MISSION_DETAIL_NOT_FOUND_EXCEPTION = "Could not find a mission detail with this id"
+KEY_MISSION_DETAIL_NOT_FOUND_EXCEPTION = (
+    "MISSION_DETAIL_NOT_FOUND_EXCEPTION"  # todo add in translation
+)
+
+PARTNER_NOT_FOUND_EXCEPTION = "Partner not found"  # todo add in translation
+KEY_PARTNER_NOT_FOUND_EXCEPTION = "PARTNER_NOT_FOUND_EXCEPTION"
