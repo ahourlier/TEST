@@ -1,51 +1,73 @@
 from app import db
-from app.common.phone_number.model import PhoneNumber
-from app.common.phone_number.service import PhoneNumberService
-from app.mission.missions.mission_details.elect.exceptions import (
-    ElectNotFoundException,
+from app.common.address.model import Address
+from app.common.address.service import AddressService
+from app.mission.missions.mission_details.partner.exceptions import (
+    PartnerNotFoundException,
 )
-from app.mission.missions.mission_details.elect.model import Elect
+from app.mission.missions.mission_details.partner.model import Partner
 
 
-class ElectService:
+class PartnerService:
     @staticmethod
-    def create(elect):
-        if "phone_number" in elect:
-            if elect.get("phone_number", None):
-                elect["phones"] = [PhoneNumber(**elect.get("phone_number"))]
-            del elect["phone_number"]
-        new_elect = Elect(**elect)
-        db.session.add(new_elect)
+    def create(partner):
+        address = None
+        if "address" in partner and partner.get("address") is not None:
+            address = partner.get("address")
+            del partner["address"]
+
+        address_id = None
+        if address:
+            address_id = AddressService.create_address(address)
+
+        new_partner = Partner(**partner)
+        if address_id:
+            new_partner.address_id = address_id
+        db.session.add(new_partner)
         db.session.commit()
 
-        return new_elect
+        return new_partner
 
     @staticmethod
-    def get_by_id(elect_id: int):
-        elect = Elect.query.get(elect_id)
-        if not elect:
-            raise ElectNotFoundException
-        return elect
+    def get_by_id(partner_id: int):
+        partner = Partner.query.get(partner_id)
+        if not partner:
+            raise PartnerNotFoundException
+        return partner
 
     @staticmethod
-    def update(db_elect: Elect, new_attrs):
-        if "phone_number" in new_attrs:
-            if new_attrs.get("phone_number", None):
-                PhoneNumberService.update_phone_numbers(
-                    db_elect, [new_attrs.get("phone_number")]
-                )
-            del new_attrs["phone_number"]
-        db_elect.update(new_attrs)
+    def update(db_partner: Partner, new_attrs):
+
+        if "address" in new_attrs:
+            if new_attrs.get("address") is not None:
+                if not db_partner.address_id:
+                    db_partner.address_id = AddressService.create_address(
+                        new_attrs.get("address")
+                    )
+                else:
+                    db_address = Address.query.get(db_partner.address_id)
+                    db_address.update(new_attrs.get("address"))
+            else:
+                address = Address.query.filter(Address.id == db_partner.address_id)
+                db_partner.address_id = None
+                address.delete()
+            del new_attrs["address"]
+
+        db_partner.update(new_attrs)
         db.session.commit()
-        return db_elect
+        return db_partner
 
     @staticmethod
-    def delete(elect_id):
-        elect = Elect.query.filter(Elect.id == elect_id).first()
+    def delete(partner_id):
+        partner = Partner.query.filter(Partner.id == partner_id).first()
 
-        if not elect:
-            raise ElectNotFoundException
+        if not partner:
+            raise PartnerNotFoundException
 
-        db.session.delete(elect)
+        if partner.address_id:
+            address = Address.query.filter(Address.id == partner.address_id)
+            partner.address_id = None
+            address.delete()
+
+        db.session.delete(partner)
         db.session.commit()
-        return elect_id
+        return partner_id
