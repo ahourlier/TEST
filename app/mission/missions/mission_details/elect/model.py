@@ -1,5 +1,4 @@
-from sqlalchemy import Column, Integer, Boolean, String, ForeignKey, Float, select
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String, ForeignKey, select
 
 from app import db
 from app.common.base_model import BaseMixin
@@ -7,7 +6,7 @@ from app.common.phone_number.model import HasPhones, PhoneNumber
 from sqlalchemy.ext.hybrid import hybrid_property
 
 
-class Elect(BaseMixin, db.Model):
+class Elect(HasPhones, BaseMixin, db.Model):
 
     __tablename__ = "elect"
     id = Column(Integer(), primary_key=True, autoincrement=True)
