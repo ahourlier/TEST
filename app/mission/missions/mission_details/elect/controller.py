@@ -7,7 +7,7 @@ from .schema import ElectSchema, ElectUpdateSchema
 from .service import ElectService
 
 
-@api.route("/")
+@api.route("")
 class ElectResource(AuthenticatedApi):
     @accepts(schema=ElectSchema, api=api)
     @responds(schema=ElectSchema, api=api)
