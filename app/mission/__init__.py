@@ -20,6 +20,7 @@ def register_routes(api, app, root="api"):
         api as operational_plans_api,
     )
     from .missions.mission_details.partner.controller import api as partner_api
+    from .missions.mission_details.subcontractor.controller import api as subcontractor_api
 
     api.add_namespace(missions_api, path=f"/{root}/{BASE_ROUTE}/missions")
     api.add_namespace(teams_api, path=f"/{root}/{BASE_ROUTE}/teams")
@@ -29,6 +30,7 @@ def register_routes(api, app, root="api"):
     api.add_namespace(subjob_api, path=f"/{root}/subjobs")
     api.add_namespace(operational_plans_api, path=f"/{root}/operational_plans")
     api.add_namespace(partner_api, path=f"/{root}/partners")
+    api.add_namespace(subcontractor_api, path=f"/{root}/subcontractors")
 
 
 def register_internal_routes(bp):

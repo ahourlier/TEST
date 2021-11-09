@@ -11,6 +11,7 @@ from .interface import MissionInterface
 from .mission_details.interface import MissionDetailInterface
 from .mission_details.schema import MissionDetailSchema
 from .mission_details.service import MissionDetailService
+from .mission_details.subcontractor.service import SubcontractorService
 from .schema import (
     MissionPaginatedSchema,
     MissionSchema,
@@ -214,3 +215,19 @@ class MissionDetailsResource(AuthenticatedApi):
         changes: MissionDetailInterface = request.parsed_obj
         db_mission_details = MissionDetailService.get_by_mission_id(mission_id)
         return MissionDetailService.update(db_mission_details, changes)
+
+
+@api.route("/<int:mission_id>/subcontractor/<int:subcontractor_id>")
+@api.param("missionId", "Mission unique ID")
+@api.param("subcontractorId", "Subcontractor ID")
+class SubcontractorMissionResource(AuthenticatedApi):
+
+    @responds(api=api)
+    def post(self, mission_id, subcontractor_id):
+        SubcontractorService.link(mission_id, subcontractor_id)
+        return jsonify(dict(status="Success", mission_id=mission_id, subcontractor_id=subcontractor_id))
+
+    @responds(api=api)
+    def delete(self, mission_id, subcontractor_id):
+        SubcontractorService.unlink(mission_id, subcontractor_id)
+        return jsonify(dict(status="Success", mission_id=mission_id, subcontractor_id=subcontractor_id))
