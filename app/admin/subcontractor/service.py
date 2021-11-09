@@ -30,10 +30,10 @@ class SubcontractorService:
         q = sort_query(Subcontractor.query, sort_by, direction)
         if term is not None:
             search_term = f"%{term}%"
-            q = q.filter(
+            q = q.join(Address).filter(
                 or_(
                     Subcontractor.name.ilike(search_term),
-                    Subcontractor.address.full_address.ilike(search_term),
+                    Address.full_address.ilike(search_term),
                 )
             )
 
