@@ -3,9 +3,7 @@ from marshmallow import EXCLUDE, fields
 
 from app.mission.missions.mission_details.model import MissionDetail
 from app.mission.missions.mission_details.partner.schema import PartnerSchema
-from app.mission.missions.mission_details.subcontractor.schema import (
-    SubcontractorSchema,
-)
+from app.admin.subcontractor.schema import SubcontractorSchema
 
 
 class MissionDetailSchema(SQLAlchemyAutoSchema):
