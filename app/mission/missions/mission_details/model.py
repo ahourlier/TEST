@@ -1,14 +1,9 @@
 from app import db
 from app.common.base_model import BaseMixin
-from sqlalchemy import Column, Integer, Boolean, String, ForeignKey, Float
+from sqlalchemy import Column, Integer, Boolean, String, ForeignKey
 from sqlalchemy.orm import relationship
 
-from app.mission.missions.mission_details.operational_plan import OperationalPlan
-from app.mission.missions.mission_details.job import Job
-from app.mission.missions.mission_details.subjob import Subjob
-from app.mission.missions.mission_details.partner import Partner
-from app.mission.missions.mission_details.subcontractor import (
-    Subcontractor,
+from app.admin.subcontractor import (
     MissionDetailSubcontractor,
 )
 
