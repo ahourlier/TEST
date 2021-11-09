@@ -4,6 +4,7 @@ from sqlalchemy import Column, Integer, Boolean, String, ForeignKey
 from sqlalchemy.orm import relationship
 
 from app.admin.subcontractor import MissionDetailSubcontractor
+from .elect import Elect
 
 
 class MissionDetail(BaseMixin, db.Model):
@@ -30,6 +31,7 @@ class MissionDetail(BaseMixin, db.Model):
         secondary=MissionDetailSubcontractor,
         backref=db.backref("mission_detail", lazy="joined"),
     )
+    elects = relationship("Elect", backref="mission_details")
     # smq
     smq_starting_meeting = Column(db.Date, nullable=True)
     smq_engagement_meeting = Column(db.Date, nullable=True)
