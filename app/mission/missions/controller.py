@@ -221,13 +221,24 @@ class MissionDetailsResource(AuthenticatedApi):
 @api.param("missionId", "Mission unique ID")
 @api.param("subcontractorId", "Subcontractor ID")
 class SubcontractorMissionResource(AuthenticatedApi):
-
     @responds(api=api)
     def post(self, mission_id, subcontractor_id):
         SubcontractorService.link(mission_id, subcontractor_id)
-        return jsonify(dict(status="Success", mission_id=mission_id, subcontractor_id=subcontractor_id))
+        return jsonify(
+            dict(
+                status="Success",
+                mission_id=mission_id,
+                subcontractor_id=subcontractor_id,
+            )
+        )
 
     @responds(api=api)
     def delete(self, mission_id, subcontractor_id):
         SubcontractorService.unlink(mission_id, subcontractor_id)
-        return jsonify(dict(status="Success", mission_id=mission_id, subcontractor_id=subcontractor_id))
+        return jsonify(
+            dict(
+                status="Success",
+                mission_id=mission_id,
+                subcontractor_id=subcontractor_id,
+            )
+        )

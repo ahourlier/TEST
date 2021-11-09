@@ -2,7 +2,7 @@ from werkzeug.exceptions import HTTPException
 
 from app.common.config_error_messages import (
     MISSION_NOT_FOUND_EXCEPTION,
-    KEY_MISSION_NOT_FOUND_EXCEPTION
+    KEY_MISSION_NOT_FOUND_EXCEPTION,
 )
 
 
