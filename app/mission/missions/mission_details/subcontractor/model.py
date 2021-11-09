@@ -7,8 +7,8 @@ MissionDetailSubcontractor = Table(
     "mission_detail_subcontractor",
     metadata,
     Column("id", Integer, primary_key=True),
-    Column("subcontractor_id", Integer, ForeignKey("Subcontractor.id")),
-    Column("mission_detail_id", Integer, ForeignKey("MissionDetail.id")),
+    Column("subcontractor_id", Integer, ForeignKey("subcontractor.id")),
+    Column("mission_detail_id", Integer, ForeignKey("mission_detail.id")),
 )
 
 
@@ -21,7 +21,8 @@ class Subcontractor(BaseMixin, db.Model):
     address = relationship(
         "Address", cascade="all, delete", backref="subcontractor", passive_deletes=True
     )
-    mission_details = relationship("MissionDetail",
-                                   secondary=MissionDetailSubcontractor,
-                                   backref=db.backref('subcontractors', lazy='join')
-                                   )
+    mission_details = relationship(
+        "MissionDetail",
+        secondary=MissionDetailSubcontractor,
+        backref=db.backref('subcontractors', lazy='joined')
+    )
