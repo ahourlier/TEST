@@ -3,9 +3,7 @@ from app.common.base_model import BaseMixin
 from sqlalchemy import Column, Integer, Boolean, String, ForeignKey
 from sqlalchemy.orm import relationship
 
-from app.admin.subcontractor import (
-    MissionDetailSubcontractor,
-)
+from app.admin.subcontractor import MissionDetailSubcontractor
 
 
 class MissionDetail(BaseMixin, db.Model):
