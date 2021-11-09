@@ -1,15 +1,12 @@
-from sqlalchemy import and_
-
 from app import db
 from app.common.address.model import Address
 from app.common.address.service import AddressService
-from app.mission.missions.mission_details.model import MissionDetail
 from app.mission.missions.mission_details.service import MissionDetailService
-from app.mission.missions.mission_details.subcontractor import (
+from app.admin.subcontractor import (
     Subcontractor,
     MissionDetailSubcontractor,
 )
-from app.mission.missions.mission_details.subcontractor.exceptions import (
+from app.admin.subcontractor.exceptions import (
     SubcontractorNotFoundException,
 )
 
