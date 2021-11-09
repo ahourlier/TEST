@@ -6,9 +6,7 @@ from app.admin.subcontractor import (
     Subcontractor,
     MissionDetailSubcontractor,
 )
-from app.admin.subcontractor.exceptions import (
-    SubcontractorNotFoundException,
-)
+from app.admin.subcontractor.exceptions import SubcontractorNotFoundException
 
 
 class SubcontractorService:
