@@ -11,7 +11,6 @@ from .interface import MissionInterface
 from .mission_details.interface import MissionDetailInterface
 from .mission_details.schema import MissionDetailSchema
 from .mission_details.service import MissionDetailService
-from .mission_details.subcontractor.service import SubcontractorService
 from .schema import (
     MissionPaginatedSchema,
     MissionSchema,
@@ -27,6 +26,7 @@ from .service import (
     MISSION_INIT_QUEUE_NAME,
 )
 from ... import db
+from ...admin.subcontractor.service import SubcontractorService
 from ...auth.users.service import UserService
 from ...common.api import AuthenticatedApi
 from ...common.permissions import (
