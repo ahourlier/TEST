@@ -6,8 +6,9 @@ from app.common.config_error_messages import (
 )
 
 
-class PartnerNotFoundException(HTTPException):
+class ElectNotFoundException(HTTPException):
     def __init__(self, message=PARTNER_NOT_FOUND_EXCEPTION):
+        super().__init__()
         self.code = 404
         self.key = KEY_PARTNER_NOT_FOUND_EXCEPTION
         self.message = message
