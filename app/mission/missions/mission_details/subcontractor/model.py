@@ -24,5 +24,5 @@ class Subcontractor(BaseMixin, db.Model):
     mission_details = relationship(
         "MissionDetail",
         secondary=MissionDetailSubcontractor,
-        backref=db.backref('subcontractors', lazy='joined')
+        backref=db.backref("subcontractors", lazy="joined"),
     )
