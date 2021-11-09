@@ -14,8 +14,10 @@ class Elect(BaseMixin, db.Model):
     mission_details_id = Column(
         Integer(), ForeignKey("mission_detail.id"), nullable=False
     )
-    name = Column(String(255), nullable=True)
-    job = Column(String(255), nullable=True)
+    last_name = Column(String(255), nullable=True)
+    first_name = Column(String(255), nullable=True)
+    function = Column(String(255), nullable=True)
+    email = Column(String(255), nullable=True)
 
     @hybrid_property
     def phone_number(self):
