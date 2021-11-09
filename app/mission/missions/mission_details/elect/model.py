@@ -13,8 +13,8 @@ class Elect(HasPhones, BaseMixin, db.Model):
     mission_details_id = Column(
         Integer(), ForeignKey("mission_detail.id"), nullable=False
     )
-    last_name = Column(String(255), nullable=True)
-    first_name = Column(String(255), nullable=True)
+    name = Column(String(255), nullable=True)
+    # first_name = Column(String(255), nullable=True)
     function = Column(String(255), nullable=True)
     email = Column(String(255), nullable=True)
 
