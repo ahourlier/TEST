@@ -14,7 +14,6 @@ class ElectSchema(SQLAlchemyAutoSchema):
         unknown = EXCLUDE
         exclude = (
             "phones",
-            "active",
         )
 
 
@@ -28,5 +27,4 @@ class ElectUpdateSchema(SQLAlchemyAutoSchema):
         unknown = EXCLUDE
         exclude = (
             "phones",
-            "active",
         )
