@@ -7,7 +7,10 @@ from app.mission.missions.mission_details.operational_plan import OperationalPla
 from app.mission.missions.mission_details.job import Job
 from app.mission.missions.mission_details.subjob import Subjob
 from app.mission.missions.mission_details.partner import Partner
-from app.mission.missions.mission_details.subcontractor import Subcontractor, MissionDetailSubcontractor
+from app.mission.missions.mission_details.subcontractor import (
+    Subcontractor,
+    MissionDetailSubcontractor,
+)
 
 
 class MissionDetail(BaseMixin, db.Model):
@@ -33,10 +36,11 @@ class MissionDetail(BaseMixin, db.Model):
     billing_type_tf = Column(String(255), nullable=True)
     billing_type_tc = Column(String(255), nullable=True)
     purchase_order_market = Column(Boolean(), nullable=True)
-    subcontractor = relationship("Subcontractor",
-                                  secondary=MissionDetailSubcontractor,
-                                  backref=db.backref('mission_detail', lazy='joined')
-                                  )
+    subcontractor = relationship(
+        "Subcontractor",
+        secondary=MissionDetailSubcontractor,
+        backref=db.backref("mission_detail", lazy="joined"),
+    )
     # smq
     smq_starting_meeting = Column(db.Date, nullable=True)
     smq_engagement_meeting = Column(db.Date, nullable=True)
