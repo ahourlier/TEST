@@ -4,13 +4,18 @@ from flask import request, Response, jsonify
 from app.common.api import AuthenticatedApi
 from . import api
 from .schema import SubcontractorSchema, SubcontractorPaginatedSchema
-from .service import SubcontractorService, SUBCONTRACTORS_DEFAULT_SORT_DIRECTION, SUBCONTRACTORS_DEFAULT_PAGE, SUBCONTRACTORS_DEFAULT_SORT_FIELD, SUBCONTRACTORS_DEFAULT_PAGE_SIZE
+from .service import (
+    SubcontractorService,
+    SUBCONTRACTORS_DEFAULT_SORT_DIRECTION,
+    SUBCONTRACTORS_DEFAULT_PAGE,
+    SUBCONTRACTORS_DEFAULT_SORT_FIELD,
+    SUBCONTRACTORS_DEFAULT_PAGE_SIZE,
+)
 from ...common.search import SEARCH_PARAMS
 
 
 @api.route("")
 class SubcontractorResource(AuthenticatedApi):
-
     @accepts(*SEARCH_PARAMS, api=api)
     @responds(schema=SubcontractorPaginatedSchema, api=api)
     def get(self):
@@ -19,7 +24,9 @@ class SubcontractorResource(AuthenticatedApi):
             size=int(request.args.get("size", SUBCONTRACTORS_DEFAULT_PAGE_SIZE)),
             term=request.args.get("term"),
             sort_by=request.args.get("sortBy", SUBCONTRACTORS_DEFAULT_SORT_FIELD),
-            direction=request.args.get("sortDirection", SUBCONTRACTORS_DEFAULT_SORT_DIRECTION),
+            direction=request.args.get(
+                "sortDirection", SUBCONTRACTORS_DEFAULT_SORT_DIRECTION
+            ),
         )
 
     @accepts(schema=SubcontractorSchema, api=api)
