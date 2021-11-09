@@ -1,5 +1,6 @@
 from app import db
 from app.common.address.model import Address
+from app.common.address.service import AddressService
 from app.mission.missions.mission_details.partner.exceptions import (
     PartnerNotFoundException,
 )
@@ -16,7 +17,7 @@ class PartnerService:
 
         address_id = None
         if address:
-            address_id = PartnerService.create_address(address)
+            address_id = AddressService.create_address(address)
 
         new_partner = Partner(**partner)
         if address_id:
@@ -39,7 +40,7 @@ class PartnerService:
         if "address" in new_attrs:
             if new_attrs.get("address") is not None:
                 if not db_partner.address_id:
-                    db_partner.address_id = PartnerService.create_address(
+                    db_partner.address_id = AddressService.create_address(
                         new_attrs.get("address")
                     )
                 else:
@@ -70,10 +71,3 @@ class PartnerService:
         db.session.delete(partner)
         db.session.commit()
         return partner_id
-
-    @staticmethod
-    def create_address(address):
-        new_address = Address(**address)
-        db.session.add(new_address)
-        db.session.commit()
-        return new_address.id

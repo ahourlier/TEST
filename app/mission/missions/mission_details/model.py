@@ -29,9 +29,9 @@ class MissionDetail(BaseMixin, db.Model):
     billing_type_tf = Column(String(255), nullable=True)
     billing_type_tc = Column(String(255), nullable=True)
     purchase_order_market = Column(Boolean(), nullable=True)
-    subcontractors = relationship("Subcontractor",
+    subcontractor = relationship("Subcontractor",
                                   secondary=MissionDetailSubcontractor,
-                                  backref=db.backref('mission_details', lazy='join')
+                                  backref=db.backref('mission_detail', lazy='joined')
                                   )
     # smq
     smq_starting_meeting = Column(db.Date, nullable=True)
