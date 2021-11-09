@@ -26,3 +26,4 @@ class Subcontractor(BaseMixin, db.Model):
         secondary=MissionDetailSubcontractor,
         backref=db.backref("subcontractors", lazy="joined"),
     )
+    active = Column(Boolean(), nullable=True, default=True)

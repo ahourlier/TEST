@@ -1,6 +1,10 @@
+from flask_sqlalchemy import Pagination
+from sqlalchemy import or_
+
 from app import db
 from app.common.address.model import Address
 from app.common.address.service import AddressService
+from app.common.search import sort_query
 from app.mission.missions.mission_details.service import MissionDetailService
 from app.admin.subcontractor import (
     Subcontractor,
@@ -8,11 +12,35 @@ from app.admin.subcontractor import (
 )
 from app.admin.subcontractor.exceptions import SubcontractorNotFoundException
 
+SUBCONTRACTORS_DEFAULT_PAGE = 1
+SUBCONTRACTORS_DEFAULT_PAGE_SIZE = 100
+SUBCONTRACTORS_DEFAULT_SORT_FIELD = "id"
+SUBCONTRACTORS_DEFAULT_SORT_DIRECTION = "desc"
+
 
 class SubcontractorService:
     @staticmethod
-    def list():
-        return Subcontractor.query.all()
+    def list(
+            page=SUBCONTRACTORS_DEFAULT_PAGE,
+            size=SUBCONTRACTORS_DEFAULT_PAGE_SIZE,
+            term=None,
+            sort_by=SUBCONTRACTORS_DEFAULT_SORT_FIELD,
+            direction=SUBCONTRACTORS_DEFAULT_SORT_DIRECTION,
+    ) -> Pagination:
+        q = sort_query(Subcontractor.query, sort_by, direction)
+        if term is not None:
+            search_term = f"%{term}%"
+            q = q.filter(
+                or_(
+                    Subcontractor.name.ilike(search_term),
+                    Subcontractor.address.full_address.ilike(search_term),
+                )
+            )
+
+        # Deactivated clients must not be retrieved
+        q = q.filter(Subcontractor.active == True)
+
+        return q.paginate(page=page, per_page=size)
 
     @staticmethod
     def get(subcontractor_id) -> Subcontractor:
@@ -63,6 +91,7 @@ class SubcontractorService:
 
     @staticmethod
     def delete(subcontractor_id):
+
         subcontractor = Subcontractor.query.filter(
             Subcontractor.id == subcontractor_id
         ).first()
@@ -76,12 +105,14 @@ class SubcontractorService:
         q.delete(synchronize_session=False)
         db.session.commit()
 
-        if subcontractor.address_id:
-            address = Address.query.filter(Address.id == subcontractor.address_id)
-            subcontractor.address_id = None
-            address.delete()
+        # if subcontractor.address_id:
+        #     address = Address.query.filter(Address.id == subcontractor.address_id)
+        #     subcontractor.address_id = None
+        #     address.delete()
 
-        db.session.delete(subcontractor)
+        subcontractor.active = False
+
+        # db.session.delete(subcontractor)
         db.session.commit()
         return subcontractor_id
 
