@@ -5,12 +5,16 @@ from app.common.address.model import Address
 from app.common.address.service import AddressService
 from app.mission.missions.mission_details.model import MissionDetail
 from app.mission.missions.mission_details.service import MissionDetailService
-from app.mission.missions.mission_details.subcontractor import Subcontractor, MissionDetailSubcontractor
-from app.mission.missions.mission_details.subcontractor.exceptions import SubcontractorNotFoundException
+from app.mission.missions.mission_details.subcontractor import (
+    Subcontractor,
+    MissionDetailSubcontractor,
+)
+from app.mission.missions.mission_details.subcontractor.exceptions import (
+    SubcontractorNotFoundException,
+)
 
 
 class SubcontractorService:
-
     @staticmethod
     def list():
         return Subcontractor.query.all()
@@ -36,7 +40,9 @@ class SubcontractorService:
                     db_address = Address.query.get(db_subcontractor.address_id)
                     db_address.update(new_attrs.get("address"))
             else:
-                address = Address.query.filter(Address.id == db_subcontractor.address_id)
+                address = Address.query.filter(
+                    Address.id == db_subcontractor.address_id
+                )
                 db_subcontractor.address_id = None
                 address.delete()
             del new_attrs["address"]
@@ -62,12 +68,16 @@ class SubcontractorService:
 
     @staticmethod
     def delete(subcontractor_id):
-        subcontractor = Subcontractor.query.filter(Subcontractor.id == subcontractor_id).first()
+        subcontractor = Subcontractor.query.filter(
+            Subcontractor.id == subcontractor_id
+        ).first()
 
         if not subcontractor:
             raise SubcontractorNotFoundException
 
-        q = db.session.query(MissionDetailSubcontractor).filter(MissionDetailSubcontractor.c.subcontractor_id == subcontractor_id)
+        q = db.session.query(MissionDetailSubcontractor).filter(
+            MissionDetailSubcontractor.c.subcontractor_id == subcontractor_id
+        )
         q.delete(synchronize_session=False)
         db.session.commit()
 
@@ -91,9 +101,13 @@ class SubcontractorService:
     @staticmethod
     def unlink(mission_id, subcontractor_id):
         mission_details = MissionDetailService.get_by_mission_id(mission_id)
-        q = db.session.query(MissionDetailSubcontractor)\
-            .filter(MissionDetailSubcontractor.c.subcontractor_id == subcontractor_id)\
-            .filter(MissionDetailSubcontractor.c.mission_detail_id == mission_details.id)
+        q = (
+            db.session.query(MissionDetailSubcontractor)
+            .filter(MissionDetailSubcontractor.c.subcontractor_id == subcontractor_id)
+            .filter(
+                MissionDetailSubcontractor.c.mission_detail_id == mission_details.id
+            )
+        )
         q.delete(synchronize_session=False)
         db.session.commit()
         return

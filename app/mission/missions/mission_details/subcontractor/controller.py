@@ -22,7 +22,6 @@ class SubcontractorResource(AuthenticatedApi):
 @api.route("/<subcontractor_id>")
 @api.param("subcontractorId", "Subcontractor unique ID")
 class SubcontractorIdResource(AuthenticatedApi):
-
     @responds(schema=SubcontractorSchema, api=api)
     def get(self, subcontractor_id: int):
         return SubcontractorService.get(subcontractor_id)
