@@ -21,11 +21,11 @@ SUBCONTRACTORS_DEFAULT_SORT_DIRECTION = "desc"
 class SubcontractorService:
     @staticmethod
     def list(
-            page=SUBCONTRACTORS_DEFAULT_PAGE,
-            size=SUBCONTRACTORS_DEFAULT_PAGE_SIZE,
-            term=None,
-            sort_by=SUBCONTRACTORS_DEFAULT_SORT_FIELD,
-            direction=SUBCONTRACTORS_DEFAULT_SORT_DIRECTION,
+        page=SUBCONTRACTORS_DEFAULT_PAGE,
+        size=SUBCONTRACTORS_DEFAULT_PAGE_SIZE,
+        term=None,
+        sort_by=SUBCONTRACTORS_DEFAULT_SORT_FIELD,
+        direction=SUBCONTRACTORS_DEFAULT_SORT_DIRECTION,
     ) -> Pagination:
         q = sort_query(Subcontractor.query, sort_by, direction)
         if term is not None:
