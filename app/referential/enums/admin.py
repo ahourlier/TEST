@@ -7,6 +7,10 @@ from .model import AppEnum
 from ... import db
 from ...funder.funders import Funder
 from ...mission.missions import Mission
+from ...mission.missions.mission_details.job import Job
+from ...mission.missions.mission_details.model import MissionDetail
+from ...mission.missions.mission_details.operational_plan import OperationalPlan
+from ...mission.missions.mission_details.subjob import Subjob
 from ...project.accommodations import Accommodation
 from ...project.disorders import DisorderType
 from ...project.projects import Project
@@ -238,3 +242,21 @@ class QuoteCompanyOrigin(EnumBaseAdminView):
     ENUM_KIND = "QuoteCompanyOrigin"
     FIELD_MODEL = Quote
     FIELD_REF = "company_origin"
+
+
+class MissionOperationalPlan(EnumBaseAdminView):
+    ENUM_KIND = "OperationalPlan"
+    FIELD_MODEL = MissionDetail
+    FIELD_REF = "operational_plan"
+
+
+class MissionJob(EnumBaseAdminView):
+    ENUM_KIND = "Job"
+    FIELD_MODEL = MissionDetail
+    FIELD_REF = "job"
+
+
+class MissionSubjob(EnumBaseAdminView):
+    ENUM_KIND = "Subjob"
+    FIELD_MODEL = MissionDetail
+    FIELD_REF = "subjob"

@@ -17,13 +17,9 @@ class MissionDetail(BaseMixin, db.Model):
     mission_id = Column(
         Integer(), ForeignKey("mission.id"), unique=True, nullable=False
     )
-    operational_plan = Column(
-        String(255), ForeignKey("operational_plan.value"), unique=False
-    )
-    job = Column(String(255), ForeignKey("job.value"), unique=False, nullable=True)
-    subjob = Column(
-        String(255), ForeignKey("subjob.value"), unique=False, nullable=True
-    )
+    operational_plan = Column(String(255))
+    job = Column(String(255))
+    subjob = Column(String(255))
     previous_running_meeting = Column(db.Date, nullable=True)
     partners = relationship("Partner", backref="mission_details")
     # marche et facturation
