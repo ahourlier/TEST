@@ -1,6 +1,11 @@
 from app import db
+<<<<<<< HEAD
 from app.common.address.model import Address
 from app.common.address.service import AddressService
+=======
+from app.common.phone_number.model import PhoneNumber
+from app.common.phone_number.service import PhoneNumberService
+>>>>>>> 43fddfa11ac850eb472fbfe0675f91acb70c81ed
 from app.mission.missions.mission_details.elect.exceptions import (
     ElectNotFoundException,
 )
@@ -10,6 +15,13 @@ from app.mission.missions.mission_details.elect.model import Elect
 class ElectService:
     @staticmethod
     def create(elect):
+<<<<<<< HEAD
+=======
+        if "phone_number" in elect:
+            if elect.get("phone_number", None):
+                elect["phones"] = [PhoneNumber(**elect.get("phone_number"))]
+            del elect["phone_number"]
+>>>>>>> 43fddfa11ac850eb472fbfe0675f91acb70c81ed
         new_elect = Elect(**elect)
         db.session.add(new_elect)
         db.session.commit()
@@ -25,6 +37,15 @@ class ElectService:
 
     @staticmethod
     def update(db_elect: Elect, new_attrs):
+<<<<<<< HEAD
+=======
+        if "phone_number" in new_attrs:
+            if new_attrs.get("phone_number", None):
+                PhoneNumberService.update_phone_numbers(
+                    db_elect, [new_attrs.get("phone_number")]
+                )
+            del new_attrs["phone_number"]
+>>>>>>> 43fddfa11ac850eb472fbfe0675f91acb70c81ed
         db_elect.update(new_attrs)
         db.session.commit()
         return db_elect

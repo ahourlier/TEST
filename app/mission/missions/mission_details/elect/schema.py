@@ -14,7 +14,10 @@ class ElectSchema(SQLAlchemyAutoSchema):
         unknown = EXCLUDE
         exclude = (
             "phones",
+<<<<<<< HEAD
             "active",
+=======
+>>>>>>> 43fddfa11ac850eb472fbfe0675f91acb70c81ed
         )
 
 
@@ -28,5 +31,8 @@ class ElectUpdateSchema(SQLAlchemyAutoSchema):
         unknown = EXCLUDE
         exclude = (
             "phones",
+<<<<<<< HEAD
             "active",
+=======
+>>>>>>> 43fddfa11ac850eb472fbfe0675f91acb70c81ed
         )
