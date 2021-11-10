@@ -154,14 +154,15 @@ class MissionService:
                     r["mission_id"] = mission.id
                     ReferentService.create(r)
 
-            create_task(
-                project=os.getenv("GOOGLE_CLOUD_PROJECT"),
-                location=os.getenv("QUEUES_LOCATION"),
-                queue=MISSION_INIT_QUEUE_NAME,
-                uri=f"{os.getenv('API_URL')}/_internal/missions/init-drive",
-                method="POST",
-                payload={"mission_id": mission.id,},
-            )
+            if mission.mission_type == App.INDIVIDUAL:
+                create_task(
+                    project=os.getenv("GOOGLE_CLOUD_PROJECT"),
+                    location=os.getenv("QUEUES_LOCATION"),
+                    queue=MISSION_INIT_QUEUE_NAME,
+                    uri=f"{os.getenv('API_URL')}/_internal/missions/init-drive",
+                    method="POST",
+                    payload={"mission_id": mission.id,},
+                )
             return mission
 
     @staticmethod
