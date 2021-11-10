@@ -22,6 +22,9 @@ from app.referential.enums.admin import (
     ProjectAdaptationRecommendation,
     ProjectTechnicalRecommendation,
     QuoteCompanyOrigin,
+    MissionOperationalPlan,
+    MissionJob,
+    MissionSubjob,
 )
 
 
@@ -222,5 +225,32 @@ def register_admin_views(admin, db):
             "Origine de l'entreprise",
             url="company-origin",
             endpoint="manage_company_origin",
+        )
+    )
+    admin.add_view(
+        MissionOperationalPlan(
+            AppEnum,
+            db.session,
+            "Dispositif opérationel",
+            url="operational-plan-mission",
+            endpoint="manage_operational_plans",
+        )
+    )
+    admin.add_view(
+        MissionJob(
+            AppEnum,
+            db.session,
+            "Type de métier",
+            url="job-mission",
+            endpoint="manage_jobs",
+        )
+    )
+    admin.add_view(
+        MissionSubjob(
+            AppEnum,
+            db.session,
+            "Sous métier",
+            url="subjob-mission",
+            endpoint="manage_subjobs",
         )
     )
