@@ -28,6 +28,7 @@ from .service import (
 from ... import db
 from ...auth.users.service import UserService
 from ...common.api import AuthenticatedApi
+from ...common.app_name import App
 from ...common.permissions import (
     is_manager,
     is_contributor,
@@ -98,36 +99,37 @@ class MissionIdResource(AuthenticatedApi):
         """ Get single mission """
         db_mission = MissionService.get_by_id(mission_id)
 
-        check_drive_structure = (
-            True
-            if request.args.get("check_drive_structure", "true").lower() == "true"
-            else False
-        )
+        if db_mission.mission_type == App.INDIVIDUAL:
+            check_drive_structure = (
+                True
+                if request.args.get("check_drive_structure", "true").lower() == "true"
+                else False
+            )
 
-        if (
-            db_mission.drive_init not in ["IN PROGRESS", "DONE"]
-            and check_drive_structure
-        ):
             if (
-                db_mission.sd_root_folder_id
-                and db_mission.sd_projects_folder_id
-                and db_mission.sd_document_templates_folder_id
-                and db_mission.sd_information_documents_folder_id
-                and db_mission.google_group_id
+                db_mission.drive_init not in ["IN PROGRESS", "DONE"]
+                and check_drive_structure
             ):
-                db_mission.drive_init = "DONE"
-                db.session.commit()
-            else:
-                db_mission.drive_init = "IN PROGRESS"
-                db.session.commit()
-                create_task(
-                    project=os.getenv("GOOGLE_CLOUD_PROJECT"),
-                    location=os.getenv("QUEUES_LOCATION"),
-                    queue=MISSION_INIT_QUEUE_NAME,
-                    uri=f"{os.getenv('API_URL')}/_internal/missions/init-drive",
-                    method="POST",
-                    payload={"mission_id": db_mission.id,},
-                )
+                if (
+                    db_mission.sd_root_folder_id
+                    and db_mission.sd_projects_folder_id
+                    and db_mission.sd_document_templates_folder_id
+                    and db_mission.sd_information_documents_folder_id
+                    and db_mission.google_group_id
+                ):
+                    db_mission.drive_init = "DONE"
+                    db.session.commit()
+                else:
+                    db_mission.drive_init = "IN PROGRESS"
+                    db.session.commit()
+                    create_task(
+                        project=os.getenv("GOOGLE_CLOUD_PROJECT"),
+                        location=os.getenv("QUEUES_LOCATION"),
+                        queue=MISSION_INIT_QUEUE_NAME,
+                        uri=f"{os.getenv('API_URL')}/_internal/missions/init-drive",
+                        method="POST",
+                        payload={"mission_id": db_mission.id,},
+                    )
         return db_mission
 
     @requires(is_manager)
