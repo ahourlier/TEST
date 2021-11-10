@@ -21,7 +21,10 @@ from app.referential.enums.admin import (
     ProjectHeatingRecommendation,
     ProjectAdaptationRecommendation,
     ProjectTechnicalRecommendation,
-    QuoteCompanyOrigin, MissionOperationalPlan, MissionJob, MissionSubjob,
+    QuoteCompanyOrigin,
+    MissionOperationalPlan,
+    MissionJob,
+    MissionSubjob,
 )
 
 
