@@ -2,9 +2,7 @@ from app import db
 
 from app.common.phone_number.model import PhoneNumber
 from app.common.phone_number.service import PhoneNumberService
-from app.mission.missions.mission_details.elect.exceptions import (
-    ElectNotFoundException,
-)
+from app.mission.missions.mission_details.elect.exceptions import ElectNotFoundException
 from app.mission.missions.mission_details.elect.model import Elect
 
 

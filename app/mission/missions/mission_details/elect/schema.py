@@ -12,9 +12,7 @@ class ElectSchema(SQLAlchemyAutoSchema):
         model = Elect
         include_fk = True
         unknown = EXCLUDE
-        exclude = (
-            "phones",
-        )
+        exclude = ("phones",)
 
 
 class ElectUpdateSchema(SQLAlchemyAutoSchema):
@@ -25,6 +23,4 @@ class ElectUpdateSchema(SQLAlchemyAutoSchema):
         model = Elect
         include_fk = True
         unknown = EXCLUDE
-        exclude = (
-            "phones",
-        )
+        exclude = ("phones",)
