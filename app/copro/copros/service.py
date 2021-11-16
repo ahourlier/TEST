@@ -57,7 +57,7 @@ class CoproService:
 
         if new_attrs.get("copro_type") is not None and new_attrs.get(
             "copro_type"
-        ).lower() not in ["copropriété", "monopropriété"]:
+        ) not in ["Copropriété", "Monopropriété"]:
             raise WrongCoproTypeException
 
         mission = MissionService.get_by_id(new_attrs.get("mission_id"))
@@ -108,7 +108,7 @@ class CoproService:
 
         if changes.get("copro_type") is not None and changes.get(
             "copro_type"
-        ).lower() not in ["copropriété", "monopropriété"]:
+        ) not in ["Copropriété", "Monopropriété"]:
             raise WrongCoproTypeException
 
         if changes.get("cadastres"):

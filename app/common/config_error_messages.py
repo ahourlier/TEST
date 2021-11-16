@@ -467,6 +467,6 @@ MISSION_NOT_TYPE_COPRO_EXCEPTION = "Unable to create copro in this mission: not 
 KEY_MISSION_NOT_TYPE_COPRO_EXCEPTION = "MISSION_NOT_TYPE_COPRO_EXCEPTION"
 
 WRONG_COPRO_TYPE_EXCEPTION = (
-    "Copro type is not in [copropriété, monopropriété]"  # todo add in translation
+    "Copro type is not in [Copropriété, Monopropriété]"  # todo add in translation
 )
 KEY_WRONG_COPRO_TYPE_EXCEPTION_EXCEPTION = "WRONG_COPRO_TYPE_EXCEPTION"
