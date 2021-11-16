@@ -5,6 +5,7 @@ from app import db
 from app.common.address.model import Address
 from app.common.base_model import SoftDeletableMixin, BaseMixin
 from app.copro.cadastre import Cadastre
+from app.copro.president import President
 
 
 class Copro(SoftDeletableMixin, BaseMixin, db.Model):
@@ -13,6 +14,8 @@ class Copro(SoftDeletableMixin, BaseMixin, db.Model):
     id = Column(Integer(), primary_key=True, autoincrement=True)
     mission_id = Column(Integer, ForeignKey("mission.id"), nullable=False)
     mission = relationship("Mission", backref="copros")
+    president_id = Column(Integer, ForeignKey("president.id"), nullable=True)
+    president = relationship("President", backref="copro")
     # copropriété
     name = Column(String(255), nullable=True)
     copro_type = Column(String(255), nullable=True)
