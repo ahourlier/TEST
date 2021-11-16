@@ -8,6 +8,7 @@ class CoproInterface(TypedDict, total=False):
     mission_id: int
     # copropriété
     name: Optional[str]
+    copro_type: Optional[str]
     address_1: Optional[dict]
     address_1_id: Optional[dict]
     address_2: Optional[dict]
