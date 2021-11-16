@@ -458,7 +458,9 @@ KEY_SUBCONTRACTOR_NOT_FOUND_EXCEPTION = "SUBCONTRACTOR_NOT_FOUND_EXCEPTION"
 ELECT_NOT_FOUND_EXCEPTION = "Elect not found"  # todo add in translation
 KEY_ELECT_NOT_FOUND_EXCEPTION = "ELECT_NOT_FOUND_EXCEPTION"
 
-COPRO_NOT_FOUND_EXCEPTION = "Could not find a copro with this id"  # todo add in translation
+COPRO_NOT_FOUND_EXCEPTION = (
+    "Could not find a copro with this id"  # todo add in translation
+)
 KEY_COPRO_NOT_FOUND_EXCEPTION = "COPRO_NOT_FOUND_EXCEPTION"
 
 MISSION_NOT_TYPE_COPRO_EXCEPTION = "Unable to create copro in this mission: not a type Copro"  # todo add in translation

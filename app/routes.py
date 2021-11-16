@@ -10,6 +10,7 @@ def register_routes(api, app, root="api"):
     from app.homepage import register_routes as attach_homepage
     from app.data_import import register_routes as attach_data_import
     from app.perrenoud import register_routes as attach_perrenoud
+    from app.copro import register_routes as attach_copro
 
     attach_auth(api, app, root)
     attach_admin(api, app, root)
@@ -22,3 +23,4 @@ def register_routes(api, app, root="api"):
     attach_homepage(api, app, root)
     attach_data_import(api, app, root)
     attach_perrenoud(api, app, root)
+    attach_copro(api, app, root)

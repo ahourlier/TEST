@@ -2,6 +2,7 @@ from sqlalchemy import Boolean, String, Column, Integer, ForeignKey, Float
 from sqlalchemy.orm import relationship, backref
 
 from app import db
+from app.common.address.model import Address
 from app.common.base_model import SoftDeletableMixin, BaseMixin
 from app.copro.cadastre import Cadastre
 
@@ -16,11 +17,19 @@ class Copro(SoftDeletableMixin, BaseMixin, db.Model):
     name = Column(String(255), nullable=True)
     address_1_id = Column(Integer(), ForeignKey("address.id"), nullable=True)
     address_1 = relationship(
-        "Address", cascade="all, delete", passive_deletes=True, foreign_keys=[address_1_id]
+        "Address",
+        cascade="all, delete",
+        passive_deletes=True,
+        foreign_keys=[address_1_id],
+        primaryjoin=address_1_id == Address.id,
     )
     address_2_id = Column(Integer(), ForeignKey("address.id"), nullable=True)
     address_2 = relationship(
-        "Address", cascade="all, delete", passive_deletes=True, foreign_keys=[address_2_id]
+        "Address",
+        cascade="all, delete",
+        passive_deletes=True,
+        foreign_keys=[address_2_id],
+        primaryjoin=address_2_id == Address.id,
     )
     user_in_charge_id = Column(Integer, ForeignKey("user.id"), nullable=True)
     user_in_charge = relationship("User", backref="copro")

@@ -4,7 +4,6 @@ from .model import Cadastre
 
 
 class CadastreSchema(SQLAlchemyAutoSchema):
-
     class Meta:
         model = Cadastre
         unknown = EXCLUDE

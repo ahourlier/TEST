@@ -1,5 +1,6 @@
-from typing import TypedDict, List, Optional
+from typing import List, Optional
 from datetime import date
+from mypy_extensions import TypedDict
 
 
 class CoproInterface(TypedDict, total=False):
@@ -8,7 +9,9 @@ class CoproInterface(TypedDict, total=False):
     # copropriété
     name: Optional[str]
     address_1: Optional[dict]
+    address_1_id: Optional[dict]
     address_2: Optional[dict]
+    address_2_id: Optional[dict]
     user_in_charge_id: Optional[int]
     mixed_copro: Optional[bool]
     priority_copro: Optional[bool]
