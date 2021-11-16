@@ -6,7 +6,6 @@ from app.copro.syndic.interface import SyndicInterface
 
 
 class SyndicService:
-
     @staticmethod
     def get(syndic_id):
         syndic = Syndic.query.get(syndic_id)
@@ -18,7 +17,9 @@ class SyndicService:
     def create(new_attrs: SyndicInterface) -> Syndic:
 
         if new_attrs.get("manager_address"):
-            new_attrs["manager_address_id"] = AddressService.create_address(new_attrs.get("manager_address"))
+            new_attrs["manager_address_id"] = AddressService.create_address(
+                new_attrs.get("manager_address")
+            )
             del new_attrs["manager_address"]
 
         new_syndic = Syndic(**new_attrs)
@@ -32,9 +33,13 @@ class SyndicService:
 
         if changes.get("manager_address"):
             if not db_syndic.manager_address_id:
-                changes["manager_address_id"] = AddressService.create_address(changes.get("manager_address"))
+                changes["manager_address_id"] = AddressService.create_address(
+                    changes.get("manager_address")
+                )
             else:
-                AddressService.update_address(db_syndic.manager_address_id, changes.get("manager_address"))
+                AddressService.update_address(
+                    db_syndic.manager_address_id, changes.get("manager_address")
+                )
             del changes["manager_address"]
 
         db_syndic.update(changes)
