@@ -2,8 +2,6 @@ from flask_marshmallow.sqla import SQLAlchemyAutoSchema
 from marshmallow import fields, EXCLUDE
 
 from .model import Syndic
-from ..cadastre.schema import CadastreSchema
-from ...auth.users import UserSchema
 from ...common.address.schema import AddressSchema
 from ...common.schemas import PaginatedSchema
 
@@ -18,10 +16,8 @@ class SyndicSchema(SQLAlchemyAutoSchema):
 
 
 class SyndicUpdateSchema(SQLAlchemyAutoSchema):
-    cadastres = fields.List(fields.Nested(CadastreSchema()))
-    address_1 = fields.Nested(AddressSchema())
-    address_2 = fields.Nested(AddressSchema())
-    mission_id = fields.Integer(allow_none=True, required=False)
+    manager_address = fields.Nested(AddressSchema())
+    copro_id = fields.Integer(allow_none=None, required=False)
 
     class Meta:
         model = Syndic
@@ -37,9 +33,8 @@ class SyndicUpdateSchema(SQLAlchemyAutoSchema):
 
 
 class SyndicCreateSchema(SQLAlchemyAutoSchema):
-    cadastres = fields.List(fields.Nested(CadastreSchema()))
-    address_1 = fields.Nested(AddressSchema())
-    address_2 = fields.Nested(AddressSchema())
+    manager_address = fields.Nested(AddressSchema())
+    copro_id = fields.Integer(allow_none=None, required=False)
 
     class Meta:
         model = Syndic

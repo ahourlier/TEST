@@ -12,9 +12,7 @@ from .schema import (
     SyndicSchema,
     SyndicUpdateSchema,
 )
-from .service import (
-    SyndicService
-)
+from .service import SyndicService
 from ... import db
 from ...common.api import AuthenticatedApi
 from ...common.permissions import (
@@ -28,21 +26,21 @@ from ...common.search import SEARCH_PARAMS
 import app.mission.permissions as missions_permissions
 from ...common.tasks import create_task
 
+
 @api.route("")
 class SyndicResource(AuthenticatedApi):
-    """ Syndicprietes """
+    """ Syndic """
 
     @accepts(schema=SyndicCreateSchema(), api=api)
     @responds(schema=SyndicSchema(), api=api)
     def post(self) -> Syndic:
-        """ Create a mission """
+        """ Create a syndic """
         return SyndicService.create(request.parsed_obj)
 
 
 @api.route("/<int:syndic_id>")
 @api.param("syndicId", "Syndic unique ID")
 class SyndicIdResource(AuthenticatedApi):
-
     @responds(schema=SyndicSchema(), api=api)
     @accepts(schema=SyndicUpdateSchema(), api=api)
     @requires(is_contributor)

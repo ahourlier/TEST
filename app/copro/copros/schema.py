@@ -3,6 +3,7 @@ from marshmallow import fields, EXCLUDE
 
 from .model import Copro
 from ..cadastre.schema import CadastreSchema
+from ..syndic.schema import SyndicSchema, SyndicCreateSchema
 from ...auth.users import UserSchema
 from ...common.address.schema import AddressSchema
 from ...common.schemas import PaginatedSchema
@@ -10,6 +11,7 @@ from ...common.schemas import PaginatedSchema
 
 class CoproSchema(SQLAlchemyAutoSchema):
     cadastres = fields.List(fields.Nested(CadastreSchema()))
+    syndics = fields.List(fields.Nested(SyndicSchema()))
     address_1 = fields.Nested(AddressSchema())
     address_2 = fields.Nested(AddressSchema())
     user_in_charge = fields.Nested(UserSchema())
@@ -41,6 +43,7 @@ class CoproUpdateSchema(SQLAlchemyAutoSchema):
 
 class CoproCreateSchema(SQLAlchemyAutoSchema):
     cadastres = fields.List(fields.Nested(CadastreSchema()))
+    syndics = fields.List(fields.Nested(SyndicCreateSchema()))
     address_1 = fields.Nested(AddressSchema())
     address_2 = fields.Nested(AddressSchema())
 

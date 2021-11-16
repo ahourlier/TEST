@@ -3,8 +3,6 @@ from werkzeug.exceptions import HTTPException
 from app.common.config_error_messages import (
     SYNDIC_NOT_FOUND_EXCEPTION,
     KEY_SYNDIC_NOT_FOUND_EXCEPTION,
-    MISSION_NOT_TYPE_SYNDIC_EXCEPTION,
-    KEY_MISSION_NOT_TYPE_SYNDIC_EXCEPTION,
 )
 
 
@@ -15,4 +13,3 @@ class SyndicNotFoundException(HTTPException):
         self.key = KEY_SYNDIC_NOT_FOUND_EXCEPTION
         self.message = message
         self.status = "NOT FOUND"
-

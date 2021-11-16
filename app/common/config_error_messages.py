@@ -470,3 +470,8 @@ WRONG_COPRO_TYPE_EXCEPTION = (
     "Copro type is not in [Copropriété, Monopropriété]"  # todo add in translation
 )
 KEY_WRONG_COPRO_TYPE_EXCEPTION_EXCEPTION = "WRONG_COPRO_TYPE_EXCEPTION"
+
+SYNDIC_NOT_FOUND_EXCEPTION = (
+    "Syndic not found"  # todo add in translation
+)
+KEY_SYNDIC_NOT_FOUND_EXCEPTION = "SYNDIC_NOT_FOUND_EXCEPTION"
