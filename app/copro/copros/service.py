@@ -36,13 +36,13 @@ class CoproService:
         q = q.filter(or_(Copro.is_deleted == False, Copro.is_deleted == None))
         if term is not None:
             search_term = f"%{term}%"
-            q = (
-                q.join(Address, or_(Copro.address_1_id == Address.id, Copro.address_2_id == Address.id))
-                .filter(
-                    or_(
-                        Copro.name.ilike(search_term),
-                        Address.full_address.ilike(search_term),
-                    )
+            q = q.join(
+                Address,
+                or_(Copro.address_1_id == Address.id, Copro.address_2_id == Address.id),
+            ).filter(
+                or_(
+                    Copro.name.ilike(search_term),
+                    Address.full_address.ilike(search_term),
                 )
             )
 
