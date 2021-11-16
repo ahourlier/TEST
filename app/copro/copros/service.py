@@ -89,7 +89,9 @@ class CoproService:
             cadastres = new_attrs.get("cadastres")
             del new_attrs["cadastres"]
 
-        new_attrs["president_id"] = PresidentService.create(new_attrs.get("president", {}))
+        new_attrs["president_id"] = PresidentService.create(
+            new_attrs.get("president", {})
+        )
         if new_attrs.get("president"):
             del new_attrs["president"]
 
@@ -130,7 +132,9 @@ class CoproService:
             raise WrongCoproTypeException
 
         if changes.get("president"):
-            PresidentService.update(President.query.get(db_copro.president_id), changes.get("president"))
+            PresidentService.update(
+                President.query.get(db_copro.president_id), changes.get("president")
+            )
             del changes["president"]
 
         if changes.get("cadastres"):

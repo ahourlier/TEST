@@ -30,7 +30,6 @@ class UserSchema(SQLAlchemyAutoSchema):
 
 
 class UserLightSchema(SQLAlchemyAutoSchema):
-
     class Meta:
         model = User
         include_fk = True

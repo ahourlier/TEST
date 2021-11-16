@@ -6,7 +6,6 @@ from app.copro.president.model import President
 
 
 class PresidentService:
-
     @staticmethod
     def create(president: PresidentInterface):
         if "phone_number" in president:
