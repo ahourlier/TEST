@@ -14,6 +14,7 @@ from app.copro.copros.exceptions import (
 )
 from app.copro.copros.interface import CoproInterface
 from app.copro.copros.model import Copro
+from app.copro.syndic.service import SyndicService
 from app.mission.missions.service import MissionService
 
 COPRO_DEFAULT_PAGE = 1
@@ -76,6 +77,11 @@ class CoproService:
             )
             del new_attrs["address_2"]
 
+        syndics = None
+        if new_attrs.get("syndics"):
+            syndics = new_attrs.get("syndics")
+            del new_attrs["syndics"]
+
         cadastres = None
         if new_attrs.get("cadastres"):
             cadastres = new_attrs.get("cadastres")
@@ -92,6 +98,11 @@ class CoproService:
                 db.session.add(new_cadastre)
                 db.session.commit()
 
+        if syndics:
+            for s in syndics:
+                s["copro_id"] = new_copro.id
+                SyndicService.create(s)
+
         return new_copro
 
     @staticmethod
@@ -106,9 +117,10 @@ class CoproService:
     @staticmethod
     def update(db_copro: Copro, changes: CoproInterface, copro_id: int) -> Copro:
 
-        if changes.get("copro_type") is not None and changes.get(
-            "copro_type"
-        ) not in ["Copropriété", "Monopropriété"]:
+        if changes.get("copro_type") is not None and changes.get("copro_type") not in [
+            "Copropriété",
+            "Monopropriété",
+        ]:
             raise WrongCoproTypeException
 
         if changes.get("cadastres"):
