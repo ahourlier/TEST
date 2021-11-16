@@ -4,35 +4,13 @@ from flask import request, Response, jsonify, g
 from flask_accepts import accepts, responds
 from flask_allows import requires
 from flask_sqlalchemy import Pagination
-from flask_restx import inputs
 from . import api
-# from . import api, Mission
-# from .interface import MissionInterface
-# from .mission_details.interface import MissionDetailInterface
-# from .mission_details.schema import MissionDetailSchema
-# from .mission_details.service import MissionDetailService
-# from .schema import (
-#     MissionPaginatedSchema,
-#     MissionSchema,
-#     MissionDocumentSchema,
-#     MissionCreateSchema,
-# )
-# from .service import (
-#     MissionService,
-#     MISSIONS_DEFAULT_PAGE,
-#     MISSIONS_DEFAULT_PAGE_SIZE,
-#     MISSIONS_DEFAULT_SORT_FIELD,
-#     MISSIONS_DEFAULT_SORT_DIRECTION,
-#     MISSION_INIT_QUEUE_NAME,
-# )
-from .schema import CoproPaginatedSchema
+from .model import Copro
+from .schema import CoproPaginatedSchema, CoproCreateSchema, CoproSchema
 from .service import CoproService, COPRO_DEFAULT_PAGE, COPRO_DEFAULT_PAGE_SIZE, COPRO_DEFAULT_SORT_DIRECTION, \
     COPRO_DEFAULT_SORT_FIELD
 from ... import db
-from ...admin.subcontractor.service import SubcontractorService
-from ...auth.users.service import UserService
 from ...common.api import AuthenticatedApi
-from ...common.app_name import App
 from ...common.permissions import (
     is_manager,
     is_contributor,
@@ -45,15 +23,26 @@ import app.mission.permissions as missions_permissions
 from ...common.tasks import create_task
 
 
-@api.route("/")
+SEARCH_COPRO_PARAMS = [
+    dict(name="page", type=int),
+    dict(name="size", type=int),
+    dict(name="term", type=str),
+    dict(name="sortBy", type=str),
+    dict(name="sortDirection", type=str),
+    dict(name="missionId", type=str),
+]
+
+
+@api.route("")
 class CoprosResource(AuthenticatedApi):
     """ Coproprietes """
 
     @accepts(
-        *SEARCH_PARAMS,
+        *SEARCH_COPRO_PARAMS,
         api=api,
     )
     @responds(schema=CoproPaginatedSchema(), api=api)
+    @requires(has_mission_permission)
     def get(self) -> Pagination:
         """ Get all missions """
         return CoproService.get_all(
@@ -68,3 +57,32 @@ class CoprosResource(AuthenticatedApi):
             if request.args.get("missionId") not in [None, ""]
             else None,
         )
+
+    @accepts(schema=CoproCreateSchema(), api=api)
+    @responds(schema=CoproSchema(), api=api)
+    def post(self) -> Copro:
+        """ Create a mission """
+        return CoproService.create(request.parsed_obj)
+
+
+@api.route("/<int:copro_id>")
+@api.param("coproId", "Copro unique ID")
+class CoproIdResource(AuthenticatedApi):
+
+    @responds(schema=CoproSchema(), api=api)
+    @requires(is_contributor)
+    def get(self, copro_id: int):
+        return CoproService.get(copro_id)
+
+    @responds(schema=CoproSchema(), api=api)
+    @accepts(schema=CoproSchema(), api=api)
+    @requires(is_contributor)
+    def put(self, copro_id: int):
+        db_copro = CoproService.get(copro_id)
+        return CoproService.update(db_copro, request.parsed_obj, copro_id)
+
+    @requires(is_contributor)
+    def delete(self, copro_id: int):
+        CoproService.delete(copro_id)
+        return jsonify(dict(status="Success", id=id))
+
