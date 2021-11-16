@@ -15,6 +15,7 @@ class Copro(SoftDeletableMixin, BaseMixin, db.Model):
     mission = relationship("Mission", backref="copros")
     # copropriété
     name = Column(String(255), nullable=True)
+    copro_type = Column(String(255), nullable=True)
     address_1_id = Column(Integer(), ForeignKey("address.id"), nullable=True)
     address_1 = relationship(
         "Address",

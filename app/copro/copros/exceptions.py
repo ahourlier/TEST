@@ -5,6 +5,8 @@ from app.common.config_error_messages import (
     KEY_COPRO_NOT_FOUND_EXCEPTION,
     MISSION_NOT_TYPE_COPRO_EXCEPTION,
     KEY_MISSION_NOT_TYPE_COPRO_EXCEPTION,
+    WRONG_COPRO_TYPE_EXCEPTION,
+    KEY_WRONG_COPRO_TYPE_EXCEPTION_EXCEPTION,
 )
 
 
@@ -22,5 +24,14 @@ class MissionNotTypeCoproException(HTTPException):
         super().__init__(description=message)
         self.code = 400
         self.key = KEY_MISSION_NOT_TYPE_COPRO_EXCEPTION
+        self.message = message
+        self.status = "BAD REQUEST"
+
+
+class WrongCoproTypeException(HTTPException):
+    def __init__(self, message=WRONG_COPRO_TYPE_EXCEPTION):
+        super().__init__(description=message)
+        self.code = 400
+        self.key = KEY_WRONG_COPRO_TYPE_EXCEPTION_EXCEPTION
         self.message = message
         self.status = "BAD REQUEST"
