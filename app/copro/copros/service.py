@@ -10,6 +10,7 @@ from app.copro.cadastre import Cadastre
 from app.copro.copros.exceptions import (
     CoproNotFoundException,
     MissionNotTypeCoproException,
+    WrongCoproTypeException,
 )
 from app.copro.copros.interface import CoproInterface
 from app.copro.copros.model import Copro
@@ -53,6 +54,11 @@ class CoproService:
 
     @staticmethod
     def create(new_attrs: CoproInterface) -> Copro:
+
+        if new_attrs.get("copro_type") is not None and new_attrs.get(
+            "copro_type"
+        ).lower() not in ["copropriété", "monopropriété"]:
+            raise WrongCoproTypeException
 
         mission = MissionService.get_by_id(new_attrs.get("mission_id"))
         if mission.mission_type != App.COPRO:
@@ -99,6 +105,11 @@ class CoproService:
 
     @staticmethod
     def update(db_copro: Copro, changes: CoproInterface, copro_id: int) -> Copro:
+
+        if changes.get("copro_type") is not None and changes.get(
+            "copro_type"
+        ).lower() not in ["copropriété", "monopropriété"]:
+            raise WrongCoproTypeException
 
         if changes.get("cadastres"):
             delete_cadastres = Cadastre.__table__.delete().where(
