@@ -6,7 +6,7 @@ from ..cadastre.schema import CadastreSchema
 from ..president.schema import PresidentSchema, PresidentCreateSchema
 from ..syndic.schema import SyndicSchema, SyndicCreateSchema
 from ...auth.users import UserSchema
-from ...auth.users.schema import UserLightSchema
+from ...auth.users.schema import UserLightSchema, UserInChargeSchema
 from ...common.address.schema import AddressSchema
 from ...common.schemas import PaginatedSchema
 
@@ -17,7 +17,7 @@ class CoproSchema(SQLAlchemyAutoSchema):
     syndics = fields.List(fields.Nested(SyndicSchema()))
     address_1 = fields.Nested(AddressSchema())
     address_2 = fields.Nested(AddressSchema())
-    user_in_charge = fields.Nested(UserLightSchema())
+    user_in_charge = fields.Nested(UserInChargeSchema())
 
     class Meta:
         model = Copro
