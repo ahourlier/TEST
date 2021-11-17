@@ -24,7 +24,10 @@ from app.referential.enums.admin import (
     QuoteCompanyOrigin,
     MissionOperationalPlan,
     MissionJob,
-    MissionSubjob, CoproConstructionTime, CoproType, SyndicType,
+    MissionSubjob,
+    CoproConstructionTime,
+    CoproType,
+    SyndicType,
 )
 
 

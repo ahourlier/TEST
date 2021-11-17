@@ -1,6 +1,10 @@
 from . import api
-from .exceptions import CoproNotFoundException, MissionNotTypeCoproException, WrongCoproTypeException, \
-    WrongConstructionTimeException
+from .exceptions import (
+    CoproNotFoundException,
+    MissionNotTypeCoproException,
+    WrongCoproTypeException,
+    WrongConstructionTimeException,
+)
 from ...common.error_handlers import parse_exception
 
 

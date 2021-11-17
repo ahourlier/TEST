@@ -10,7 +10,8 @@ from app.copro.cadastre import Cadastre
 from app.copro.copros.exceptions import (
     CoproNotFoundException,
     MissionNotTypeCoproException,
-    WrongCoproTypeException, WrongConstructionTimeException,
+    WrongCoproTypeException,
+    WrongConstructionTimeException,
 )
 from app.copro.copros.interface import CoproInterface
 from app.copro.copros.model import Copro
@@ -192,12 +193,12 @@ class CoproService:
     def check_enums(payload: CoproInterface):
         enums = AppEnumService.get_enums(ENUMS)
         if payload.get("copro_type") is not None and payload.get(
-                "copro_type"
+            "copro_type"
         ) not in enums.get(COPRO_TYPE_ENUM):
             raise WrongCoproTypeException
 
         if payload.get("construction_time") is not None and payload.get(
-                "construction_time"
+            "construction_time"
         ) not in enums.get(CONSTRUCTION_TIME_ENUM):
             raise WrongConstructionTimeException
         return

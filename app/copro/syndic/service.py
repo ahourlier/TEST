@@ -1,6 +1,9 @@
 from app import db
 from app.common.address.service import AddressService
-from app.copro.syndic.exceptions import SyndicNotFoundException, WrongSyndicTypeException
+from app.copro.syndic.exceptions import (
+    SyndicNotFoundException,
+    WrongSyndicTypeException,
+)
 from app.copro.syndic.model import Syndic
 from app.copro.syndic.interface import SyndicInterface
 from app.referential.enums.service import AppEnumService
@@ -62,9 +65,9 @@ class SyndicService:
     @staticmethod
     def check_enums(payload: SyndicInterface):
         enums = AppEnumService.get_enums(ENUMS)
-        if payload.get("type") is not None and payload.get(
-                "type"
-        ) not in enums.get(SYNDIC_TYPE_ENUM):
+        if payload.get("type") is not None and payload.get("type") not in enums.get(
+            SYNDIC_TYPE_ENUM
+        ):
             raise WrongSyndicTypeException
 
         return
