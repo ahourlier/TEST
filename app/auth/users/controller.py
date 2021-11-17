@@ -1,5 +1,4 @@
 import logging
-
 from flask import g, request, Response, jsonify
 from flask_accepts import responds, accepts
 from flask_allows import requires
@@ -8,7 +7,7 @@ from flask_sqlalchemy import Pagination
 
 from . import api
 from .interface import UserInterface
-from .schema import UserSchema, UserPaginatedSchema, UserAuthSchema
+from .schema import UserSchema, UserPaginatedSchema, UserAuthSchema, UserLightSchema
 from .model import User, UserRole
 from .service import (
     UserService,
@@ -94,3 +93,16 @@ class UserIdResource(AuthenticatedApi):
         changes: UserInterface = request.parsed_obj
         db_user = UserService.get_by_id(user_id)
         return UserService.update(db_user, changes)
+
+
+@api.route("/mission/<int:mission_id>")
+@api.param("userId", "User unique ID")
+class UserByMissionResource(AuthenticatedApi):
+    @responds(schema=UserLightSchema, many=True)
+    @accepts(
+        dict(name="term", type=str), api=api,
+    )
+    def get(self, mission_id: int):
+        return UserService.list_users_by_mission_id(
+            mission_id, term=request.args.get("term"),
+        )
