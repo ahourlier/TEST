@@ -98,14 +98,11 @@ class UserIdResource(AuthenticatedApi):
 @api.route("/mission/<int:mission_id>")
 @api.param("userId", "User unique ID")
 class UserByMissionResource(AuthenticatedApi):
-
     @responds(schema=UserLightSchema, many=True)
     @accepts(
-        dict(name="term", type=str),
-        api=api,
+        dict(name="term", type=str), api=api,
     )
     def get(self, mission_id: int):
         return UserService.list_users_by_mission_id(
-            mission_id,
-            term=request.args.get("term"),
+            mission_id, term=request.args.get("term"),
         )
