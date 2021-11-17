@@ -1,15 +1,11 @@
 import os
-import random
-import string
 from typing import List
 from urllib.parse import urlencode
 
-import requests
-from firebase_admin import auth
 from flask_sqlalchemy import Pagination
 from googleapiclient.errors import HttpError
-from sqlalchemy import or_
-
+from sqlalchemy import or_, and_
+from flask import g
 import logging
 
 from .error_handlers import UserNotFoundException, UnknownConnexionEmail, InactiveUser
@@ -26,6 +22,9 @@ from ...common.google_apis import DirectoryService, CloudIdentityService
 from ...common.group_utils import GroupUtils
 from ...common.identity_utils import IdentityUtils
 from ...common.search import sort_query
+from ...mission.missions import Mission
+from ...mission.missions.exceptions import MissionNotFoundException
+from ...mission.teams import Team
 
 USERS_DEFAULT_PAGE = 1
 USERS_DEFAULT_PAGE_SIZE = 20
@@ -364,3 +363,26 @@ class UserService:
             output[p.entity].append(p.action)
 
         return [dict(subject=k, actions=v) for k, v in output.items()]
+
+    @staticmethod
+    def list_users_by_mission_id(mission_id: int, term: str):
+        mission = Mission.query.get(mission_id)
+        if not mission:
+            raise MissionNotFoundException
+        users_query = (
+            User.query.join(Team)
+            .join(UserGroup)
+            .filter(
+                or_(
+                    Team.mission_id == mission_id,
+                    Team.agency_id == mission.agency_id,
+                    Team.antenna_id == mission.antenna_id,
+                    UserGroup.antenna_id == mission.antenna_id,
+                    UserGroup.agency_id == mission.agency_id,
+                )
+            )
+        )
+        if term:
+            term = f"%{term}%"
+            users_query = users_query.filter(User.email.ilike(term))
+        return users_query.all()

@@ -54,6 +54,7 @@ class MissionResource(AuthenticatedApi):
         dict(name="agency_id", type=int),
         dict(name="antenna_id", type=int),
         dict(name="client_id", type=int),
+        dict(name="missionType", type=str),
         api=api,
     )
     @responds(schema=MissionPaginatedSchema(), api=api)
@@ -159,6 +160,7 @@ class MissionByUserResource(AuthenticatedApi):
         dict(name="agency_id", type=int),
         dict(name="antenna_id", type=int),
         dict(name="client_id", type=int),
+        dict(name="missionType", type=str),
         api=api,
     )
     @responds(schema=MissionPaginatedSchema(), api=api)
