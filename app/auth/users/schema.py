@@ -55,3 +55,12 @@ class UserAuthSchema(SQLAlchemyAutoSchema):
 
 class UserPaginatedSchema(PaginatedSchema):
     items = fields.Nested(UserSchema, many=True, dump_only=True)
+
+
+class UserInChargeSchema(SQLAlchemyAutoSchema):
+    full_name = fields.Function(lambda obj: f"{obj.first_name} {obj.last_name}")
+
+    class Meta:
+        model = User
+        include_fk = True
+        unknown = EXCLUDE
