@@ -1,8 +1,12 @@
 from app import db
 from app.common.address.service import AddressService
-from app.copro.syndic.exceptions import SyndicNotFoundException
+from app.copro.syndic.exceptions import SyndicNotFoundException, WrongSyndicTypeException
 from app.copro.syndic.model import Syndic
 from app.copro.syndic.interface import SyndicInterface
+from app.referential.enums.service import AppEnumService
+
+SYNDIC_TYPE_ENUM = "SyndicType"
+ENUMS = []
 
 
 class SyndicService:
@@ -16,6 +20,7 @@ class SyndicService:
     @staticmethod
     def create(new_attrs: SyndicInterface) -> Syndic:
 
+        SyndicService.check_enums(new_attrs)
         if new_attrs.get("manager_address"):
             new_attrs["manager_address_id"] = AddressService.create_address(
                 new_attrs.get("manager_address")
@@ -31,6 +36,7 @@ class SyndicService:
     @staticmethod
     def update(db_syndic: Syndic, changes: SyndicInterface, syndic_id: int) -> Syndic:
 
+        SyndicService.check_enums(changes)
         if changes.get("manager_address"):
             if not db_syndic.manager_address_id:
                 changes["manager_address_id"] = AddressService.create_address(
@@ -52,3 +58,13 @@ class SyndicService:
         Syndic.query.filter(Syndic.id == syndic_id).delete()
         db.session.commit()
         return syndic_id
+
+    @staticmethod
+    def check_enums(payload: SyndicInterface):
+        enums = AppEnumService.get_enums(ENUMS)
+        if payload.get("type") is not None and payload.get(
+                "type"
+        ) not in enums.get(SYNDIC_TYPE_ENUM):
+            raise WrongSyndicTypeException
+
+        return

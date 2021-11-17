@@ -467,9 +467,15 @@ MISSION_NOT_TYPE_COPRO_EXCEPTION = "Unable to create copro in this mission: not 
 KEY_MISSION_NOT_TYPE_COPRO_EXCEPTION = "MISSION_NOT_TYPE_COPRO_EXCEPTION"
 
 WRONG_COPRO_TYPE_EXCEPTION = (
-    "Copro type is not in [Copropriété, Monopropriété]"  # todo add in translation
+    "Invalid value for copro type"  # todo add in translation
 )
 KEY_WRONG_COPRO_TYPE_EXCEPTION_EXCEPTION = "WRONG_COPRO_TYPE_EXCEPTION"
 
 SYNDIC_NOT_FOUND_EXCEPTION = "Syndic not found"  # todo add in translation
 KEY_SYNDIC_NOT_FOUND_EXCEPTION = "SYNDIC_NOT_FOUND_EXCEPTION"
+
+WRONG_SYNDIC_TYPE_EXCEPTION = "Invalid value for syndic type"  # todo add in translation
+KEY_WRONG_SYNDIC_TYPE_EXCEPTION = "WRONG_SYNDIC_TYPE_EXCEPTION"
+
+WRONG_CONSTRUCTION_TIME_EXCEPTION = "Invalid value for construction time"  # todo add in translation
+KEY_WRONG_CONSTRUCTION_TIME_EXCEPTION = "WRONG_CONSTRUCTION_TIME_EXCEPTION"

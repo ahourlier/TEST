@@ -24,7 +24,7 @@ from app.referential.enums.admin import (
     QuoteCompanyOrigin,
     MissionOperationalPlan,
     MissionJob,
-    MissionSubjob,
+    MissionSubjob, CoproConstructionTime, CoproType, SyndicType,
 )
 
 
@@ -252,5 +252,32 @@ def register_admin_views(admin, db):
             "Sous métier",
             url="subjob-mission",
             endpoint="manage_subjobs",
+        )
+    )
+    admin.add_view(
+        CoproConstructionTime(
+            AppEnum,
+            db.session,
+            "Période de construction",
+            url="construction-time-copro",
+            endpoint="manage_construction_times",
+        )
+    )
+    admin.add_view(
+        CoproType(
+            AppEnum,
+            db.session,
+            "Type de copropriété (mono, copro, ...)",
+            url="copro-type-copro",
+            endpoint="manage_copro_types",
+        )
+    )
+    admin.add_view(
+        SyndicType(
+            AppEnum,
+            db.session,
+            "Type de syndic",
+            url="synduc-type-copro",
+            endpoint="manage_syndic_types",
         )
     )
