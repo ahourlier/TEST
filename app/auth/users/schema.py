@@ -29,6 +29,13 @@ class UserSchema(SQLAlchemyAutoSchema):
         unknown = EXCLUDE
 
 
+class UserLightSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = User
+        include_fk = True
+        unknown = EXCLUDE
+
+
 class UserPermissionSchema(Schema):
     actions = fields.List(String)
     subject = fields.String()
