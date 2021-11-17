@@ -11,6 +11,7 @@ from app.copro.copros.exceptions import (
     CoproNotFoundException,
     MissionNotTypeCoproException,
     WrongCoproTypeException,
+    WrongConstructionTimeException,
 )
 from app.copro.copros.interface import CoproInterface
 from app.copro.copros.model import Copro
@@ -18,11 +19,15 @@ from app.copro.president import President
 from app.copro.president.service import PresidentService
 from app.copro.syndic.service import SyndicService
 from app.mission.missions.service import MissionService
+from app.referential.enums.service import AppEnumService
 
 COPRO_DEFAULT_PAGE = 1
 COPRO_DEFAULT_PAGE_SIZE = 20
 COPRO_DEFAULT_SORT_FIELD = "created_at"
 COPRO_DEFAULT_SORT_DIRECTION = "desc"
+COPRO_TYPE_ENUM = "CoproType"
+CONSTRUCTION_TIME_ENUM = "ConstructionTime"
+ENUMS = [COPRO_TYPE_ENUM, CONSTRUCTION_TIME_ENUM]
 
 
 class CoproService:
@@ -58,10 +63,7 @@ class CoproService:
     @staticmethod
     def create(new_attrs: CoproInterface) -> Copro:
 
-        if new_attrs.get("copro_type") is not None and new_attrs.get(
-            "copro_type"
-        ) not in ["Copropriété", "Monopropriété"]:
-            raise WrongCoproTypeException
+        CoproService.check_enums(new_attrs)
 
         mission = MissionService.get_by_id(new_attrs.get("mission_id"))
         if mission.mission_type != App.COPRO:
@@ -125,11 +127,7 @@ class CoproService:
     @staticmethod
     def update(db_copro: Copro, changes: CoproInterface, copro_id: int) -> Copro:
 
-        if changes.get("copro_type") is not None and changes.get("copro_type") not in [
-            "Copropriété",
-            "Monopropriété",
-        ]:
-            raise WrongCoproTypeException
+        CoproService.check_enums(changes)
 
         if changes.get("president"):
             PresidentService.update(
@@ -190,3 +188,17 @@ class CoproService:
             current_copro.soft_delete()
             db.session.commit()
         return copro_id
+
+    @staticmethod
+    def check_enums(payload: CoproInterface):
+        enums = AppEnumService.get_enums(ENUMS)
+        if payload.get("copro_type") is not None and payload.get(
+            "copro_type"
+        ) not in enums.get(COPRO_TYPE_ENUM):
+            raise WrongCoproTypeException
+
+        if payload.get("construction_time") is not None and payload.get(
+            "construction_time"
+        ) not in enums.get(CONSTRUCTION_TIME_ENUM):
+            raise WrongConstructionTimeException
+        return
