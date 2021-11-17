@@ -9,7 +9,7 @@ from app.copro.syndic.interface import SyndicInterface
 from app.referential.enums.service import AppEnumService
 
 SYNDIC_TYPE_ENUM = "SyndicType"
-ENUMS = []
+ENUMS = [SYNDIC_TYPE_ENUM]
 
 
 class SyndicService:
