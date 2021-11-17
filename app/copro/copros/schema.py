@@ -42,7 +42,7 @@ class CoproCreateSchema(SQLAlchemyAutoSchema):
     cadastres = fields.List(fields.Nested(CadastreSchema()))
     syndics = fields.List(fields.Nested(SyndicCreateSchema()))
     address_1 = fields.Nested(AddressSchema())
-    address_2 = fields.Nested(AddressSchema())
+    address_2 = fields.Nested(AddressSchema(), required=False, allow_none=True)
     president = fields.Nested(PresidentCreateSchema())
 
     class Meta:
