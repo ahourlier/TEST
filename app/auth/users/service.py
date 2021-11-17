@@ -1,15 +1,11 @@
 import os
-import random
-import string
 from typing import List
 from urllib.parse import urlencode
 
-import requests
-from firebase_admin import auth
 from flask_sqlalchemy import Pagination
 from googleapiclient.errors import HttpError
-from sqlalchemy import or_
-
+from sqlalchemy import or_, and_
+from flask import g
 import logging
 
 from .error_handlers import UserNotFoundException, UnknownConnexionEmail, InactiveUser
@@ -26,6 +22,9 @@ from ...common.google_apis import DirectoryService, CloudIdentityService
 from ...common.group_utils import GroupUtils
 from ...common.identity_utils import IdentityUtils
 from ...common.search import sort_query
+from ...mission.missions import Mission
+from ...mission.missions.exceptions import MissionNotFoundException
+from ...mission.teams import Team
 
 USERS_DEFAULT_PAGE = 1
 USERS_DEFAULT_PAGE_SIZE = 20
@@ -36,14 +35,14 @@ USERS_DEFAULT_SORT_DIRECTION = "asc"
 class UserService:
     @staticmethod
     def get_all(
-        page=USERS_DEFAULT_PAGE,
-        size=USERS_DEFAULT_PAGE_SIZE,
-        kind=None,
-        term=None,
-        sort_by=USERS_DEFAULT_SORT_FIELD,
-        direction=USERS_DEFAULT_SORT_DIRECTION,
-        role=None,
-        no_clients=False,
+            page=USERS_DEFAULT_PAGE,
+            size=USERS_DEFAULT_PAGE_SIZE,
+            kind=None,
+            term=None,
+            sort_by=USERS_DEFAULT_SORT_FIELD,
+            direction=USERS_DEFAULT_SORT_DIRECTION,
+            role=None,
+            no_clients=False,
     ) -> Pagination:
         q = sort_query(User.query, sort_by, direction)
         if kind:
@@ -101,7 +100,7 @@ class UserService:
 
         if new_user.role in [UserRole.ADMIN, UserRole.MANAGER, UserRole.CONTRIBUTOR]:
             if not GroupUtils.is_member_of(
-                new_user.email, os.getenv("APPLICATION_MEMBERS_GOOGLE_GROUP")
+                    new_user.email, os.getenv("APPLICATION_MEMBERS_GOOGLE_GROUP")
             ):
                 GroupUtils.add_member(
                     new_user.email, os.getenv("APPLICATION_MEMBERS_GOOGLE_GROUP")
@@ -109,7 +108,7 @@ class UserService:
 
         if new_user.role == UserRole.ADMIN:
             if not GroupUtils.is_member_of(
-                new_user.email, os.getenv("APPLICATION_ADMINS_GOOGLE_GROUP")
+                    new_user.email, os.getenv("APPLICATION_ADMINS_GOOGLE_GROUP")
             ):
                 GroupUtils.add_member(
                     new_user.email, os.getenv("APPLICATION_ADMINS_GOOGLE_GROUP")
@@ -143,14 +142,14 @@ class UserService:
             db.session.commit()
             if user.role == UserRole.ADMIN and old_user_role != UserRole.ADMIN:
                 if not GroupUtils.is_member_of(
-                    user.email, os.getenv("APPLICATION_ADMINS_GOOGLE_GROUP")
+                        user.email, os.getenv("APPLICATION_ADMINS_GOOGLE_GROUP")
                 ):
                     GroupUtils.add_member(
                         user.email, os.getenv("APPLICATION_ADMINS_GOOGLE_GROUP")
                     )
             elif user.role != UserRole.ADMIN and old_user_role == UserRole.ADMIN:
                 if GroupUtils.is_member_of(
-                    user.email, os.getenv("APPLICATION_ADMINS_GOOGLE_GROUP")
+                        user.email, os.getenv("APPLICATION_ADMINS_GOOGLE_GROUP")
                 ):
                     GroupUtils.remove_member(
                         user.email, os.getenv("APPLICATION_ADMINS_GOOGLE_GROUP")
@@ -159,7 +158,7 @@ class UserService:
 
     @staticmethod
     def check_auth_informations(
-        email: str, changes: UserInterface, force_update: bool = False
+            email: str, changes: UserInterface, force_update: bool = False
     ) -> User:
         """
         A user connecting to the app is always already registered.
@@ -203,7 +202,7 @@ class UserService:
             raise UserNotFoundException
 
         if GroupUtils.is_member_of(
-            user.email, os.getenv("APPLICATION_MEMBERS_GOOGLE_GROUP")
+                user.email, os.getenv("APPLICATION_MEMBERS_GOOGLE_GROUP")
         ):
             GroupUtils.remove_member(
                 user.email, os.getenv("APPLICATION_MEMBERS_GOOGLE_GROUP")
@@ -222,8 +221,8 @@ class UserService:
         try:
             response = (
                 client.users()
-                .get(userKey=email, fields="primaryEmail,name")
-                .execute(num_retries=3)
+                    .get(userKey=email, fields="primaryEmail,name")
+                    .execute(num_retries=3)
             )
             return response
         except HttpError as e:
@@ -244,8 +243,8 @@ class UserService:
             try:
                 request = (
                     client.groups()
-                    .memberships()
-                    .searchTransitiveGroups(parent="groups/-")
+                        .memberships()
+                        .searchTransitiveGroups(parent="groups/-")
                 )
                 request.uri += "&" + query_params
                 response = request.execute(num_retries=3)
@@ -304,9 +303,9 @@ class UserService:
             for antenna in antennas:
                 antennas_data[antenna.email_address] = antenna
                 if (
-                    antenna.agency
-                    and antenna.agency.email_address
-                    and antenna.agency.email_address not in agencies_data
+                        antenna.agency
+                        and antenna.agency.email_address
+                        and antenna.agency.email_address not in agencies_data
                 ):
                     agencies_data[antenna.agency.email_address] = antenna.agency
 
@@ -318,8 +317,8 @@ class UserService:
                 groups_to_delete = []
                 for existing_group in existing_groups:
                     if (
-                        existing_group.group_email not in agencies_data.keys()
-                        and existing_group.group_email not in antennas_data.keys()
+                            existing_group.group_email not in agencies_data.keys()
+                            and existing_group.group_email not in antennas_data.keys()
                     ):
                         groups_to_delete.append(existing_group)
 
@@ -364,3 +363,24 @@ class UserService:
             output[p.entity].append(p.action)
 
         return [dict(subject=k, actions=v) for k, v in output.items()]
+
+    @staticmethod
+    def list_users_by_mission_id(mission_id: int, term: str):
+        mission = Mission.query.get(mission_id)
+        if not mission:
+            raise MissionNotFoundException
+        users_query = User.query.join(Team).join(UserGroup).filter(
+            or_(
+                Team.mission_id == mission_id,
+                Team.agency_id == mission.agency_id,
+                Team.antenna_id == mission.antenna_id,
+                UserGroup.antenna_id == mission.antenna_id,
+                UserGroup.agency_id == mission.agency_id
+            )
+        )
+        if term:
+            term = f"%{term}%"
+            users_query = users_query.filter(
+                User.email.ilike(term)
+            )
+        return users_query.all()

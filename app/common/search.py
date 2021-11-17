@@ -13,7 +13,6 @@ SEARCH_PARAMS = [
     dict(name="term", type=str),
     dict(name="sortBy", type=str),
     dict(name="sortDirection", type=str),
-    dict(name="missionType", type=str),
 ]
 
 
