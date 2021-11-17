@@ -14,6 +14,8 @@ from app.copro.copros.exceptions import (
 )
 from app.copro.copros.interface import CoproInterface
 from app.copro.copros.model import Copro
+from app.copro.president import President
+from app.copro.president.service import PresidentService
 from app.copro.syndic.service import SyndicService
 from app.mission.missions.service import MissionService
 
@@ -87,6 +89,12 @@ class CoproService:
             cadastres = new_attrs.get("cadastres")
             del new_attrs["cadastres"]
 
+        new_attrs["president_id"] = PresidentService.create(
+            new_attrs.get("president", {})
+        )
+        if new_attrs.get("president"):
+            del new_attrs["president"]
+
         new_copro = Copro(**new_attrs)
         db.session.add(new_copro)
         db.session.commit()
@@ -122,6 +130,12 @@ class CoproService:
             "Monopropriété",
         ]:
             raise WrongCoproTypeException
+
+        if changes.get("president"):
+            PresidentService.update(
+                President.query.get(db_copro.president_id), changes.get("president")
+            )
+            del changes["president"]
 
         if changes.get("cadastres"):
             delete_cadastres = Cadastre.__table__.delete().where(
