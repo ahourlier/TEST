@@ -73,7 +73,7 @@ class CoproService:
 
         if new_attrs.get("address_2"):
             new_attrs["address_2_id"] = AddressService.create_address(
-                new_attrs.get("address_1")
+                new_attrs.get("address_2")
             )
             del new_attrs["address_2"]
 
