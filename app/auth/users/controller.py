@@ -96,7 +96,7 @@ class UserIdResource(AuthenticatedApi):
 
 
 @api.route("/mission/<int:mission_id>")
-@api.param("userId", "User unique ID")
+@api.param("missionId", "Mission unique ID")
 class UserByMissionResource(AuthenticatedApi):
     @responds(schema=UserLightSchema, many=True)
     @accepts(
