@@ -371,14 +371,12 @@ class UserService:
             raise MissionNotFoundException
         users_query = (
             User.query.join(Team)
-            .join(UserGroup)
+            .join(UserGroup, isouter=True)
             .filter(
                 or_(
                     Team.mission_id == mission_id,
-                    Team.agency_id == mission.agency_id,
-                    Team.antenna_id == mission.antenna_id,
-                    UserGroup.antenna_id == mission.antenna_id,
                     UserGroup.agency_id == mission.agency_id,
+                    UserGroup.antenna_id == mission.antenna_id,
                 )
             )
         )
