@@ -376,7 +376,7 @@ class UserService:
                 or_(
                     Team.mission_id == mission_id,
                     UserGroup.agency_id == mission.agency_id,
-                    UserGroup.antenna_id == mission.antenna_id
+                    UserGroup.antenna_id == mission.antenna_id,
                 )
             )
         )
