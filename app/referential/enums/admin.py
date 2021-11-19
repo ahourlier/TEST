@@ -5,6 +5,8 @@ from wtforms import StringField, BooleanField
 
 from .model import AppEnum
 from ... import db
+from ...copro.copros.model import Copro
+from ...copro.syndic.model import Syndic
 from ...funder.funders import Funder
 from ...mission.missions import Mission
 from ...mission.missions.mission_details.job import Job
@@ -260,3 +262,21 @@ class MissionSubjob(EnumBaseAdminView):
     ENUM_KIND = "Subjob"
     FIELD_MODEL = MissionDetail
     FIELD_REF = "subjob"
+
+
+class CoproConstructionTime(EnumBaseAdminView):
+    ENUM_KIND = "ConstructionTime"
+    FIELD_MODEL = Copro
+    FIELD_REF = "construction_time"
+
+
+class CoproType(EnumBaseAdminView):
+    ENUM_KIND = "CoproType"
+    FIELD_MODEL = Copro
+    FIELD_REF = "copro_type"
+
+
+class SyndicType(EnumBaseAdminView):
+    ENUM_KIND = "SyndicType"
+    FIELD_MODEL = Syndic
+    FIELD_REF = "type"

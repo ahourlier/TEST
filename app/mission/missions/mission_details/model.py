@@ -1,16 +1,13 @@
 from app import db
 from app.common.base_model import BaseMixin
-from sqlalchemy import Column, Integer, Boolean, String, ForeignKey, Float
+from sqlalchemy import Column, Integer, Boolean, String, ForeignKey
 from sqlalchemy.orm import relationship
 
-from app.mission.missions.mission_details.operational_plan import OperationalPlan
-from app.mission.missions.mission_details.job import Job
-from app.mission.missions.mission_details.subjob import Subjob
-from app.mission.missions.mission_details.partner import Partner
+from app.admin.subcontractor import MissionDetailSubcontractor
+from .elect import Elect
 
 
 class MissionDetail(BaseMixin, db.Model):
-
     __tablename__ = "mission_detail"
     id = Column(Integer(), primary_key=True, autoincrement=True)
     # general
@@ -29,6 +26,12 @@ class MissionDetail(BaseMixin, db.Model):
     billing_type_tf = Column(String(255), nullable=True)
     billing_type_tc = Column(String(255), nullable=True)
     purchase_order_market = Column(Boolean(), nullable=True)
+    subcontractor = relationship(
+        "Subcontractor",
+        secondary=MissionDetailSubcontractor,
+        backref=db.backref("mission_detail", lazy="joined"),
+    )
+    elects = relationship("Elect", backref="mission_details")
     # smq
     smq_starting_meeting = Column(db.Date, nullable=True)
     smq_engagement_meeting = Column(db.Date, nullable=True)
