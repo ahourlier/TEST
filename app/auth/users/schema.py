@@ -29,6 +29,17 @@ class UserSchema(SQLAlchemyAutoSchema):
         unknown = EXCLUDE
 
 
+class UserLightSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = User
+        include_fk = True
+        unknown = EXCLUDE
+
+
+class UsersInItemsSchema(SQLAlchemyAutoSchema):
+    items = fields.Nested(UserLightSchema, many=True, dump_only=True)
+
+
 class UserPermissionSchema(Schema):
     actions = fields.List(String)
     subject = fields.String()
@@ -48,3 +59,12 @@ class UserAuthSchema(SQLAlchemyAutoSchema):
 
 class UserPaginatedSchema(PaginatedSchema):
     items = fields.Nested(UserSchema, many=True, dump_only=True)
+
+
+class UserInChargeSchema(SQLAlchemyAutoSchema):
+    full_name = fields.Function(lambda obj: f"{obj.first_name} {obj.last_name}")
+
+    class Meta:
+        model = User
+        include_fk = True
+        unknown = EXCLUDE

@@ -451,3 +451,31 @@ KEY_MISSION_DETAIL_NOT_FOUND_EXCEPTION = (
 
 PARTNER_NOT_FOUND_EXCEPTION = "Partner not found"  # todo add in translation
 KEY_PARTNER_NOT_FOUND_EXCEPTION = "PARTNER_NOT_FOUND_EXCEPTION"
+
+SUBCONTRACTOR_NOT_FOUND_EXCEPTION = "Subcontractor not found"  # todo add in translation
+KEY_SUBCONTRACTOR_NOT_FOUND_EXCEPTION = "SUBCONTRACTOR_NOT_FOUND_EXCEPTION"
+
+ELECT_NOT_FOUND_EXCEPTION = "Elect not found"  # todo add in translation
+KEY_ELECT_NOT_FOUND_EXCEPTION = "ELECT_NOT_FOUND_EXCEPTION"
+
+COPRO_NOT_FOUND_EXCEPTION = (
+    "Could not find a copro with this id"  # todo add in translation
+)
+KEY_COPRO_NOT_FOUND_EXCEPTION = "COPRO_NOT_FOUND_EXCEPTION"
+
+MISSION_NOT_TYPE_COPRO_EXCEPTION = "Unable to create copro in this mission: not a type Copro"  # todo add in translation
+KEY_MISSION_NOT_TYPE_COPRO_EXCEPTION = "MISSION_NOT_TYPE_COPRO_EXCEPTION"
+
+WRONG_COPRO_TYPE_EXCEPTION = "Invalid value for copro type"  # todo add in translation
+KEY_WRONG_COPRO_TYPE_EXCEPTION_EXCEPTION = "WRONG_COPRO_TYPE_EXCEPTION"
+
+SYNDIC_NOT_FOUND_EXCEPTION = "Syndic not found"  # todo add in translation
+KEY_SYNDIC_NOT_FOUND_EXCEPTION = "SYNDIC_NOT_FOUND_EXCEPTION"
+
+WRONG_SYNDIC_TYPE_EXCEPTION = "Invalid value for syndic type"  # todo add in translation
+KEY_WRONG_SYNDIC_TYPE_EXCEPTION = "WRONG_SYNDIC_TYPE_EXCEPTION"
+
+WRONG_CONSTRUCTION_TIME_EXCEPTION = (
+    "Invalid value for construction time"  # todo add in translation
+)
+KEY_WRONG_CONSTRUCTION_TIME_EXCEPTION = "WRONG_CONSTRUCTION_TIME_EXCEPTION"
