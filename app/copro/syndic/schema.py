@@ -7,7 +7,7 @@ from ...common.schemas import PaginatedSchema
 
 
 class SyndicSchema(SQLAlchemyAutoSchema):
-    manager_address = fields.Nested(AddressSchema())
+    manager_address = fields.Nested(AddressSchema(), allow_none=None, required=False)
 
     class Meta:
         model = Syndic
@@ -16,7 +16,7 @@ class SyndicSchema(SQLAlchemyAutoSchema):
 
 
 class SyndicUpdateSchema(SQLAlchemyAutoSchema):
-    manager_address = fields.Nested(AddressSchema())
+    manager_address = fields.Nested(AddressSchema(), allow_none=None, required=False)
     copro_id = fields.Integer(allow_none=None, required=False)
 
     class Meta:
@@ -33,7 +33,7 @@ class SyndicUpdateSchema(SQLAlchemyAutoSchema):
 
 
 class SyndicCreateSchema(SQLAlchemyAutoSchema):
-    manager_address = fields.Nested(AddressSchema())
+    manager_address = fields.Nested(AddressSchema(), allow_none=None, required=False)
     copro_id = fields.Integer(allow_none=None, required=False)
 
     class Meta:
