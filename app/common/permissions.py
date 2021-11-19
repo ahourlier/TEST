@@ -101,6 +101,15 @@ def has_mission_permission(user):
     return PermissionsUtils.bypass_admins(permission, user)
 
 
+def has_copro_permission(user):
+    mission_id = PermissionsUtils.get_entity_id("missionId")
+    missions_service.MissionService.get_by_id(mission_id)
+    permission = mission_permissions.MissionPermission.check_mission_permission(
+        mission_id, user
+    )
+    return PermissionsUtils.bypass_admins(permission, user)
+
+
 def has_project_permission(user):
     project_id = PermissionsUtils.get_entity_id("project_id")
     return project_permissions.ProjectPermission.check_project_permission(
