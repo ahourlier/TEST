@@ -27,6 +27,7 @@ from ...common.permissions import (
     is_admin,
     filter_response_with_clients_access,
     has_mission_permission,
+    has_copro_permission,
 )
 from ...common.search import SEARCH_PARAMS
 import app.mission.permissions as missions_permissions
@@ -51,7 +52,7 @@ class CoprosResource(AuthenticatedApi):
         *SEARCH_COPRO_PARAMS, api=api,
     )
     @responds(schema=CoproPaginatedSchema(), api=api)
-    @requires(has_mission_permission)
+    @requires(has_copro_permission)
     def get(self) -> Pagination:
         """ Get all missions """
         return CoproService.get_all(
