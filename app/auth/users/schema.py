@@ -36,6 +36,10 @@ class UserLightSchema(SQLAlchemyAutoSchema):
         unknown = EXCLUDE
 
 
+class UsersInItemsSchema(SQLAlchemyAutoSchema):
+    items = fields.Nested(UserLightSchema, many=True, dump_only=True)
+
+
 class UserPermissionSchema(Schema):
     actions = fields.List(String)
     subject = fields.String()
