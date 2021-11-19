@@ -26,7 +26,8 @@ from ...common.permissions import (
     is_contributor,
     is_admin,
     filter_response_with_clients_access,
-    has_mission_permission, has_copro_permission,
+    has_mission_permission,
+    has_copro_permission,
 )
 from ...common.search import SEARCH_PARAMS
 import app.mission.permissions as missions_permissions
