@@ -33,7 +33,7 @@ class SyndicUpdateSchema(SQLAlchemyAutoSchema):
 
 
 class SyndicCreateSchema(SQLAlchemyAutoSchema):
-    manager_address = fields.Nested(AddressSchema(), allow_none=None, required=False)
+    manager_address = fields.Nested(AddressSchema(), allow_none=True, required=False)
     copro_id = fields.Integer(allow_none=None, required=False)
 
     class Meta:
