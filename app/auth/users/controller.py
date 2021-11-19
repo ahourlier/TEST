@@ -7,7 +7,13 @@ from flask_sqlalchemy import Pagination
 
 from . import api
 from .interface import UserInterface
-from .schema import UserSchema, UserPaginatedSchema, UserAuthSchema, UserLightSchema
+from .schema import (
+    UserSchema,
+    UserPaginatedSchema,
+    UserAuthSchema,
+    UserLightSchema,
+    UsersInItemsSchema,
+)
 from .model import User, UserRole
 from .service import (
     UserService,
@@ -98,7 +104,7 @@ class UserIdResource(AuthenticatedApi):
 @api.route("/mission/<int:mission_id>")
 @api.param("missionId", "Mission unique ID")
 class UserByMissionResource(AuthenticatedApi):
-    @responds(schema=UserLightSchema, many=True)
+    @responds(schema=UsersInItemsSchema())
     @accepts(
         dict(name="term", type=str), api=api,
     )
