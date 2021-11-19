@@ -5,13 +5,14 @@ from urllib.parse import urlencode
 from flask_sqlalchemy import Pagination
 from googleapiclient.errors import HttpError
 from sqlalchemy import or_, and_
-from flask import g
+from flask import g, jsonify
 import logging
 
 from .error_handlers import UserNotFoundException, UnknownConnexionEmail, InactiveUser
 from .interface import UserInterface
 from .model import User, UserKind, UserRole, UserGroup
 from app import db
+from .schema import UserLightSchema
 from ..preferred_app import PreferredApp
 from ...admin.agencies import Agency
 from ...admin.antennas import Antenna
@@ -383,4 +384,5 @@ class UserService:
         if term:
             term = f"%{term}%"
             users_query = users_query.filter(User.email.ilike(term))
-        return users_query.all()
+        user_schema = UserLightSchema()
+        return jsonify({"items:": user_schema.dump(users_query.all(), many=True)})
