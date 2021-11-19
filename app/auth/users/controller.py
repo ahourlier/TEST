@@ -7,7 +7,13 @@ from flask_sqlalchemy import Pagination
 
 from . import api
 from .interface import UserInterface
-from .schema import UserSchema, UserPaginatedSchema, UserAuthSchema, UserLightSchema, UsersInItemsSchema
+from .schema import (
+    UserSchema,
+    UserPaginatedSchema,
+    UserAuthSchema,
+    UserLightSchema,
+    UsersInItemsSchema,
+)
 from .model import User, UserRole
 from .service import (
     UserService,
