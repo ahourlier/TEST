@@ -385,4 +385,4 @@ class UserService:
             term = f"%{term}%"
             users_query = users_query.filter(User.email.ilike(term))
         user_schema = UserLightSchema()
-        return jsonify({"items:": user_schema.dump(users_query.all(), many=True)})
+        return jsonify({"items": user_schema.dump(users_query.all(), many=True)})
