@@ -15,6 +15,8 @@ from app.copro.copros.exceptions import (
 )
 from app.copro.copros.interface import CoproInterface
 from app.copro.copros.model import Copro
+from app.copro.moe.model import Moe
+from app.copro.moe.service import MoeService
 from app.copro.president import President
 from app.copro.president.service import PresidentService
 from app.copro.syndic.service import SyndicService
@@ -90,6 +92,10 @@ class CoproService:
         if new_attrs.get("cadastres"):
             cadastres = new_attrs.get("cadastres")
             del new_attrs["cadastres"]
+
+        if new_attrs.get("moe"):
+            new_attrs["moe_id"] = MoeService.create(new_attrs.get("moe"))
+            del new_attrs["moe"]
 
         new_attrs["president_id"] = PresidentService.create(
             new_attrs.get("president", {})
@@ -175,6 +181,13 @@ class CoproService:
         if changes.get("user_in_charge"):
             changes["user_in_charge_id"] = changes.get("user_in_charge").get("id")
             del changes["user_in_charge"]
+
+        if changes.get("moe"):
+            if not db_copro.moe_id:
+                changes["moe_id"] = MoeService.create(changes.get("moe"))
+            else:
+                MoeService.update(Moe.query.get(db_copro.moe_id), changes.get("moe"))
+            del changes["moe"]
 
         db_copro.update(changes)
         db.session.commit()
