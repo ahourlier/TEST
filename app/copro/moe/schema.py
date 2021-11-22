@@ -18,7 +18,6 @@ class MoeSchema(SQLAlchemyAutoSchema):
 class MoeUpdateSchema(SQLAlchemyAutoSchema):
     phone_number = fields.Nested(PhoneNumberSchema(), allow_none=True)
     address = fields.Nested(AddressSchema(), allow_none=True)
-    copro_id = fields.Integer(required=False)
 
     class Meta:
         model = Moe
@@ -28,7 +27,6 @@ class MoeUpdateSchema(SQLAlchemyAutoSchema):
 class MoeCreateSchema(SQLAlchemyAutoSchema):
     phone_number = fields.Nested(PhoneNumberSchema(), allow_none=True)
     address = fields.Nested(AddressSchema(), allow_none=True)
-    copro_id = fields.Integer(required=True, allow_none=False)
 
     class Meta:
         model = Moe

@@ -7,7 +7,7 @@ from app.copro.president.model import President
 
 class PresidentService:
     @staticmethod
-    def create(president: PresidentInterface):
+    def create(president: PresidentInterface) -> int:
         if "phone_number" in president:
             if president.get("phone_number", None):
                 president["phones"] = [PhoneNumber(**president.get("phone_number"))]
