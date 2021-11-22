@@ -20,7 +20,7 @@ def mock_auth_decorator(func):
 
 @pytest.fixture
 def app():
-    patch("app.common.decorators.auth_required", mock_auth_decorator).start()
+    # patch("app.common.decorators.auth_required", mock_auth_decorator).start()
     return create_app("test")
 
 
@@ -34,9 +34,9 @@ def db(app):
     from app import db
 
     with app.app_context():
-        db.engine.execute("ATTACH ':memory:' AS core")
+        # db.engine.execute("ATTACH ':memory:' AS core")
         db.drop_all()
         db.create_all()
         yield db
-        db.drop_all()
+        # db.drop_all()
         db.session.commit()

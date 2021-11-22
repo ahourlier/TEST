@@ -53,10 +53,11 @@ def create_app(env=None):
     allows.init_app(app)
     allows.identity_loader(lambda: g.user)
     babel.init_app(app)
-    creds = credentials.Certificate(
-        app.config.get("FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY_PATH")
-    )
-    firebase_admin.initialize_app(creds)
+    if env != "test":
+        creds = credentials.Certificate(
+            app.config.get("FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY_PATH")
+        )
+        firebase_admin.initialize_app(creds)
     fa = Admin(name="OSLO", template_mode="bootstrap3", url="/_/manage")
     fa.init_app(app)
 
