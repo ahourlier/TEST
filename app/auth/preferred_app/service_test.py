@@ -6,15 +6,20 @@ from .service import PreferredAppService
 from ..users import User
 from ..users.interface import UserInterface
 from ..users.model import UserKind
-from ..users.model_test import USER_ONE_UID, USER_ONE_EMAIL, USER_ONE_FIRST_NAME, USER_ONE_LAST_NAME, USER_ONE_COMMENT, \
-    USER_ONE_ROLE
+from ..users.model_test import (
+    USER_ONE_UID,
+    USER_ONE_EMAIL,
+    USER_ONE_FIRST_NAME,
+    USER_ONE_LAST_NAME,
+    USER_ONE_COMMENT,
+    USER_ONE_ROLE,
+)
 from ...common import Role
 from ...common.app_name import App
 
-mock_preferred_app = PreferredAppInterface(**{
-    "preferred_app": App.INDIVIDUAL,
-    "first_connection": True
-})
+mock_preferred_app = PreferredAppInterface(
+    **{"preferred_app": App.INDIVIDUAL, "first_connection": True}
+)
 
 mock_user = User(
     uid=USER_ONE_UID,
@@ -49,15 +54,19 @@ def test_create_for_user(db: SQLAlchemy):
         comment=USER_ONE_COMMENT,
         role=USER_ONE_ROLE,
         kind=UserKind.EMPLOYEE,
-        active=True
+        active=True,
     )
     db.session.add(created_user)
     db.session.commit()
     PreferredAppService.create_for_user(mock_preferred_app, created_user.id)
     updated_user = User.query.get(created_user.id)
     assert updated_user.preferred_app_id is not None
-    assert updated_user.preferred_app.preferred_app == mock_preferred_app.get("preferred_app")
-    assert updated_user.preferred_app.first_connection == mock_preferred_app.get("first_connection")
+    assert updated_user.preferred_app.preferred_app == mock_preferred_app.get(
+        "preferred_app"
+    )
+    assert updated_user.preferred_app.first_connection == mock_preferred_app.get(
+        "first_connection"
+    )
 
 
 def test_update(db: SQLAlchemy):
