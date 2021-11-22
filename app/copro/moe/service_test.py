@@ -7,22 +7,24 @@ from app.copro.moe.service import MoeService
 from app.test.fixtures import app, db
 from app.copro.moe.interface import MoeInterface
 
-mock_moe = MoeInterface(**{
-    "name": "Test MOE",
-    "address": {
-        "full_address": "9 rue de la chose, 69120 Vaulx-en-Velin, France",
-        "postal_code": "69120",
-        "street": "rue de la chose",
-        "number": "9",
-        "additional_info": "",
-        "city": "Vaulx-en-Velin"
-    },
-    "phone_number": {
-        "international": "test",
-        "country_code": "FRA",
-        "national": "test"
+mock_moe = MoeInterface(
+    **{
+        "name": "Test MOE",
+        "address": {
+            "full_address": "9 rue de la chose, 69120 Vaulx-en-Velin, France",
+            "postal_code": "69120",
+            "street": "rue de la chose",
+            "number": "9",
+            "additional_info": "",
+            "city": "Vaulx-en-Velin",
+        },
+        "phone_number": {
+            "international": "test",
+            "country_code": "FRA",
+            "national": "test",
+        },
     }
-})
+)
 
 
 def test_create(db: SQLAlchemy):
@@ -58,16 +60,19 @@ def test_update(db: SQLAlchemy):
     new_name = "Test updated from test"
     new_full_address = "une nouvelle address updated"
     new_international = "updated test"
-    MoeService.update(new_moe, MoeInterface(**{
-        "name": new_name,
-        "address": {
-            "full_address": new_full_address
-        },
-        "phone_number": {
-            "id": new_phone.id,
-            "international": new_international
-        }
-    }))
+    MoeService.update(
+        new_moe,
+        MoeInterface(
+            **{
+                "name": new_name,
+                "address": {"full_address": new_full_address},
+                "phone_number": {
+                    "id": new_phone.id,
+                    "international": new_international,
+                },
+            }
+        ),
+    )
     assert new_moe.address.full_address == new_full_address
     assert new_moe.name == new_name
     assert new_moe.phone_number.international == new_international

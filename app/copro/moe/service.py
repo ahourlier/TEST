@@ -7,7 +7,6 @@ from app.copro.moe.model import Moe
 
 
 class MoeService:
-
     @staticmethod
     def create(new_attrs: MoeInterface) -> int:
         if "phone_number" in new_attrs:
@@ -16,7 +15,9 @@ class MoeService:
             del new_attrs["phone_number"]
 
         if new_attrs.get("address"):
-            new_attrs["address_id"] = AddressService.create_address(new_attrs.get("address"))
+            new_attrs["address_id"] = AddressService.create_address(
+                new_attrs.get("address")
+            )
             del new_attrs["address"]
 
         new_moe = Moe(**new_attrs)
@@ -27,9 +28,7 @@ class MoeService:
     @staticmethod
     def update(moe: Moe, changes: MoeInterface):
         if changes.get("phone_number", None):
-            PhoneNumberService.update_phone_numbers(
-                moe, [changes.get("phone_number")]
-            )
+            PhoneNumberService.update_phone_numbers(moe, [changes.get("phone_number")])
             del changes["phone_number"]
 
         if changes.get("address"):
