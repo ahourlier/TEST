@@ -29,15 +29,21 @@ class MoeService:
     def update(moe: Moe, changes: MoeInterface):
         if "phone_number" in changes:
             if changes.get("phone_number", None):
-                PhoneNumberService.update_phone_numbers(moe, [changes.get("phone_number")])
+                PhoneNumberService.update_phone_numbers(
+                    moe, [changes.get("phone_number")]
+                )
             del changes["phone_number"]
 
         if "address" in changes:
             if changes.get("address"):
                 if not moe.address_id:
-                    moe.address_id = AddressService.create_address(changes.get("address"))
+                    moe.address_id = AddressService.create_address(
+                        changes.get("address")
+                    )
                 else:
-                    AddressService.update_address(moe.address_id, changes.get("address"))
+                    AddressService.update_address(
+                        moe.address_id, changes.get("address")
+                    )
             del changes["address"]
 
         moe.update(changes)

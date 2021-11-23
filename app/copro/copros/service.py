@@ -193,7 +193,9 @@ class CoproService:
                 if not db_copro.moe_id:
                     changes["moe_id"] = MoeService.create(changes.get("moe"))
                 else:
-                    MoeService.update(Moe.query.get(db_copro.moe_id), changes.get("moe"))
+                    MoeService.update(
+                        Moe.query.get(db_copro.moe_id), changes.get("moe")
+                    )
             del changes["moe"]
 
         db_copro.update(changes)
