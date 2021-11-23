@@ -74,6 +74,6 @@ class ServicesUtils:
         for key in key_mapping:
             if payload.get(key) is not None and payload.get(
                     key
-            ) not in enums.get(key_mapping[key]["enum_key"]):
+            ) not in enums.get(key_mapping[key]["enum_key"], []):
                 raise key_mapping[key]["exception"]
         return

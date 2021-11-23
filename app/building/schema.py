@@ -3,6 +3,7 @@ from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
 from app.building.model import Building
 from app.common.address.schema import AddressSchema
+from app.common.schemas import PaginatedSchema
 
 
 class BuildingCreateSchema(SQLAlchemyAutoSchema):
@@ -23,5 +24,6 @@ class BuildingSchema(SQLAlchemyAutoSchema):
         include_fk = True
 
 
-class BuildingPaginatedSchema(SQLAlchemyAutoSchema):
-    items = fields.List(fields.Nested(BuildingSchema()), dump_only=True)
+class BuildingPaginatedSchema(PaginatedSchema):
+    items = fields.Nested(BuildingSchema(), many=True, dump_only=True)
+

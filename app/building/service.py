@@ -99,7 +99,7 @@ class BuildingService:
         return new_building
 
     @staticmethod
-    def get(building_id):
+    def get(building_id) -> Building:
         building = Building.query.get(building_id)
 
         if not building:
@@ -122,3 +122,10 @@ class BuildingService:
         db_building.update(changes)
         db.session.commit()
         return db_building
+
+    @staticmethod
+    def delete(building_id):
+        existing_building = BuildingService.get(building_id)
+        existing_building.soft_delete()
+        db.session.commit()
+        return building_id

@@ -284,7 +284,7 @@ class SyndicType(EnumBaseAdminView):
 
 
 class BuildingConstructionTime(EnumBaseAdminView):
-    ENUM_KIND = "ConstructionTime"
+    ENUM_KIND = "BuildingConstructionTime"
     FIELD_MODEL = Building
     FIELD_REF = "construction_time"
 
