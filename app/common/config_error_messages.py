@@ -479,3 +479,8 @@ WRONG_CONSTRUCTION_TIME_EXCEPTION = (
     "Invalid value for construction time"  # todo add in translation
 )
 KEY_WRONG_CONSTRUCTION_TIME_EXCEPTION = "WRONG_CONSTRUCTION_TIME_EXCEPTION"
+
+BUILDING_NOT_FOUND_EXCEPTION = (
+    "Could not find a building with this id"  # todo add in translation
+)
+KEY_BUILDING_NOT_FOUND_EXCEPTION = "BUILDING_NOT_FOUND_EXCEPTION"
