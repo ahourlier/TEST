@@ -27,7 +27,11 @@ from app.referential.enums.admin import (
     MissionSubjob,
     CoproConstructionTime,
     CoproType,
-    SyndicType, BuildingConstructionTime, BuildingERPCategory, BuildingAccessType, BuildingCollectiveHeater,
+    SyndicType,
+    BuildingConstructionTime,
+    BuildingERPCategory,
+    BuildingAccessType,
+    BuildingCollectiveHeater,
     BuildingAsbestosDiagnosisResult,
 )
 
