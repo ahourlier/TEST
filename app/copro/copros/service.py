@@ -135,58 +135,65 @@ class CoproService:
 
         CoproService.check_enums(changes)
 
-        if changes.get("president"):
-            PresidentService.update(
-                President.query.get(db_copro.president_id), changes.get("president")
-            )
+        if "president" in changes:
+            if changes.get("president"):
+                PresidentService.update(
+                    President.query.get(db_copro.president_id), changes.get("president")
+                )
             del changes["president"]
+            del changes["president_id"]
 
-        if changes.get("cadastres"):
-            delete_cadastres = Cadastre.__table__.delete().where(
-                Cadastre.copro_id == copro_id
-            )
-            db.session.execute(delete_cadastres)
-            db.session.commit()
-
-            for c in changes.get("cadastres"):
-                c["copro_id"] = copro_id
-                new_cadastre = Cadastre(**c)
-                db.session.add(new_cadastre)
+        if "cadastres" in changes:
+            if changes.get("cadastres"):
+                delete_cadastres = Cadastre.__table__.delete().where(
+                    Cadastre.copro_id == copro_id
+                )
+                db.session.execute(delete_cadastres)
                 db.session.commit()
+
+                for c in changes.get("cadastres"):
+                    c["copro_id"] = copro_id
+                    new_cadastre = Cadastre(**c)
+                    db.session.add(new_cadastre)
+                    db.session.commit()
 
             del changes["cadastres"]
 
-        if changes.get("address_1"):
-            if not db_copro.address_1_id:
-                changes["address_1_id"] = AddressService.create_address(
-                    changes.get("address_1")
-                )
-            else:
-                AddressService.update_address(
-                    db_copro.address_1_id, changes.get("address_1")
-                )
+        if "address_1" in changes:
+            if changes.get("address_1"):
+                if not db_copro.address_1_id:
+                    changes["address_1_id"] = AddressService.create_address(
+                        changes.get("address_1")
+                    )
+                else:
+                    AddressService.update_address(
+                        db_copro.address_1_id, changes.get("address_1")
+                    )
             del changes["address_1"]
 
-        if changes.get("address_2"):
-            if not db_copro.address_2_id:
-                changes["address_2_id"] = AddressService.create_address(
-                    changes.get("address_2")
-                )
-            else:
-                AddressService.update_address(
-                    db_copro.address_1_id, changes.get("address_2")
-                )
+        if "address_2" in changes:
+            if changes.get("address_2"):
+                if not db_copro.address_2_id:
+                    changes["address_2_id"] = AddressService.create_address(
+                        changes.get("address_2")
+                    )
+                else:
+                    AddressService.update_address(
+                        db_copro.address_1_id, changes.get("address_2")
+                    )
             del changes["address_2"]
 
-        if changes.get("user_in_charge"):
-            changes["user_in_charge_id"] = changes.get("user_in_charge").get("id")
+        if "user_in_charge" in changes:
+            if changes.get("user_in_charge"):
+                changes["user_in_charge_id"] = changes.get("user_in_charge").get("id")
             del changes["user_in_charge"]
 
-        if changes.get("moe"):
-            if not db_copro.moe_id:
-                changes["moe_id"] = MoeService.create(changes.get("moe"))
-            else:
-                MoeService.update(Moe.query.get(db_copro.moe_id), changes.get("moe"))
+        if "moe" in changes:
+            if changes.get("moe"):
+                if not db_copro.moe_id:
+                    changes["moe_id"] = MoeService.create(changes.get("moe"))
+                else:
+                    MoeService.update(Moe.query.get(db_copro.moe_id), changes.get("moe"))
             del changes["moe"]
 
         db_copro.update(changes)

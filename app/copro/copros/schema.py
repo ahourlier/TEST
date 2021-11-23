@@ -28,11 +28,11 @@ class CoproSchema(SQLAlchemyAutoSchema):
 
 
 class CoproUpdateSchema(SQLAlchemyAutoSchema):
-    cadastres = fields.List(fields.Nested(CadastreSchema()))
-    address_1 = fields.Nested(AddressSchema())
-    address_2 = fields.Nested(AddressSchema())
+    cadastres = fields.List(fields.Nested(CadastreSchema()), allow_none=True, required=False)
+    address_1 = fields.Nested(AddressSchema(), allow_none=True, required=False)
+    address_2 = fields.Nested(AddressSchema(), allow_none=True, required=False)
     mission_id = fields.Integer(allow_none=True, required=False)
-    president = fields.Nested(PresidentCreateSchema())
+    president = fields.Nested(PresidentCreateSchema(), allow_none=True, required=False)
     moe = fields.Nested(MoeUpdateSchema(), required=False, allow_none=True)
 
     class Meta:
