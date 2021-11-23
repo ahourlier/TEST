@@ -40,12 +40,15 @@ class SyndicService:
     def update(db_syndic: Syndic, changes: SyndicInterface, syndic_id: int) -> Syndic:
 
         SyndicService.check_enums(changes)
-        if changes.get("manager_address"):
-            if not db_syndic.manager_address_id:
+        if "manager_address" in changes:
+            if not db_syndic.manager_address_id and changes.get("manager_address"):
                 changes["manager_address_id"] = AddressService.create_address(
                     changes.get("manager_address")
                 )
-            else:
+            elif db_syndic.manager_address_id:
+                db_syndic.manager_address = None
+                if not changes.get("address"):
+                    db_syndic.manager_address_id = None
                 AddressService.update_address(
                     db_syndic.manager_address_id, changes.get("manager_address")
                 )
