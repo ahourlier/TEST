@@ -1,11 +1,15 @@
 from sqlalchemy import or_, and_
 
 from app import db
+from app.building.exceptions import BuildingNotFoundException, WrongConstructionTimeException, \
+    WrongERPCategoryException, WrongAccessTypeException, WrongCollectiveHeaterException, \
+    WrongAsbestosDiagnosisResultException
 from app.building.interface import BuildingInterface
 from app.building.model import Building
 from app.common.address.model import Address
 from app.common.address.service import AddressService
 from app.common.search import sort_query
+from app.common.services_utils import ServicesUtils
 from app.copro.copros.model import Copro
 
 SEARCH_BUILDINGS_PARAMS = [
@@ -22,6 +26,29 @@ BUILDING_DEFAULT_PAGE = 1
 BUILDING_DEFAULT_PAGE_SIZE = 20
 BUILDING_DEFAULT_SORT_FIELD = "created_at"
 BUILDING_DEFAULT_SORT_DIRECTION = "desc"
+
+ENUM_MAPPING = {
+    "construction_time": {
+        "enum_key": "BuildingConstructionTime",
+        "exception": WrongConstructionTimeException
+    },
+    "erp_category": {
+        "enum_key": "BuildingERPCategory",
+        "exception": WrongERPCategoryException
+    },
+    "access_type": {
+        "enum_key": "AccessType",
+        "exception": WrongAccessTypeException
+    },
+    "collective_heater": {
+        "enum_key": "CollectiveHeater",
+        "exception": WrongCollectiveHeaterException
+    },
+    "asbestos_diagnosis_result": {
+        "enum_key": "AsbestosDiagnosisResult",
+        "exception": WrongAsbestosDiagnosisResultException
+    }
+}
 
 
 class BuildingService:
@@ -60,6 +87,8 @@ class BuildingService:
     @staticmethod
     def create(new_attrs: BuildingInterface):
 
+        ServicesUtils.check_enums(new_attrs, ENUM_MAPPING)
+
         if new_attrs.get("address"):
             new_attrs["address_id"] = AddressService.create_address(new_attrs.get("address"))
             del new_attrs["address"]
@@ -68,3 +97,28 @@ class BuildingService:
         db.session.add(new_building)
         db.session.commit()
         return new_building
+
+    @staticmethod
+    def get(building_id):
+        building = Building.query.get(building_id)
+
+        if not building:
+            raise BuildingNotFoundException
+
+        return building
+
+    @staticmethod
+    def update(db_building: Building, building_id: int, changes: BuildingInterface):
+
+        ServicesUtils.check_enums(changes, ENUM_MAPPING)
+
+        if changes.get("address"):
+            if not db_building.address_id:
+                changes["address_id"] = AddressService.create_address(changes.get("address"))
+            else:
+                AddressService.update_address(db_building.address_id, changes.get("address"))
+            del changes["address"]
+
+        db_building.update(changes)
+        db.session.commit()
+        return db_building

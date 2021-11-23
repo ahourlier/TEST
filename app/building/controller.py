@@ -38,3 +38,18 @@ class BuildingsResource(AuthenticatedApi):
     @responds(schema=BuildingSchema(), api=api)
     def post(self) -> Building:
         return BuildingService.create(request.parsed_obj)
+
+
+@api.route("/<int:building_id>")
+@api.param("buildingId", "Building unique id")
+class BuildingsResource(AuthenticatedApi):
+
+    @responds(schema=BuildingSchema(), api=api)
+    def get(self, building_id):
+        return BuildingService.get(building_id)
+
+    @responds(schema=BuildingSchema(), api=api)
+    @accepts(schema=BuildingSchema(), api=api)
+    def put(self, building_id):
+        db_building = BuildingService.get(building_id)
+        return BuildingService.update(db_building, building_id, request.parsed_obj)
