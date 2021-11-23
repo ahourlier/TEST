@@ -5,6 +5,7 @@ from wtforms import StringField, BooleanField
 
 from .model import AppEnum
 from ... import db
+from ...building import Building
 from ...copro.copros.model import Copro
 from ...copro.syndic.model import Syndic
 from ...funder.funders import Funder
@@ -280,3 +281,33 @@ class SyndicType(EnumBaseAdminView):
     ENUM_KIND = "SyndicType"
     FIELD_MODEL = Syndic
     FIELD_REF = "type"
+
+
+class BuildingConstructionTime(EnumBaseAdminView):
+    ENUM_KIND = "ConstructionTime"
+    FIELD_MODEL = Building
+    FIELD_REF = "construction_time"
+
+
+class BuildingERPCategory(EnumBaseAdminView):
+    ENUM_KIND = "BuildingERPCategory"
+    FIELD_MODEL = Building
+    FIELD_REF = "erp_category"
+
+
+class BuildingAccessType(EnumBaseAdminView):
+    ENUM_KIND = "AccessType"
+    FIELD_MODEL = Building
+    FIELD_REF = "access_type"
+
+
+class BuildingCollectiveHeater(EnumBaseAdminView):
+    ENUM_KIND = "CollectiveHeater"
+    FIELD_MODEL = Building
+    FIELD_REF = "collective_heater"
+
+
+class BuildingAsbestosDiagnosisResult(EnumBaseAdminView):
+    ENUM_KIND = "AsbestosDiagnosisResult"
+    FIELD_MODEL = Building
+    FIELD_REF = "asbestos_diagnosis_result"
