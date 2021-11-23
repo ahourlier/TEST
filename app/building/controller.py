@@ -1,7 +1,7 @@
 from flask_sqlalchemy import Pagination
 from flask_accepts import accepts, responds
 from flask_allows import requires
-from flask import request
+from flask import request, jsonify, Response
 
 from .schema import BuildingSchema, BuildingPaginatedSchema, BuildingCreateSchema
 from .service import SEARCH_BUILDINGS_PARAMS, BuildingService, BUILDING_DEFAULT_PAGE, BUILDING_DEFAULT_PAGE_SIZE, \
@@ -53,3 +53,7 @@ class BuildingsResource(AuthenticatedApi):
     def put(self, building_id):
         db_building = BuildingService.get(building_id)
         return BuildingService.update(db_building, building_id, request.parsed_obj)
+
+    def delete(self, building_id) -> Response:
+        deleted_id = BuildingService.delete(building_id)
+        return jsonify(dict(status="Success", id=deleted_id))
