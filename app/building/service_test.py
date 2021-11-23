@@ -1,6 +1,11 @@
+import pytest
 from flask_sqlalchemy import SQLAlchemy
 
-from app.copro.copros.model import Copro
+from app.building.exceptions import WrongConstructionTimeException
+from app.building.interface import BuildingInterface
+from app.building.service import BuildingService
+# from app.building import Building
+# from app.copro.copros.model import Copro
 
 MOCK_COPRO = {
     "address_1": {
@@ -14,7 +19,7 @@ MOCK_COPRO = {
     "copro_type": "Copropriété",
 }
 
-MOCK_BUILDING = {
+MOCK_BUILDING = BuildingInterface(**{
     "name": "test building",
     "construction_time": "< 1850",
     "address": {
@@ -25,8 +30,8 @@ MOCK_BUILDING = {
         "postal_code": "77230",
         "additional_info": None
     },
-    "copro_id": None
-}
+    "copro_id": 0
+})
 
 COPRO_TYPE = {
     "kind": "CoproType",
@@ -38,12 +43,17 @@ CONSTRUCTION_TIME = {
     "name": "Copropriété"
 }
 
-def create_copro(db):
-    created_copro = Copro(**MOCK_COPRO)
-    db.session.add(created_copro)
-    db.session.commit()
-    return created_copro
+
+# def create_copro(db_instance) -> Copro:
+#     created_copro = Copro(**MOCK_COPRO)
+#     db_instance.session.add(created_copro)
+#     db_instance.session.commit()
+#     return created_copro
 
 
 def test_create(db: SQLAlchemy):
-    created_copro = create_copro(db)
+    # created_copro = create_copro(db)
+    building_payload = MOCK_BUILDING
+    building_payload["copro_id"] = 1
+    # with pytest.raises(WrongConstructionTimeException):
+    BuildingService.create(building_payload)

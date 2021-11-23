@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 
 from app import db
 from app.common.base_model import BaseMixin, SoftDeletableMixin
+from app.copro.copros.model import Copro
 
 
 class Building(SoftDeletableMixin, BaseMixin, db.Model):

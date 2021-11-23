@@ -100,7 +100,7 @@ class BuildingService:
 
     @staticmethod
     def get(building_id) -> Building:
-        building = Building.query.get(building_id)
+        building = Building.query.filter(Building.id == building_id).filter(Building.is_deleted == False).first()
 
         if not building:
             raise BuildingNotFoundException
