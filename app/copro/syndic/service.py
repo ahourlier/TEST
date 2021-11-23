@@ -46,10 +46,14 @@ class SyndicService:
                 if not changes.get("manager_address"):
                     db_syndic.manager_address_id = None
                     changes["manager_address_id"] = None
-                AddressService.update_address(db_syndic.manager_address_id, changes.get("manager_address"))
+                AddressService.update_address(
+                    db_syndic.manager_address_id, changes.get("manager_address")
+                )
             else:
                 if changes.get("manager_address"):
-                    changes["manager_address_id"] = AddressService.create_address(changes.get("manager_address"))
+                    changes["manager_address_id"] = AddressService.create_address(
+                        changes.get("manager_address")
+                    )
             del changes["address"]
 
         db_syndic.update(changes)

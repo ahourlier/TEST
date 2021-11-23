@@ -42,7 +42,9 @@ class MoeService:
                 AddressService.update_address(moe.address_id, changes.get("address"))
             else:
                 if changes.get("address"):
-                    changes["address_id"] = AddressService.create_address(changes.get("address"))
+                    changes["address_id"] = AddressService.create_address(
+                        changes.get("address")
+                    )
             del changes["address"]
 
         moe.update(changes)
