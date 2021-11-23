@@ -35,12 +35,16 @@ class MoeService:
             del changes["phone_number"]
 
         if "address" in changes:
-            if not moe.address_id and changes.get("address"):
-                moe.address_id = AddressService.create_address(changes.get("address"))
-            elif moe.address_id:
+            if moe.address_id:
                 if not changes.get("address"):
                     moe.address_id = None
+                    changes["address_id"] = None
                 AddressService.update_address(moe.address_id, changes.get("address"))
+            else:
+                if changes.get("address"):
+                    changes["address_id"] = AddressService.create_address(
+                        changes.get("address")
+                    )
             del changes["address"]
 
         moe.update(changes)
