@@ -16,7 +16,7 @@ class Moe(HasPhones, BaseMixin, db.Model):
     comment = Column(String(255))
     address_id = Column(Integer(), ForeignKey("address.id"), nullable=True)
     address = relationship(
-        "Address", cascade="all, delete", backref="moe", passive_deletes=True
+        "Address", cascade="all, delete", backref="moe"
     )
 
     @hybrid_property

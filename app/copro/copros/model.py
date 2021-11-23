@@ -26,7 +26,6 @@ class Copro(SoftDeletableMixin, BaseMixin, db.Model):
     address_1 = relationship(
         "Address",
         cascade="all, delete",
-        passive_deletes=True,
         foreign_keys=[address_1_id],
         primaryjoin=address_1_id == Address.id,
     )
@@ -34,7 +33,6 @@ class Copro(SoftDeletableMixin, BaseMixin, db.Model):
     address_2 = relationship(
         "Address",
         cascade="all, delete",
-        passive_deletes=True,
         foreign_keys=[address_2_id],
         primaryjoin=address_2_id == Address.id,
     )
