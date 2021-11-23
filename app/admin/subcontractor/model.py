@@ -19,7 +19,7 @@ class Subcontractor(BaseMixin, db.Model):
     job = Column(String(255))
     address_id = Column(Integer(), ForeignKey("address.id"), nullable=True)
     address = relationship(
-        "Address", cascade="all, delete", backref="subcontractor", passive_deletes=True
+        "Address", cascade="all, delete", backref="subcontractor"
     )
     mission_details = relationship(
         "MissionDetail",
