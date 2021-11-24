@@ -3,7 +3,7 @@ from flask_accepts import accepts, responds
 from flask_allows import requires
 from flask import request, jsonify, Response
 
-from .schema import BuildingSchema, BuildingPaginatedSchema, BuildingCreateSchema
+from .schema import BuildingSchema, BuildingPaginatedSchema, BuildingCreateSchema, BuildingUpdateSchema
 from .service import SEARCH_BUILDINGS_PARAMS, BuildingService, BUILDING_DEFAULT_PAGE, BUILDING_DEFAULT_PAGE_SIZE, \
     BUILDING_DEFAULT_SORT_FIELD, BUILDING_DEFAULT_SORT_DIRECTION
 from ..common.api import AuthenticatedApi
@@ -49,7 +49,7 @@ class BuildingsResource(AuthenticatedApi):
         return BuildingService.get(building_id)
 
     @responds(schema=BuildingSchema(), api=api)
-    @accepts(schema=BuildingSchema(), api=api)
+    @accepts(schema=BuildingUpdateSchema(), api=api)
     def put(self, building_id):
         db_building = BuildingService.get(building_id)
         return BuildingService.update(db_building, building_id, request.parsed_obj)
