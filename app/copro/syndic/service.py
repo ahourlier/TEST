@@ -1,5 +1,7 @@
 from app import db
 from app.common.address.service import AddressService
+from app.common.phone_number.model import PhoneNumber
+from app.common.phone_number.service import PhoneNumberService
 from app.copro.syndic.exceptions import (
     SyndicNotFoundException,
     WrongSyndicTypeException,
@@ -22,6 +24,13 @@ class SyndicService:
 
     @staticmethod
     def create(new_attrs: SyndicInterface) -> Syndic:
+
+        if "manager_phone_number" in new_attrs:
+            if new_attrs.get("manager_phone_number", None):
+                new_attrs["phones"] = [
+                    PhoneNumber(**new_attrs.get("manager_phone_number"))
+                ]
+            del new_attrs["manager_phone_number"]
 
         SyndicService.check_enums(new_attrs)
         if new_attrs.get("manager_address"):
@@ -54,7 +63,14 @@ class SyndicService:
                     changes["manager_address_id"] = AddressService.create_address(
                         changes.get("manager_address")
                     )
-            del changes["address"]
+            del changes["manager_address"]
+
+        if "manager_phone_number" in changes:
+            if changes.get("manager_phone_number", None):
+                PhoneNumberService.update_phone_numbers(
+                    db_syndic, [changes.get("manager_phone_number")]
+                )
+            del changes["manager_phone_number"]
 
         db_syndic.update(changes)
         db.session.commit()
