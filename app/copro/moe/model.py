@@ -15,9 +15,7 @@ class Moe(HasPhones, BaseMixin, db.Model):
     email_address = Column(String(255))
     comment = Column(String(255))
     address_id = Column(Integer(), ForeignKey("address.id"), nullable=True)
-    address = relationship(
-        "Address", cascade="all, delete", backref="moe", passive_deletes=True
-    )
+    address = relationship("Address", cascade="all, delete", backref="moe")
 
     @hybrid_property
     def phone_number(self):
