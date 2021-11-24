@@ -179,7 +179,7 @@ class CoproService:
                     )
                 else:
                     AddressService.update_address(
-                        db_copro.address_1_id, changes.get("address_2")
+                        db_copro.address_2_id, changes.get("address_2")
                     )
             del changes["address_2"]
 
