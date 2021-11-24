@@ -27,7 +27,9 @@ class SyndicService:
 
         if "manager_phone_number" in new_attrs:
             if new_attrs.get("manager_phone_number", None):
-                new_attrs["phones"] = [PhoneNumber(**new_attrs.get("manager_phone_number"))]
+                new_attrs["phones"] = [
+                    PhoneNumber(**new_attrs.get("manager_phone_number"))
+                ]
             del new_attrs["manager_phone_number"]
 
         SyndicService.check_enums(new_attrs)
