@@ -28,6 +28,11 @@ from app.referential.enums.admin import (
     CoproConstructionTime,
     CoproType,
     SyndicType,
+    BuildingConstructionTime,
+    BuildingERPCategory,
+    BuildingAccessType,
+    BuildingCollectiveHeater,
+    BuildingAsbestosDiagnosisResult,
 )
 
 
@@ -282,5 +287,50 @@ def register_admin_views(admin, db):
             "Type de syndic",
             url="synduc-type-copro",
             endpoint="manage_syndic_types",
+        )
+    )
+    admin.add_view(
+        BuildingConstructionTime(
+            AppEnum,
+            db.session,
+            "Période de construction (bâtiment)",
+            url="construction-time-building",
+            endpoint="manage_construction_times_buildings",
+        )
+    )
+    admin.add_view(
+        BuildingERPCategory(
+            AppEnum,
+            db.session,
+            "Catégorie d'ERP",
+            url="erp-category-building",
+            endpoint="manage_erp_categories",
+        )
+    )
+    admin.add_view(
+        BuildingAccessType(
+            AppEnum,
+            db.session,
+            "Modalités d'accès au batiment",
+            url="access-type-building",
+            endpoint="manage_access_types",
+        )
+    )
+    admin.add_view(
+        BuildingCollectiveHeater(
+            AppEnum,
+            db.session,
+            "Chauffage collectif",
+            url="collective-heater-building",
+            endpoint="manage_collective_heaters",
+        )
+    )
+    admin.add_view(
+        BuildingAsbestosDiagnosisResult(
+            AppEnum,
+            db.session,
+            "Résultat diagnostic amiante",
+            url="asbestos-result-building",
+            endpoint="manage_asbestos_results",
         )
     )
