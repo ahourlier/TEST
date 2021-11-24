@@ -1,3 +1,5 @@
+import base64
+
 from sqlalchemy import or_, and_
 
 from app import db
@@ -6,6 +8,7 @@ from app.building.exceptions import BuildingNotFoundException, WrongConstruction
     WrongAsbestosDiagnosisResultException
 from app.building.interface import BuildingInterface
 from app.building.model import Building
+from app.building.settings import NB_LOOP_ACCESS_CODE
 from app.common.address.model import Address
 from app.common.address.service import AddressService
 from app.common.search import sort_query
@@ -93,6 +96,9 @@ class BuildingService:
             new_attrs["address_id"] = AddressService.create_address(new_attrs.get("address"))
             del new_attrs["address"]
 
+        if new_attrs.get("access_code"):
+            new_attrs["access_code"] = BuildingService.encode_access_code(new_attrs.get("access_code"))
+
         new_building = Building(**new_attrs)
         db.session.add(new_building)
         db.session.commit()
@@ -119,6 +125,9 @@ class BuildingService:
                 AddressService.update_address(db_building.address_id, changes.get("address"))
             del changes["address"]
 
+        if changes.get("access_code"):
+            changes["access_code"] = BuildingService.encode_access_code(changes.get("access_code"))
+
         db_building.update(changes)
         db.session.commit()
         return db_building
@@ -129,3 +138,11 @@ class BuildingService:
         existing_building.soft_delete()
         db.session.commit()
         return building_id
+
+    @staticmethod
+    def encode_access_code(access_code):
+        for i in range(0, NB_LOOP_ACCESS_CODE):
+            if type(access_code) == str:
+                access_code = access_code.encode("ascii")
+            access_code = base64.b64encode(access_code)
+        return access_code.decode()
