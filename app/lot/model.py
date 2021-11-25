@@ -33,8 +33,8 @@ class Building(SoftDeletableMixin, BaseMixin, db.Model):
     unpaid_date = Column(db.Date)
     # Pour les logements loues, niveau de loyer
     lease_type = Column(String(255))
-    rent_per_month = Column(String(255))
-    charges_per_month = Column(String(255))
+    rent_per_month = Column(Float())
+    charges_per_month = Column(Float())
     intermediate_rent = Column(Boolean)
     convention_rent_type = Column(String(255))
     # suivi des dia
