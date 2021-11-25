@@ -27,11 +27,18 @@ class MoeService:
 
     @staticmethod
     def update(moe: Moe, changes: MoeInterface):
+
         if "phone_number" in changes:
             if changes.get("phone_number", None):
                 PhoneNumberService.update_phone_numbers(
                     moe, [changes.get("phone_number")]
                 )
+            else:
+                if len(moe.phones) > 0:
+                    PhoneNumber.query.filter(
+                        PhoneNumber.id == moe.phones[0].id
+                    ).delete()
+                    db.session.commit()
             del changes["phone_number"]
 
         if "address" in changes:
