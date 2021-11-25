@@ -67,6 +67,7 @@ class BuildingService:
             search_term = f"%{term}%"
             q = q.join(
                 Address,
+                Building.address_id == Address.id
             ).filter(
                 or_(
                     Building.name.ilike(search_term),
@@ -78,7 +79,7 @@ class BuildingService:
             q = q.filter(Building.copro_id == copro_id)
 
         if mission_id:
-            q = q.join(Copro).filter(Copro.mission_id == mission_id)
+            q = q.join(Copro, Building.copro_id == Copro.id).filter(Copro.mission_id == mission_id)
 
         return q.paginate(page=page, per_page=size)
 
