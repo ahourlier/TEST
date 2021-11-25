@@ -5,13 +5,13 @@ from app import db
 from app.common.base_model import SoftDeletableMixin, BaseMixin
 
 
-class Building(SoftDeletableMixin, BaseMixin, db.Model):
+class Lot(SoftDeletableMixin, BaseMixin, db.Model):
     __tablename__ = "lot"
 
     id = Column(Integer(), primary_key=True, autoincrement=True)
 
     copro_id = Column(Integer, ForeignKey("copro.id"), nullable=False)
-    copro = relationship("Copro", backref="buildings")
+    copro = relationship("Copro", backref="lots")
 
     building_id = Column(Integer, ForeignKey("building.id"), nullable=True)
     building = relationship("Building", backref="lots")

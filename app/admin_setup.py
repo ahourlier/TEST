@@ -33,6 +33,11 @@ from app.referential.enums.admin import (
     BuildingAccessType,
     BuildingCollectiveHeater,
     BuildingAsbestosDiagnosisResult,
+    LotType,
+    LotHabitationType,
+    LotOccupantStatus,
+    LotLeaseType,
+    LotConventionRentType,
 )
 
 
@@ -332,5 +337,50 @@ def register_admin_views(admin, db):
             "Résultat diagnostic amiante",
             url="asbestos-result-building",
             endpoint="manage_asbestos_results",
+        )
+    )
+    admin.add_view(
+        LotType(
+            AppEnum,
+            db.session,
+            "Type de lot",
+            url="type-lot",
+            endpoint="manage_lot_type",
+        )
+    )
+    admin.add_view(
+        LotHabitationType(
+            AppEnum,
+            db.session,
+            "Type de logement",
+            url="habitation-type-lot",
+            endpoint="manage_habitation_type",
+        )
+    )
+    admin.add_view(
+        LotOccupantStatus(
+            AppEnum,
+            db.session,
+            "Statut de l'occupant du lot",
+            url="occupant-status-lot",
+            endpoint="manage_occupant_status",
+        )
+    )
+    admin.add_view(
+        LotLeaseType(
+            AppEnum,
+            db.session,
+            "Si logement loué, nature du bail",
+            url="lease-type-lot",
+            endpoint="manage_lease_types",
+        )
+    ),
+    admin.add_view(
+        LotConventionRentType(
+            AppEnum,
+            db.session,
+            "Si loyer conventionné, type de loyer conventionné",
+            url="convention-rent-type-lot",
+            endpoint="manage_convention_rent_types",
         )
     )
