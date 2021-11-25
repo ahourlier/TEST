@@ -2,6 +2,7 @@ import copy
 import logging
 from typing import List
 
+from app.common.exceptions import EnumException
 from app.referential.enums.service import AppEnumService
 
 
@@ -75,5 +76,12 @@ class ServicesUtils:
             if payload.get(key) is not None and payload.get(key) not in enums.get(
                 key_mapping[key]["enum_key"], []
             ):
-                raise key_mapping[key]["exception"]
+                exception = EnumException(
+                    enum=key_mapping[key]["enum_key"],
+                    value=payload.get(key),
+                    allowed_values=", ".join(
+                        enums.get(key_mapping[key]["enum_key"], [])
+                    ),
+                )
+                raise exception
         return
