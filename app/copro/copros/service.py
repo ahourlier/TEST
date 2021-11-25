@@ -6,6 +6,7 @@ from app.common.address.model import Address
 from app.common.address.service import AddressService
 from app.common.app_name import App
 from app.common.search import sort_query
+from app.common.services_utils import ServicesUtils
 from app.copro.cadastre import Cadastre
 from app.copro.copros.exceptions import (
     CoproNotFoundException,
@@ -27,9 +28,15 @@ COPRO_DEFAULT_PAGE = 1
 COPRO_DEFAULT_PAGE_SIZE = 20
 COPRO_DEFAULT_SORT_FIELD = "created_at"
 COPRO_DEFAULT_SORT_DIRECTION = "desc"
-COPRO_TYPE_ENUM = "CoproType"
-CONSTRUCTION_TIME_ENUM = "ConstructionTime"
-ENUMS = [COPRO_TYPE_ENUM, CONSTRUCTION_TIME_ENUM]
+
+ENUM_MAPPING = {
+    "copro_type": {
+        "enum_key": "CoproType"
+    },
+    "construction_time": {
+        "enum_key": "ConstructionTime"
+    }
+}
 
 
 class CoproService:
@@ -65,7 +72,7 @@ class CoproService:
     @staticmethod
     def create(new_attrs: CoproInterface) -> Copro:
 
-        CoproService.check_enums(new_attrs)
+        ServicesUtils.check_enums(new_attrs, ENUM_MAPPING)
 
         mission = MissionService.get_by_id(new_attrs.get("mission_id"))
         if mission.mission_type != App.COPRO:
@@ -133,7 +140,7 @@ class CoproService:
     @staticmethod
     def update(db_copro: Copro, changes: CoproInterface, copro_id: int) -> Copro:
 
-        CoproService.check_enums(changes)
+        ServicesUtils.check_enums(changes, ENUM_MAPPING)
 
         if "president" in changes:
             if changes.get("president"):
@@ -210,17 +217,3 @@ class CoproService:
             current_copro.soft_delete()
             db.session.commit()
         return copro_id
-
-    @staticmethod
-    def check_enums(payload: CoproInterface):
-        enums = AppEnumService.get_enums(ENUMS)
-        if payload.get("copro_type") is not None and payload.get(
-            "copro_type"
-        ) not in enums.get(COPRO_TYPE_ENUM):
-            raise WrongCoproTypeException
-
-        if payload.get("construction_time") is not None and payload.get(
-            "construction_time"
-        ) not in enums.get(CONSTRUCTION_TIME_ENUM):
-            raise WrongConstructionTimeException
-        return
