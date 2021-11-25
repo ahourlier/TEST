@@ -70,6 +70,12 @@ class SyndicService:
                 PhoneNumberService.update_phone_numbers(
                     db_syndic, [changes.get("manager_phone_number")]
                 )
+            else:
+                if len(db_syndic.phones) > 0:
+                    PhoneNumber.query.filter(
+                        PhoneNumber.id == db_syndic.phones[0].id
+                    ).delete()
+                    db.session.commit()
             del changes["manager_phone_number"]
 
         db_syndic.update(changes)
