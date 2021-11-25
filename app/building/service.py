@@ -32,24 +32,19 @@ BUILDING_DEFAULT_SORT_DIRECTION = "desc"
 
 ENUM_MAPPING = {
     "construction_time": {
-        "enum_key": "BuildingConstructionTime",
-        # "exception": WrongConstructionTimeException
+        "enum_key": "BuildingConstructionTime"
     },
     "erp_category": {
-        "enum_key": "BuildingERPCategory",
-        # "exception": WrongERPCategoryException
+        "enum_key": "BuildingERPCategory"
     },
     "access_type": {
-        "enum_key": "AccessType",
-        # "exception": WrongAccessTypeException
+        "enum_key": "AccessType"
     },
     "collective_heater": {
-        "enum_key": "CollectiveHeater",
-        # "exception": WrongCollectiveHeaterException
+        "enum_key": "CollectiveHeater"
     },
     "asbestos_diagnosis_result": {
-        "enum_key": "AsbestosDiagnosisResult",
-        # "exception": WrongAsbestosDiagnosisResultException
+        "enum_key": "AsbestosDiagnosisResult"
     }
 }
 
