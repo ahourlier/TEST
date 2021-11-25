@@ -26,7 +26,9 @@ class PresidentService:
                 )
             else:
                 if len(db_president.phones) > 0:
-                    PhoneNumber.query.filter(PhoneNumber.id == db_president.phones[0].id).delete()
+                    PhoneNumber.query.filter(
+                        PhoneNumber.id == db_president.phones[0].id
+                    ).delete()
                     db.session.commit()
             del changes["phone_number"]
         db_president.update(changes)

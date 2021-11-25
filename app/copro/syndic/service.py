@@ -72,7 +72,9 @@ class SyndicService:
                 )
             else:
                 if len(db_syndic.phones) > 0:
-                    PhoneNumber.query.filter(PhoneNumber.id == db_syndic.phones[0].id).delete()
+                    PhoneNumber.query.filter(
+                        PhoneNumber.id == db_syndic.phones[0].id
+                    ).delete()
                     db.session.commit()
             del changes["manager_phone_number"]
 
