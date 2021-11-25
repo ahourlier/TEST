@@ -9,6 +9,7 @@ from ...building import Building
 from ...copro.copros.model import Copro
 from ...copro.syndic.model import Syndic
 from ...funder.funders import Funder
+from ...lot import Lot
 from ...mission.missions import Mission
 from ...mission.missions.mission_details.job import Job
 from ...mission.missions.mission_details.model import MissionDetail
@@ -311,3 +312,33 @@ class BuildingAsbestosDiagnosisResult(EnumBaseAdminView):
     ENUM_KIND = "AsbestosDiagnosisResult"
     FIELD_MODEL = Building
     FIELD_REF = "asbestos_diagnosis_result"
+
+
+class LotType(EnumBaseAdminView):
+    ENUM_KIND = "LotType"
+    FIELD_MODEL = Lot
+    FIELD_REF = "type"
+
+
+class LotHabitationType(EnumBaseAdminView):
+    ENUM_KIND = "LotHabitationType"
+    FIELD_MODEL = Lot
+    FIELD_REF = "habitation_type"
+
+
+class LotOccupantStatus(EnumBaseAdminView):
+    ENUM_KIND = "LotOccupantStatus"
+    FIELD_MODEL = Lot
+    FIELD_REF = "occupant_status"
+
+
+class LotLeaseType(EnumBaseAdminView):
+    ENUM_KIND = "LotLeaseType"
+    FIELD_MODEL = Lot
+    FIELD_REF = "lease_type"
+
+
+class LotConventionRentType(EnumBaseAdminView):
+    ENUM_KIND = "LotConventionRentType"
+    FIELD_MODEL = Lot
+    FIELD_REF = "convention_rent_type"
