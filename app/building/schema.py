@@ -45,6 +45,14 @@ class BuildingSchema(SQLAlchemyAutoSchema):
         include_fk = True
 
 
+class BuildingForLotSchema(SQLAlchemyAutoSchema):
+    address = fields.Nested(AddressSchema(), allow_none=True)
+
+    class Meta:
+        model = Building
+        include_fk = True
+
+
 class BuildingPaginatedSchema(PaginatedSchema):
     items = fields.Nested(BuildingSchema(), many=True, dump_only=True)
 
