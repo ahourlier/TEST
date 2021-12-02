@@ -58,5 +58,15 @@ class CoproCreateSchema(SQLAlchemyAutoSchema):
         unknown = EXCLUDE
 
 
+class CoproForLotsSchema(SQLAlchemyAutoSchema):
+    address_1 = fields.Nested(AddressSchema())
+    user_in_charge = fields.Nested(UserInChargeSchema(), dump_only=True)
+
+    class Meta:
+        model = Copro
+        include_fk = True
+        unknown = EXCLUDE
+
+
 class CoproPaginatedSchema(PaginatedSchema):
     items = fields.Nested(CoproSchema(), many=True, dump_only=True)
