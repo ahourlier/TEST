@@ -63,7 +63,7 @@ class BuildingService:
     ):
         q = sort_query(Building.query, sort_by, direction)
         q = q.filter(or_(Building.is_deleted == False, Building.is_deleted == None))
-        if term is not None:
+        if term not in [None, '']:
             search_term = f"%{term}%"
             q = q.join(
                 Address,
@@ -76,10 +76,10 @@ class BuildingService:
             )
 
         if copro_id:
-            q = q.filter(Building.copro_id == copro_id)
+            q = q.filter(Building.copro_id == int(copro_id))
 
         if mission_id:
-            q = q.join(Copro, Building.copro_id == Copro.id).filter(Copro.mission_id == mission_id)
+            q = q.join(Copro, Building.copro_id == Copro.id).filter(Copro.mission_id == int(mission_id))
 
         return q.paginate(page=page, per_page=size)
 
