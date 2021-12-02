@@ -1,7 +1,9 @@
 from marshmallow import fields
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
+from app.building.schema import BuildingForLotSchema
 from app.common.schemas import PaginatedSchema
+from app.copro.copros.schema import CoproForLotsSchema
 from app.lot import Lot
 
 
@@ -27,5 +29,14 @@ class LotSchema(SQLAlchemyAutoSchema):
         include_fk = True
 
 
+class LotListSchema(SQLAlchemyAutoSchema):
+    copro = fields.Nested(CoproForLotsSchema(), dump_only=True)
+    building = fields.Nested(BuildingForLotSchema(), dump_only=True)
+
+    class Meta:
+        model = Lot
+        include_fk = True
+
+
 class LotPaginatedSchema(PaginatedSchema):
-    items = fields.Nested(LotSchema(), many=True, dump_only=True)
+    items = fields.Nested(LotListSchema(), many=True, dump_only=True)
