@@ -65,7 +65,7 @@ class BuildingService:
         q = q.filter(or_(Building.is_deleted == False, Building.is_deleted == None))
         if term not in [None, '']:
             search_term = f"%{term}%"
-            q = q.join(
+            q = q.outerjoin(
                 Address,
                 Building.address_id == Address.id
             ).filter(
