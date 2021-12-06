@@ -6,6 +6,7 @@ from app.common.address.model import Address
 from app.common.address.service import AddressService
 from app.common.app_name import App
 from app.common.search import sort_query
+from app.common.services_utils import ServicesUtils
 from app.copro.cadastre import Cadastre
 from app.copro.copros.exceptions import (
     CoproNotFoundException,
@@ -15,6 +16,8 @@ from app.copro.copros.exceptions import (
 )
 from app.copro.copros.interface import CoproInterface
 from app.copro.copros.model import Copro
+from app.copro.moe.model import Moe
+from app.copro.moe.service import MoeService
 from app.copro.president import President
 from app.copro.president.service import PresidentService
 from app.copro.syndic.service import SyndicService
@@ -25,9 +28,11 @@ COPRO_DEFAULT_PAGE = 1
 COPRO_DEFAULT_PAGE_SIZE = 20
 COPRO_DEFAULT_SORT_FIELD = "created_at"
 COPRO_DEFAULT_SORT_DIRECTION = "desc"
-COPRO_TYPE_ENUM = "CoproType"
-CONSTRUCTION_TIME_ENUM = "ConstructionTime"
-ENUMS = [COPRO_TYPE_ENUM, CONSTRUCTION_TIME_ENUM]
+
+ENUM_MAPPING = {
+    "copro_type": {"enum_key": "CoproType"},
+    "construction_time": {"enum_key": "ConstructionTime"},
+}
 
 
 class CoproService:
@@ -63,7 +68,7 @@ class CoproService:
     @staticmethod
     def create(new_attrs: CoproInterface) -> Copro:
 
-        CoproService.check_enums(new_attrs)
+        ServicesUtils.check_enums(new_attrs, ENUM_MAPPING)
 
         mission = MissionService.get_by_id(new_attrs.get("mission_id"))
         if mission.mission_type != App.COPRO:
@@ -90,6 +95,10 @@ class CoproService:
         if new_attrs.get("cadastres"):
             cadastres = new_attrs.get("cadastres")
             del new_attrs["cadastres"]
+
+        if new_attrs.get("moe"):
+            new_attrs["moe_id"] = MoeService.create(new_attrs.get("moe"))
+            del new_attrs["moe"]
 
         new_attrs["president_id"] = PresidentService.create(
             new_attrs.get("president", {})
@@ -127,54 +136,70 @@ class CoproService:
     @staticmethod
     def update(db_copro: Copro, changes: CoproInterface, copro_id: int) -> Copro:
 
-        CoproService.check_enums(changes)
+        ServicesUtils.check_enums(changes, ENUM_MAPPING)
 
-        if changes.get("president"):
-            PresidentService.update(
-                President.query.get(db_copro.president_id), changes.get("president")
-            )
+        if "president" in changes:
+            if changes.get("president"):
+                PresidentService.update(
+                    President.query.get(db_copro.president_id), changes.get("president")
+                )
             del changes["president"]
+            del changes["president_id"]
 
-        if changes.get("cadastres"):
-            delete_cadastres = Cadastre.__table__.delete().where(
-                Cadastre.copro_id == copro_id
-            )
-            db.session.execute(delete_cadastres)
-            db.session.commit()
-
-            for c in changes.get("cadastres"):
-                c["copro_id"] = copro_id
-                new_cadastre = Cadastre(**c)
-                db.session.add(new_cadastre)
+        if "cadastres" in changes:
+            if changes.get("cadastres"):
+                delete_cadastres = Cadastre.__table__.delete().where(
+                    Cadastre.copro_id == copro_id
+                )
+                db.session.execute(delete_cadastres)
                 db.session.commit()
+
+                for c in changes.get("cadastres"):
+                    c["copro_id"] = copro_id
+                    new_cadastre = Cadastre(**c)
+                    db.session.add(new_cadastre)
+                    db.session.commit()
 
             del changes["cadastres"]
 
-        if changes.get("address_1"):
-            if not db_copro.address_1_id:
-                changes["address_1_id"] = AddressService.create_address(
-                    changes.get("address_1")
-                )
-            else:
-                AddressService.update_address(
-                    db_copro.address_1_id, changes.get("address_1")
-                )
+        if "address_1" in changes:
+            if changes.get("address_1"):
+                if not db_copro.address_1_id:
+                    changes["address_1_id"] = AddressService.create_address(
+                        changes.get("address_1")
+                    )
+                else:
+                    AddressService.update_address(
+                        db_copro.address_1_id, changes.get("address_1")
+                    )
             del changes["address_1"]
 
-        if changes.get("address_2"):
-            if not db_copro.address_2_id:
-                changes["address_2_id"] = AddressService.create_address(
-                    changes.get("address_2")
-                )
-            else:
-                AddressService.update_address(
-                    db_copro.address_1_id, changes.get("address_2")
-                )
+        if "address_2" in changes:
+            if changes.get("address_2"):
+                if not db_copro.address_2_id:
+                    changes["address_2_id"] = AddressService.create_address(
+                        changes.get("address_2")
+                    )
+                else:
+                    AddressService.update_address(
+                        db_copro.address_2_id, changes.get("address_2")
+                    )
             del changes["address_2"]
 
-        if changes.get("user_in_charge"):
-            changes["user_in_charge_id"] = changes.get("user_in_charge").get("id")
+        if "user_in_charge" in changes:
+            if changes.get("user_in_charge"):
+                changes["user_in_charge_id"] = changes.get("user_in_charge").get("id")
             del changes["user_in_charge"]
+
+        if "moe" in changes:
+            if changes.get("moe"):
+                if not db_copro.moe_id:
+                    changes["moe_id"] = MoeService.create(changes.get("moe"))
+                else:
+                    MoeService.update(
+                        Moe.query.get(db_copro.moe_id), changes.get("moe")
+                    )
+            del changes["moe"]
 
         db_copro.update(changes)
         db.session.commit()
@@ -188,17 +213,3 @@ class CoproService:
             current_copro.soft_delete()
             db.session.commit()
         return copro_id
-
-    @staticmethod
-    def check_enums(payload: CoproInterface):
-        enums = AppEnumService.get_enums(ENUMS)
-        if payload.get("copro_type") is not None and payload.get(
-            "copro_type"
-        ) not in enums.get(COPRO_TYPE_ENUM):
-            raise WrongCoproTypeException
-
-        if payload.get("construction_time") is not None and payload.get(
-            "construction_time"
-        ) not in enums.get(CONSTRUCTION_TIME_ENUM):
-            raise WrongConstructionTimeException
-        return

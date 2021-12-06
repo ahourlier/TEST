@@ -14,6 +14,4 @@ class Partner(BaseMixin, db.Model):
     name = Column(String(255), nullable=True)
     job = Column(String(255), nullable=True)
     address_id = Column(Integer(), ForeignKey("address.id"), nullable=True)
-    address = relationship(
-        "Address", cascade="all, delete", backref="partner", passive_deletes=True
-    )
+    address = relationship("Address", cascade="all, delete", backref="partner")

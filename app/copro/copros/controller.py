@@ -54,7 +54,7 @@ class CoprosResource(AuthenticatedApi):
     @responds(schema=CoproPaginatedSchema(), api=api)
     @requires(has_copro_permission)
     def get(self) -> Pagination:
-        """ Get all missions """
+        """ Get all coproprietes """
         return CoproService.get_all(
             page=int(request.args.get("page", COPRO_DEFAULT_PAGE)),
             size=int(request.args.get("size", COPRO_DEFAULT_PAGE_SIZE)),
