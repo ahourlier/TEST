@@ -1,3 +1,10 @@
+## [1.2.4-rc.1](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.2.3...v1.2.4-rc.1) (2021-12-06)
+
+
+### Bug Fixes
+
+* **search_building:** fixed searching building that has no address ([8485a80](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/8485a80efc435444e140747afd59d591dbf1ba43))
+
 ## [1.2.1-rc.3](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.1-rc.2...v1.2.1-rc.3) (2021-09-10)
 
 
