@@ -3,6 +3,7 @@ from marshmallow import fields, EXCLUDE
 
 from .model import Copro
 from ..cadastre.schema import CadastreSchema
+from ..moe.schema import MoeSchema, MoeUpdateSchema, MoeCreateSchema
 from ..president.schema import PresidentSchema, PresidentCreateSchema
 from ..syndic.schema import SyndicSchema, SyndicCreateSchema
 from ...auth.users import UserSchema
@@ -12,12 +13,13 @@ from ...common.schemas import PaginatedSchema
 
 
 class CoproSchema(SQLAlchemyAutoSchema):
-    president = fields.Nested(PresidentSchema())
-    cadastres = fields.List(fields.Nested(CadastreSchema()))
-    syndics = fields.List(fields.Nested(SyndicSchema()))
-    address_1 = fields.Nested(AddressSchema())
-    address_2 = fields.Nested(AddressSchema())
-    user_in_charge = fields.Nested(UserInChargeSchema())
+    president = fields.Nested(PresidentSchema(), dump_only=True)
+    cadastres = fields.List(fields.Nested(CadastreSchema()), dump_only=True)
+    syndics = fields.List(fields.Nested(SyndicSchema()), dump_only=True)
+    address_1 = fields.Nested(AddressSchema(), dump_only=True)
+    address_2 = fields.Nested(AddressSchema(), dump_only=True)
+    user_in_charge = fields.Nested(UserInChargeSchema(), dump_only=True)
+    moe = fields.Nested(MoeSchema(), dump_only=True)
 
     class Meta:
         model = Copro
@@ -26,11 +28,14 @@ class CoproSchema(SQLAlchemyAutoSchema):
 
 
 class CoproUpdateSchema(SQLAlchemyAutoSchema):
-    cadastres = fields.List(fields.Nested(CadastreSchema()))
-    address_1 = fields.Nested(AddressSchema())
-    address_2 = fields.Nested(AddressSchema())
+    cadastres = fields.List(
+        fields.Nested(CadastreSchema()), allow_none=True, required=False
+    )
+    address_1 = fields.Nested(AddressSchema(), allow_none=True, required=False)
+    address_2 = fields.Nested(AddressSchema(), allow_none=True, required=False)
     mission_id = fields.Integer(allow_none=True, required=False)
-    president = fields.Nested(PresidentCreateSchema())
+    president = fields.Nested(PresidentCreateSchema(), allow_none=True, required=False)
+    moe = fields.Nested(MoeUpdateSchema(), required=False, allow_none=True)
 
     class Meta:
         model = Copro
@@ -45,6 +50,17 @@ class CoproCreateSchema(SQLAlchemyAutoSchema):
     address_2 = fields.Nested(AddressSchema(), required=False, allow_none=True)
     president = fields.Nested(PresidentCreateSchema())
     copro_type = fields.String(required=True, allow_none=False)
+    moe = fields.Nested(MoeCreateSchema(), required=False, allow_none=True)
+
+    class Meta:
+        model = Copro
+        include_fk = True
+        unknown = EXCLUDE
+
+
+class CoproForLotsSchema(SQLAlchemyAutoSchema):
+    address_1 = fields.Nested(AddressSchema())
+    user_in_charge = fields.Nested(UserInChargeSchema(), dump_only=True)
 
     class Meta:
         model = Copro

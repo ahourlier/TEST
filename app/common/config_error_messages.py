@@ -479,3 +479,32 @@ WRONG_CONSTRUCTION_TIME_EXCEPTION = (
     "Invalid value for construction time"  # todo add in translation
 )
 KEY_WRONG_CONSTRUCTION_TIME_EXCEPTION = "WRONG_CONSTRUCTION_TIME_EXCEPTION"
+
+BUILDING_NOT_FOUND_EXCEPTION = (
+    "Could not find a building with this id"  # todo add in translation
+)
+KEY_BUILDING_NOT_FOUND_EXCEPTION = "BUILDING_NOT_FOUND_EXCEPTION"
+
+WRONG_ERP_CATEGORY_EXCEPTION = "Invalid ERP type"  # todo add in translation
+KEY_WRONG_ERP_CATEGORY_EXCEPTION = "WRONG_ERP_TYPE_EXCEPTION"
+
+WRONG_ACCESS_TYPE_EXCEPTION = "Invalid Access type"  # todo add in translation
+KEY_WRONG_ACCESS_TYPE_EXCEPTION = "WRONG_ACCESS_TYPE_EXCEPTION"
+
+
+WRONG_COLLECTIVE_HEATER_EXCEPTION = (
+    "Invalid Collective heater"  # todo add in translation
+)
+KEY_WRONG_COLLECTIVE_HEATER_EXCEPTION = "WRONG_COLLECTIVE_HEATER_EXCEPTION"
+
+WRONG_ASBESTOS_DIAGNOSIS_RESULT_EXCEPTION = (
+    "Invalid Asbestos diagnosis result"  # todo add in translation
+)
+KEY_WRONG_ASBESTOS_DIAGNOSIS_RESULT_EXCEPTION = (
+    "WRONG_ASBESTOS_DIAGNOSIS_RESULT_EXCEPTION"
+)
+
+LOT_NOT_FOUND_EXCEPTION = "Could not find a lot with this id"  # todo add in translation
+KEY_LOT_NOT_FOUND_EXCEPTION = "LOT_NOT_FOUND_EXCEPTION"
+
+WRONG_ENUM_TYPE_EXCEPTION = "Invalid {enum}: {value}. Allowed values: {allowed_values}."
