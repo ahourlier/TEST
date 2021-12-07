@@ -38,6 +38,7 @@ from app.referential.enums.admin import (
     LotOccupantStatus,
     LotLeaseType,
     LotConventionRentType,
+    PersonStatus,
 )
 
 
@@ -382,5 +383,14 @@ def register_admin_views(admin, db):
             "Si loyer conventionné, type de loyer conventionné",
             url="convention-rent-type-lot",
             endpoint="manage_convention_rent_types",
+        )
+    )
+    admin.add_view(
+        PersonStatus(
+            AppEnum,
+            db.session,
+            "Statut personne physique",
+            url="status-person",
+            endpoint="manage_person_status",
         )
     )

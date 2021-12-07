@@ -8,6 +8,7 @@ from app.copro.copros.model import Copro
 from app.lot import Lot
 from app.lot.exceptions import LotNotFoundException, LotEnumException
 from app.lot.interface import LotInterface
+from app.person.service import PersonService
 
 LOT_DEFAULT_PAGE = 1
 LOT_DEFAULT_PAGE_SIZE = 20
@@ -68,7 +69,15 @@ class LotService:
     def update(db_lot: Lot, changes: LotInterface):
         ServicesUtils.check_enums(changes, ENUM_MAPPING)
 
+        if changes.get("occupants") is not None:
+            db_lot.occupants = []
+            for occ in changes.get("occupants", []):
+                person = PersonService.get(occ.get("id"))
+                db_lot.occupants.append(person)
+            del changes["occupants"]
+
         db_lot.update(changes)
+        db.session.commit()
         return db_lot
 
     @staticmethod
