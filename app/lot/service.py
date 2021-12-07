@@ -54,10 +54,15 @@ class LotService:
     @staticmethod
     def create(new_attrs: LotInterface):
         ServicesUtils.check_enums(new_attrs, ENUM_MAPPING)
+
         if new_attrs.get("occupants") is not None:
             new_attrs["occupants"] = LotService.handle_occupants(
                 new_attrs.get("occupants", [])
             )
+
+        if "owner" in new_attrs:
+            del new_attrs["owner"]
+
         new_lot = Lot(**new_attrs)
         db.session.add(new_lot)
         db.session.commit()
@@ -77,6 +82,9 @@ class LotService:
         if changes.get("occupants") is not None:
             db_lot.occupants = LotService.handle_occupants(changes.get("occupants", []))
             del changes["occupants"]
+
+        if "owner" in changes:
+            del changes["owner"]
 
         db_lot.update(changes)
         db.session.commit()
