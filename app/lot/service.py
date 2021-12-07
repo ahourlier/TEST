@@ -1,3 +1,5 @@
+from typing import List
+
 from sqlalchemy import or_
 
 from app import db
@@ -52,7 +54,8 @@ class LotService:
     @staticmethod
     def create(new_attrs: LotInterface):
         ServicesUtils.check_enums(new_attrs, ENUM_MAPPING)
-
+        if new_attrs.get("occupants") is not None:
+            new_attrs["occupants"] = LotService.handle_occupants(new_attrs.get("occupants", []))
         new_lot = Lot(**new_attrs)
         db.session.add(new_lot)
         db.session.commit()
@@ -70,10 +73,7 @@ class LotService:
         ServicesUtils.check_enums(changes, ENUM_MAPPING)
 
         if changes.get("occupants") is not None:
-            db_lot.occupants = []
-            for occ in changes.get("occupants", []):
-                person = PersonService.get(occ.get("id"))
-                db_lot.occupants.append(person)
+            db_lot.occupants = LotService.handle_occupants(changes.get("occupants", []))
             del changes["occupants"]
 
         db_lot.update(changes)
@@ -86,3 +86,10 @@ class LotService:
         lot.soft_delete()
         db.session.commit()
         return lot_id
+
+    @staticmethod
+    def handle_occupants(list_dict_people: List[dict]):
+        table = []
+        for p in list_dict_people:
+            table.append(PersonService.get(p.get("id")))
+        return table

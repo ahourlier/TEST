@@ -10,6 +10,7 @@ from app.lot import Lot
 
 class LotCreateSchema(SQLAlchemyAutoSchema):
     copro_id = fields.Integer(required=True, allow_none=False)
+    occupants = fields.List(fields.Nested(PersonSchema()), allow_none=True)
 
     class Meta:
         model = Lot
