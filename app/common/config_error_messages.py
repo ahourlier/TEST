@@ -508,3 +508,8 @@ LOT_NOT_FOUND_EXCEPTION = "Could not find a lot with this id"  # todo add in tra
 KEY_LOT_NOT_FOUND_EXCEPTION = "LOT_NOT_FOUND_EXCEPTION"
 
 WRONG_ENUM_TYPE_EXCEPTION = "Invalid {enum}: {value}. Allowed values: {allowed_values}."
+
+PERSON_NOT_FOUND_EXCEPTION = (
+    "Could not find a person with this id"  # todo add in translation
+)
+KEY_PERSON_NOT_FOUND_EXCEPTION = "PERSON_NOT_FOUND_EXCEPTION"

@@ -5,7 +5,6 @@ from mypy_extensions import TypedDict
 
 
 class LotInterface(TypedDict):
-    __tablename__ = "lot"
 
     id: Optional[int]
 

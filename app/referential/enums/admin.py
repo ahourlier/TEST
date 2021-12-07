@@ -15,6 +15,7 @@ from ...mission.missions.mission_details.job import Job
 from ...mission.missions.mission_details.model import MissionDetail
 from ...mission.missions.mission_details.operational_plan import OperationalPlan
 from ...mission.missions.mission_details.subjob import Subjob
+from ...person import Person
 from ...project.accommodations import Accommodation
 from ...project.disorders import DisorderType
 from ...project.projects import Project
@@ -342,3 +343,9 @@ class LotConventionRentType(EnumBaseAdminView):
     ENUM_KIND = "LotConventionRentType"
     FIELD_MODEL = Lot
     FIELD_REF = "convention_rent_type"
+
+
+class PersonStatus(EnumBaseAdminView):
+    ENUM_KIND = "PersonStatus"
+    FIELD_MODEL = Person
+    FIELD_REF = "status"
