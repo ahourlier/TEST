@@ -14,6 +14,7 @@ def register_routes(api, app, root="api"):
     from app.building import register_routes as attach_buildings
     from app.lot import register_routes as attach_lots
     from app.person import register_routes as attach_people
+    from app.thematique import register_routes as attach_thematiques
 
     attach_auth(api, app, root)
     attach_admin(api, app, root)
@@ -30,3 +31,4 @@ def register_routes(api, app, root="api"):
     attach_buildings(api, app, root)
     attach_lots(api, app, root)
     attach_people(api, app, root)
+    attach_thematiques(api, app, root)
