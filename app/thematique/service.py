@@ -1,7 +1,11 @@
 from flask import current_app, jsonify
 
 from app.common.firestore_utils import FirestoreUtils
-from app.thematique.exceptions import VersionNotFoundException
+from app.thematique.exceptions import (
+    VersionNotFoundException,
+    InvalidScopeException,
+    InvalidResourceIdException,
+)
 
 
 class ThematiqueService:
@@ -86,8 +90,37 @@ class ThematiqueService:
             version_dict["steps"] = ThematiqueService.handle_steps(
                 version, copy_ids=True
             )
-            return version
+            return version_dict
         raise VersionNotFoundException
+
+    @staticmethod
+    def list_versions(scope, resource_id, thematique_name):
+
+        if scope in ["", None]:
+            raise InvalidScopeException
+        if resource_id in ["", None]:
+            raise InvalidResourceIdException
+
+        firestore_service = FirestoreUtils()
+        doc_query = (
+            firestore_service.client.collection(
+                current_app.config.get("FIRESTORE_THEMATIQUE_COLLECTION")
+            )
+            .where("scope", "==", scope)
+            .where("resource_id", "==", int(resource_id))
+        )
+
+        if thematique_name:
+            doc_query = doc_query.where("thematique_name", "==", thematique_name)
+
+        list_docs = []
+        for doc in doc_query.get():
+            doc_dict = doc.to_dict()
+            doc_dict["id"] = doc.id
+            doc_dict["steps"] = ThematiqueService.handle_steps(doc, copy_ids=True)
+            list_docs.append(doc_dict)
+
+        return list_docs
 
     @staticmethod
     def duplicate_thematique(version):

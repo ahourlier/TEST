@@ -30,7 +30,6 @@ class Thematique(SQLAlchemyAutoSchema):
 
 
 class Version(Thematique):
-    # steps = fields.Nested(Step, many=True)
     version_name = fields.String()
     version_date = fields.String()
 

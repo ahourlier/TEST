@@ -11,7 +11,23 @@ THEMATIQUE_TEMPLATE_SEARCH_PARAMS = [
     dict(name="name", type=str),
 ]
 
-THEMATIQUE_SEARCH_PARAMS = [dict(name="resourceId", type=int)]
+THEMATIQUE_SEARCH_PARAMS = [
+    dict(name="resourceId", type=int),
+    dict(name="scope", type=str),
+    dict(name="thematiqueName", type=str),
+]
+
+
+@api.route("")
+class ThematiqueForObjectResource(AuthenticatedApi):
+    @accepts(*THEMATIQUE_SEARCH_PARAMS, api=api)
+    @responds(schema=Version(many=True), api=api)
+    def get(self):
+        return ThematiqueService.list_versions(
+            scope=request.args.get("scope"),
+            resource_id=request.args.get("resourceId"),
+            thematique_name=request.args.get("thematiqueName"),
+        )
 
 
 @api.route("/templates")

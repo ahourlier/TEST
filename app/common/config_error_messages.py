@@ -518,3 +518,18 @@ VERSION_NOT_FOUND_EXCEPTION = (
     "Could not find a thematique version with this id"  # todo add in translation
 )
 KEY_VERSION_NOT_FOUND_EXCEPTION = "VERSION_NOT_FOUND_EXCEPTION"
+
+INVALID_SCOPE_EXCEPTION = (
+    "Invalid scope. Hint, scope cannot be empty"  # todo add in translation
+)
+KEY_INVALID_SCOPE_EXCEPTION = "INVALID_SCOPE_EXCEPTION"
+
+INVALID_RESOURCE_ID_EXCEPTION = (
+    "Invalid resource id. Hint, resource id cannot be empty"  # todo add in translation
+)
+KEY_INVALID_RESOURCE_ID_EXCEPTION = "INVALID_RESOURCE_ID_EXCEPTION"
+
+INVALID_THEMATIQUE_NAME_EXCEPTION = (
+    "Invalid thematique name."  # todo add in translation
+)
+KEY_INVALID_THEMATIQUE_NAME_EXCEPTION = "INVALID_THEMATIQUE_NAME_EXCEPTION"
