@@ -513,3 +513,8 @@ PERSON_NOT_FOUND_EXCEPTION = (
     "Could not find a person with this id"  # todo add in translation
 )
 KEY_PERSON_NOT_FOUND_EXCEPTION = "PERSON_NOT_FOUND_EXCEPTION"
+
+VERSION_NOT_FOUND_EXCEPTION = (
+    "Could not find a thematique version with this id"  # todo add in translation
+)
+KEY_VERSION_NOT_FOUND_EXCEPTION = "VERSION_NOT_FOUND_EXCEPTION"

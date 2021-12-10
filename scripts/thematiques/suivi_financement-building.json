@@ -1,10 +1,10 @@
 {
-  "legendes": [],
   "resource_id": 0,
   "scope": "building",
   "thematique_name": "SUIVI_FINANCEMENT",
   "steps": [{
     "metadata": {
+      "legendes": [],
       "name": "DECOMPOSITION_DEPENSE",
       "order": 1,
       "status": ""

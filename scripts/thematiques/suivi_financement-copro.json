@@ -1,10 +1,10 @@
 {
-	"legendes": [],
 	"resource_id": 0,
 	"scope": "copro",
 	"thematique_name": "SUIVI_FINANCEMENT",
 	"steps": [{
 			"metadata": {
+				"legendes": [],
 				"name": "TRAVAUX_VOTES_AG_DECOMPOSITION_DEPENSE",
 				"order": 1,
 				"status": ""
@@ -111,6 +111,7 @@
 		},
 		{
 			"metadata": {
+				"legendes": [],
 				"name": "TRAVAUX_VOTES_AG_SUBVENTIONS_PRIMES",
 				"order": 2,
 				"status": ""
@@ -263,6 +264,7 @@
 		},
 		{
 			"metadata": {
+				"legendes": [],
 				"name": "TRAVAUX_VOTES_AG_PREFINANCEMENTS",
 				"order": 3,
 				"status": ""
@@ -350,6 +352,7 @@
 		},
 		{
 			"metadata": {
+				"legendes": [],
 				"name": "TRAVAUX_VOTES_AG_AIDE_PAIMENT_RESTE_CHARGE",
 				"order": 4,
 				"status": ""
@@ -436,6 +439,7 @@
 		},
 		{
 			"metadata": {
+				"legendes": [],
 				"name": "POSTES_VOTES_AG_AUTRES_AIDES",
 				"order": 5,
 				"status": ""
@@ -518,6 +522,7 @@
 		},
 		{
 			"metadata": {
+				"legendes": [],
 				"name": "TRAVAUX_VOTES_AG_TAUX_FINANCEMENT",
 				"order": 6,
 				"status": ""
@@ -537,6 +542,7 @@
 		},
 		{
 			"metadata": {
+				"legendes": [],
 				"name": "TRAVAUX_EN_PP_HORS_AG_AUTRES_AIDES",
 				"order": 7,
 				"status": ""
