@@ -32,4 +32,3 @@ class Thematique(SQLAlchemyAutoSchema):
 class Version(Thematique):
     version_name = fields.String()
     version_date = fields.String()
-
