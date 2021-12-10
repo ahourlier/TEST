@@ -2,7 +2,7 @@ from flask import Response, request
 from flask_accepts import responds, accepts
 
 from . import api
-from .schema import Thematique, ThematiqueForObject, VersionCreate, Version
+from .schema import Thematique, Version
 from .service import ThematiqueService
 from ..common.api import AuthenticatedApi
 

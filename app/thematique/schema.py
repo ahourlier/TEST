@@ -33,15 +33,3 @@ class Version(Thematique):
     version_name = fields.String()
     version_date = fields.String()
 
-
-class ThematiqueForObject(SQLAlchemyAutoSchema):
-    versions = fields.Nested(Version, many=True)
-    is_deleted = fields.Boolean(required=False, allow_none=True)
-    resource_id = fields.Integer()
-    scope = fields.String()
-    thematique_name = fields.String()
-
-
-class VersionCreate(Thematique):
-    version_name = fields.String()
-    version_date = fields.String()
