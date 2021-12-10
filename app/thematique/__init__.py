@@ -1,4 +1,4 @@
-from .model import ThematiqueEntity
+# from .model import ThematiqueEntity
 from .model import ThematiqueMission
 from flask_restx import Namespace
 
