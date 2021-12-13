@@ -533,3 +533,13 @@ INVALID_THEMATIQUE_NAME_EXCEPTION = (
     "Invalid thematique name."  # todo add in translation
 )
 KEY_INVALID_THEMATIQUE_NAME_EXCEPTION = "INVALID_THEMATIQUE_NAME_EXCEPTION"
+
+MISSING_VERSION_ID_EXCEPTION = (
+    "Missing version id. It is either empty or null"  # todo add in translation
+)
+KEY_MISSING_VERSION_ID_EXCEPTION = "MISSING_VERSION_ID_EXCEPTION"
+
+MISSING_STEP_ID_EXCEPTION = (
+    "Missing step id. It is either empty or null"  # todo add in translation
+)
+KEY_MISSING_STEP_ID_EXCEPTION = "MISSING_STEP_ID_EXCEPTION"
