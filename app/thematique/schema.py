@@ -1,5 +1,7 @@
-from marshmallow import fields
+from marshmallow import fields, EXCLUDE
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
+
+from app.thematique import ThematiqueMission
 
 
 class LegendeSchema(SQLAlchemyAutoSchema):
@@ -32,3 +34,10 @@ class ThematiqueSchema(SQLAlchemyAutoSchema):
 class VersionSchema(ThematiqueSchema):
     version_name = fields.String()
     version_date = fields.String()
+
+
+class ThematiqueMissionSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = ThematiqueMission
+        include_fk = True
+        unknown = EXCLUDE
