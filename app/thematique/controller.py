@@ -49,14 +49,11 @@ class ThematiqueResource(AuthenticatedApi):
 
 @api.route("/<string:version_id>/step/<string:step_id>")
 class ThematiqueStepResource(AuthenticatedApi):
-
     @accepts(schema=StepSchema, api=api)
     @responds(schema=VersionSchema, api=api)
     def put(self, version_id: str, step_id: str):
         return ThematiqueService.update_step(
-            version_id=version_id,
-            step_id=step_id,
-            payload=request.parsed_obj
+            version_id=version_id, step_id=step_id, payload=request.parsed_obj
         )
 
 

@@ -4,7 +4,9 @@ from app.common.firestore_utils import FirestoreUtils
 from app.thematique.exceptions import (
     VersionNotFoundException,
     InvalidScopeException,
-    InvalidResourceIdException, MissingVersionIdException, MissingStepIdException,
+    InvalidResourceIdException,
+    MissingVersionIdException,
+    MissingStepIdException,
 )
 from app.thematique.schema import StepSchema
 
@@ -148,11 +150,14 @@ class ThematiqueService:
             raise MissingStepIdException
 
         firestore_service = FirestoreUtils()
-        step = firestore_service.client.collection(
-            current_app.config.get("FIRESTORE_THEMATIQUE_COLLECTION")
-        ).document(version_id).collection(
-            current_app.config.get("FIRESTORE_STEPS_COLLECTION")
-        ).document(step_id)
+        step = (
+            firestore_service.client.collection(
+                current_app.config.get("FIRESTORE_THEMATIQUE_COLLECTION")
+            )
+            .document(version_id)
+            .collection(current_app.config.get("FIRESTORE_STEPS_COLLECTION"))
+            .document(step_id)
+        )
 
         for key in ["legendes", "name", "order", "id"]:
             if key in payload["metadata"]:

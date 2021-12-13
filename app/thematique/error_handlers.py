@@ -3,7 +3,9 @@ from .exceptions import (
     VersionNotFoundException,
     InvalidScopeException,
     InvalidResourceIdException,
-    InvalidThematiqueNameException, MissingVersionIdException, MissingStepIdException,
+    InvalidThematiqueNameException,
+    MissingVersionIdException,
+    MissingStepIdException,
 )
 from ..common.error_handlers import parse_exception
 
