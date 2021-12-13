@@ -6,6 +6,10 @@ from app.common.config_error_messages import (
     KEY_INVALID_SCOPE_EXCEPTION,
     INVALID_RESOURCE_ID_EXCEPTION,
     KEY_INVALID_RESOURCE_ID_EXCEPTION,
+    MISSING_VERSION_ID_EXCEPTION,
+    KEY_MISSING_VERSION_ID_EXCEPTION,
+    MISSING_STEP_ID_EXCEPTION,
+    KEY_MISSING_STEP_ID_EXCEPTION,
 )
 
 
@@ -41,5 +45,23 @@ class InvalidThematiqueNameException(HTTPException):
         super().__init__(description=message)
         self.code = 400
         self.key = KEY_INVALID_RESOURCE_ID_EXCEPTION
+        self.message = message
+        self.status = "BAD REQUEST"
+
+
+class MissingVersionIdException(HTTPException):
+    def __init__(self, message=MISSING_VERSION_ID_EXCEPTION):
+        super().__init__(description=message)
+        self.code = 400
+        self.key = KEY_MISSING_VERSION_ID_EXCEPTION
+        self.message = message
+        self.status = "BAD REQUEST"
+
+
+class MissingStepIdException(HTTPException):
+    def __init__(self, message=MISSING_STEP_ID_EXCEPTION):
+        super().__init__(description=message)
+        self.code = 400
+        self.key = KEY_MISSING_STEP_ID_EXCEPTION
         self.message = message
         self.status = "BAD REQUEST"

@@ -5,7 +5,10 @@ from app.thematique.exceptions import (
     VersionNotFoundException,
     InvalidScopeException,
     InvalidResourceIdException,
+    MissingVersionIdException,
+    MissingStepIdException,
 )
+from app.thematique.schema import StepSchema
 
 
 class ThematiqueService:
@@ -137,3 +140,28 @@ class ThematiqueService:
             ).document()
             step_doc.set(s)
         return ThematiqueService.get_version(document.id)
+
+    @staticmethod
+    def update_step(version_id: str, step_id: str, payload: StepSchema):
+
+        if version_id in ["", None]:
+            raise MissingVersionIdException
+        if step_id in ["", None]:
+            raise MissingStepIdException
+
+        firestore_service = FirestoreUtils()
+        step = (
+            firestore_service.client.collection(
+                current_app.config.get("FIRESTORE_THEMATIQUE_COLLECTION")
+            )
+            .document(version_id)
+            .collection(current_app.config.get("FIRESTORE_STEPS_COLLECTION"))
+            .document(step_id)
+        )
+
+        for key in ["legendes", "name", "order", "id"]:
+            if key in payload["metadata"]:
+                del payload["metadata"][key]
+
+        step.set(payload, merge=True)
+        return ThematiqueService.get_version(version_id)
