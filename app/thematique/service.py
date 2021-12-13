@@ -165,3 +165,13 @@ class ThematiqueService:
 
         step.set(payload, merge=True)
         return ThematiqueService.get_version(version_id)
+
+    @staticmethod
+    def get_thematiques_from_mission(mission_id):
+        return [
+            {
+                "mision_id": mission_id,
+                "thematique_name": "SUIVI_FINANCEMENT",
+                "authorized": True,
+            }
+        ]

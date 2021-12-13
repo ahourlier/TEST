@@ -11,7 +11,7 @@ from .service import (
     LOT_DEFAULT_SORT_DIRECTION,
 )
 from ..common.api import AuthenticatedApi
-
+from ..thematique.schema import ThematiqueMissionSchema
 
 SEARCH_LOTS_PARAMS = [
     dict(name="page", type=int),
@@ -69,3 +69,12 @@ class LotsIdResource(AuthenticatedApi):
     def delete(self, lot_id):
         id = LotService.delete(lot_id)
         return jsonify(dict(status="Success", id=id))
+
+
+@api.route("/<int:lot_id>/thematiques")
+@api.param("lotId", "Lot unique ID")
+class LotIdThematiqueResource(AuthenticatedApi):
+    @responds(schema=ThematiqueMissionSchema(many=True), api=api)
+    # @requires(is_contributor)
+    def get(self, lot_id: int):
+        return LotService.get_thematiques(lot_id)

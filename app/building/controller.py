@@ -8,6 +8,7 @@ from .service import SEARCH_BUILDINGS_PARAMS, BuildingService, BUILDING_DEFAULT_
     BUILDING_DEFAULT_SORT_FIELD, BUILDING_DEFAULT_SORT_DIRECTION
 from ..common.api import AuthenticatedApi
 from . import api, Building
+from ..thematique.schema import ThematiqueMissionSchema
 
 
 @api.route("")
@@ -57,3 +58,12 @@ class BuildingsResource(AuthenticatedApi):
     def delete(self, building_id) -> Response:
         deleted_id = BuildingService.delete(building_id)
         return jsonify(dict(status="Success", id=deleted_id))
+
+
+@api.route("/<int:building_id>/thematiques")
+@api.param("buildingId", "Building unique ID")
+class BuildingIdThematiqueResource(AuthenticatedApi):
+
+    @responds(schema=ThematiqueMissionSchema(many=True), api=api)
+    def get(self, building_id: int):
+        return BuildingService.get_thematiques(building_id)

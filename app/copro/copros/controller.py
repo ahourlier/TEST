@@ -32,7 +32,7 @@ from ...common.permissions import (
 from ...common.search import SEARCH_PARAMS
 import app.mission.permissions as missions_permissions
 from ...common.tasks import create_task
-
+from ...thematique.schema import ThematiqueMissionSchema
 
 SEARCH_COPRO_PARAMS = [
     dict(name="page", type=int),
@@ -92,3 +92,12 @@ class CoproIdResource(AuthenticatedApi):
     def delete(self, copro_id: int):
         CoproService.delete(copro_id)
         return jsonify(dict(status="Success", id=copro_id))
+
+
+@api.route("/<int:copro_id>/thematiques")
+@api.param("coproId", "Copro unique ID")
+class CoproIdThematiqueResource(AuthenticatedApi):
+    @responds(schema=ThematiqueMissionSchema(many=True), api=api)
+    # @requires(is_contributor)
+    def get(self, copro_id: int):
+        return CoproService.get_thematiques(copro_id)
