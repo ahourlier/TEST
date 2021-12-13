@@ -11,6 +11,7 @@ from app.lot import Lot
 from app.lot.exceptions import LotNotFoundException, LotEnumException
 from app.lot.interface import LotInterface
 from app.person.service import PersonService
+from app.thematique.service import ThematiqueService
 
 LOT_DEFAULT_PAGE = 1
 LOT_DEFAULT_PAGE_SIZE = 20
@@ -103,3 +104,8 @@ class LotService:
         for p in list_dict_people:
             table.append(PersonService.get(p.get("id")))
         return table
+
+    @staticmethod
+    def get_thematiques(lot_id: int):
+        lot = LotService.get(lot_id)
+        return ThematiqueService.get_thematiques_from_mission(lot.copro.mission_id)

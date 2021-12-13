@@ -14,6 +14,7 @@ from app.common.address.service import AddressService
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.copro.copros.model import Copro
+from app.thematique.service import ThematiqueService
 
 SEARCH_BUILDINGS_PARAMS = [
     dict(name="page", type=int),
@@ -142,3 +143,8 @@ class BuildingService:
                 access_code = access_code.encode("ascii")
             access_code = base64.b64encode(access_code)
         return access_code.decode()
+
+    @staticmethod
+    def get_thematiques(copro_id: int):
+        building = BuildingService.get(copro_id)
+        return ThematiqueService.get_thematiques_from_mission(building.copro.mission_id)

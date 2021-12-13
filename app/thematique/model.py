@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
+from sqlalchemy.orm import relationship
 
 from app import db
 
@@ -19,5 +20,6 @@ class ThematiqueMission(db.Model):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     mission_id = Column(Integer(), ForeignKey("mission.id"), nullable=False)
+    mission = relationship("Mission", backref="thematiques")
     thematique_name = Column(String(255), nullable=False)
     authorized = Column(Boolean(), nullable=False, default=True)

@@ -11,6 +11,7 @@ from ...admin.clients.referents.schema import (
 )
 from ...admin.clients.schema import ClientSchema
 from ...common.schemas import PaginatedSchema, DocumentSchema
+from ...thematique.schema import ThematiqueMissionSchema
 
 
 class MissionSchema(SQLAlchemyAutoSchema):
@@ -19,6 +20,9 @@ class MissionSchema(SQLAlchemyAutoSchema):
     client = fields.Nested(ClientSchema())
     referents = fields.List(fields.Nested(ReferentSchema()))
     code_name = fields.String(dump_only=True)
+    thematiques = fields.Nested(
+        ThematiqueMissionSchema(), many=True, allow_none=True, required=False
+    )
 
     class Meta:
         model = Mission
