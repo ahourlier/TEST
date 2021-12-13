@@ -74,7 +74,6 @@ class LotsIdResource(AuthenticatedApi):
 @api.route("/<int:lot_id>/thematiques")
 @api.param("lotId", "Lot unique ID")
 class LotIdThematiqueResource(AuthenticatedApi):
-
     @responds(schema=ThematiqueMissionSchema(many=True), api=api)
     # @requires(is_contributor)
     def get(self, lot_id: int):

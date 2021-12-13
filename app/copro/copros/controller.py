@@ -97,7 +97,6 @@ class CoproIdResource(AuthenticatedApi):
 @api.route("/<int:copro_id>/thematiques")
 @api.param("coproId", "Copro unique ID")
 class CoproIdThematiqueResource(AuthenticatedApi):
-
     @responds(schema=ThematiqueMissionSchema(many=True), api=api)
     # @requires(is_contributor)
     def get(self, copro_id: int):
