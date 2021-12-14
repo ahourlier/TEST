@@ -1,6 +1,8 @@
 from flask import current_app, jsonify
 
+from app.building import Building
 from app.common.firestore_utils import FirestoreUtils
+from app.lot import Lot
 from app.thematique.exceptions import (
     VersionNotFoundException,
     InvalidScopeException,
@@ -46,26 +48,6 @@ class ThematiqueService:
         return thematiques
 
     @staticmethod
-    def list_thematiques(scope, resource_id, thematique_name):
-        firestore_service = FirestoreUtils()
-        versions = []
-        documents = (
-            firestore_service.client.collection(
-                current_app.config.get("FIRESTORE_THEMATIQUE_COLLECTION")
-            )
-            .where("scope", "==", scope)
-            .where("resource_id", "==", resource_id)
-            .where("thematique_name", "==", thematique_name)
-            .get()
-        )
-        for d in documents:
-            dict_obj = d.to_dict()
-            dict_obj["id"] = d.id
-            dict_obj["steps"] = ThematiqueService.handle_steps(d, copy_ids=True)
-            versions.append(dict_obj)
-        return versions
-
-    @staticmethod
     def handle_steps(doc, copy_ids=False):
         steps = doc.reference.collection(
             current_app.config.get("FIRESTORE_STEPS_COLLECTION")
@@ -81,13 +63,7 @@ class ThematiqueService:
     @staticmethod
     def get_version(version_id):
         firestore_service = FirestoreUtils()
-        version = (
-            firestore_service.client.collection(
-                current_app.config.get("FIRESTORE_THEMATIQUE_COLLECTION")
-            )
-            .document(version_id)
-            .get()
-        )
+        version = firestore_service.get_version_by_id(version_id)
         if version:
             version_dict = version.to_dict()
             version_dict["steps"] = ThematiqueService.handle_steps(
@@ -105,19 +81,12 @@ class ThematiqueService:
             raise InvalidResourceIdException
 
         firestore_service = FirestoreUtils()
-        doc_query = (
-            firestore_service.client.collection(
-                current_app.config.get("FIRESTORE_THEMATIQUE_COLLECTION")
-            )
-            .where("scope", "==", scope)
-            .where("resource_id", "==", int(resource_id))
+        documents = firestore_service.query_version(
+            scope=scope, resource_id=resource_id, thematique_name=thematique_name
         )
 
-        if thematique_name:
-            doc_query = doc_query.where("thematique_name", "==", thematique_name)
-
         list_docs = []
-        for doc in doc_query.get():
+        for doc in documents:
             doc_dict = doc.to_dict()
             doc_dict["id"] = doc.id
             doc_dict["steps"] = ThematiqueService.handle_steps(doc, copy_ids=True)
@@ -130,15 +99,30 @@ class ThematiqueService:
         firestore_service = FirestoreUtils()
         steps = version.get("steps", [])
         del version["steps"]
+        if "id" in version:
+            del version["id"]
         document = firestore_service.client.collection(
             current_app.config.get("FIRESTORE_THEMATIQUE_COLLECTION")
         ).document()
         document.set(version)
+
         for s in steps:
             step_doc = document.collection(
                 current_app.config.get("FIRESTORE_STEPS_COLLECTION")
             ).document()
             step_doc.set(s)
+
+        mapping_model = {"lot": Lot, "building": Building}
+
+        if version.get("scope") in mapping_model.keys():
+            ThematiqueService.handle_parent(
+                version=version,
+                model_object=mapping_model[version.get("scope")].query.get(
+                    version.get("resource_id")
+                ),
+                firestore_service=firestore_service,
+            )
+
         return ThematiqueService.get_version(document.id)
 
     @staticmethod
@@ -150,14 +134,7 @@ class ThematiqueService:
             raise MissingStepIdException
 
         firestore_service = FirestoreUtils()
-        step = (
-            firestore_service.client.collection(
-                current_app.config.get("FIRESTORE_THEMATIQUE_COLLECTION")
-            )
-            .document(version_id)
-            .collection(current_app.config.get("FIRESTORE_STEPS_COLLECTION"))
-            .document(step_id)
-        )
+        step = firestore_service.get_step_by_id(version_id=version_id, step_id=step_id)
 
         for key in ["legendes", "name", "order", "id"]:
             if key in payload["metadata"]:
@@ -168,6 +145,7 @@ class ThematiqueService:
 
     @staticmethod
     def get_thematiques_from_mission(mission_id):
+        # todo changed with fetching ThematiqueMission for mission_id
         return [
             {
                 "mision_id": mission_id,
@@ -175,3 +153,28 @@ class ThematiqueService:
                 "authorized": True,
             }
         ]
+
+    @staticmethod
+    def handle_parent(version, model_object, firestore_service: FirestoreUtils):
+        if not model_object:
+            raise
+        copro_id = model_object.copro.id
+        copro_version = firestore_service.query_version(
+            thematique_name=version.get("thematique_name"),
+            scope="copro",
+            resource_id=copro_id,
+            version_date=version.get("version_date"),
+            version_name=version.get("version_name"),
+        )
+        if len(copro_version) == 0:
+            template = ThematiqueService.list_templates(
+                "copro", version.get("thematique_name")
+            )
+            if len(template) == 0:
+                raise
+            template = template[0]
+            template["version_name"] = version.get("version_name")
+            template["version_date"] = version.get("version_date")
+            template["resource_id"] = copro_id
+            ThematiqueService.duplicate_thematique(template)
+        return
