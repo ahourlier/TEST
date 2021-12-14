@@ -99,9 +99,11 @@ def test_get_step_by_id(firestore_fixture):
         current_app.config.get("FIRESTORE_THEMATIQUE_COLLECTION")
     ).document("test").collection(
         current_app.config.get("FIRESTORE_STEPS_COLLECTION")
-    ).document("test_step").set({
-        "existing": True
-    })
+    ).document(
+        "test_step"
+    ).set(
+        {"existing": True}
+    )
     step = firestore_utils.get_step_by_id("test", "test_step")
     assert step.to_dict() != {}
 
