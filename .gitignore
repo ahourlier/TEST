@@ -150,3 +150,4 @@ app/firebase-key.json
 .deploy_keys
 
 firestore_poc.py
+scripts/new_keys.csv
