@@ -2,6 +2,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 import json
+import csv
 import os
 
 # Use the application default credentials
@@ -9,9 +10,24 @@ cred = credentials.ApplicationDefault()
 firebase_admin.initialize_app(cred, {"projectId": "app-oslo-dev",})
 db = firestore.client()
 
+i18n_keys = []
+
 folder_name = "thematiques"
 thematique_template_collection = "thematiques_template"
 step_collection = "steps"
+
+
+def add_translation_labels(fields_object):
+    for field_name in fields_object:
+        fields_object[field_name]["label"] = f"thematiques.fields.{field_name}"
+        if fields_object[field_name]["label"] not in i18n_keys:
+            i18n_keys.append(fields_object[field_name]["label"])
+        if fields_object[field_name].get("type") == "group":
+            fields_object[field_name]["fields"][0] = add_translation_labels(
+                fields_object[field_name]["fields"][0]
+            )
+    return fields_object
+
 
 for filename in os.listdir(folder_name):
 
@@ -35,7 +51,10 @@ for filename in os.listdir(folder_name):
     created_thematique.set(thematique_data)
 
     for step in steps:
+        step["fields"] = add_translation_labels(step.get("fields"))
         current_step = created_thematique.collection(step_collection).document()
         current_step.set(step)
-
+    with open('new_keys.csv', 'w') as f:
+        writer = csv.writer(f)
+        writer.writerows(map(lambda key: [key], i18n_keys))
     print(f"done for {filename}")

@@ -80,18 +80,30 @@ class ThematiqueService:
         if resource_id in ["", None]:
             raise InvalidResourceIdException
 
+        # cast to int in case it is a str
+        resource_id = int(resource_id)
         firestore_service = FirestoreUtils()
         documents = firestore_service.query_version(
             scope=scope, resource_id=resource_id, thematique_name=thematique_name
         )
-
         list_docs = []
+
         for doc in documents:
             doc_dict = doc.to_dict()
             doc_dict["id"] = doc.id
             doc_dict["steps"] = ThematiqueService.handle_steps(doc, copy_ids=True)
             list_docs.append(doc_dict)
 
+        mapping_model = {"lot": Lot, "building": Building}
+        if scope in mapping_model.keys():
+            list_docs = ThematiqueService.handle_child(
+                scope=scope,
+                child_model=mapping_model[scope],
+                child_id=resource_id,
+                thematique_name=thematique_name,
+                firestore_utils=firestore_service,
+                list_docs=list_docs,
+            )
         return list_docs
 
     @staticmethod
@@ -158,7 +170,7 @@ class ThematiqueService:
     def handle_parent(version, model_object, firestore_service: FirestoreUtils):
         if not model_object:
             raise
-        copro_id = model_object.copro.id
+        copro_id = model_object.copro_id
         copro_version = firestore_service.query_version(
             thematique_name=version.get("thematique_name"),
             scope="copro",
@@ -178,3 +190,41 @@ class ThematiqueService:
             template["resource_id"] = copro_id
             ThematiqueService.duplicate_thematique(template)
         return
+
+    @staticmethod
+    def handle_child(
+        scope,
+        child_model,
+        child_id,
+        thematique_name,
+        firestore_utils: FirestoreUtils,
+        list_docs,
+    ):
+        db_object = child_model.query.get(child_id)
+        if not db_object:
+            raise
+        copro_id = db_object.copro_id
+        docs = firestore_utils.query_version(
+            scope="copro", thematique_name=thematique_name, resource_id=copro_id
+        )
+        for doc in docs:
+            doc_found = False
+            for child_doc in list_docs:
+                if child_doc.get("version_date") == doc.get(
+                    "version_date"
+                ) and child_doc.get("version_name") == doc.get("version_name"):
+                    doc_found = True
+                    break
+            if not doc_found:
+                template = ThematiqueService.list_templates(
+                    scope=scope, name=doc.get("thematique_name")
+                )
+                if len(template) == 0:
+                    raise
+                template = template[0]
+                template["version_name"] = doc.get("version_name")
+                template["version_date"] = doc.get("version_date")
+                template["resource_id"] = int(child_id)
+                version_created = ThematiqueService.duplicate_thematique(template)
+                list_docs.append(version_created)
+        return list_docs

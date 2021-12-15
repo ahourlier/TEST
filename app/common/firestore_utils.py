@@ -9,6 +9,16 @@ class FirestoreUtils:
     def list_items(self, collection):
         return self.client.collection(collection).get()
 
+    def query_templates(self, scope=None, thematique_name=None):
+        query = self.client.collection(
+            current_app.config.get("FIRESTORE_THEMATIQUE_TEMPLATE_COLLECTION")
+        )
+        if scope:
+            query = query.where("scope", "==", scope)
+        if thematique_name:
+            query = query.where("thematique_name", "==", thematique_name)
+        return query.get()
+
     def query_version(
         self,
         thematique_name=None,
@@ -52,3 +62,10 @@ class FirestoreUtils:
             .document(step_id)
             .get()
         )
+
+    def create_version(self, version):
+        document = self.client.collection(
+            current_app.config.get("FIRESTORE_THEMATIQUE_COLLECTION")
+        ).document()
+        document.set(version)
+        return document.id
