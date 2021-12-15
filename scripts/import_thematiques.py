@@ -54,7 +54,7 @@ for filename in os.listdir(folder_name):
         step["fields"] = add_translation_labels(step.get("fields"))
         current_step = created_thematique.collection(step_collection).document()
         current_step.set(step)
-    with open('new_keys.csv', 'w') as f:
+    with open("new_keys.csv", "w") as f:
         writer = csv.writer(f)
         writer.writerows(map(lambda key: [key], i18n_keys))
     print(f"done for {filename}")
