@@ -13,7 +13,7 @@
 				"campagne_travaux": {
 					"multiple": true,
 					"type": "group",
-					"fields": [{
+					"value": [{
 						"nom_campagne_travaux": {
 							"type": "string",
 							"multiple": false,
@@ -120,7 +120,7 @@
 				"financeurs": {
 					"multiple": true,
 					"type": "group",
-					"fields": [{
+					"value": [{
 						"financeur": {
 							"type": "autocomplete",
 							"endpoint": "/api/funder/funders/",
@@ -200,7 +200,7 @@
 						"accompte": {
 							"type": "group",
 							"multiple": true,
-							"fields": [{
+							"value": [{
 								"demande_accompte": {
 									"type": "date",
 									"multiple": true,
@@ -273,7 +273,7 @@
 				"prefinanceurs": {
 					"multiple": true,
 					"type": "group",
-					"fields": [{
+					"value": [{
 						"prefinanceur": {
 							"type": "select",
 							"multiple": false,
@@ -323,7 +323,7 @@
 						"deblocage": {
 							"type": "group",
 							"multiple": true,
-							"fields": [{
+							"value": [{
 								"demande_deblocage": {
 									"type": "date",
 									"multiple": false,
@@ -361,7 +361,7 @@
 				"organisme_pret_collectif": {
 					"multiple": true,
 					"type": "group",
-					"fields": [{
+					"value": [{
 						"organisme_pret_collectif": {
 							"type": "string",
 							"multiple": false,
@@ -448,7 +448,7 @@
 				"financeurs": {
 					"multiple": true,
 					"type": "group",
-					"fields": [{
+					"value": [{
 						"financeur": {
 							"type": "autocomplete",
 							"endpoint": "/api/funder/funders/",
@@ -551,7 +551,7 @@
 				"financeurs": {
 					"multiple": true,
 					"type": "group",
-					"fields": [{
+					"value": [{
 						"financeur": {
 							"type": "autocomplete",
 							"endpoint": "/api/funder/funders/",

@@ -12,7 +12,7 @@
       },
       "fields": {
         "campagne_travaux": {
-          "fields": [
+          "value": [
             {
               "nature_travaux_interet_collectifs_pp": {
                 "type": "select_multiple",
@@ -68,7 +68,7 @@
         "organisme_pret_individuel": {
           "multiple": true,
           "type": "group",
-          "fields": [{
+          "value": [{
             "organisme_pret_individuel": {
               "type": "string",
               "multiple": false,
@@ -191,7 +191,7 @@
         "financeurs": {
           "multiple": true,
           "type": "group",
-          "fields": [{
+          "value": [{
             "financeur": {
               "type": "autocomplete",
               "endpoint": "/api/funder/funders/",
@@ -271,7 +271,7 @@
             "accompte": {
               "type": "group",
               "multiple": true,
-              "fields": [{
+              "value": [{
                 "demande_accompte": {
                   "type": "date",
                   "multiple": true,
@@ -344,7 +344,7 @@
         "prefinanceurs": {
           "multiple": true,
           "type": "group",
-          "fields": [{
+          "value": [{
             "prefinanceur": {
               "type": "select",
               "multiple": false,
@@ -394,7 +394,7 @@
             "deblocage": {
               "type": "group",
               "multiple": true,
-              "fields": [{
+              "value": [{
                 "demande_deblocage": {
                   "type": "date",
                   "multiple": false,
@@ -427,7 +427,7 @@
         "financeur_pret_individuel": {
           "multiple": true,
           "type": "group",
-          "fields": [{
+          "value": [{
             "financeur_pret_individuel": {
               "type": "string",
               "multiple": false,
