@@ -47,13 +47,24 @@ for filename in os.listdir(folder_name):
 
     steps = thematique_data.get("steps")
     del thematique_data["steps"]
+    thematique_data['label'] = f"thematic.name.{thematique_data['thematique_name']}"
+
+    if thematique_data['label'] not in i18n_keys:
+        i18n_keys.append(thematique_data['label'])
+
     created_thematique = db.collection(thematique_template_collection).document()
     created_thematique.set(thematique_data)
 
     for step in steps:
         step["fields"] = add_translation_labels(step.get("fields"))
+        step["metadata"]["label"] = f"thematic.step.{step['metadata']['name']}"
+
+        if step["metadata"]["label"] not in i18n_keys:
+            i18n_keys.append(step["metadata"]["label"])
+
         current_step = created_thematique.collection(step_collection).document()
         current_step.set(step)
+
     with open("new_keys.csv", "w") as f:
         writer = csv.writer(f)
         writer.writerows(map(lambda key: [key], i18n_keys))
