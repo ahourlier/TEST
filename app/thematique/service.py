@@ -66,6 +66,7 @@ class ThematiqueService:
         version = firestore_service.get_version_by_id(version_id)
         if version:
             version_dict = version.to_dict()
+            version_dict["id"] = version.id
             version_dict["steps"] = ThematiqueService.handle_steps(
                 version, copy_ids=True
             )
