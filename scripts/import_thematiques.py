@@ -17,13 +17,14 @@ thematique_template_collection = "thematiques_template"
 step_collection = "steps"
 
 
-def add_translation_labels(fields_object):
-    for field_name in fields_object:
+def handle_step_fields(fields_object):
+    for idx, field_name in enumerate(fields_object.keys()):
         fields_object[field_name]["label"] = f"thematiques.fields.{field_name}"
+        fields_object[field_name]["order"] = idx + 1
         if fields_object[field_name]["label"] not in i18n_keys:
             i18n_keys.append(fields_object[field_name]["label"])
         if fields_object[field_name].get("type") == "group":
-            fields_object[field_name]["value"][0] = add_translation_labels(
+            fields_object[field_name]["value"][0] = handle_step_fields(
                 fields_object[field_name]["value"][0]
             )
     return fields_object
@@ -47,13 +48,25 @@ for filename in os.listdir(folder_name):
 
     steps = thematique_data.get("steps")
     del thematique_data["steps"]
+    thematique_data["label"] = f"thematic.name.{thematique_data['thematique_name']}"
+
+    if thematique_data["label"] not in i18n_keys:
+        i18n_keys.append(thematique_data["label"])
+
     created_thematique = db.collection(thematique_template_collection).document()
     created_thematique.set(thematique_data)
 
     for step in steps:
-        step["fields"] = add_translation_labels(step.get("fields"))
+        step["fields"] = handle_step_fields(step.get("fields"))
+
+        step["metadata"]["label"] = f"thematic.step.{step['metadata']['name']}"
+
+        if step["metadata"]["label"] not in i18n_keys:
+            i18n_keys.append(step["metadata"]["label"])
+
         current_step = created_thematique.collection(step_collection).document()
         current_step.set(step)
+
     with open("new_keys.csv", "w") as f:
         writer = csv.writer(f)
         writer.writerows(map(lambda key: [key], i18n_keys))
