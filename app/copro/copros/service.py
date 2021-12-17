@@ -23,6 +23,7 @@ from app.copro.president.service import PresidentService
 from app.copro.syndic.service import SyndicService
 from app.mission.missions.service import MissionService
 from app.referential.enums.service import AppEnumService
+from app.thematique.service import ThematiqueService
 
 COPRO_DEFAULT_PAGE = 1
 COPRO_DEFAULT_PAGE_SIZE = 20
@@ -213,3 +214,8 @@ class CoproService:
             current_copro.soft_delete()
             db.session.commit()
         return copro_id
+
+    @staticmethod
+    def get_thematiques(copro_id: int):
+        copro = CoproService.get(copro_id)
+        return ThematiqueService.get_thematiques_from_mission(copro.mission_id)

@@ -1,0 +1,112 @@
+{
+  "resource_id": 0,
+  "scope": "building",
+  "thematique_name": "SUIVI_FINANCEMENT",
+  "steps": [{
+    "metadata": {
+      "legendes": [],
+      "name": "DECOMPOSITION_DEPENSE",
+      "order": 1,
+      "status": ""
+    },
+    "fields": {
+      "campagne_travaux": {
+        "value": [{
+          "nom_campagne_travaux": {
+            "type": "string",
+            "multiple": false,
+            "value": []
+          },
+          "date_vote_ag": {
+            "type": "date",
+            "multiple": false,
+            "value": []
+          },
+          "entreprise_1_poste_plus_couteux": {
+            "type": "string",
+            "multiple": false,
+            "value": []
+          },
+          "entreprise_2_poste_plus_couteux": {
+            "type": "string",
+            "multiple": false,
+            "value": []
+          },
+          "entreprise_3_poste_plus_couteux": {
+            "type": "string",
+            "multiple": false,
+            "value": []
+          },
+          "nature_travaux_pc": {
+            "type": "select_multiple",
+            "endpoint": "/api/referential/enums/?enums=NatureTravauxPartieCommune",
+            "multiple": false,
+            "value": []
+          },
+          "travaux_pc_ht": {
+            "type": "number",
+            "multiple": false,
+            "value": []
+          },
+          "travaux_pc_ttc": {
+            "type": "number",
+            "multiple": false,
+            "value": []
+          },
+          "frais_pc_ht": {
+            "type": "number",
+            "multiple": false,
+            "value": []
+          },
+          "frais_pc_ttc": {
+            "type": "number",
+            "multiple": false,
+            "value": []
+          },
+          "depense_subventionnable_pc_ht": {
+            "type": "number",
+            "multiple": false,
+            "value": []
+          },
+          "depense_totale_pc_ttc": {
+            "type": "number",
+            "multiple": false,
+            "value": []
+          },
+          "travaux_cumule_pc_ppic_ht": {
+            "type": "number",
+            "multiple": false,
+            "value": []
+          },
+          "travaux_cumule_pc_ppic_ttc": {
+            "type": "number",
+            "multiple": false,
+            "value": []
+          },
+          "frais_cumule_pc_ppic_ht": {
+            "type": "number",
+            "multiple": false,
+            "value": []
+          },
+          "frais_cumule_pc_ppic_ttc": {
+            "type": "number",
+            "multiple": false,
+            "value": []
+          },
+          "depense_subventionnable_pc_ppic_ht": {
+            "type": "number",
+            "multiple": false,
+            "value": []
+          },
+          "depense_totale_pc_ppic_ttc": {
+            "type": "number",
+            "multiple": false,
+            "value": []
+          }
+        }],
+        "multiple": true,
+        "type": "group"
+      }
+    }
+  }]
+}

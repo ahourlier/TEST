@@ -1,8 +1,9 @@
-from sqlalchemy import Column, Integer, Text, ForeignKey, String, Boolean, Float
+from sqlalchemy import Column, Integer, ForeignKey, String, Boolean, Float
 from sqlalchemy.orm import relationship
 
 from app import db
 from app.common.base_model import SoftDeletableMixin, BaseMixin
+from app.person.model import LotPerson
 
 
 class Lot(SoftDeletableMixin, BaseMixin, db.Model):
@@ -19,6 +20,11 @@ class Lot(SoftDeletableMixin, BaseMixin, db.Model):
     lot_number = Column(Integer)
     type = Column(String(255))
     owner_status = Column(String(255))
+    owner_id = Column(Integer, ForeignKey("person.id"), nullable=True)
+    owner = relationship("Person", backref="lots")
+    occupants = relationship(
+        "Person", secondary=LotPerson, backref=db.backref("lot", lazy="joined"),
+    )
     # tantieme et surface
     habitation_type = Column(String(255))
     floor = Column(String(255))
