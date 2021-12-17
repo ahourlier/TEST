@@ -508,3 +508,38 @@ LOT_NOT_FOUND_EXCEPTION = "Could not find a lot with this id"  # todo add in tra
 KEY_LOT_NOT_FOUND_EXCEPTION = "LOT_NOT_FOUND_EXCEPTION"
 
 WRONG_ENUM_TYPE_EXCEPTION = "Invalid {enum}: {value}. Allowed values: {allowed_values}."
+
+PERSON_NOT_FOUND_EXCEPTION = (
+    "Could not find a person with this id"  # todo add in translation
+)
+KEY_PERSON_NOT_FOUND_EXCEPTION = "PERSON_NOT_FOUND_EXCEPTION"
+
+VERSION_NOT_FOUND_EXCEPTION = (
+    "Could not find a thematique version with this id"  # todo add in translation
+)
+KEY_VERSION_NOT_FOUND_EXCEPTION = "VERSION_NOT_FOUND_EXCEPTION"
+
+INVALID_SCOPE_EXCEPTION = (
+    "Invalid scope. Hint, scope cannot be empty"  # todo add in translation
+)
+KEY_INVALID_SCOPE_EXCEPTION = "INVALID_SCOPE_EXCEPTION"
+
+INVALID_RESOURCE_ID_EXCEPTION = (
+    "Invalid resource id. Hint, resource id cannot be empty"  # todo add in translation
+)
+KEY_INVALID_RESOURCE_ID_EXCEPTION = "INVALID_RESOURCE_ID_EXCEPTION"
+
+INVALID_THEMATIQUE_NAME_EXCEPTION = (
+    "Invalid thematique name."  # todo add in translation
+)
+KEY_INVALID_THEMATIQUE_NAME_EXCEPTION = "INVALID_THEMATIQUE_NAME_EXCEPTION"
+
+MISSING_VERSION_ID_EXCEPTION = (
+    "Missing version id. It is either empty or null"  # todo add in translation
+)
+KEY_MISSING_VERSION_ID_EXCEPTION = "MISSING_VERSION_ID_EXCEPTION"
+
+MISSING_STEP_ID_EXCEPTION = (
+    "Missing step id. It is either empty or null"  # todo add in translation
+)
+KEY_MISSING_STEP_ID_EXCEPTION = "MISSING_STEP_ID_EXCEPTION"

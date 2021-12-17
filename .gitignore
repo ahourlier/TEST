@@ -148,3 +148,6 @@ app/firebase-key.json
 /.localdb/
 /scripts/keys/
 .deploy_keys
+
+firestore_poc.py
+scripts/new_keys.csv
