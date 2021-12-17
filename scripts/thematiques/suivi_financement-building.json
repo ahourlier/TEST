@@ -11,7 +11,7 @@
     },
     "fields": {
       "campagne_travaux": {
-        "fields": [{
+        "value": [{
           "nom_campagne_travaux": {
             "type": "string",
             "multiple": false,

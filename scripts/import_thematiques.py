@@ -23,8 +23,8 @@ def add_translation_labels(fields_object):
         if fields_object[field_name]["label"] not in i18n_keys:
             i18n_keys.append(fields_object[field_name]["label"])
         if fields_object[field_name].get("type") == "group":
-            fields_object[field_name]["fields"][0] = add_translation_labels(
-                fields_object[field_name]["fields"][0]
+            fields_object[field_name]["value"][0] = add_translation_labels(
+                fields_object[field_name]["value"][0]
             )
     return fields_object
 
