@@ -19,7 +19,7 @@ step_collection = "steps"
 
 def handle_step_fields(fields_object):
     for idx, field_name in enumerate(fields_object.keys()):
-        fields_object[field_name]["label"] = f"thematiques.fields.{field_name}"
+        fields_object[field_name]["label"] = f"thematic.fields.{field_name}"
         fields_object[field_name]["order"] = idx + 1
         if fields_object[field_name]["label"] not in i18n_keys:
             i18n_keys.append(fields_object[field_name]["label"])
