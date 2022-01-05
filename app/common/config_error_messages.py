@@ -519,6 +519,11 @@ VERSION_NOT_FOUND_EXCEPTION = (
 )
 KEY_VERSION_NOT_FOUND_EXCEPTION = "VERSION_NOT_FOUND_EXCEPTION"
 
+STEP_NOT_FOUND_EXCEPTION = (
+    "Could not find a step with this id"  # todo add in translation
+)
+KEY_STEP_NOT_FOUND_EXCEPTION = "STEP_NOT_FOUND_EXCEPTION"
+
 INVALID_SCOPE_EXCEPTION = (
     "Invalid scope. Hint, scope cannot be empty"  # todo add in translation
 )

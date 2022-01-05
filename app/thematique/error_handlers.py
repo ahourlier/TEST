@@ -5,7 +5,7 @@ from .exceptions import (
     InvalidResourceIdException,
     InvalidThematiqueNameException,
     MissingVersionIdException,
-    MissingStepIdException,
+    MissingStepIdException, StepNotFoundException,
 )
 from ..common.error_handlers import parse_exception
 
@@ -37,4 +37,9 @@ def missing_version_id(error):  # pragma: no cover
 
 @api.errorhandler(MissingStepIdException)
 def missing_step_id(error):  # pragma: no cover
+    return parse_exception(error)
+
+
+@api.errorhandler(StepNotFoundException)
+def step_not_found(error):  # pragma: no cover
     return parse_exception(error)

@@ -1,12 +1,13 @@
 from sqlalchemy import or_
 from flask import g
 from app import db
+from app.common.firestore_utils import FirestoreUtils
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.task import Task
 from app.task.exceptions import TaskNotFoundException
 from app.task.interface import TaskInterface
-
+from app.thematique.exceptions import VersionNotFoundException, StepNotFoundException
 
 TASK_DEFAULT_PAGE = 1
 TASK_DEFAULT_PAGE_SIZE = 100
@@ -30,6 +31,20 @@ class TaskService:
     def create(new_attrs: TaskInterface):
 
         ServicesUtils.check_enums(new_attrs, ENUM_MAPPING)
+
+        firestore_service = FirestoreUtils()
+        document = firestore_service.get_version_by_id(
+            version_id=new_attrs.get("version_id")
+        )
+        if document.to_dict() is None:
+            raise VersionNotFoundException
+
+        document = firestore_service.get_step_by_id(
+            version_id=new_attrs.get("version_id"),
+            step_id=new_attrs.get("step_id"),
+        )
+        if document.to_dict() is None:
+            raise StepNotFoundException
 
         new_task = Task(**new_attrs)
         new_task.author_id = g.user.id
