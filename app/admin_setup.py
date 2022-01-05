@@ -38,7 +38,8 @@ from app.referential.enums.admin import (
     LotOccupantStatus,
     LotLeaseType,
     LotConventionRentType,
-    PersonStatus, TaskStatus,
+    PersonStatus,
+    TaskStatus,
 )
 
 
