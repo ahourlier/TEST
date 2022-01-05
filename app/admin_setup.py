@@ -38,7 +38,7 @@ from app.referential.enums.admin import (
     LotOccupantStatus,
     LotLeaseType,
     LotConventionRentType,
-    PersonStatus,
+    PersonStatus, TaskStatus,
 )
 
 
@@ -392,5 +392,14 @@ def register_admin_views(admin, db):
             "Statut personne physique",
             url="status-person",
             endpoint="manage_person_status",
+        )
+    )
+    admin.add_view(
+        TaskStatus(
+            AppEnum,
+            db.session,
+            "Statut tâche",
+            url="status-task",
+            endpoint="manage_task_status",
         )
     )

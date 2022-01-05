@@ -543,3 +543,6 @@ MISSING_STEP_ID_EXCEPTION = (
     "Missing step id. It is either empty or null"  # todo add in translation
 )
 KEY_MISSING_STEP_ID_EXCEPTION = "MISSING_STEP_ID_EXCEPTION"
+
+TASK_NOT_FOUND_EXCEPTION = "Task not found"  # todo add in translation
+KEY_TASK_NOT_FOUND_EXCEPTION = "TASK_NOT_FOUND_EXCEPTION"
