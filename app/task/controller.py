@@ -21,7 +21,9 @@ SEARCH_PARAMS = [
     dict(name="term", type=str),
     dict(name="sortBy", type=str),
     dict(name="sortDirection", type=str),
-    dict(name="antennaId", type=int),
+    dict(name="missionId", type=int),
+    dict(name="assignee", type=str),
+    dict(name="step", type=str),
 ]
 
 
@@ -41,6 +43,12 @@ class TaskResource(AuthenticatedApi):
             direction=request.args.get("sortDirection", TASK_DEFAULT_SORT_DIRECTION),
             mission_id=request.args.get("missionId")
             if request.args.get("missionId") not in [None, ""]
+            else None,
+            assignee=request.args.get("assignee")
+            if request.args.get("assignee") not in [None, ""]
+            else None,
+            step=request.args.get("step")
+            if request.args.get("step") not in [None, ""]
             else None,
         )
 

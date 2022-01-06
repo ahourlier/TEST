@@ -5,7 +5,7 @@ from app.common.firestore_utils import FirestoreUtils
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.task import Task
-from app.task.exceptions import TaskNotFoundException
+from app.task.exceptions import TaskNotFoundException, BadFormatAssigneeException
 from app.task.interface import TaskInterface
 from app.thematique.exceptions import VersionNotFoundException, StepNotFoundException
 
@@ -53,12 +53,14 @@ class TaskService:
 
     @staticmethod
     def get_all(
-        page=TASK_DEFAULT_PAGE,
-        size=TASK_DEFAULT_PAGE_SIZE,
-        term=None,
-        sort_by=TASK_DEFAULT_SORT_FIELD,
-        direction=TASK_DEFAULT_SORT_DIRECTION,
-        mission_id=None,
+            page=TASK_DEFAULT_PAGE,
+            size=TASK_DEFAULT_PAGE_SIZE,
+            term=None,
+            sort_by=TASK_DEFAULT_SORT_FIELD,
+            direction=TASK_DEFAULT_SORT_DIRECTION,
+            mission_id=None,
+            assignee=None,
+            step=None
     ):
         q = sort_query(
             Task.query.filter(or_(Task.is_deleted == False, Task.is_deleted == None)),
@@ -68,11 +70,26 @@ class TaskService:
         if term is not None:
             search_term = f"%{term}%"
             q = q.filter(
-                or_(Task.title.ilike(search_term), Task.description.ilike(search_term),)
+                or_(Task.title.ilike(search_term), Task.description.ilike(search_term), )
             )
 
         if mission_id:
             q = q.filter(Task.mission_id == mission_id)
+
+        if assignee:
+            try:
+                assignee = [int(a) for a in assignee.split(',') if len(a)]
+            except ValueError:
+                raise BadFormatAssigneeException
+            q = q.filter(
+                Task.assignee_id.in_(assignee)
+            )
+
+        if step:
+            step = step.split(',')
+            q = q.filter(
+                Task.step_id.in_(step)
+            )
 
         return q.paginate(page=page, per_page=size)
 
