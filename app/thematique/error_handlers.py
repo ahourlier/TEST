@@ -5,7 +5,8 @@ from .exceptions import (
     InvalidResourceIdException,
     InvalidThematiqueNameException,
     MissingVersionIdException,
-    MissingStepIdException, StepNotFoundException,
+    MissingStepIdException,
+    StepNotFoundException,
 )
 from ..common.error_handlers import parse_exception
 
