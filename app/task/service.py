@@ -36,14 +36,14 @@ class TaskService:
         document = firestore_service.get_version_by_id(
             version_id=new_attrs.get("version_id")
         )
-        if document.to_dict() is None:
+        if document.exists is None:
             raise VersionNotFoundException
 
         document = firestore_service.get_step_by_id(
             version_id=new_attrs.get("version_id"),
             step_id=new_attrs.get("step_id"),
         )
-        if document.to_dict() is None:
+        if document.exists is None:
             raise StepNotFoundException
 
         new_task = Task(**new_attrs)
@@ -79,6 +79,9 @@ class TaskService:
 
     @staticmethod
     def update(db_task: Task, changes: TaskInterface):
+        for forbidden_key in ['version_id', 'step_id', 'id', 'author', 'author_id']:
+            if forbidden_key in changes:
+                del changes[forbidden_key]
         db_task.update(changes)
         db.session.commit()
         return db_task
