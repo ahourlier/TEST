@@ -4,7 +4,6 @@ from app.cle_repartition.model import CleRepartition, LotCleRepartition
 
 
 class CleRepartitionSchema(SQLAlchemyAutoSchema):
-
     class Meta:
         model = CleRepartition
 
