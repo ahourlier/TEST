@@ -2,6 +2,7 @@ from flask_sqlalchemy import Pagination
 from sqlalchemy import or_, and_
 
 from app import db
+from app.cle_repartition.service import CleRepartitionService
 from app.common.address.model import Address
 from app.common.address.service import AddressService
 from app.common.app_name import App
@@ -11,8 +12,6 @@ from app.copro.cadastre import Cadastre
 from app.copro.copros.exceptions import (
     CoproNotFoundException,
     MissionNotTypeCoproException,
-    WrongCoproTypeException,
-    WrongConstructionTimeException,
 )
 from app.copro.copros.interface import CoproInterface
 from app.copro.copros.model import Copro
@@ -22,7 +21,6 @@ from app.copro.president import President
 from app.copro.president.service import PresidentService
 from app.copro.syndic.service import SyndicService
 from app.mission.missions.service import MissionService
-from app.referential.enums.service import AppEnumService
 from app.thematique.service import ThematiqueService
 
 COPRO_DEFAULT_PAGE = 1
@@ -107,6 +105,11 @@ class CoproService:
         if new_attrs.get("president"):
             del new_attrs["president"]
 
+        cles_repartition = None
+        if "cles_repartition" in new_attrs:
+            cles_repartition = new_attrs.get("cles_repartition")
+            del new_attrs["cles_repartition"]
+
         new_copro = Copro(**new_attrs)
         db.session.add(new_copro)
         db.session.commit()
@@ -122,6 +125,9 @@ class CoproService:
             for s in syndics:
                 s["copro_id"] = new_copro.id
                 SyndicService.create(s)
+
+        if cles_repartition:
+            CleRepartitionService.handle_keys(new_copro.id, cles_repartition)
 
         return new_copro
 
@@ -201,6 +207,12 @@ class CoproService:
                         Moe.query.get(db_copro.moe_id), changes.get("moe")
                     )
             del changes["moe"]
+
+        if "cles_repartition" in changes:
+            CleRepartitionService.handle_keys(
+                db_copro.id, changes.get("cles_repartition")
+            )
+            del changes["cles_repartition"]
 
         db_copro.update(changes)
         db.session.commit()

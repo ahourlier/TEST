@@ -6,8 +6,8 @@ from ..cadastre.schema import CadastreSchema
 from ..moe.schema import MoeSchema, MoeUpdateSchema, MoeCreateSchema
 from ..president.schema import PresidentSchema, PresidentCreateSchema
 from ..syndic.schema import SyndicSchema, SyndicCreateSchema
-from ...auth.users import UserSchema
-from ...auth.users.schema import UserLightSchema, UserInChargeSchema
+from ...auth.users.schema import UserInChargeSchema
+from ...cle_repartition.schema import CleRepartitionSchema, CleRepartitionCreateSchema
 from ...common.address.schema import AddressSchema
 from ...common.schemas import PaginatedSchema
 
@@ -20,6 +20,7 @@ class CoproSchema(SQLAlchemyAutoSchema):
     address_2 = fields.Nested(AddressSchema(), dump_only=True)
     user_in_charge = fields.Nested(UserInChargeSchema(), dump_only=True)
     moe = fields.Nested(MoeSchema(), dump_only=True)
+    cles_repartition = fields.List(fields.Nested(CleRepartitionSchema()))
 
     class Meta:
         model = Copro
@@ -36,6 +37,7 @@ class CoproUpdateSchema(SQLAlchemyAutoSchema):
     mission_id = fields.Integer(allow_none=True, required=False)
     president = fields.Nested(PresidentCreateSchema(), allow_none=True, required=False)
     moe = fields.Nested(MoeUpdateSchema(), required=False, allow_none=True)
+    cles_repartition = fields.List(fields.Nested(CleRepartitionSchema()))
 
     class Meta:
         model = Copro
@@ -51,6 +53,7 @@ class CoproCreateSchema(SQLAlchemyAutoSchema):
     president = fields.Nested(PresidentCreateSchema())
     copro_type = fields.String(required=True, allow_none=False)
     moe = fields.Nested(MoeCreateSchema(), required=False, allow_none=True)
+    cles_repartition = fields.List(fields.Nested(CleRepartitionCreateSchema()))
 
     class Meta:
         model = Copro
