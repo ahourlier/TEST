@@ -6,6 +6,7 @@ from app.cle_repartition.model import CleRepartition, LotCleRepartition
 class CleRepartitionSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = CleRepartition
+        include_fk = True
 
 
 class CleRepartitionCreateSchema(SQLAlchemyAutoSchema):
@@ -13,6 +14,7 @@ class CleRepartitionCreateSchema(SQLAlchemyAutoSchema):
 
     class Meta:
         model = CleRepartition
+        include_fk = True
 
 
 class LotCleRepartitionSchema(SQLAlchemyAutoSchema):
@@ -20,6 +22,7 @@ class LotCleRepartitionSchema(SQLAlchemyAutoSchema):
 
     class Meta:
         model = LotCleRepartition
+        include_fk = True
 
 
 class LotCleRepartitionCreateSchema(SQLAlchemyAutoSchema):
@@ -27,3 +30,4 @@ class LotCleRepartitionCreateSchema(SQLAlchemyAutoSchema):
 
     class Meta:
         model = LotCleRepartition
+        include_fk = True
