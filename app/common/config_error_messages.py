@@ -561,5 +561,7 @@ INCORRECT_REPARTITION_KEY_EXCEPTION = (
 )  # todo add in translation
 KEY_INCORRECT_REPARTITION_KEY_EXCEPTION = "INCORRECT_REPARTITION_KEY_EXCEPTION"
 
-REPARTITION_KEY_LINKED_EXCEPTION = "Looks like repartition key '{}' is linked to a lot."  # todo add in translation
+REPARTITION_KEY_LINKED_EXCEPTION = (
+    "Looks like repartition key '{}' is linked to a lot."  # todo add in translation
+)
 KEY_REPARTITION_KEY_LINKED_EXCEPTION = "REPARTITION_KEY_LINKED_EXCEPTION"
