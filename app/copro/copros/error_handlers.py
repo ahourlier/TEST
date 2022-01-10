@@ -2,8 +2,7 @@ from . import api
 from .exceptions import (
     CoproNotFoundException,
     MissionNotTypeCoproException,
-    WrongCoproTypeException,
-    WrongConstructionTimeException,
+    RepartitionKeyLinkedException,
 )
 from ...common.error_handlers import parse_exception
 
@@ -18,11 +17,6 @@ def wrong_mission_type(error):  # pragma: no cover
     return parse_exception(error)
 
 
-@api.errorhandler(WrongCoproTypeException)
-def wrong_copro_type(error):  # pragma: no cover
-    return parse_exception(error)
-
-
-@api.errorhandler(WrongConstructionTimeException)
-def wrong_construction_time(error):  # pragma: no cover
+@api.errorhandler(RepartitionKeyLinkedException)
+def repartition_key_linked(error):  # pragma: no cover
     return parse_exception(error)

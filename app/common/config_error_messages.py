@@ -554,3 +554,14 @@ KEY_TASK_NOT_FOUND_EXCEPTION = "TASK_NOT_FOUND_EXCEPTION"
 
 BAD_FORMAT_ASSIGNEE_EXCEPTION = "Assignee filter has a bad format. Expected '?assignee=1,2,3'"  # todo add in translation
 KEY_BAD_FORMAT_ASSIGNEE_EXCEPTION = "BAD_FORMAT_ASSIGNEE_EXCEPTION"
+
+INCORRECT_REPARTITION_KEY_EXCEPTION = (
+    "Incorrect repartition key. Looks like a repartition key was declared on a "
+    "different copro."
+)  # todo add in translation
+KEY_INCORRECT_REPARTITION_KEY_EXCEPTION = "INCORRECT_REPARTITION_KEY_EXCEPTION"
+
+REPARTITION_KEY_LINKED_EXCEPTION = (
+    "Looks like repartition key '{}' is linked to a lot."  # todo add in translation
+)
+KEY_REPARTITION_KEY_LINKED_EXCEPTION = "REPARTITION_KEY_LINKED_EXCEPTION"

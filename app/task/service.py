@@ -5,7 +5,7 @@ from app.common.firestore_utils import FirestoreUtils
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.task import Task
-from app.task.exceptions import TaskNotFoundException, BadFormatAssigneeException
+from app.task.error_handlers import TaskNotFoundException, BadFormatAssigneeException
 from app.task.interface import TaskInterface
 from app.thematique.exceptions import VersionNotFoundException, StepNotFoundException
 

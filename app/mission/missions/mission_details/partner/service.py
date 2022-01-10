@@ -1,7 +1,7 @@
 from app import db
 from app.common.address.model import Address
 from app.common.address.service import AddressService
-from app.mission.missions.mission_details.partner.exceptions import (
+from app.mission.missions.mission_details.partner.error_handlers import (
     PartnerNotFoundException,
 )
 from app.mission.missions.mission_details.partner.model import Partner

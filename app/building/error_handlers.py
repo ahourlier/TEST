@@ -1,4 +1,4 @@
-from .controller import api
+from . import api
 from .exceptions import BuildingNotFoundException, WrongConstructionTimeException, WrongERPCategoryException, \
     WrongAccessTypeException, WrongCollectiveHeaterException, WrongAsbestosDiagnosisResultException
 from ..common.error_handlers import parse_exception

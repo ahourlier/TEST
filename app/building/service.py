@@ -3,9 +3,7 @@ import base64
 from sqlalchemy import or_, and_
 
 from app import db
-from app.building.exceptions import BuildingNotFoundException, WrongConstructionTimeException, \
-    WrongERPCategoryException, WrongAccessTypeException, WrongCollectiveHeaterException, \
-    WrongAsbestosDiagnosisResultException
+from app.building.error_handlers import BuildingNotFoundException
 from app.building.interface import BuildingInterface
 from app.building.model import Building
 from app.building.settings import NB_LOOP_ACCESS_CODE
