@@ -4,12 +4,11 @@ from sqlalchemy import or_
 
 from app import db
 from app.cle_repartition.service import CleRepartitionService
-from app.common.exceptions import EnumException
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.copro.copros.model import Copro
 from app.lot import Lot
-from app.lot.exceptions import LotNotFoundException, LotEnumException
+from app.lot.error_handlers import LotNotFoundException
 from app.lot.interface import LotInterface
 from app.person.service import PersonService
 from app.thematique.service import ThematiqueService

@@ -6,8 +6,7 @@ from flask_sqlalchemy import Pagination
 from app import db
 from app.auth.users import User
 from app.common.search import sort_query
-from app.project.project_leads.error_handlers import ProjectLeadNotFoundException
-from app.project.project_leads.exceptions import UnidentifiedReferrerException
+from app.project.project_leads.error_handlers import ProjectLeadNotFoundException, UnidentifiedReferrerException
 from app.project.project_leads.interface import ProjectLeadInterface
 from app.project.project_leads.model import ProjectLead
 import app.project.projects.service as project_service

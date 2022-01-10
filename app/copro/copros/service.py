@@ -9,7 +9,7 @@ from app.common.app_name import App
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.copro.cadastre import Cadastre
-from app.copro.copros.exceptions import (
+from app.copro.copros.error_handlers import (
     CoproNotFoundException,
     MissionNotTypeCoproException,
 )

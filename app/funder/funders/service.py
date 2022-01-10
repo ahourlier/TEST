@@ -7,7 +7,7 @@ from app.funder.funders.error_handlers import (
     FunderNotFoundException,
     FunderMissionChangeException,
 )
-from app.funder.funders.exceptions import FunderUsedBySimulationException
+from app.funder.funders.error_handlers import FunderUsedBySimulationException
 from app.funder.funders.interface import FunderInterface
 from app.common.exceptions import (
     InconsistentUpdateIdException,

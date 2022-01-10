@@ -1,4 +1,4 @@
-from sqlalchemy import or_
+from sqlalchemy import or_, exc
 from flask import g
 from app import db
 from app.cle_repartition.interface import (
@@ -6,8 +6,10 @@ from app.cle_repartition.interface import (
     CleRepartitionLotLinkInterface,
 )
 from app.cle_repartition.model import CleRepartition, LotCleRepartition
+from app.common.config_error_messages import REPARTITION_KEY_LINKED_EXCEPTION
+from app.copro.copros.error_handlers import RepartitionKeyLinkedException
 from app.lot import Lot
-from app.lot.exceptions import LotNotFoundException, IncorrectKeyException
+from app.lot.error_handlers import LotNotFoundException, IncorrectKeyException
 
 
 class CleRepartitionService:
@@ -61,8 +63,13 @@ class CleRepartitionService:
         ).all()
         if len(existing):
             for e in existing:
-                db.session.delete(e)
-            db.session.commit()
+                try:
+                    db.session.delete(e)
+                    db.session.commit()
+                except exc.IntegrityError:
+                    db.session.rollback()
+                    message = REPARTITION_KEY_LINKED_EXCEPTION.format(e.label)
+                    raise RepartitionKeyLinkedException(message)
         for cle in cles_repartition:
             cle["copro_id"] = copro_id
             created.append(CleRepartitionService.create(cle))

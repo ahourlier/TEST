@@ -18,16 +18,6 @@ class LotNotFoundException(HTTPException):
         self.status = "NOT FOUND"
 
 
-class LotEnumException(HTTPException):
-    def __init__(self, message=WRONG_ENUM_TYPE_EXCEPTION, value=None, enum=None):
-        message.format(value=value, enum=enum)
-        super().__init__(description=message)
-        self.code = 400
-        # self.key = KEY_LOT_NOT_FOUND_EXCEPTION
-        self.message = message
-        self.status = "BAD REQUEST"
-
-
 class IncorrectKeyException(HTTPException):
     def __init__(self, message=INCORRECT_REPARTITION_KEY_EXCEPTION):
         super().__init__(description=message)
