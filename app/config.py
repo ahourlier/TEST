@@ -7,8 +7,6 @@ base_dir = pathlib.Path(__file__).parent.absolute()
 
 
 class BaseConfig:
-    PROPAGATE_EXCEPTIONS = False
-    TRAP_HTTP_EXCEPTIONS = True
     CONFIG_NAME = "base"
     DEBUG = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
