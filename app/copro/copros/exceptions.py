@@ -5,10 +5,8 @@ from app.common.config_error_messages import (
     KEY_COPRO_NOT_FOUND_EXCEPTION,
     MISSION_NOT_TYPE_COPRO_EXCEPTION,
     KEY_MISSION_NOT_TYPE_COPRO_EXCEPTION,
-    WRONG_COPRO_TYPE_EXCEPTION,
-    KEY_WRONG_COPRO_TYPE_EXCEPTION_EXCEPTION,
-    WRONG_CONSTRUCTION_TIME_EXCEPTION,
-    KEY_WRONG_CONSTRUCTION_TIME_EXCEPTION,
+    REPARTITION_KEY_LINKED_EXCEPTION,
+    KEY_REPARTITION_KEY_LINKED_EXCEPTION,
 )
 
 
@@ -30,19 +28,9 @@ class MissionNotTypeCoproException(HTTPException):
         self.status = "BAD REQUEST"
 
 
-class WrongCoproTypeException(HTTPException):
-    def __init__(self, message=WRONG_COPRO_TYPE_EXCEPTION):
-        super().__init__(description=message)
+class RepartitionKeyLinkedException(HTTPException):
+    def __init__(self, message=REPARTITION_KEY_LINKED_EXCEPTION):
         self.code = 400
-        self.key = KEY_WRONG_COPRO_TYPE_EXCEPTION_EXCEPTION
-        self.message = message
-        self.status = "BAD REQUEST"
-
-
-class WrongConstructionTimeException(HTTPException):
-    def __init__(self, message=WRONG_CONSTRUCTION_TIME_EXCEPTION):
-        super().__init__(description=message)
-        self.code = 400
-        self.key = KEY_WRONG_CONSTRUCTION_TIME_EXCEPTION
+        self.key = KEY_REPARTITION_KEY_LINKED_EXCEPTION
         self.message = message
         self.status = "BAD REQUEST"

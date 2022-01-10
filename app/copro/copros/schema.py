@@ -37,7 +37,7 @@ class CoproUpdateSchema(SQLAlchemyAutoSchema):
     mission_id = fields.Integer(allow_none=True, required=False)
     president = fields.Nested(PresidentCreateSchema(), allow_none=True, required=False)
     moe = fields.Nested(MoeUpdateSchema(), required=False, allow_none=True)
-    cles_repartition = fields.List(fields.Nested(CleRepartitionSchema()))
+    cles_repartition = fields.List(fields.Nested(CleRepartitionCreateSchema()))
 
     class Meta:
         model = Copro

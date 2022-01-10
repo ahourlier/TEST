@@ -2,14 +2,12 @@ from sqlalchemy import or_
 from flask import g
 
 from app import db
-from app.admin.antennas import Antenna
-from app.auth.users.service import UserService
 from app.common.phone_number.model import PhoneNumber
 from app.common.phone_number.service import PhoneNumberService
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.person import Person
-from app.person.exceptions import PersonNotFoundException
+from app.person.error_handlers import PersonNotFoundException
 from app.person.interface import PersonInterface
 
 

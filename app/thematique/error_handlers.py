@@ -1,4 +1,4 @@
-from .controller import api
+from . import api
 from .exceptions import (
     VersionNotFoundException,
     InvalidScopeException,

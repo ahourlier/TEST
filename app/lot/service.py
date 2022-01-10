@@ -3,12 +3,12 @@ from typing import List
 from sqlalchemy import or_
 
 from app import db
-from app.common.exceptions import EnumException
+from app.cle_repartition.service import CleRepartitionService
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.copro.copros.model import Copro
 from app.lot import Lot
-from app.lot.exceptions import LotNotFoundException, LotEnumException
+from app.lot.error_handlers import LotNotFoundException
 from app.lot.interface import LotInterface
 from app.person.service import PersonService
 from app.thematique.service import ThematiqueService
@@ -64,9 +64,17 @@ class LotService:
         if "owner" in new_attrs:
             del new_attrs["owner"]
 
+        links_cles = None
+        if "cles_repartition" in new_attrs:
+            links_cles = new_attrs.get("cles_repartition")
+            del new_attrs["cles_repartition"]
+
         new_lot = Lot(**new_attrs)
         db.session.add(new_lot)
         db.session.commit()
+
+        if links_cles:
+            CleRepartitionService.handle_links(new_lot.id, links_cles)
         return new_lot
 
     @staticmethod
@@ -86,6 +94,12 @@ class LotService:
 
         if "owner" in changes:
             del changes["owner"]
+
+        if "cles_repartition" in changes:
+            CleRepartitionService.handle_links(
+                db_lot.id, changes.get("cles_repartition")
+            )
+            del changes["cles_repartition"]
 
         db_lot.update(changes)
         db.session.commit()

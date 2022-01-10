@@ -2,7 +2,7 @@ from app import db
 from app.common.address.service import AddressService
 from app.common.phone_number.model import PhoneNumber
 from app.common.phone_number.service import PhoneNumberService
-from app.copro.syndic.exceptions import (
+from app.copro.syndic.error_handlers import (
     SyndicNotFoundException,
     WrongSyndicTypeException,
 )

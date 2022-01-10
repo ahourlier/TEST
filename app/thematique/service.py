@@ -3,7 +3,7 @@ from flask import current_app, jsonify
 from app.building import Building
 from app.common.firestore_utils import FirestoreUtils
 from app.lot import Lot
-from app.thematique.exceptions import (
+from app.thematique.error_handlers import (
     VersionNotFoundException,
     InvalidScopeException,
     InvalidResourceIdException,

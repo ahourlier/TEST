@@ -10,7 +10,7 @@ from app.admin.subcontractor import (
     Subcontractor,
     MissionDetailSubcontractor,
 )
-from app.admin.subcontractor.exceptions import SubcontractorNotFoundException
+from app.admin.subcontractor.error_handlers import SubcontractorNotFoundException
 
 SUBCONTRACTORS_DEFAULT_PAGE = 1
 SUBCONTRACTORS_DEFAULT_PAGE_SIZE = 100
