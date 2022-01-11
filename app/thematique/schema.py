@@ -12,6 +12,7 @@ class LegendeSchema(SQLAlchemyAutoSchema):
 
 class StepMetadataSchema(SQLAlchemyAutoSchema):
     id = fields.String(allow_none=False, required=False)
+    label = fields.String()
     name = fields.String()
     order = fields.Integer()
     status = fields.String()
