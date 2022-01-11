@@ -2,6 +2,7 @@ from flask_sqlalchemy import Pagination
 from sqlalchemy import or_, and_
 
 from app import db
+from app.auth.users.model import UserRole
 from app.cle_repartition.service import CleRepartitionService
 from app.common.address.model import Address
 from app.common.address.service import AddressService
@@ -43,7 +44,10 @@ class CoproService:
         sort_by=COPRO_DEFAULT_SORT_FIELD,
         direction=COPRO_DEFAULT_SORT_DIRECTION,
         mission_id=None,
+        user=None,
     ) -> Pagination:
+        import app.mission.permissions as mission_permissions
+        from app.mission.missions import Mission
 
         q = sort_query(Copro.query, sort_by, direction)
         q = q.filter(or_(Copro.is_deleted == False, Copro.is_deleted == None))
@@ -61,6 +65,12 @@ class CoproService:
 
         if mission_id is not None:
             q = q.filter(Copro.mission_id == mission_id)
+
+        if user is not None and user.role != UserRole.ADMIN:
+            q = q.join(Mission)
+            q = mission_permissions.MissionPermission.filter_query_mission_by_user_permissions(
+                q, user
+            )
 
         return q.paginate(page=page, per_page=size)
 

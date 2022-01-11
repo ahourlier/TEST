@@ -96,7 +96,7 @@ class MissionResource(AuthenticatedApi):
 class MissionIdResource(AuthenticatedApi):
     @responds(schema=MissionSchema(), api=api)
     @accepts(dict(name="check_drive_structure", type=inputs.boolean))
-    @requires(is_contributor)
+    @requires(is_contributor, has_mission_permission)
     def get(self, mission_id: int) -> Mission:
         """ Get single mission """
         db_mission = MissionService.get_by_id(mission_id)
@@ -134,7 +134,7 @@ class MissionIdResource(AuthenticatedApi):
                     )
         return db_mission
 
-    @requires(is_manager)
+    @requires(is_manager, has_mission_permission)
     def delete(self, mission_id: int) -> Response:
         """Delete single mission"""
 
@@ -143,7 +143,7 @@ class MissionIdResource(AuthenticatedApi):
 
     @accepts(schema=MissionSchema(), api=api)
     @responds(schema=MissionSchema(), api=api)
-    @requires(has_mission_permission)
+    @requires(has_mission_permission, is_contributor)
     def put(self, mission_id: int) -> Mission:
         """Update single mission"""
 
