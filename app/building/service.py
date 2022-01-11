@@ -3,6 +3,7 @@ import base64
 from sqlalchemy import or_, and_
 
 from app import db
+from app.auth.users.model import UserRole
 from app.building.error_handlers import BuildingNotFoundException
 from app.building.interface import BuildingInterface
 from app.building.model import Building
@@ -59,7 +60,12 @@ class BuildingService:
             direction=BUILDING_DEFAULT_SORT_DIRECTION,
             mission_id=None,
             copro_id=None,
+            user=None
     ):
+        from app.copro.copros import Copro
+        from app.mission.missions import Mission
+        import app.mission.permissions as mission_permissions
+
         q = sort_query(Building.query, sort_by, direction)
         q = q.filter(or_(Building.is_deleted == False, Building.is_deleted == None))
         if term not in [None, '']:
@@ -79,6 +85,12 @@ class BuildingService:
 
         if mission_id:
             q = q.join(Copro, Building.copro_id == Copro.id).filter(Copro.mission_id == int(mission_id))
+
+        if user is not None and user.role != UserRole.ADMIN:
+            q = q.join(Copro).join(Mission)
+            q = mission_permissions.MissionPermission.filter_query_mission_by_user_permissions(
+                q, user
+            )
 
         return q.paginate(page=page, per_page=size)
 

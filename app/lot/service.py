@@ -3,6 +3,7 @@ from typing import List
 from sqlalchemy import or_
 
 from app import db
+from app.auth.users.model import UserRole
 from app.cle_repartition.service import CleRepartitionService
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
@@ -37,7 +38,11 @@ class LotService:
         mission_id=None,
         copro_id=None,
         building_id=None,
+        user=None,
     ):
+        from app.mission.missions import Mission
+        import app.mission.permissions as mission_permissions
+
         q = sort_query(Lot.query, sort_by, direction)
         q = q.filter(or_(Lot.is_deleted == False, Lot.is_deleted == None))
 
@@ -49,6 +54,14 @@ class LotService:
 
         if mission_id:
             q = q.join(Copro).filter(Copro.mission_id == mission_id)
+
+        if user is not None and user.role != UserRole.ADMIN:
+            if not mission_id:
+                q = q.join(Copro)
+            q = q.join(Mission)
+            q = mission_permissions.MissionPermission.filter_query_mission_by_user_permissions(
+                q, user
+            )
 
         return q.paginate(page=page, per_page=size)
 
