@@ -41,7 +41,7 @@ class Copro(SoftDeletableMixin, BaseMixin, db.Model):
     mixed_copro = Column(Boolean, nullable=True, default=False)
     priority_copro = Column(Boolean, nullable=True, default=False)
     horizontal_copro = Column(Boolean, nullable=True, default=False)
-    copro_registry_number = Column(Integer, nullable=True)
+    copro_registry_number = Column(String(255), nullable=True)
     copro_creation_date = Column(db.Date, nullable=True)
     is_member_s1_s2 = Column(Boolean, nullable=True, default=False)
     is_member_association = Column(Boolean, nullable=True, default=False)
