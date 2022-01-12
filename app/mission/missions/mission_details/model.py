@@ -20,7 +20,7 @@ class MissionDetail(BaseMixin, db.Model):
     previous_running_meeting = Column(db.Date, nullable=True)
     partners = relationship("Partner", backref="mission_details")
     # marche et facturation
-    market_number = Column(Integer(), nullable=True)
+    market_number = Column(String(255), nullable=True)
     os_signing_date = Column(db.Date, nullable=True)
     has_sub_contractor = Column(Boolean(), nullable=True)
     billing_type_tf = Column(String(255), nullable=True)
