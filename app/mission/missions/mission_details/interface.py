@@ -11,7 +11,7 @@ class MissionDetailInterface(TypedDict, total=False):
     subjob: str
     previous_running_meeting: date
     # marche et facturation
-    market_number: int
+    market_number: str
     os_signing_date: date
     has_sub_contractor: bool
     billing_type_tf: str
