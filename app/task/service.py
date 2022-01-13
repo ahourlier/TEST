@@ -67,15 +67,15 @@ class TaskService:
 
     @staticmethod
     def get_all(
-            page=TASK_DEFAULT_PAGE,
-            size=TASK_DEFAULT_PAGE_SIZE,
-            term=None,
-            sort_by=TASK_DEFAULT_SORT_FIELD,
-            direction=TASK_DEFAULT_SORT_DIRECTION,
-            mission_id=None,
-            assignee=None,
-            step=None,
-            version=None
+        page=TASK_DEFAULT_PAGE,
+        size=TASK_DEFAULT_PAGE_SIZE,
+        term=None,
+        sort_by=TASK_DEFAULT_SORT_FIELD,
+        direction=TASK_DEFAULT_SORT_DIRECTION,
+        mission_id=None,
+        assignee=None,
+        step=None,
+        version=None,
     ):
         q = sort_query(
             Task.query.filter(or_(Task.is_deleted == False, Task.is_deleted == None)),
@@ -85,7 +85,7 @@ class TaskService:
         if term is not None:
             search_term = f"%{term}%"
             q = q.filter(
-                or_(Task.title.ilike(search_term), Task.description.ilike(search_term), )
+                or_(Task.title.ilike(search_term), Task.description.ilike(search_term),)
             )
 
         if mission_id:
