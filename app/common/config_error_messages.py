@@ -433,62 +433,59 @@ KEY_MISSING_PERRENOUD_DATA_EXCEPTION = "MISSING_PERRENOUD_DATA_EXCEPTION"
 
 PREFERRED_APP_NOT_FOUND = "Could not determine preferred app"
 KEY_PREFERRED_APP_NOT_FOUND = (
-    "PREFERRED_APP_NOT_FOUND_EXCEPTION"  # todo add in translation
+    "PREFERRED_APP_NOT_FOUND_EXCEPTION"
 )
 
 REFERENT_NOT_FOUND_EXCEPTION = "Could not find a referent with this id"
 KEY_REFERENT_NOT_FOUND_EXCEPTION = (
-    "REFERENT_NOT_FOUND_EXCEPTION"  # todo add in translation
+    "REFERENT_NOT_FOUND_EXCEPTION"
 )
 
-UNKNOWN_MISSION_TYPE_EXCEPTION = "Mission type unknown"  # todo add in translation
+UNKNOWN_MISSION_TYPE_EXCEPTION = "Mission type unknown"
 KEY_UNKNOWN_MISSION_TYPE_EXCEPTION = "UNKNOWN_MISSION_TYPE_EXCEPTION"
 
 MISSION_DETAIL_NOT_FOUND_EXCEPTION = "Could not find a mission detail with this id"
 KEY_MISSION_DETAIL_NOT_FOUND_EXCEPTION = (
-    "MISSION_DETAIL_NOT_FOUND_EXCEPTION"  # todo add in translation
+    "MISSION_DETAIL_NOT_FOUND_EXCEPTION"
 )
 
-PARTNER_NOT_FOUND_EXCEPTION = "Partner not found"  # todo add in translation
+PARTNER_NOT_FOUND_EXCEPTION = "Partner not found"
 KEY_PARTNER_NOT_FOUND_EXCEPTION = "PARTNER_NOT_FOUND_EXCEPTION"
 
-SUBCONTRACTOR_NOT_FOUND_EXCEPTION = "Subcontractor not found"  # todo add in translation
+SUBCONTRACTOR_NOT_FOUND_EXCEPTION = "Subcontractor not found"
 KEY_SUBCONTRACTOR_NOT_FOUND_EXCEPTION = "SUBCONTRACTOR_NOT_FOUND_EXCEPTION"
 
-ELECT_NOT_FOUND_EXCEPTION = "Elect not found"  # todo add in translation
+ELECT_NOT_FOUND_EXCEPTION = "Elect not found"
 KEY_ELECT_NOT_FOUND_EXCEPTION = "ELECT_NOT_FOUND_EXCEPTION"
 
 COPRO_NOT_FOUND_EXCEPTION = (
-    "Could not find a copro with this id"  # todo add in translation
+    "Could not find a copro with this id"
 )
 KEY_COPRO_NOT_FOUND_EXCEPTION = "COPRO_NOT_FOUND_EXCEPTION"
 
-MISSION_NOT_TYPE_COPRO_EXCEPTION = "Unable to create copro in this mission: not a type Copro"  # todo add in translation
+MISSION_NOT_TYPE_COPRO_EXCEPTION = "Unable to create copro in this mission: not a type Copro"
 KEY_MISSION_NOT_TYPE_COPRO_EXCEPTION = "MISSION_NOT_TYPE_COPRO_EXCEPTION"
 
-WRONG_COPRO_TYPE_EXCEPTION = "Invalid value for copro type"  # todo add in translation
-KEY_WRONG_COPRO_TYPE_EXCEPTION_EXCEPTION = "WRONG_COPRO_TYPE_EXCEPTION"
-
-SYNDIC_NOT_FOUND_EXCEPTION = "Syndic not found"  # todo add in translation
+SYNDIC_NOT_FOUND_EXCEPTION = "Syndic not found"
 KEY_SYNDIC_NOT_FOUND_EXCEPTION = "SYNDIC_NOT_FOUND_EXCEPTION"
 
-WRONG_SYNDIC_TYPE_EXCEPTION = "Invalid value for syndic type"  # todo add in translation
+WRONG_SYNDIC_TYPE_EXCEPTION = "Invalid value for syndic type"
 KEY_WRONG_SYNDIC_TYPE_EXCEPTION = "WRONG_SYNDIC_TYPE_EXCEPTION"
 
 WRONG_CONSTRUCTION_TIME_EXCEPTION = (
-    "Invalid value for construction time"  # todo add in translation
+    "Invalid value for construction time"
 )
 KEY_WRONG_CONSTRUCTION_TIME_EXCEPTION = "WRONG_CONSTRUCTION_TIME_EXCEPTION"
 
 BUILDING_NOT_FOUND_EXCEPTION = (
-    "Could not find a building with this id"  # todo add in translation
+    "Could not find a building with this id"
 )
 KEY_BUILDING_NOT_FOUND_EXCEPTION = "BUILDING_NOT_FOUND_EXCEPTION"
 
-WRONG_ERP_CATEGORY_EXCEPTION = "Invalid ERP type"  # todo add in translation
+WRONG_ERP_CATEGORY_EXCEPTION = "Invalid ERP type"
 KEY_WRONG_ERP_CATEGORY_EXCEPTION = "WRONG_ERP_TYPE_EXCEPTION"
 
-WRONG_ACCESS_TYPE_EXCEPTION = "Invalid Access type"  # todo add in translation
+WRONG_ACCESS_TYPE_EXCEPTION = "Invalid Access type"
 KEY_WRONG_ACCESS_TYPE_EXCEPTION = "WRONG_ACCESS_TYPE_EXCEPTION"
 
 
@@ -508,6 +505,7 @@ LOT_NOT_FOUND_EXCEPTION = "Could not find a lot with this id"  # todo add in tra
 KEY_LOT_NOT_FOUND_EXCEPTION = "LOT_NOT_FOUND_EXCEPTION"
 
 WRONG_ENUM_TYPE_EXCEPTION = "Invalid {enum}: {value}. Allowed values: {allowed_values}."
+KEY_WRONG_ENUM_TYPE_EXCEPTION = "WRONG_ENUM_TYPE_EXCEPTION"
 
 PERSON_NOT_FOUND_EXCEPTION = (
     "Could not find a person with this id"  # todo add in translation
