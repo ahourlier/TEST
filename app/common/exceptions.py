@@ -19,7 +19,8 @@ from app.common.config_error_messages import (
     XML_GENERATION_ERRORS,
     INVALID_FILE_EXCEPTION,
     KEY_INVALID_FILE_EXCEPTION,
-    WRONG_ENUM_TYPE_EXCEPTION, KEY_WRONG_ENUM_TYPE_EXCEPTION,
+    WRONG_ENUM_TYPE_EXCEPTION,
+    KEY_WRONG_ENUM_TYPE_EXCEPTION,
 )
 
 
@@ -156,12 +157,12 @@ class InvalidFileException(HTTPException):
 
 class EnumException(HTTPException):
     def __init__(
-            self,
-            message=WRONG_ENUM_TYPE_EXCEPTION,
-            value=None,
-            enum=None,
-            allowed_values="",
-            details=None
+        self,
+        message=WRONG_ENUM_TYPE_EXCEPTION,
+        value=None,
+        enum=None,
+        allowed_values="",
+        details=None,
     ):
         message = message.format(value=value, enum=enum, allowed_values=allowed_values)
         self.code = 400
