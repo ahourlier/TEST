@@ -10,7 +10,10 @@ from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.copro.copros.model import Copro
 from app.lot import Lot
-from app.lot.error_handlers import LotNotFoundException, EnumException as LotEnumException
+from app.lot.error_handlers import (
+    LotNotFoundException,
+    EnumException as LotEnumException,
+)
 from app.lot.interface import LotInterface
 from app.person.service import PersonService
 from app.thematique.service import ThematiqueService
@@ -77,7 +80,7 @@ class LotService:
                 message=e.message,
                 value=e.details.get("value"),
                 allowed_values=e.details.get("allowed_values"),
-                enum=e.details.get("enum")
+                enum=e.details.get("enum"),
             )
 
         if new_attrs.get("occupants") is not None:
@@ -119,7 +122,7 @@ class LotService:
                 message=e.message,
                 value=e.details.get("value"),
                 allowed_values=e.details.get("allowed_values"),
-                enum=e.details.get("enum")
+                enum=e.details.get("enum"),
             )
 
         if changes.get("occupants") is not None:

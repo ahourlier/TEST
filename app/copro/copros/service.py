@@ -14,7 +14,7 @@ from app.copro.cadastre import Cadastre
 from app.copro.copros.error_handlers import (
     CoproNotFoundException,
     MissionNotTypeCoproException,
-    EnumException as CoproEnumException
+    EnumException as CoproEnumException,
 )
 from app.copro.copros.interface import CoproInterface
 from app.copro.copros.model import Copro
@@ -87,7 +87,7 @@ class CoproService:
                 message=e.message,
                 value=e.details.get("value"),
                 allowed_values=e.details.get("allowed_values"),
-                enum=e.details.get("enum")
+                enum=e.details.get("enum"),
             )
 
         mission = MissionService.get_by_id(new_attrs.get("mission_id"))
@@ -172,7 +172,7 @@ class CoproService:
                 message=e.message,
                 value=e.details.get("value"),
                 allowed_values=e.details.get("allowed_values"),
-                enum=e.details.get("enum")
+                enum=e.details.get("enum"),
             )
 
         if "president" in changes:

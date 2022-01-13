@@ -6,7 +6,11 @@ from app.common.firestore_utils import FirestoreUtils
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.task import Task
-from app.task.error_handlers import TaskNotFoundException, BadFormatAssigneeException, EnumException as TaskEnumException
+from app.task.error_handlers import (
+    TaskNotFoundException,
+    BadFormatAssigneeException,
+    EnumException as TaskEnumException,
+)
 from app.task.interface import TaskInterface
 from app.thematique.exceptions import VersionNotFoundException, StepNotFoundException
 
@@ -39,7 +43,7 @@ class TaskService:
                 message=e.message,
                 value=e.details.get("value"),
                 allowed_values=e.details.get("allowed_values"),
-                enum=e.details.get("enum")
+                enum=e.details.get("enum"),
             )
 
         firestore_service = FirestoreUtils()
@@ -110,7 +114,7 @@ class TaskService:
                 message=e.message,
                 value=e.details.get("value"),
                 allowed_values=e.details.get("allowed_values"),
-                enum=e.details.get("enum")
+                enum=e.details.get("enum"),
             )
 
         for forbidden_key in ["version_id", "step_id", "id", "author", "author_id"]:

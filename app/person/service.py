@@ -8,7 +8,10 @@ from app.common.phone_number.service import PhoneNumberService
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.person import Person
-from app.person.error_handlers import PersonNotFoundException, EnumException as PersonEnumException
+from app.person.error_handlers import (
+    PersonNotFoundException,
+    EnumException as PersonEnumException,
+)
 from app.person.interface import PersonInterface
 
 
@@ -41,7 +44,7 @@ class PersonService:
                 message=e.message,
                 value=e.details.get("value"),
                 allowed_values=e.details.get("allowed_values"),
-                enum=e.details.get("enum")
+                enum=e.details.get("enum"),
             )
 
         if "phone_number" in new_attrs:
@@ -102,7 +105,7 @@ class PersonService:
                 message=e.message,
                 value=e.details.get("value"),
                 allowed_values=e.details.get("allowed_values"),
-                enum=e.details.get("enum")
+                enum=e.details.get("enum"),
             )
 
         if "phone_number" in changes:
