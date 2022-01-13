@@ -31,5 +31,6 @@ class Task(SoftDeletableMixin, BaseMixin, db.Model):
     step_id = Column(String(255))
     version_id = Column(String(255))
     reminder_date = db.Column(db.Date, nullable=True)
+    date = db.Column(db.Date, nullable=True)
     mission_id = Column(Integer, ForeignKey("mission.id"), nullable=True)
     mission = relationship("Mission", backref=backref("tasks", cascade="all, delete"))
