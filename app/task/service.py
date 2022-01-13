@@ -1,11 +1,12 @@
 from sqlalchemy import or_
 from flask import g
 from app import db
+from app.common.exceptions import EnumException
 from app.common.firestore_utils import FirestoreUtils
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.task import Task
-from app.task.error_handlers import TaskNotFoundException, BadFormatAssigneeException
+from app.task.error_handlers import TaskNotFoundException, BadFormatAssigneeException, EnumException as TaskEnumException
 from app.task.interface import TaskInterface
 from app.thematique.exceptions import VersionNotFoundException, StepNotFoundException
 
@@ -30,7 +31,16 @@ class TaskService:
     @staticmethod
     def create(new_attrs: TaskInterface):
 
-        ServicesUtils.check_enums(new_attrs, ENUM_MAPPING)
+        try:
+            ServicesUtils.check_enums(new_attrs, ENUM_MAPPING)
+        except EnumException as e:
+            raise TaskEnumException(
+                details=e.details,
+                message=e.message,
+                value=e.details.get("value"),
+                allowed_values=e.details.get("allowed_values"),
+                enum=e.details.get("enum")
+            )
 
         firestore_service = FirestoreUtils()
         document = firestore_service.get_version_by_id(
@@ -91,6 +101,18 @@ class TaskService:
 
     @staticmethod
     def update(db_task: Task, changes: TaskInterface):
+
+        try:
+            ServicesUtils.check_enums(changes, ENUM_MAPPING)
+        except EnumException as e:
+            raise TaskEnumException(
+                details=e.details,
+                message=e.message,
+                value=e.details.get("value"),
+                allowed_values=e.details.get("allowed_values"),
+                enum=e.details.get("enum")
+            )
+
         for forbidden_key in ["version_id", "step_id", "id", "author", "author_id"]:
             if forbidden_key in changes:
                 del changes[forbidden_key]

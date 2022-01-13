@@ -480,30 +480,30 @@ KEY_WRONG_ACCESS_TYPE_EXCEPTION = "WRONG_ACCESS_TYPE_EXCEPTION"
 
 
 WRONG_COLLECTIVE_HEATER_EXCEPTION = (
-    "Invalid Collective heater"  # todo add in translation
+    "Invalid Collective heater"
 )
 KEY_WRONG_COLLECTIVE_HEATER_EXCEPTION = "WRONG_COLLECTIVE_HEATER_EXCEPTION"
 
 WRONG_ASBESTOS_DIAGNOSIS_RESULT_EXCEPTION = (
-    "Invalid Asbestos diagnosis result"  # todo add in translation
+    "Invalid Asbestos diagnosis result"
 )
 KEY_WRONG_ASBESTOS_DIAGNOSIS_RESULT_EXCEPTION = (
     "WRONG_ASBESTOS_DIAGNOSIS_RESULT_EXCEPTION"
 )
 
-LOT_NOT_FOUND_EXCEPTION = "Could not find a lot with this id"  # todo add in translation
+LOT_NOT_FOUND_EXCEPTION = "Could not find a lot with this id"
 KEY_LOT_NOT_FOUND_EXCEPTION = "LOT_NOT_FOUND_EXCEPTION"
 
 WRONG_ENUM_TYPE_EXCEPTION = "Invalid {enum}: {value}. Allowed values: {allowed_values}."
 KEY_WRONG_ENUM_TYPE_EXCEPTION = "WRONG_ENUM_TYPE_EXCEPTION"
 
 PERSON_NOT_FOUND_EXCEPTION = (
-    "Could not find a person with this id"  # todo add in translation
+    "Could not find a person with this id"
 )
 KEY_PERSON_NOT_FOUND_EXCEPTION = "PERSON_NOT_FOUND_EXCEPTION"
 
 VERSION_NOT_FOUND_EXCEPTION = (
-    "Could not find a thematique version with this id"  # todo add in translation
+    "Could not find a thematique version with this id"
 )
 KEY_VERSION_NOT_FOUND_EXCEPTION = "VERSION_NOT_FOUND_EXCEPTION"
 
@@ -513,43 +513,43 @@ STEP_NOT_FOUND_EXCEPTION = (
 KEY_STEP_NOT_FOUND_EXCEPTION = "STEP_NOT_FOUND_EXCEPTION"
 
 INVALID_SCOPE_EXCEPTION = (
-    "Invalid scope. Hint, scope cannot be empty"  # todo add in translation
+    "Invalid scope. Hint, scope cannot be empty"
 )
 KEY_INVALID_SCOPE_EXCEPTION = "INVALID_SCOPE_EXCEPTION"
 
 INVALID_RESOURCE_ID_EXCEPTION = (
-    "Invalid resource id. Hint, resource id cannot be empty"  # todo add in translation
+    "Invalid resource id. Hint, resource id cannot be empty"
 )
 KEY_INVALID_RESOURCE_ID_EXCEPTION = "INVALID_RESOURCE_ID_EXCEPTION"
 
 INVALID_THEMATIQUE_NAME_EXCEPTION = (
-    "Invalid thematique name."  # todo add in translation
+    "Invalid thematique name."
 )
 KEY_INVALID_THEMATIQUE_NAME_EXCEPTION = "INVALID_THEMATIQUE_NAME_EXCEPTION"
 
 MISSING_VERSION_ID_EXCEPTION = (
-    "Missing version id. It is either empty or null"  # todo add in translation
+    "Missing version id. It is either empty or null"
 )
 KEY_MISSING_VERSION_ID_EXCEPTION = "MISSING_VERSION_ID_EXCEPTION"
 
 MISSING_STEP_ID_EXCEPTION = (
-    "Missing step id. It is either empty or null"  # todo add in translation
+    "Missing step id. It is either empty or null"
 )
 KEY_MISSING_STEP_ID_EXCEPTION = "MISSING_STEP_ID_EXCEPTION"
 
-TASK_NOT_FOUND_EXCEPTION = "Task not found"  # todo add in translation
+TASK_NOT_FOUND_EXCEPTION = "Task not found"
 KEY_TASK_NOT_FOUND_EXCEPTION = "TASK_NOT_FOUND_EXCEPTION"
 
-BAD_FORMAT_ASSIGNEE_EXCEPTION = "Assignee filter has a bad format. Expected '?assignee=1,2,3'"  # todo add in translation
+BAD_FORMAT_ASSIGNEE_EXCEPTION = "Assignee filter has a bad format. Expected '?assignee=1,2,3'"
 KEY_BAD_FORMAT_ASSIGNEE_EXCEPTION = "BAD_FORMAT_ASSIGNEE_EXCEPTION"
 
 INCORRECT_REPARTITION_KEY_EXCEPTION = (
     "Incorrect repartition key. Looks like a repartition key was declared on a "
     "different copro."
-)  # todo add in translation
+)
 KEY_INCORRECT_REPARTITION_KEY_EXCEPTION = "INCORRECT_REPARTITION_KEY_EXCEPTION"
 
 REPARTITION_KEY_LINKED_EXCEPTION = (
-    "Looks like repartition key '{}' is linked to a lot."  # todo add in translation
+    "Looks like repartition key '{}' is linked to a lot."
 )
 KEY_REPARTITION_KEY_LINKED_EXCEPTION = "REPARTITION_KEY_LINKED_EXCEPTION"

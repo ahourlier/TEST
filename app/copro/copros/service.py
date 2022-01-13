@@ -7,12 +7,14 @@ from app.cle_repartition.service import CleRepartitionService
 from app.common.address.model import Address
 from app.common.address.service import AddressService
 from app.common.app_name import App
+from app.common.exceptions import EnumException
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.copro.cadastre import Cadastre
 from app.copro.copros.error_handlers import (
     CoproNotFoundException,
     MissionNotTypeCoproException,
+    EnumException as CoproEnumException
 )
 from app.copro.copros.interface import CoproInterface
 from app.copro.copros.model import Copro
@@ -77,7 +79,16 @@ class CoproService:
     @staticmethod
     def create(new_attrs: CoproInterface) -> Copro:
 
-        ServicesUtils.check_enums(new_attrs, ENUM_MAPPING)
+        try:
+            ServicesUtils.check_enums(new_attrs, ENUM_MAPPING)
+        except EnumException as e:
+            raise CoproEnumException(
+                details=e.details,
+                message=e.message,
+                value=e.details.get("value"),
+                allowed_values=e.details.get("allowed_values"),
+                enum=e.details.get("enum")
+            )
 
         mission = MissionService.get_by_id(new_attrs.get("mission_id"))
         if mission.mission_type != App.COPRO:
@@ -153,7 +164,16 @@ class CoproService:
     @staticmethod
     def update(db_copro: Copro, changes: CoproInterface, copro_id: int) -> Copro:
 
-        ServicesUtils.check_enums(changes, ENUM_MAPPING)
+        try:
+            ServicesUtils.check_enums(changes, ENUM_MAPPING)
+        except EnumException as e:
+            raise CoproEnumException(
+                details=e.details,
+                message=e.message,
+                value=e.details.get("value"),
+                allowed_values=e.details.get("allowed_values"),
+                enum=e.details.get("enum")
+            )
 
         if "president" in changes:
             if changes.get("president"):
