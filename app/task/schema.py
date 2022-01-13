@@ -1,5 +1,5 @@
 from flask_marshmallow.sqla import SQLAlchemyAutoSchema
-from marshmallow import fields
+from marshmallow import fields, EXCLUDE
 
 from app.auth.users.schema import UserLightSchema
 from app.common.schemas import PaginatedSchema
@@ -30,3 +30,4 @@ class TaskUpdateSchema(SQLAlchemyAutoSchema):
 
     class Meta:
         model = Task
+        unknown = EXCLUDE
