@@ -5,11 +5,15 @@ from sqlalchemy import or_
 from app import db
 from app.auth.users.model import UserRole
 from app.cle_repartition.service import CleRepartitionService
+from app.common.exceptions import EnumException
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.copro.copros.model import Copro
 from app.lot import Lot
-from app.lot.error_handlers import LotNotFoundException
+from app.lot.error_handlers import (
+    LotNotFoundException,
+    EnumException as LotEnumException,
+)
 from app.lot.interface import LotInterface
 from app.person.service import PersonService
 from app.thematique.service import ThematiqueService
@@ -67,7 +71,17 @@ class LotService:
 
     @staticmethod
     def create(new_attrs: LotInterface):
-        ServicesUtils.check_enums(new_attrs, ENUM_MAPPING)
+
+        try:
+            ServicesUtils.check_enums(new_attrs, ENUM_MAPPING)
+        except EnumException as e:
+            raise LotEnumException(
+                details=e.details,
+                message=e.message,
+                value=e.details.get("value"),
+                allowed_values=e.details.get("allowed_values"),
+                enum=e.details.get("enum"),
+            )
 
         if new_attrs.get("occupants") is not None:
             new_attrs["occupants"] = LotService.handle_occupants(
@@ -99,7 +113,17 @@ class LotService:
 
     @staticmethod
     def update(db_lot: Lot, changes: LotInterface):
-        ServicesUtils.check_enums(changes, ENUM_MAPPING)
+
+        try:
+            ServicesUtils.check_enums(changes, ENUM_MAPPING)
+        except EnumException as e:
+            raise LotEnumException(
+                details=e.details,
+                message=e.message,
+                value=e.details.get("value"),
+                allowed_values=e.details.get("allowed_values"),
+                enum=e.details.get("enum"),
+            )
 
         if changes.get("occupants") is not None:
             db_lot.occupants = LotService.handle_occupants(changes.get("occupants", []))

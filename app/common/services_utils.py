@@ -82,6 +82,13 @@ class ServicesUtils:
                     allowed_values=", ".join(
                         enums.get(key_mapping[key]["enum_key"], [])
                     ),
+                    details={
+                        "enum": key_mapping[key]["enum_key"],
+                        "value": payload.get(key),
+                        "allowed_values": ", ".join(
+                            enums.get(key_mapping[key]["enum_key"], [])
+                        ),
+                    },
                 )
                 raise exception
         return
