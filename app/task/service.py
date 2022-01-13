@@ -75,6 +75,7 @@ class TaskService:
         mission_id=None,
         assignee=None,
         step=None,
+        version=None,
     ):
         q = sort_query(
             Task.query.filter(or_(Task.is_deleted == False, Task.is_deleted == None)),
@@ -100,6 +101,10 @@ class TaskService:
         if step:
             step = step.split(",")
             q = q.filter(Task.step_id.in_(step))
+
+        if version:
+            version = version.split(",")
+            q = q.filter(Task.version_id.in_(version))
 
         return q.paginate(page=page, per_page=size)
 
