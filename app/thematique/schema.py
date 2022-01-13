@@ -28,6 +28,7 @@ class ThematiqueSchema(SQLAlchemyAutoSchema):
     resource_id = fields.Integer()
     id = fields.String(allow_none=False, required=False)
     scope = fields.String()
+    label = fields.String()
     thematique_name = fields.String()
     steps = fields.Nested(StepSchema, many=True)
 
