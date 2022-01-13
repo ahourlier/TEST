@@ -24,6 +24,7 @@ SEARCH_PARAMS = [
     dict(name="missionId", type=int),
     dict(name="assignee", type=str),
     dict(name="step", type=str),
+    dict(name="version", type=str),
 ]
 
 
@@ -49,6 +50,9 @@ class TaskResource(AuthenticatedApi):
             else None,
             step=request.args.get("step")
             if request.args.get("step") not in [None, ""]
+            else None,
+            version=request.args.get("version")
+            if request.args.get("version") not in [None, ""]
             else None,
         )
 
