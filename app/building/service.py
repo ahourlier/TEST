@@ -88,7 +88,9 @@ class BuildingService:
             q = q.join(Copro, Building.copro_id == Copro.id).filter(Copro.mission_id == int(mission_id))
 
         if user is not None and user.role != UserRole.ADMIN:
-            q = q.join(Copro).join(Mission)
+            if not mission_id:
+                q = q.join(Copro)
+            q = q.join(Mission)
             q = mission_permissions.MissionPermission.filter_query_mission_by_user_permissions(
                 q, user
             )
