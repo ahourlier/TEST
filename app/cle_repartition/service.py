@@ -21,6 +21,12 @@ class CleRepartitionService:
         return db_cle
 
     @staticmethod
+    def update(db_cle, changes: CleRepartitionInterface):
+        db_cle.update(changes)
+        db.session.commit()
+        return db_cle
+
+    @staticmethod
     def link(link_data: CleRepartitionLotLinkInterface):
         db_link = LotCleRepartition(**link_data)
         db.session.add(db_link)
@@ -57,20 +63,30 @@ class CleRepartitionService:
 
     @staticmethod
     def handle_keys(copro_id, cles_repartition):
-        created = []
+        # fetching existing keys for this copro
         existing = CleRepartition.query.filter(
             CleRepartition.copro_id == copro_id
         ).all()
-        if len(existing):
-            for e in existing:
-                try:
-                    db.session.delete(e)
-                    db.session.commit()
-                except exc.IntegrityError:
-                    db.session.rollback()
-                    message = REPARTITION_KEY_LINKED_EXCEPTION.format(e.label)
-                    raise RepartitionKeyLinkedException(message)
+
         for cle in cles_repartition:
-            cle["copro_id"] = copro_id
-            created.append(CleRepartitionService.create(cle))
-        return created
+            # if payload key has an id, it's an update
+            if "id" in cle and cle.get("id"):
+                for idx, e in enumerate(existing):
+                    if e.id == cle.get("id"):
+                        CleRepartitionService.update(e, cle)
+                        # removing from existing list to keep only what is processable
+                        del existing[idx]
+            else:
+                # if not, need to create
+                cle["copro_id"] = copro_id
+                CleRepartitionService.create(cle)
+        # delete all keys that were not in payload
+        for e in existing:
+            try:
+                db.session.delete(e)
+                db.session.commit()
+            except exc.IntegrityError:
+                db.session.rollback()
+                message = REPARTITION_KEY_LINKED_EXCEPTION.format(e.label)
+                raise RepartitionKeyLinkedException(message)
+        return None
