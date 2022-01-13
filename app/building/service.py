@@ -4,12 +4,13 @@ from sqlalchemy import or_, and_
 
 from app import db
 from app.auth.users.model import UserRole
-from app.building.error_handlers import BuildingNotFoundException
+from app.building.error_handlers import BuildingNotFoundException, EnumException as BuildingEnumException
 from app.building.interface import BuildingInterface
 from app.building.model import Building
 from app.building.settings import NB_LOOP_ACCESS_CODE
 from app.common.address.model import Address
 from app.common.address.service import AddressService
+from app.common.exceptions import EnumException
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.copro.copros.model import Copro
@@ -96,8 +97,16 @@ class BuildingService:
 
     @staticmethod
     def create(new_attrs: BuildingInterface):
-
-        ServicesUtils.check_enums(new_attrs, ENUM_MAPPING)
+        try:
+            ServicesUtils.check_enums(new_attrs, ENUM_MAPPING)
+        except EnumException as e:
+            raise BuildingEnumException(
+                details=e.details,
+                message=e.message,
+                value=e.details.get("value"),
+                allowed_values=e.details.get("allowed_values"),
+                enum=e.details.get("enum")
+            )
 
         if new_attrs.get("address"):
             new_attrs["address_id"] = AddressService.create_address(new_attrs.get("address"))
@@ -123,7 +132,16 @@ class BuildingService:
     @staticmethod
     def update(db_building: Building, building_id: int, changes: BuildingInterface):
 
-        ServicesUtils.check_enums(changes, ENUM_MAPPING)
+        try:
+            ServicesUtils.check_enums(changes, ENUM_MAPPING)
+        except EnumException as e:
+            raise BuildingEnumException(
+                details=e.details,
+                message=e.message,
+                value=e.details.get("value"),
+                allowed_values=e.details.get("allowed_values"),
+                enum=e.details.get("enum")
+            )
 
         if changes.get("address"):
             if not db_building.address_id:
