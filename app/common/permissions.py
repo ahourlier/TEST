@@ -9,6 +9,10 @@ from app.funder.funding_scenarios.service import FundingScenarioService
 import app.project.permissions as project_permissions
 import app.mission.permissions as mission_permissions
 import app.mission.missions.service as missions_service
+import app.copro.copros.service as copro_service
+import app.building.service as building_service
+import app.lot.service as lot_service
+import app.thematique.service as thematic_service
 
 
 class PermissionsUtils:
@@ -89,30 +93,6 @@ def is_client(user):
     ]
 
 
-def has_mission_permission(user):
-    mission_id = PermissionsUtils.get_entity_id("mission_id")
-    if not mission_id:
-        # Mission_id is not provided. Only admin has access to the road.
-        return user.role == UserRole.ADMIN
-    missions_service.MissionService.get_by_id(mission_id)
-    permission = mission_permissions.MissionPermission.check_mission_permission(
-        mission_id, user
-    )
-    return PermissionsUtils.bypass_admins(permission, user)
-
-
-def has_copro_permission(user):
-    mission_id = PermissionsUtils.get_entity_id("missionId")
-    if not mission_id:
-        # Mission_id is not provided. Only admin has access to the road.
-        return user.role == UserRole.ADMIN
-    missions_service.MissionService.get_by_id(mission_id)
-    permission = mission_permissions.MissionPermission.check_mission_permission(
-        mission_id, user
-    )
-    return PermissionsUtils.bypass_admins(permission, user)
-
-
 def has_project_permission(user):
     project_id = PermissionsUtils.get_entity_id("project_id")
     return project_permissions.ProjectPermission.check_project_permission(
@@ -184,3 +164,149 @@ def filter_response_with_clients_access(filter_func):
         return wrapped_func
 
     return wrap
+
+
+# check permissions for route with id
+
+
+def has_copro_permissions(user):
+    copro_id = PermissionsUtils.get_entity_id("copro_id")
+    if not copro_id:
+        copro_id = PermissionsUtils.get_entity_id("coproId")
+    if not copro_id:
+        # copro_id is not provided. Only admin has access to the road.
+        return user.role == UserRole.ADMIN
+    return check_copro_permissions(copro_id, user)
+
+
+def has_building_permissions(user):
+    building_id = PermissionsUtils.get_entity_id("buildingId")
+    if not building_id:
+        building_id = PermissionsUtils.get_entity_id("building_id")
+    building = building_service.BuildingService.get(building_id)
+    if building:
+        return check_copro_permissions(building.copro_id, user)
+
+
+def has_lot_permissions(user):
+    lot_id = PermissionsUtils.get_entity_id("lotId")
+    if not lot_id:
+        lot_id = PermissionsUtils.get_entity_id("lot_id")
+    return check_lot_permissions(lot_id, user)
+
+
+def has_mission_permission(user):
+    mission_id = PermissionsUtils.get_entity_id("mission_id")
+    if not mission_id:
+        # Mission_id is not provided. Only admin has access to the road.
+        return user.role == UserRole.ADMIN
+    missions_service.MissionService.get_by_id(mission_id)
+    permission = mission_permissions.MissionPermission.check_mission_permission(
+        mission_id, user
+    )
+    return PermissionsUtils.bypass_admins(permission, user)
+
+
+# check permissions for list
+
+
+def has_copro_list_permissions(user):
+    mission_id = PermissionsUtils.get_entity_id("missionId")
+    if not mission_id:
+        # Mission_id is not provided, filter will be done in logic
+        return True
+    missions_service.MissionService.get_by_id(mission_id)
+    permission = mission_permissions.MissionPermission.check_mission_permission(
+        mission_id, user
+    )
+    return PermissionsUtils.bypass_admins(permission, user)
+
+
+def has_building_list_permissions(user):
+    mission_id = PermissionsUtils.get_entity_id("missionId")
+    if mission_id:
+        permission = mission_permissions.MissionPermission.check_mission_permission(
+            mission_id, user
+        )
+        if not PermissionsUtils.bypass_admins(permission, user):
+            return False
+    copro_id = PermissionsUtils.get_entity_id("coproId")
+    if copro_id:
+        if not check_copro_permissions(copro_id, user):
+            return False
+    return True
+
+
+def has_lot_list_permissions(user):
+    mission_id = PermissionsUtils.get_entity_id("missionId")
+    if mission_id:
+        if not check_mission_permissions(mission_id, user):
+            return False
+    copro_id = PermissionsUtils.get_entity_id("coproId")
+    if copro_id:
+        if not check_copro_permissions(copro_id, user):
+            return False
+    building_id = PermissionsUtils.get_entity_id("buildingId")
+    if building_id:
+        if not check_building_permissions(building_id, user):
+            return False
+    return True
+
+
+# check helpers
+
+
+def check_mission_permissions(mission_id, user):
+    permission = mission_permissions.MissionPermission.check_mission_permission(
+        mission_id, user
+    )
+    return PermissionsUtils.bypass_admins(permission, user)
+
+
+def check_copro_permissions(copro_id, user):
+    copro = copro_service.CoproService.get(copro_id)
+    permission = mission_permissions.MissionPermission.check_mission_permission(
+        copro.mission_id, user
+    )
+    return PermissionsUtils.bypass_admins(permission, user)
+
+
+def check_building_permissions(building_id, user):
+    building = building_service.BuildingService.get(building_id)
+    return check_copro_permissions(building.copro_id, user)
+
+
+def check_lot_permissions(lot_id, user):
+    lot = lot_service.LotService.get(lot_id)
+    return check_copro_permissions(lot.copro_id, user)
+
+
+# permissions for thematics
+
+
+def has_thematic_permissions(user):
+    resource_id = PermissionsUtils.get_entity_id("resourceId")
+    if not resource_id:
+        resource_id = PermissionsUtils.get_entity_id("resource_id")
+    if not resource_id:
+        return True
+    scope = PermissionsUtils.get_entity_id("scope")
+    return check_permissions_by_scope(scope, resource_id, user)
+
+
+def has_version_permissions(user):
+    version_id = PermissionsUtils.get_entity_id("version_id")
+    version = thematic_service.ThematiqueService.get_version(version_id)
+    return check_permissions_by_scope(
+        version.get("scope"), version.get("resource_id"), user
+    )
+
+
+def check_permissions_by_scope(scope, resource_id, user):
+    if scope == "copro":
+        return check_copro_permissions(resource_id, user)
+    if scope == "building":
+        return check_building_permissions(resource_id, user)
+    if scope == "lot":
+        return check_lot_permissions(resource_id, user)
+    return False

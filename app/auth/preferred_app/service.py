@@ -1,7 +1,7 @@
 from .interface import PreferredAppInterface
 from .model import PreferredApp
 from app import db
-from .exceptions import PreferredAppNotFoundException
+from .error_handlers import PreferredAppNotFoundException
 from ..users.exceptions import UserNotFoundException
 from ..users.model import User
 

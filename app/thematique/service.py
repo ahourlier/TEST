@@ -3,7 +3,7 @@ from flask import current_app, jsonify
 from app.building import Building
 from app.common.firestore_utils import FirestoreUtils
 from app.lot import Lot
-from app.thematique.exceptions import (
+from app.thematique.error_handlers import (
     VersionNotFoundException,
     InvalidScopeException,
     InvalidResourceIdException,
@@ -64,7 +64,7 @@ class ThematiqueService:
     def get_version(version_id):
         firestore_service = FirestoreUtils()
         version = firestore_service.get_version_by_id(version_id)
-        if version:
+        if version.exists:
             version_dict = version.to_dict()
             version_dict["id"] = version.id
             version_dict["steps"] = ThematiqueService.handle_steps(
@@ -153,7 +153,7 @@ class ThematiqueService:
             if key in payload["metadata"]:
                 del payload["metadata"][key]
 
-        step.set(payload, merge=True)
+        step.reference.set(payload, merge=True)
         return ThematiqueService.get_version(version_id)
 
     @staticmethod

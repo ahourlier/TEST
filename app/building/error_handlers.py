@@ -1,7 +1,8 @@
-from .controller import api
+from . import api
 from .exceptions import BuildingNotFoundException, WrongConstructionTimeException, WrongERPCategoryException, \
     WrongAccessTypeException, WrongCollectiveHeaterException, WrongAsbestosDiagnosisResultException
 from ..common.error_handlers import parse_exception
+from ..common.exceptions import EnumException
 
 
 @api.errorhandler(BuildingNotFoundException)
@@ -31,4 +32,9 @@ def wrong_collective_heater(error):  # pragma: no cover
 
 @api.errorhandler(WrongAsbestosDiagnosisResultException)
 def wrong_asbestos_diagnosis_result(error):  # pragma: no cover
+    return parse_exception(error)
+
+
+@api.errorhandler(EnumException)
+def enum_exception(error):  # pragma: no cover
     return parse_exception(error)

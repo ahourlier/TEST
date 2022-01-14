@@ -10,6 +10,8 @@ from app.common.config_error_messages import (
     KEY_MISSING_VERSION_ID_EXCEPTION,
     MISSING_STEP_ID_EXCEPTION,
     KEY_MISSING_STEP_ID_EXCEPTION,
+    STEP_NOT_FOUND_EXCEPTION,
+    KEY_STEP_NOT_FOUND_EXCEPTION,
 )
 
 
@@ -18,6 +20,15 @@ class VersionNotFoundException(HTTPException):
         super().__init__(description=message)
         self.code = 404
         self.key = KEY_VERSION_NOT_FOUND_EXCEPTION
+        self.message = message
+        self.status = "NOT FOUND"
+
+
+class StepNotFoundException(HTTPException):
+    def __init__(self, message=STEP_NOT_FOUND_EXCEPTION):
+        super().__init__(description=message)
+        self.code = 404
+        self.key = KEY_STEP_NOT_FOUND_EXCEPTION
         self.message = message
         self.status = "NOT FOUND"
 

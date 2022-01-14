@@ -24,7 +24,7 @@ from ...common.group_utils import GroupUtils
 from ...common.identity_utils import IdentityUtils
 from ...common.search import sort_query
 from ...mission.missions import Mission
-from ...mission.missions.exceptions import MissionNotFoundException
+from ...mission.missions.error_handlers import MissionNotFoundException
 from ...mission.teams import Team
 
 USERS_DEFAULT_PAGE = 1

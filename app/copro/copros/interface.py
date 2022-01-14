@@ -17,7 +17,7 @@ class CoproInterface(TypedDict, total=False):
     mixed_copro: Optional[bool]
     priority_copro: Optional[bool]
     horizontal_copro: Optional[bool]
-    copro_registry_number: Optional[int]
+    copro_registry_number: Optional[str]
     copro_creation_date: Optional[date]
     copro_creation_date: Optional[date]
     is_member_s1_s2: Optional[bool]

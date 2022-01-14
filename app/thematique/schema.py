@@ -12,6 +12,7 @@ class LegendeSchema(SQLAlchemyAutoSchema):
 
 class StepMetadataSchema(SQLAlchemyAutoSchema):
     id = fields.String(allow_none=False, required=False)
+    label = fields.String()
     name = fields.String()
     order = fields.Integer()
     status = fields.String()
@@ -27,6 +28,7 @@ class ThematiqueSchema(SQLAlchemyAutoSchema):
     resource_id = fields.Integer()
     id = fields.String(allow_none=False, required=False)
     scope = fields.String()
+    label = fields.String()
     thematique_name = fields.String()
     steps = fields.Nested(StepSchema, many=True)
 

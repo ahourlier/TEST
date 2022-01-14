@@ -1,6 +1,8 @@
 from flask import Response, request
 from flask_accepts import responds, accepts
+from flask_allows import requires
 
+from app.common.permissions import has_thematic_permissions, has_version_permissions
 from . import api
 from .schema import ThematiqueSchema, VersionSchema, StepSchema
 from .service import ThematiqueService
@@ -22,6 +24,7 @@ THEMATIQUE_SEARCH_PARAMS = [
 class ThematiqueForObjectResource(AuthenticatedApi):
     @accepts(*THEMATIQUE_SEARCH_PARAMS, api=api)
     @responds(schema=VersionSchema(many=True), api=api)
+    @requires(has_thematic_permissions)
     def get(self):
         return ThematiqueService.list_versions(
             scope=request.args.get("scope"),
@@ -51,6 +54,7 @@ class ThematiqueResource(AuthenticatedApi):
 class ThematiqueStepResource(AuthenticatedApi):
     @accepts(schema=StepSchema, api=api)
     @responds(schema=VersionSchema, api=api)
+    @requires(has_version_permissions)
     def put(self, version_id: str, step_id: str):
         return ThematiqueService.update_step(
             version_id=version_id, step_id=step_id, payload=request.parsed_obj
@@ -61,5 +65,6 @@ class ThematiqueStepResource(AuthenticatedApi):
 class ThematiqueIdResource(AuthenticatedApi):
     @accepts(schema=VersionSchema, api=api)
     @responds(schema=VersionSchema, api=api)
+    @requires(has_thematic_permissions)
     def post(self):
         return ThematiqueService.duplicate_thematique(request.parsed_obj)

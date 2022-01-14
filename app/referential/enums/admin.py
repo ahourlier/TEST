@@ -20,6 +20,7 @@ from ...project.accommodations import Accommodation
 from ...project.disorders import DisorderType
 from ...project.projects import Project
 from ...project.requesters import Requester
+from ...task import Task
 
 
 class BaseReadOnly:
@@ -348,4 +349,10 @@ class LotConventionRentType(EnumBaseAdminView):
 class PersonStatus(EnumBaseAdminView):
     ENUM_KIND = "PersonStatus"
     FIELD_MODEL = Person
+    FIELD_REF = "status"
+
+
+class TaskStatus(EnumBaseAdminView):
+    ENUM_KIND = "TaskStatus"
+    FIELD_MODEL = Task
     FIELD_REF = "status"

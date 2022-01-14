@@ -1,10 +1,8 @@
 from app import db
-from app.mission.missions.mission_details.exceptions import (
+from app.mission.missions.mission_details.error_handlers import (
     MissionDetailNotFoundException,
 )
 from app.mission.missions.mission_details.model import MissionDetail
-from app.mission.missions.mission_details.schema import MissionDetailSchema
-from flask import jsonify
 
 
 class MissionDetailService:

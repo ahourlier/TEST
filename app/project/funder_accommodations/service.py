@@ -1,6 +1,6 @@
 from app import db
 from app.common.services_utils import ServicesUtils
-from app.project.funder_accommodations.exceptions import (
+from app.project.funder_accommodations.error_handlers import (
     FunderAccommodationsNotFoundException,
 )
 from app.project.simulations.model import FunderAccommodation, SimulationFunder
