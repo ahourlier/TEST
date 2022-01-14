@@ -2,14 +2,16 @@ from sqlalchemy import or_
 from flask import g
 
 from app import db
-from app.admin.antennas import Antenna
-from app.auth.users.service import UserService
+from app.common.exceptions import EnumException
 from app.common.phone_number.model import PhoneNumber
 from app.common.phone_number.service import PhoneNumberService
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.person import Person
-from app.person.exceptions import PersonNotFoundException
+from app.person.error_handlers import (
+    PersonNotFoundException,
+    EnumException as PersonEnumException,
+)
 from app.person.interface import PersonInterface
 
 
@@ -34,7 +36,16 @@ class PersonService:
     @staticmethod
     def create(new_attrs: PersonInterface):
 
-        ServicesUtils.check_enums(new_attrs, ENUM_MAPPING)
+        try:
+            ServicesUtils.check_enums(new_attrs, ENUM_MAPPING)
+        except EnumException as e:
+            raise PersonEnumException(
+                details=e.details,
+                message=e.message,
+                value=e.details.get("value"),
+                allowed_values=e.details.get("allowed_values"),
+                enum=e.details.get("enum"),
+            )
 
         if "phone_number" in new_attrs:
             if new_attrs.get("phone_number", None):
@@ -85,6 +96,18 @@ class PersonService:
 
     @staticmethod
     def update(db_person: Person, changes: PersonInterface):
+
+        try:
+            ServicesUtils.check_enums(changes, ENUM_MAPPING)
+        except EnumException as e:
+            raise PersonEnumException(
+                details=e.details,
+                message=e.message,
+                value=e.details.get("value"),
+                allowed_values=e.details.get("allowed_values"),
+                enum=e.details.get("enum"),
+            )
+
         if "phone_number" in changes:
             if changes.get("phone_number", None):
                 PhoneNumberService.update_phone_numbers(
