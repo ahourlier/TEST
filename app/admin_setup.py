@@ -39,8 +39,13 @@ from app.referential.enums.admin import (
     LotLeaseType,
     LotConventionRentType,
     PersonStatus,
-    TaskStatus, TypePretCollectif, NatureTravauxInteretCollectifsPP, TypePretIndividuel, Prefinanceurs,
-    NatureTravauxPartieCommune, NatureAide,
+    TaskStatus,
+    TypePretCollectif,
+    NatureTravauxInteretCollectifsPP,
+    TypePretIndividuel,
+    Prefinanceurs,
+    NatureTravauxPartieCommune,
+    NatureAide,
 )
 
 
