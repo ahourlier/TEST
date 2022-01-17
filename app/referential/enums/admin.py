@@ -356,3 +356,39 @@ class TaskStatus(EnumBaseAdminView):
     ENUM_KIND = "TaskStatus"
     FIELD_MODEL = Task
     FIELD_REF = "status"
+
+
+class TypePretCollectif(EnumBaseAdminView):
+    ENUM_KIND = "TypePretCollectif"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class NatureTravauxInteretCollectifsPP(EnumBaseAdminView):
+    ENUM_KIND = "NatureTravauxInteretCollectifsPP"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class TypePretIndividuel(EnumBaseAdminView):
+    ENUM_KIND = "TypePretIndividuel"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class Prefinanceurs(EnumBaseAdminView):
+    ENUM_KIND = "Prefinanceurs"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class NatureTravauxPartieCommune(EnumBaseAdminView):
+    ENUM_KIND = "NatureTravauxPartieCommune"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class NatureAide(EnumBaseAdminView):
+    ENUM_KIND = "NatureAide"
+    FIELD_MODEL = None
+    FIELD_REF = None

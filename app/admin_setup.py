@@ -40,6 +40,12 @@ from app.referential.enums.admin import (
     LotConventionRentType,
     PersonStatus,
     TaskStatus,
+    TypePretCollectif,
+    NatureTravauxInteretCollectifsPP,
+    TypePretIndividuel,
+    Prefinanceurs,
+    NatureTravauxPartieCommune,
+    NatureAide,
 )
 
 
@@ -402,5 +408,59 @@ def register_admin_views(admin, db):
             "Statut tâche",
             url="status-task",
             endpoint="manage_task_status",
+        )
+    )
+    admin.add_view(
+        TypePretCollectif(
+            AppEnum,
+            db.session,
+            "Type de prêt collectif",
+            url="collective-loan-type",
+            endpoint="manage_collective_loan_type",
+        )
+    )
+    admin.add_view(
+        NatureTravauxInteretCollectifsPP(
+            AppEnum,
+            db.session,
+            "Nature des travaux intérêt collectif parties privatives",
+            url="nticpp",
+            endpoint="manage_nticpp",
+        )
+    )
+    admin.add_view(
+        TypePretIndividuel(
+            AppEnum,
+            db.session,
+            "Type de prêt individuel",
+            url="type-pret-indiv",
+            endpoint="manage_type_pret_indiv",
+        )
+    )
+    admin.add_view(
+        Prefinanceurs(
+            AppEnum,
+            db.session,
+            "Prefinanceurs",
+            url="prefinanceurs",
+            endpoint="manage_prefinanceurs",
+        )
+    )
+    admin.add_view(
+        NatureTravauxPartieCommune(
+            AppEnum,
+            db.session,
+            "Nature travaux partie commune",
+            url="ntpc",
+            endpoint="manage_ntpc",
+        )
+    )
+    admin.add_view(
+        NatureAide(
+            AppEnum,
+            db.session,
+            "Nature aide",
+            url="nature-aide",
+            endpoint="manage_nature_aide",
         )
     )
