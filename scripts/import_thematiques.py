@@ -48,7 +48,9 @@ for filename in os.listdir(folder_name):
         print(f"found {len(thematique_exists)} thematics to delete")
         for existing in thematique_exists:
             if not DRY_RUN:
-                db.collection(thematique_template_collection).document(existing.id).delete()
+                db.collection(thematique_template_collection).document(
+                    existing.id
+                ).delete()
 
     steps = thematique_data.get("steps")
     del thematique_data["steps"]
@@ -65,7 +67,7 @@ for filename in os.listdir(folder_name):
         step["fields"]["commentaire"] = {
             "type": "textArea",
             "multiple": False,
-            "value": []
+            "value": [],
         }
         step["fields"] = handle_step_fields(step.get("fields"))
 
