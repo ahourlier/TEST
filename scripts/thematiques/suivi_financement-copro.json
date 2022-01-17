@@ -41,7 +41,7 @@
 						},
 						"nature_travaux_pc": {
 							"type": "select_multiple",
-							"endpoint": "/api/referential/enums/?enums=NatureTravauxPartieCommune",
+							"endpoint": "/referential/enums/?enums=NatureTravauxPartieCommune",
 							"multiple": false,
 							"value": []
 						},
@@ -123,7 +123,7 @@
 					"value": [{
 						"financeur": {
 							"type": "autocomplete",
-							"endpoint": "/api/funder/funders/",
+							"endpoint": "/funder/funders/",
 							"multiple": false,
 							"value": []
 						},
@@ -277,7 +277,7 @@
 						"prefinanceur": {
 							"type": "select",
 							"multiple": false,
-							"endpoint": "/api/referential/enums/?enums=Prefinanceurs",
+							"endpoint": "/referential/enums/?enums=Prefinanceurs",
 							"value": []
 						},
 						"tel_prefinanceur": {
@@ -380,7 +380,7 @@
 						"pret_collectif_type": {
 							"type": "select_multiple",
 							"multiple": false,
-							"endpoint": "/api/referential/enums/?enums=TypePretCollectif",
+							"endpoint": "/referential/enums/?enums=TypePretCollectif",
 							"value": []
 						},
 						"pret_collectif_nombre_adherents": {
@@ -451,7 +451,7 @@
 					"value": [{
 						"financeur": {
 							"type": "autocomplete",
-							"endpoint": "/api/funder/funders/",
+							"endpoint": "/funder/funders/",
 							"multiple": false,
 							"value": []
 						},
@@ -468,7 +468,7 @@
 						"nature_aide": {
 							"type": "select_multiple",
 							"multiple": false,
-							"endpoint": "/api/referential/enums/?enums=NatureAide",
+							"endpoint": "/referential/enums/?enums=NatureAide",
 							"value": []
 						},
 						"demande_aide": {
@@ -554,7 +554,7 @@
 					"value": [{
 						"financeur": {
 							"type": "autocomplete",
-							"endpoint": "/api/funder/funders/",
+							"endpoint": "/funder/funders/",
 							"multiple": false,
 							"value": []
 						},
@@ -571,7 +571,7 @@
 						"nature_aide": {
 							"type": "select_multiple",
 							"multiple": false,
-							"endpoint": "/api/referential/enums/?enums=NatureAide",
+							"endpoint": "/referential/enums/?enums=NatureAide",
 							"value": []
 						},
 						"demande_aide": {

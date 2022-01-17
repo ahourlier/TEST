@@ -18,7 +18,7 @@
                 "type": "select_multiple",
                 "multiple": false,
                 "value": [],
-                "endpoint": "/api/referential/enums/?enums=NatureTravauxInteretCollectifsPP"
+                "endpoint": "/referential/enums/?enums=NatureTravauxInteretCollectifsPP"
               },
               "travaux_ppic_ht": {
                 "type": "number",
@@ -87,7 +87,7 @@
             "pret_individuel_type": {
               "type": "select_multiple",
               "multiple": false,
-              "endpoint": "/api/referential/enums/?enums=TypePretIndividuel",
+              "endpoint": "/referential/enums/?enums=TypePretIndividuel",
               "value": []
             },
             "demande_pret": {
@@ -146,7 +146,7 @@
           "type": "select_multiple",
           "multiple": false,
           "value": [],
-          "endpoint": "/api/referential/enums/?enums=NatureTravauxInteretCollectifsPP"
+          "endpoint": "/referential/enums/?enums=NatureTravauxInteretCollectifsPP"
         },
         "travaux_pp_ht": {
           "type": "number",
@@ -194,7 +194,7 @@
           "value": [{
             "financeur": {
               "type": "autocomplete",
-              "endpoint": "/api/funder/funders/",
+              "endpoint": "/funder/funders/",
               "multiple": false,
               "value": []
             },
@@ -348,7 +348,7 @@
             "prefinanceur": {
               "type": "select",
               "multiple": false,
-              "endpoint": "/api/referential/enums/?enums=Prefinanceurs",
+              "endpoint": "/referential/enums/?enums=Prefinanceurs",
               "value": []
             },
             "tel_prefinanceur": {
@@ -446,7 +446,7 @@
             "pret_individuel_type": {
               "type": "select_multiple",
               "multiple": false,
-              "endpoint": "/api/referential/enums/?enums=TypePretIndividuel",
+              "endpoint": "/referential/enums/?enums=TypePretIndividuel",
               "value": []
             },
             "demande_pret": {
