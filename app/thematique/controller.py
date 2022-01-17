@@ -68,3 +68,11 @@ class ThematiqueIdResource(AuthenticatedApi):
     @requires(has_thematic_permissions)
     def post(self):
         return ThematiqueService.duplicate_thematique(request.parsed_obj)
+
+
+@api.route("/<string:version_id>")
+class ThematiqueIdResource(AuthenticatedApi):
+    @responds(schema=Response, api=api)
+    @requires(has_version_permissions)
+    def delete(self, version_id):
+        return ThematiqueService.delete_copro_version(version_id=version_id,)

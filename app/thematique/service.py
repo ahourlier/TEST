@@ -9,6 +9,7 @@ from app.thematique.error_handlers import (
     InvalidResourceIdException,
     MissingVersionIdException,
     MissingStepIdException,
+    UnauthorizedToDeleteException,
 )
 from app.thematique.schema import StepSchema
 
@@ -229,3 +230,48 @@ class ThematiqueService:
                 version_created = ThematiqueService.duplicate_thematique(template)
                 list_docs.append(version_created)
         return list_docs
+
+    @staticmethod
+    def delete_copro_version(version_id):
+        version = ThematiqueService.get_version(version_id)
+        if version.get("scope") != "copro":
+            raise UnauthorizedToDeleteException
+        ThematiqueService.delete_sub_versions(
+            copro_id=version.get("resource_id"),
+            version_name=version.get("version_name"),
+            version_date=version.get("version_date"),
+        )
+        ThematiqueService.delete_version(version_id)
+
+    @staticmethod
+    def delete_version(version_id, firestore_service=None):
+        if not firestore_service:
+            firestore_service = FirestoreUtils()
+        version = firestore_service.get_version_by_id(version_id)
+        if not version.exists:
+            raise VersionNotFoundException
+        steps = version.reference.collection(
+            current_app.config.get("FIRESTORE_STEPS_COLLECTION")
+        ).get()
+        for step in steps:
+            step.reference.delete()
+        version.reference.delete()
+
+    @staticmethod
+    def delete_sub_versions(copro_id, version_name, version_date):
+        buildings = Building.query.filter(Building.copro_id == copro_id).all()
+        building_ids = [b.id for b in buildings]
+        lots = Lot.query.filter(Lot.copro_id == copro_id).all()
+        lot_ids = [lot.id for lot in lots]
+        firestore_service = FirestoreUtils()
+        documents = firestore_service.query_version(
+            thematique_name=version_name.get("thematique_name"),
+            version_name=version_name,
+            version_date=version_date,
+        )
+        for d in documents:
+            doc_dict = d.to_dict()
+            if doc_dict.get("scope") == "building" and doc_dict.get("resource_id") in building_ids:
+                ThematiqueService.delete_version(d.id, firestore_service=firestore_service)
+            if doc_dict.get("scope") == "lot" and doc_dict.get("resource_id") in lot_ids:
+                ThematiqueService.delete_version(d.id, firestore_service=firestore_service)
