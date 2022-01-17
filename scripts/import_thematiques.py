@@ -10,6 +10,8 @@ cred = credentials.ApplicationDefault()
 firebase_admin.initialize_app(cred, {"projectId": "app-oslo-dev",})
 db = firestore.client()
 
+DRY_RUN = False
+
 i18n_keys = []
 
 folder_name = "thematiques"
@@ -43,8 +45,12 @@ for filename in os.listdir(folder_name):
     )
 
     if len(thematique_exists) > 0:
+        print(f"found {len(thematique_exists)} thematics to delete")
         for existing in thematique_exists:
-            db.collection(thematique_template_collection).document(existing.id).delete()
+            if not DRY_RUN:
+                db.collection(thematique_template_collection).document(
+                    existing.id
+                ).delete()
 
     steps = thematique_data.get("steps")
     del thematique_data["steps"]
@@ -53,10 +59,16 @@ for filename in os.listdir(folder_name):
     if thematique_data["label"] not in i18n_keys:
         i18n_keys.append(thematique_data["label"])
 
-    created_thematique = db.collection(thematique_template_collection).document()
-    created_thematique.set(thematique_data)
+    if not DRY_RUN:
+        created_thematique = db.collection(thematique_template_collection).document()
+        created_thematique.set(thematique_data)
 
     for step in steps:
+        step["fields"]["commentaire"] = {
+            "type": "textArea",
+            "multiple": False,
+            "value": [],
+        }
         step["fields"] = handle_step_fields(step.get("fields"))
 
         step["metadata"]["label"] = f"thematic.step.{step['metadata']['name']}"
@@ -64,8 +76,9 @@ for filename in os.listdir(folder_name):
         if step["metadata"]["label"] not in i18n_keys:
             i18n_keys.append(step["metadata"]["label"])
 
-        current_step = created_thematique.collection(step_collection).document()
-        current_step.set(step)
+        if not DRY_RUN:
+            current_step = created_thematique.collection(step_collection).document()
+            current_step.set(step)
 
     with open("new_keys.csv", "w") as f:
         writer = csv.writer(f)
