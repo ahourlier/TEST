@@ -39,7 +39,7 @@
           },
           "nature_travaux_pc": {
             "type": "select_multiple",
-            "endpoint": "/api/referential/enums/?enums=NatureTravauxPartieCommune",
+            "endpoint": "/referential/enums/?enums=NatureTravauxPartieCommune",
             "multiple": false,
             "value": []
           },
