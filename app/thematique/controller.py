@@ -1,4 +1,4 @@
-from flask import Response, request
+from flask import Response, request, jsonify
 from flask_accepts import responds, accepts
 from flask_allows import requires
 
@@ -72,7 +72,8 @@ class ThematiqueIdResource(AuthenticatedApi):
 
 @api.route("/<string:version_id>")
 class ThematiqueIdResource(AuthenticatedApi):
-    @responds(schema=Response, api=api)
+    @responds(api=api)
     @requires(has_version_permissions)
     def delete(self, version_id):
-        return ThematiqueService.delete_copro_version(version_id=version_id,)
+        ThematiqueService.delete_copro_version(version_id=version_id,)
+        return jsonify(dict(status="Success", id=version_id))

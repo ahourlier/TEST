@@ -238,6 +238,7 @@ class ThematiqueService:
             raise UnauthorizedToDeleteException
         ThematiqueService.delete_sub_versions(
             copro_id=version.get("resource_id"),
+            thematique_name=version.get("thematique_name"),
             version_name=version.get("version_name"),
             version_date=version.get("version_date"),
         )
@@ -258,20 +259,18 @@ class ThematiqueService:
         version.reference.delete()
 
     @staticmethod
-    def delete_sub_versions(copro_id, version_name, version_date):
-        buildings = Building.query.filter(Building.copro_id == copro_id).all()
-        building_ids = [b.id for b in buildings]
-        lots = Lot.query.filter(Lot.copro_id == copro_id).all()
-        lot_ids = [lot.id for lot in lots]
+    def delete_sub_versions(copro_id, thematique_name, version_name, version_date):
+        buildings = Building.query.with_entities(Building.id).filter(Building.copro_id == copro_id).all()
+        lots = Lot.query.with_entities(Lot.id).filter(Lot.copro_id == copro_id).all()
         firestore_service = FirestoreUtils()
         documents = firestore_service.query_version(
-            thematique_name=version_name.get("thematique_name"),
+            thematique_name=thematique_name,
             version_name=version_name,
             version_date=version_date,
         )
         for d in documents:
             doc_dict = d.to_dict()
-            if doc_dict.get("scope") == "building" and doc_dict.get("resource_id") in building_ids:
+            if doc_dict.get("scope") == "building" and (doc_dict.get("resource_id"),) in buildings:
                 ThematiqueService.delete_version(d.id, firestore_service=firestore_service)
-            if doc_dict.get("scope") == "lot" and doc_dict.get("resource_id") in lot_ids:
+            if doc_dict.get("scope") == "lot" and (doc_dict.get("resource_id"),) in lots:
                 ThematiqueService.delete_version(d.id, firestore_service=firestore_service)
