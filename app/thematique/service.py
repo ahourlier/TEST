@@ -260,7 +260,11 @@ class ThematiqueService:
 
     @staticmethod
     def delete_sub_versions(copro_id, thematique_name, version_name, version_date):
-        buildings = Building.query.with_entities(Building.id).filter(Building.copro_id == copro_id).all()
+        buildings = (
+            Building.query.with_entities(Building.id)
+            .filter(Building.copro_id == copro_id)
+            .all()
+        )
         lots = Lot.query.with_entities(Lot.id).filter(Lot.copro_id == copro_id).all()
         firestore_service = FirestoreUtils()
         documents = firestore_service.query_version(
@@ -270,7 +274,17 @@ class ThematiqueService:
         )
         for d in documents:
             doc_dict = d.to_dict()
-            if doc_dict.get("scope") == "building" and (doc_dict.get("resource_id"),) in buildings:
-                ThematiqueService.delete_version(d.id, firestore_service=firestore_service)
-            if doc_dict.get("scope") == "lot" and (doc_dict.get("resource_id"),) in lots:
-                ThematiqueService.delete_version(d.id, firestore_service=firestore_service)
+            if (
+                doc_dict.get("scope") == "building"
+                and (doc_dict.get("resource_id"),) in buildings
+            ):
+                ThematiqueService.delete_version(
+                    d.id, firestore_service=firestore_service
+                )
+            if (
+                doc_dict.get("scope") == "lot"
+                and (doc_dict.get("resource_id"),) in lots
+            ):
+                ThematiqueService.delete_version(
+                    d.id, firestore_service=firestore_service
+                )
