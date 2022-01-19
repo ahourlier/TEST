@@ -307,18 +307,20 @@ class UserService:
 
             agencies_data = {}
             for agency in agencies:
-                agencies_data[agency.email_address] = agency
+                agencies_data[agency.email_address] = agency.id
             print("agencies_data loaded")
+            del agencies
             antennas_data = {}
             for antenna in antennas:
-                antennas_data[antenna.email_address] = antenna
+                antennas_data[antenna.email_address] = antenna.id
                 if (
                     antenna.agency
                     and antenna.agency.email_address
                     and antenna.agency.email_address not in agencies_data
                 ):
-                    agencies_data[antenna.agency.email_address] = antenna.agency
+                    agencies_data[antenna.agency.email_address] = antenna.agency.id
             print("antennas_data fetched")
+            del antennas
             if agencies_data or antennas_data:
                 existing_groups = UserGroup.query.filter(
                     UserGroup.user_id == user.id
@@ -337,21 +339,21 @@ class UserService:
                         groups_to_delete.append(existing_group)
                 print(f"fetched {len(groups_to_delete)} groups_to_delete")
                 groups_to_add = []
-                for email, agency in agencies_data.items():
+                for email, agency_id in agencies_data.items():
                     if email not in existing_groups_emails:
                         groups_to_add.append(
                             UserGroup(
-                                user_id=user.id, group_email=email, agency_id=agency.id
+                                user_id=user.id, group_email=email, agency_id=agency_id
                             )
                         )
                 print(f"fetched {len(groups_to_add)} groups_to_add")
-                for email, antenna in antennas_data.items():
+                for email, antenna_id in antennas_data.items():
                     if email not in existing_groups_emails:
                         groups_to_add.append(
                             UserGroup(
                                 user_id=user.id,
                                 group_email=email,
-                                antenna_id=antenna.id,
+                                antenna_id=antenna_id,
                             )
                         )
                 print(f"fetched {len(groups_to_add)} groups_to_add")
