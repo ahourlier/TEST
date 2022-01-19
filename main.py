@@ -1,5 +1,4 @@
 import os
-
 from flask.cli import load_dotenv
 
 from app import create_app
