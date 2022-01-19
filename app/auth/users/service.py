@@ -290,12 +290,18 @@ class UserService:
     def update_user_groups(user: User):
         source_groups = UserService.get_user_groups_from_gsuite(user.email)
         if source_groups is not None:
-            agencies = Agency.query.with_entities(Agency.id, Agency.email_address).filter(
-                Agency.email_address.in_(source_groups)
-            ).all()
-            antennas = Antenna.query.with_entities(Antenna.id, Antenna.email_address, Antenna.agency).filter(
-                Antenna.email_address.in_(source_groups)
-            ).all()
+            agencies = (
+                Agency.query.with_entities(Agency.id, Agency.email_address)
+                .filter(Agency.email_address.in_(source_groups))
+                .all()
+            )
+            antennas = (
+                Antenna.query.with_entities(
+                    Antenna.id, Antenna.email_address, Antenna.agency
+                )
+                .filter(Antenna.email_address.in_(source_groups))
+                .all()
+            )
 
             agencies_data = {}
             for agency in agencies:
@@ -327,13 +333,19 @@ class UserService:
                 for email, agency in agencies_data.items():
                     if email not in existing_groups_emails:
                         groups_to_add.append(
-                            UserGroup(user_id=user.id, group_email=email, agency_id=agency.id)
+                            UserGroup(
+                                user_id=user.id, group_email=email, agency_id=agency.id
+                            )
                         )
 
                 for email, antenna in antennas_data.items():
                     if email not in existing_groups_emails:
                         groups_to_add.append(
-                            UserGroup(user_id=user.id, group_email=email, antenna_id=antenna.id)
+                            UserGroup(
+                                user_id=user.id,
+                                group_email=email,
+                                antenna_id=antenna.id,
+                            )
                         )
 
                 for group_to_delete in groups_to_delete:
@@ -347,9 +359,11 @@ class UserService:
 
     @staticmethod
     def get_permissions_for_role(role: Role) -> List:
-        permissions = Permission.query.with_entities(Permission.entity, Permission.action).filter(
-            Permission.role.has(Role.value >= role.value)
-        ).all()
+        permissions = (
+            Permission.query.with_entities(Permission.entity, Permission.action)
+            .filter(Permission.role.has(Role.value >= role.value))
+            .all()
+        )
         output = {}
         for p in permissions:
             if p.entity not in output:
