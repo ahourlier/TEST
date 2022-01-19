@@ -351,7 +351,9 @@ class UserService:
                 for group_to_add in groups_to_add:
                     db.session.add(group_to_add)
             else:
-                db.session.query(UserGroup).filter(UserGroup.user_id == user.id).delete()
+                db.session.query(UserGroup).filter(
+                    UserGroup.user_id == user.id
+                ).delete()
 
             db.session.commit()
 
