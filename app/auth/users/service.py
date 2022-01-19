@@ -295,6 +295,7 @@ class UserService:
                 .filter(Agency.email_address.in_(source_groups))
                 .all()
             )
+            print(f"fetched {len(agencies)} agencies")
             antennas = (
                 Antenna.query.with_entities(
                     Antenna.id, Antenna.email_address, Antenna.agency
@@ -302,10 +303,12 @@ class UserService:
                 .filter(Antenna.email_address.in_(source_groups))
                 .all()
             )
+            print(f"fetched {len(antennas)} antennas")
 
             agencies_data = {}
             for agency in agencies:
                 agencies_data[agency.email_address] = agency
+            print("agencies_data loaded")
             antennas_data = {}
             for antenna in antennas:
                 antennas_data[antenna.email_address] = antenna
@@ -315,7 +318,7 @@ class UserService:
                     and antenna.agency.email_address not in agencies_data
                 ):
                     agencies_data[antenna.agency.email_address] = antenna.agency
-
+            print("antennas_data getched")
             if agencies_data or antennas_data:
                 existing_groups = UserGroup.query.filter(UserGroup.user == user).all()
                 existing_groups_emails = [
