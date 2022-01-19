@@ -320,7 +320,9 @@ class UserService:
                     agencies_data[antenna.agency.email_address] = antenna.agency
             print("antennas_data fetched")
             if agencies_data or antennas_data:
-                existing_groups = UserGroup.query.filter(UserGroup.user_id == user.id).all()
+                existing_groups = UserGroup.query.filter(
+                    UserGroup.user_id == user.id
+                ).all()
                 print(f"fetched {len(existing_groups)} existing_groups")
                 existing_groups_emails = [
                     group.group_email for group in existing_groups
