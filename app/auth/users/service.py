@@ -290,10 +290,10 @@ class UserService:
     def update_user_groups(user: User):
         source_groups = UserService.get_user_groups_from_gsuite(user.email)
         if source_groups is not None:
-            agencies = Agency.query.filter(
+            agencies = Agency.query.with_entities(Agency.id, Agency.email_address).filter(
                 Agency.email_address.in_(source_groups)
             ).all()
-            antennas = Antenna.query.filter(
+            antennas = Antenna.query.with_entities(Antenna.id, Antenna.email_address, Antenna.agency).filter(
                 Antenna.email_address.in_(source_groups)
             ).all()
 
@@ -327,13 +327,13 @@ class UserService:
                 for email, agency in agencies_data.items():
                     if email not in existing_groups_emails:
                         groups_to_add.append(
-                            UserGroup(user=user, group_email=email, agency=agency)
+                            UserGroup(user_id=user.id, group_email=email, agency_id=agency.id)
                         )
 
                 for email, antenna in antennas_data.items():
                     if email not in existing_groups_emails:
                         groups_to_add.append(
-                            UserGroup(user=user, group_email=email, antenna=antenna)
+                            UserGroup(user_id=user.id, group_email=email, antenna_id=antenna.id)
                         )
 
                 for group_to_delete in groups_to_delete:
@@ -345,16 +345,9 @@ class UserService:
 
             db.session.commit()
 
-    def get_users_list(id_list: List[int]) -> List[User]:
-        # Retrieve a list of user objects from a list of ids
-        users = User.query.filter(User.id.in_(id_list)).all()
-        if len(users) != len(id_list):
-            raise UserNotFoundException
-        return users
-
     @staticmethod
     def get_permissions_for_role(role: Role) -> List:
-        permissions = Permission.query.filter(
+        permissions = Permission.query.with_entities(Permission.entity, Permission.action).filter(
             Permission.role.has(Role.value >= role.value)
         ).all()
         output = {}
