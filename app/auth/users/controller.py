@@ -4,6 +4,7 @@ from flask_accepts import responds, accepts
 from flask_allows import requires
 from flask_restx import inputs
 from flask_sqlalchemy import Pagination
+import gc
 
 from . import api
 from .interface import UserInterface
@@ -33,9 +34,13 @@ class UserMe(AuthenticatedApi):
 
     @responds(schema=UserAuthSchema)
     def get(self):
+        gc.collect()
         UserService.update_user_groups(g.user)
+        print("updated user groups")
         permissions = UserService.get_permissions_for_role(g.user.role_data)
+        print("finished fetching permissions")
         setattr(g.user, "permissions", permissions)
+        gc.collect()
         return g.user
 
 
