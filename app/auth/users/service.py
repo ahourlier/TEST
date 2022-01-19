@@ -318,12 +318,16 @@ class UserService:
                     and antenna.agency.email_address not in agencies_data
                 ):
                     agencies_data[antenna.agency.email_address] = antenna.agency
-            print("antennas_data getched")
+            print("antennas_data fetched")
             if agencies_data or antennas_data:
-                existing_groups = UserGroup.query.filter(UserGroup.user == user).all()
+                existing_groups = UserGroup.query.filter(
+                    UserGroup.user_id == user.id
+                ).all()
+                print(f"fetched {len(existing_groups)} existing_groups")
                 existing_groups_emails = [
                     group.group_email for group in existing_groups
                 ]
+                print("loaded existing_groups_emails")
                 groups_to_delete = []
                 for existing_group in existing_groups:
                     if (
@@ -331,7 +335,7 @@ class UserService:
                         and existing_group.group_email not in antennas_data.keys()
                     ):
                         groups_to_delete.append(existing_group)
-
+                print(f"fetched {len(groups_to_delete)} groups_to_delete")
                 groups_to_add = []
                 for email, agency in agencies_data.items():
                     if email not in existing_groups_emails:
@@ -340,7 +344,7 @@ class UserService:
                                 user_id=user.id, group_email=email, agency_id=agency.id
                             )
                         )
-
+                print(f"fetched {len(groups_to_add)} groups_to_add")
                 for email, antenna in antennas_data.items():
                     if email not in existing_groups_emails:
                         groups_to_add.append(
@@ -350,7 +354,7 @@ class UserService:
                                 antenna_id=antenna.id,
                             )
                         )
-
+                print(f"fetched {len(groups_to_add)} groups_to_add")
                 for group_to_delete in groups_to_delete:
                     db.session.delete(group_to_delete)
                 for group_to_add in groups_to_add:
