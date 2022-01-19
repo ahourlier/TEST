@@ -265,7 +265,9 @@ class UserService:
                 error = True
                 break
         if error:
+            print("has error")
             dclient = DirectoryService(os.getenv("TECHNICAL_ACCOUNT_EMAIL")).get()
+            print("client created")
             groups = []
             params = dict(userKey=email, fields="nextPageToken,groups(email)")
             while True:
@@ -274,6 +276,7 @@ class UserService:
                     groups.extend(
                         [group.get("email") for group in response.get("groups", [])]
                     )
+                    print(f"fetched {len(response.get('groups', []))} groups")
                     if response.get("nextPageToken"):
                         params["pageToken"] = response.get("nextPageToken")
                     else:
