@@ -266,13 +266,13 @@ class UserService:
                 break
         if error:
             print("has error")
-            dclient = DirectoryService(os.getenv("TECHNICAL_ACCOUNT_EMAIL")).get()
+            client = DirectoryService(os.getenv("TECHNICAL_ACCOUNT_EMAIL")).get()
             print("client created")
             groups = []
             params = dict(userKey=email, fields="nextPageToken,groups(email)")
             while True:
                 try:
-                    response = dclient.groups().list(**params).execute(num_retries=3)
+                    response = client.groups().list(**params).execute(num_retries=3)
                     groups.extend(
                         [group.get("email") for group in response.get("groups", [])]
                     )

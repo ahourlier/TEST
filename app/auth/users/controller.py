@@ -5,6 +5,8 @@ from flask_allows import requires
 from flask_restx import inputs
 from flask_sqlalchemy import Pagination
 import gc
+import psutil
+import os
 
 from . import api
 from .interface import UserInterface
@@ -35,12 +37,16 @@ class UserMe(AuthenticatedApi):
     @responds(schema=UserAuthSchema)
     def get(self):
         gc.collect()
+        process = psutil.Process(os.getpid())
+        print(f"first process memory in bytes: {process.memory_info().rss}")  # in bytes
         UserService.update_user_groups(g.user)
         print("updated user groups")
         permissions = UserService.get_permissions_for_role(g.user.role_data)
         print("finished fetching permissions")
         setattr(g.user, "permissions", permissions)
         gc.collect()
+        process = psutil.Process(os.getpid())
+        print(f"second process memory in bytes: {process.memory_info().rss}")  # in bytes
         return g.user
 
 
