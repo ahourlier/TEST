@@ -36,20 +36,9 @@ class UserMe(AuthenticatedApi):
 
     @responds(schema=UserAuthSchema)
     def get(self):
-        gc.collect()
-        print(
-            f"first process memory in bytes: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2}"
-        )  # in bytes
         UserService.update_user_groups(g.user)
-        print("updated user groups")
         permissions = UserService.get_permissions_for_role(g.user.role_data)
-        print("finished fetching permissions")
         setattr(g.user, "permissions", permissions)
-        gc.collect()
-        process = psutil.Process(os.getpid())
-        print(
-            f"second process memory in bytes: {psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2}"
-        )  # in bytes
         return g.user
 
 
