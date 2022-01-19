@@ -360,11 +360,14 @@ class UserService:
                 for group_to_add in groups_to_add:
                     db.session.add(group_to_add)
             else:
+                print("now deleting")
                 db.session.query(UserGroup).filter(
                     UserGroup.user_id == user.id
                 ).delete()
+                print("deleted")
 
             db.session.commit()
+            print("committed")
 
     @staticmethod
     def get_permissions_for_role(role: Role) -> List:
