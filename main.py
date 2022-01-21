@@ -1,6 +1,5 @@
 import os
 from flask.cli import load_dotenv
-import googlecloudprofiler
 from app import create_app
 
 try:
@@ -15,6 +14,7 @@ load_dotenv()
 # Profiler initialization. It starts a daemon thread which continuously
 # collects and uploads profiles. Best done as early as possible.
 try:
+    import googlecloudprofiler
     # service and service_version can be automatically inferred when
     # running on App Engine. project_id must be set if not running
     # on GCP.
