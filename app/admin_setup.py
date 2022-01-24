@@ -1,5 +1,6 @@
 from app.referential.enums import AppEnum
 from app.referential.enums.admin import (
+    CombinedStructureType,
     ProjectStatusAdminView,
     MissionStatusAdminView,
     ProjectContactSource,
@@ -457,6 +458,15 @@ def register_admin_views(admin, db):
     )
     admin.add_view(
         NatureAide(
+            AppEnum,
+            db.session,
+            "Nature aide",
+            url="nature-aide",
+            endpoint="manage_nature_aide",
+        )
+    )
+    admin.add_view(
+        CombinedStructureType(
             AppEnum,
             db.session,
             "Nature aide",

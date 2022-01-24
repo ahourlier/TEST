@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, String, Column, Integer, ForeignKey, Float
 from sqlalchemy.orm import relationship, backref
 
-from app import db
+from app import combined_structure, db
 from app.common.address.model import Address
 from app.common.base_model import SoftDeletableMixin, BaseMixin
 from app.copro.cadastre import Cadastre
@@ -45,7 +45,8 @@ class Copro(SoftDeletableMixin, BaseMixin, db.Model):
     copro_creation_date = Column(db.Date, nullable=True)
     is_member_s1_s2 = Column(Boolean, nullable=True, default=False)
     is_member_association = Column(Boolean, nullable=True, default=False)
-    # association = Column(String(255), nullable=True) # TODO link to ASL
+    cs_id = Column(Integer, ForeignKey("combined_structure.id"), nullable=True)
+    cs = relationship("CombinedStructure", backref="copros")
     # Fonctionnement
     nb_lots = Column(Integer, nullable=True)
     nb_co_owners = Column(Integer, nullable=True)

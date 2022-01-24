@@ -1,3 +1,4 @@
+from app.combined_structure.model import CombinedStructure
 from app.project.quotes.model import Quote
 from flask_admin.contrib.sqla import ModelView
 from sqlalchemy import func
@@ -392,3 +393,9 @@ class NatureAide(EnumBaseAdminView):
     ENUM_KIND = "NatureAide"
     FIELD_MODEL = None
     FIELD_REF = None
+
+
+class CombinedStructureType(EnumBaseAdminView):
+    ENUM_KIND = "CombinedStructureType"
+    FIELD_MODEL = CombinedStructure
+    FIELD_REF = "type"
