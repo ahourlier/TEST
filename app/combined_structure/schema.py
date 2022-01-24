@@ -2,7 +2,6 @@ from marshmallow import fields
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
 from app.combined_structure.model import CombinedStructure
-from app.common.address.schema import AddressSchema
 from app.common.schemas import PaginatedSchema
 
 from app.copro.president.schema import PresidentSchema, PresidentCreateSchema

@@ -1,9 +1,6 @@
-import base64
-
 from sqlalchemy import or_, and_
 
 from app import db
-from app.auth.users.model import UserRole
 from app.combined_structure.error_handlers import CombinedStructureNotFoundException, EnumException as CombinedStructureEnumException
 from app.combined_structure.interface import CombinedStructureInterface
 from app.combined_structure.model import CombinedStructure
@@ -12,7 +9,6 @@ from app.common.address.service import AddressService
 from app.common.exceptions import EnumException
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
-from app.copro.copros.model import Copro
 from app.copro.president.service import PresidentService
 from app.copro.syndic.service import SyndicService
 from app.thematique.service import ThematiqueService

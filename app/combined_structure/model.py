@@ -1,9 +1,9 @@
 from sqlalchemy import Column, Date, Integer, Text, ForeignKey, String, Boolean, Float, BigInteger
 from sqlalchemy.orm import relationship
-
+from app.mission.missions import Mission
+from app.copro.president import President
 from app import db
 from app.common.base_model import BaseMixin, SoftDeletableMixin
-from app.copro.copros.model import Copro
 
 
 class CombinedStructure(SoftDeletableMixin, BaseMixin, db.Model):
