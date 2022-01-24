@@ -23,3 +23,21 @@ def search_step(thematique_document, step_name):
         .where("metadata.name", "==", step_name)
         .get()
     )
+
+
+def update_item(version_details, step_name, changes, firestore_client):
+    thematics_found = search_thematic(version_details, firestore_client)
+    if not len(thematics_found):
+        print("thematic not found with these details")
+        print(version_details)
+
+    step = search_step(thematics_found[0], step_name=step_name)
+    if not len(thematics_found):
+        print(f"{step_name} not found in thematic with these details")
+        print(version_details)
+    
+    step = step[0]
+    step.set(
+        changes,
+        merge=True
+    )

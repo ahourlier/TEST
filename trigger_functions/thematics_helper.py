@@ -186,8 +186,20 @@ def process_subitems(
                 step_name=step_dict.get('metadata').get('name')
             )
 
-        update_payload["fields"] = get_update_payload(update_payload["fields"], count)
-        print()
+        update_payload["fields"] = get_update_payload(
+            update_payload["fields"], count)
+        firestore_helper.update_item(
+            {
+                "resource_id": parent_id,
+                "scope": parent_scope,
+                "version_name": thematique_dict.get("version_name"),
+                "version_date": thematique_dict.get("version_date"),
+                "thematique_name": thematique_dict.get("thematique_name"),
+            },
+            step_dict.get('metadata').get('name'),
+            update_payload,
+            firestore_client
+        )
 
 
 def find_parent_step(parent_scope, parent_id, thematique_dict, firestore_client, step_name):
