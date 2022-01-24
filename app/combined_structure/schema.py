@@ -11,6 +11,7 @@ from app.copro.syndic.schema import SyndicSchema, SyndicCreateSchema
 
 class CombinedStructureCreateSchema(SQLAlchemyAutoSchema):
     president = fields.Nested(PresidentCreateSchema())
+    president_id = fields.Integer(allow_none=True, required=False)
     syndics = fields.List(fields.Nested(SyndicCreateSchema()))
 
     class Meta:

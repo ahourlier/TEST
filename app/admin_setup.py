@@ -471,6 +471,6 @@ def register_admin_views(admin, db):
             db.session,
             "Nature aide",
             url="nature-aide",
-            endpoint="manage_nature_aide",
+            endpoint="manage_combined_structure_type",
         )
     )

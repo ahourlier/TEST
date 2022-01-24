@@ -1,6 +1,5 @@
 from sqlalchemy import Column, Date, Integer, Text, ForeignKey, String, Boolean, Float, BigInteger
 from sqlalchemy.orm import relationship
-from app.mission.missions import Mission
 from app.copro.president import President
 from app import db
 from app.common.base_model import BaseMixin, SoftDeletableMixin
@@ -13,8 +12,8 @@ class CombinedStructure(SoftDeletableMixin, BaseMixin, db.Model):
     mission_id = Column(Integer, ForeignKey("mission.id"), nullable=False)
     mission = relationship("Mission", backref="combined_structures")
     # generalites
-    name = Column(String(255), nullable=False)
-    type = Column(String(255), nullable=False)
+    name = Column(String(255), nullable=True)
+    type = Column(String(255), nullable=True)
     currently_working_on = Column(Boolean(), nullable=True)
     nb_lots = Column(Integer(), nullable=True)
     nb_copros = Column(Integer(), nullable=True)

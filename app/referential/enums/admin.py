@@ -1,4 +1,3 @@
-from app.combined_structure.model import CombinedStructure
 from app.project.quotes.model import Quote
 from flask_admin.contrib.sqla import ModelView
 from sqlalchemy import func
@@ -22,6 +21,7 @@ from ...project.disorders import DisorderType
 from ...project.projects import Project
 from ...project.requesters import Requester
 from ...task import Task
+from ...combined_structure import CombinedStructure
 
 
 class BaseReadOnly:

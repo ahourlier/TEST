@@ -77,20 +77,16 @@ class CombinedStructureService:
                 allowed_values=e.details.get("allowed_values"),
                 enum=e.details.get("enum")
             )
-
-        if new_attrs.get("address"):
-            new_attrs["address_id"] = AddressService.create_address(new_attrs.get("address"))
-            del new_attrs["address"]
         
         new_attrs["president_id"] = PresidentService.create(
             new_attrs.get("president", {})
         )
-        if new_attrs.get("president"):
+        if "president" in new_attrs:
             del new_attrs["president"]
         
         syndics = None
-        if new_attrs.get("syndics"):
-            syndics = new_attrs.get("syndics")
+        if "syndics" in new_attrs:
+            syndics = new_attrs.get("syndics", [])
             del new_attrs["syndics"]
 
         new_combined_structure = CombinedStructure(**new_attrs)
