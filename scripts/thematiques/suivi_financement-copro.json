@@ -2,7 +2,8 @@
 	"resource_id": 0,
 	"scope": "copro",
 	"thematique_name": "SUIVI_FINANCEMENT",
-	"steps": [{
+	"steps": [
+		{
 			"metadata": {
 				"legendes": [],
 				"name": "TRAVAUX_VOTES_AG_DECOMPOSITION_DEPENSE",
