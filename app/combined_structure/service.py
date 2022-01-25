@@ -9,6 +9,7 @@ from app.common.address.service import AddressService
 from app.common.exceptions import EnumException
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
+from app.copro.president.model import President
 from app.copro.president.service import PresidentService
 from app.copro.syndic.service import SyndicService
 from app.thematique.service import ThematiqueService
@@ -123,7 +124,7 @@ class CombinedStructureService:
             )
 
         if "president" in changes:
-            PresidentService.update(changes.get("president"))
+            PresidentService.update(PresidentService.get(db_combined_structure.president_id), changes.get("president"))
             del changes["president"]
         
         if "syndics" in changes:
