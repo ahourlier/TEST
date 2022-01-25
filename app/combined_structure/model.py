@@ -32,14 +32,6 @@ class CombinedStructure(SoftDeletableMixin, BaseMixin, db.Model):
     main_member = Column(Text(), nullable=True)
     rules_exists = Column(Boolean(), nullable=True)
     total_tantieme = Column(BigInteger(), nullable=True)
-    # equipements contrats
-    green_spaces = Column(Boolean(), nullable=True)
-    heater = Column(Boolean(), nullable=True)
-    aerial_parking = Column(Boolean(), nullable=True)
-    underground_parking = Column(Boolean(), nullable=True)
-    cctv = Column(Boolean(), nullable=True)
-    other_equipments = Column(Boolean(), nullable=True)
-    other_equipments_details = Column(Text(), nullable=True)
     # contrats
     contract_syndic = Column(Boolean(), nullable=True)
     contract_syndic_date = Column(String(), nullable=True)

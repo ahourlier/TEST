@@ -469,8 +469,8 @@ def register_admin_views(admin, db):
         CombinedStructureType(
             AppEnum,
             db.session,
-            "Nature aide",
-            url="nature-aide",
+            "Type de Structure Combinée",
+            url="combined-structure-type",
             endpoint="manage_combined_structure_type",
         )
     )

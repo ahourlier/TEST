@@ -122,15 +122,12 @@ class CombinedStructureService:
                 enum=e.details.get("enum")
             )
 
-        if changes.get("address"):
-            if not db_combined_structure.address_id:
-                changes["address_id"] = AddressService.create_address(changes.get("address"))
-            else:
-                AddressService.update_address(db_combined_structure.address_id, changes.get("address"))
-            del changes["address"]
-
-        if changes.get("access_code"):
-            changes["access_code"] = CombinedStructureService.encode_access_code(changes.get("access_code"))
+        if "president" in changes:
+            PresidentService.update(changes.get("president"))
+            del changes["president"]
+        
+        if "syndics" in changes:
+            del changes["syndics"]
 
         db_combined_structure.update(changes)
         db.session.commit()

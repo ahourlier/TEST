@@ -15,6 +15,7 @@
             },
             "args": [
                 "run",
+                "--reload",
                 "--no-debugger"
             ],
             "jinja": true

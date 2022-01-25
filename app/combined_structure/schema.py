@@ -20,8 +20,7 @@ class CombinedStructureCreateSchema(SQLAlchemyAutoSchema):
 
 
 class CombinedStructureUpdateSchema(SQLAlchemyAutoSchema):
-    president = fields.Nested(PresidentCreateSchema(), dump_only=True)
-    # syndics = fields.List(fields.Nested(SyndicSchema()), dump_only=True)
+    president = fields.Nested(PresidentCreateSchema())
 
     class Meta:
         model = CombinedStructure
