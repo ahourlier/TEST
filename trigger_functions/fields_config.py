@@ -1,5 +1,5 @@
 building_fields = {
-    "DECOMPOSITION_DEPENSE": {
+    "TRAVAUX_VOTES_AG_DECOMPOSITION_DEPENSE": {
         "travaux_pc_ht": 0,
         "travaux_pc_ttc": 0,
         "frais_pc_ht": 0,

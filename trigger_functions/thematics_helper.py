@@ -1,6 +1,6 @@
 import sql_helper
 import firestore_helper
-from trigger_functions.fields_config import building_fields, lot_fields
+from fields_config import building_fields, lot_fields
 
 
 def process_building(building_id, sql_engine, firestore_client, version):
@@ -111,6 +111,7 @@ def get_update_payload(fields, changes):
                 field_item["value"][idx] = get_update_payload(v, changes)
         if field_name in changes:
             field_item["value"] = [changes[field_name]]
+            field_item["disabled"] = True
     return fields
 
 
@@ -177,29 +178,28 @@ def process_subitems(
         child_step = child_step[0]
         count = update_count(child_step.get("fields"), count)
 
-        if not update_payload:
-            update_payload["fields"] = find_parent_step(
-                parent_scope=parent_scope,
-                parent_id=parent_id,
-                firestore_client=firestore_client,
-                thematique_dict=thematique_dict,
-                step_name=step_dict.get('metadata').get('name')
-            )
+    update_payload = find_parent_step(
+        parent_scope=parent_scope,
+        parent_id=parent_id,
+        firestore_client=firestore_client,
+        thematique_dict=thematique_dict,
+        step_name=step_dict.get('metadata').get('name')
+    )
 
-        update_payload["fields"] = get_update_payload(
-            update_payload["fields"], count)
-        firestore_helper.update_item(
-            {
-                "resource_id": parent_id,
-                "scope": parent_scope,
-                "version_name": thematique_dict.get("version_name"),
-                "version_date": thematique_dict.get("version_date"),
-                "thematique_name": thematique_dict.get("thematique_name"),
-            },
-            step_dict.get('metadata').get('name'),
-            update_payload,
-            firestore_client
-        )
+    update_payload["fields"] = get_update_payload(
+        update_payload["fields"], count)
+    firestore_helper.update_item(
+        {
+            "resource_id": parent_id,
+            "scope": parent_scope,
+            "version_name": thematique_dict.get("version_name"),
+            "version_date": thematique_dict.get("version_date"),
+            "thematique_name": thematique_dict.get("thematique_name"),
+        },
+        step_dict.get('metadata').get('name'),
+        update_payload,
+        firestore_client
+    )
 
 
 def find_parent_step(parent_scope, parent_id, thematique_dict, firestore_client, step_name):
@@ -224,4 +224,4 @@ def find_parent_step(parent_scope, parent_id, thematique_dict, firestore_client,
             f"{step_name}: step not found for {parent_scope} {parent_id}"
         )
         return
-    return step[0].get("fields")
+    return step[0].to_dict()

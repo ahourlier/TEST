@@ -37,7 +37,7 @@ def update_item(version_details, step_name, changes, firestore_client):
         print(version_details)
     
     step = step[0]
-    step.set(
+    step.reference.set(
         changes,
         merge=True
     )

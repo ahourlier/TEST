@@ -11,6 +11,8 @@ def get_item(engine, params):
         )
 
         res = con.execute(statement, **params).fetchone()
+        if not res:
+            return None
         item = {}
         for idx, column in enumerate(params.get("columns")):
             item[column] = res[idx]

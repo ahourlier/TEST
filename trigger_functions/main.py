@@ -15,23 +15,24 @@ metadata.reflect(bind=engine)
 
 
 class FakeContext:
-    resource = "/documents/thematiques/5650mrcmdjFykPgCyc2Z/steps/vuWIXSsaRPaQ2ZmgNgF5"
+    resource = "/documents/thematiques/CSf79kgd0Onkfhs9V5L4/steps/Byi1Aofu3LH08ZqujyQb"
 
 
 def on_update(data, context):
-    """Triggered by a change to a Firestore document.
-    Args:
-        data (dict): The event payload.
-        context (google.cloud.functions.Context): Metadata for the event.
-    """
 
     thematique_id, step_id = firestore_helper.get_ids_from_context(context)
     thematique = client.collection("thematiques").document(thematique_id).get()
-    step = client.document(f"thematiques/{thematique_id}/steps/{step_id}").get()
 
     if not thematique.exists:
         print(f"document with id {thematique_id} not found")
-        return "document not found"
+        return f"document with id {thematique_id} not found"
+
+    step = client.document(
+        f"thematiques/{thematique_id}/steps/{step_id}").get()
+    
+    if not step.exists:
+        print(f"step not found for id '{step_id}'")
+        return f"step not found for id '{step_id}'"
 
     thematique_dict = thematique.to_dict()
 
@@ -49,6 +50,11 @@ def on_update(data, context):
 
     # getting item that was updated
     item = sql_helper.get_item(engine, params)
+
+    if not item:
+        print(f"item with params {params} was not found")
+        return f"item with params {params} was not found"
+
     if item.get("building_id"):
         # if updated item has a building id, updating its building in firestore
         # thematics_helper.process_building(
@@ -77,165 +83,176 @@ def on_update(data, context):
             thematique=thematique,
             step=step,
         )
-    print()
 
 
 on_update(
     {
-        "metadata": {
-            "legendes": [],
-            "label": "thematic.step.DECOMPOSITION_DEPENSE",
-            "status": "",
-            "id": "vuWIXSsaRPaQ2ZmgNgF5",
-            "order": 1,
-            "name": "DECOMPOSITION_DEPENSE",
-        },
         "fields": {
             "campagne_travaux": {
-                "multiple": True,
-                "type": "group",
-                "order": 1,
                 "label": "thematic.fields.campagne_travaux",
+                "order": 1,
                 "value": [
                     {
-                        "frais_cumule_pc_ppic_ht": {
-                            "label": "thematic.fields.frais_cumule_pc_ppic_ht",
-                            "type": "number",
-                            "multiple": False,
-                            "value": [],
-                            "order": 15,
-                        },
-                        "nature_travaux_pc": {
-                            "type": "select_multiple",
-                            "endpoint": "/referential/enums/?enums=NatureTravauxPartieCommune",
-                            "value": [],
-                            "label": "thematic.fields.nature_travaux_pc",
-                            "order": 6,
-                            "multiple": False,
-                        },
-                        "depense_subventionnable_pc_ppic_ht": {
-                            "type": "number",
-                            "label": "thematic.fields.depense_subventionnable_pc_ppic_ht",
-                            "value": [],
-                            "multiple": False,
-                            "order": 17,
-                        },
-                        "depense_totale_pc_ppic_ttc": {
-                            "multiple": False,
-                            "value": [],
-                            "type": "number",
-                            "order": 18,
-                            "label": "thematic.fields.depense_totale_pc_ppic_ttc",
-                        },
-                        "depense_totale_pc_ttc": {
-                            "order": 12,
-                            "multiple": False,
-                            "type": "number",
-                            "label": "thematic.fields.depense_totale_pc_ttc",
-                            "value": [],
-                        },
-                        "travaux_cumule_pc_ppic_ttc": {
-                            "label": "thematic.fields.travaux_cumule_pc_ppic_ttc",
-                            "type": "number",
-                            "multiple": False,
-                            "value": [],
-                            "order": 14,
-                        },
-                        "entreprise_1_poste_plus_couteux": {
-                            "value": [],
-                            "multiple": False,
-                            "order": 3,
-                            "label": "thematic.fields.entreprise_1_poste_plus_couteux",
-                            "type": "string",
-                        },
                         "travaux_pc_ttc": {
                             "label": "thematic.fields.travaux_pc_ttc",
-                            "multiple": False,
-                            "type": "number",
-                            "value": [],
+                            "value": [
+                                500
+                            ],
                             "order": 8,
-                        },
-                        "nom_campagne_travaux": {
-                            "label": "thematic.fields.nom_campagne_travaux",
-                            "type": "string",
-                            "value": [],
-                            "order": 1,
                             "multiple": False,
+                            "type": "number"
                         },
                         "date_vote_ag": {
                             "multiple": False,
-                            "label": "thematic.fields.date_vote_ag",
-                            "type": "date",
-                            "value": [],
                             "order": 2,
-                        },
-                        "entreprise_2_poste_plus_couteux": {
-                            "label": "thematic.fields.entreprise_2_poste_plus_couteux",
-                            "type": "string",
                             "value": [],
-                            "order": 4,
-                            "multiple": False,
-                        },
-                        "depense_subventionnable_pc_ht": {
-                            "type": "number",
-                            "label": "thematic.fields.depense_subventionnable_pc_ht",
-                            "order": 11,
-                            "value": [],
-                            "multiple": False,
-                        },
-                        "frais_pc_ttc": {
-                            "multiple": False,
-                            "type": "number",
-                            "value": [],
-                            "order": 10,
-                            "label": "thematic.fields.frais_pc_ttc",
-                        },
-                        "travaux_cumule_pc_ppic_ht": {
-                            "multiple": False,
-                            "order": 13,
-                            "type": "number",
-                            "label": "thematic.fields.travaux_cumule_pc_ppic_ht",
-                            "value": [],
+                            "type": "date",
+                            "label": "thematic.fields.date_vote_ag"
                         },
                         "travaux_pc_ht": {
-                            "order": 7,
-                            "value": [],
                             "multiple": False,
+                            "type": "number",
                             "label": "thematic.fields.travaux_pc_ht",
-                            "type": "number",
+                            "order": 7,
+                            "value": [
+                                300
+                            ]
                         },
-                        "frais_pc_ht": {
-                            "value": [],
-                            "order": 9,
+                        "depense_subventionnable_pc_ht": {
+                            "value": [
+                                15
+                            ],
+                            "label": "thematic.fields.depense_subventionnable_pc_ht",
                             "multiple": False,
-                            "label": "thematic.fields.frais_pc_ht",
+                            "order": 11,
+                            "type": "number"
+                        },
+                        "depense_subventionnable_pc_ppic_ht": {
+                            "value": [],
                             "type": "number",
+                            "label": "thematic.fields.depense_subventionnable_pc_ppic_ht",
+                            "multiple": False,
+                            "order": 17
+                        },
+                        "travaux_cumule_pc_ppic_ttc": {
+                            "multiple": False,
+                            "type": "number",
+                            "order": 14,
+                            "value": [],
+                            "label": "thematic.fields.travaux_cumule_pc_ppic_ttc"
                         },
                         "entreprise_3_poste_plus_couteux": {
                             "type": "string",
                             "value": [],
                             "label": "thematic.fields.entreprise_3_poste_plus_couteux",
-                            "order": 5,
                             "multiple": False,
+                            "order": 5
+                        },
+                        "entreprise_1_poste_plus_couteux": {
+                            "label": "thematic.fields.entreprise_1_poste_plus_couteux",
+                            "type": "string",
+                            "order": 3,
+                            "multiple": False,
+                            "value": []
                         },
                         "frais_cumule_pc_ppic_ttc": {
                             "type": "number",
-                            "value": [],
+                            "multiple": False,
                             "label": "thematic.fields.frais_cumule_pc_ppic_ttc",
                             "order": 16,
-                            "multiple": False,
+                            "value": []
                         },
+                        "frais_pc_ht": {
+                            "multiple": False,
+                            "label": "thematic.fields.frais_pc_ht",
+                            "type": "number",
+                            "order": 9,
+                            "value": [
+                                50
+                            ]
+                        },
+                        "depense_totale_pc_ppic_ttc": {
+                            "order": 18,
+                            "multiple": False,
+                            "type": "number",
+                            "value": [],
+                            "label": "thematic.fields.depense_totale_pc_ppic_ttc"
+                        },
+                        "depense_totale_pc_ttc": {
+                            "value": [
+                                20
+                            ],
+                            "multiple": False,
+                            "order": 12,
+                            "type": "number",
+                            "label": "thematic.fields.depense_totale_pc_ttc"
+                        },
+                        "frais_pc_ttc": {
+                            "order": 10,
+                            "type": "number",
+                            "label": "thematic.fields.frais_pc_ttc",
+                            "multiple": False,
+                            "value": [
+                                75
+                            ]
+                        },
+                        "frais_cumule_pc_ppic_ht": {
+                            "order": 15,
+                            "value": [],
+                            "label": "thematic.fields.frais_cumule_pc_ppic_ht",
+                            "type": "number",
+                            "multiple": False
+                        },
+                        "entreprise_2_poste_plus_couteux": {
+                            "order": 4,
+                            "type": "string",
+                            "value": [],
+                            "multiple": False,
+                            "label": "thematic.fields.entreprise_2_poste_plus_couteux"
+                        },
+                        "nom_campagne_travaux": {
+                            "order": 1,
+                            "label": "thematic.fields.nom_campagne_travaux",
+                            "multiple": False,
+                            "value": [],
+                            "type": "string"
+                        },
+                        "travaux_cumule_pc_ppic_ht": {
+                            "label": "thematic.fields.travaux_cumule_pc_ppic_ht",
+                            "type": "number",
+                            "value": [],
+                            "order": 13,
+                            "multiple": False
+                        },
+                        "nature_travaux_pc": {
+                            "type": "select_multiple",
+                            "multiple": False,
+                            "value": [],
+                            "label": "thematic.fields.nature_travaux_pc",
+                            "endpoint": "/referential/enums/?enums=NatureTravauxPartieCommune",
+                            "order": 6
+                        }
                     }
                 ],
+                "type": "group",
+                "multiple": True
             },
             "commentaire": {
-                "label": "thematic.fields.commentaire",
+                "value": [],
                 "order": 2,
                 "type": "textArea",
-                "multiple": False,
-                "value": [],
-            },
+                "label": "thematic.fields.commentaire",
+                "multiple": False
+            }
         },
+        "metadata": {
+            "id": "Byi1Aofu3LH08ZqujyQb",
+            "order": 1,
+            "label": "thematic.step.TRAVAUX_VOTES_AG_DECOMPOSITION_DEPENSE",
+            "legendes": [],
+            "status": "",
+            "name": "TRAVAUX_VOTES_AG_DECOMPOSITION_DEPENSE"
+        }
     },
     FakeContext(),
 )
