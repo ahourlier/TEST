@@ -36,6 +36,9 @@ class BuildingsResource(AuthenticatedApi):
             copro_id=request.args.get("coproId")
             if request.args.get("coproId") not in [None, ""]
             else None,
+            cs_id=request.args.get("csId")
+            if request.args.get("csId") not in [None, ""]
+            else None,
             user=g.user
         )
 
