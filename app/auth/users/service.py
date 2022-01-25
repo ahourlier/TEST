@@ -231,7 +231,7 @@ class UserService:
         return None
 
     @staticmethod
-    def get_user_groups_from_gsuite(email: str) -> [str] or None:
+    def get_user_groups_from_gsuite(email: str) -> List[str] or None:
         client = CloudIdentityService(os.getenv("TECHNICAL_ACCOUNT_EMAIL")).get()
         groups = []
         error = False

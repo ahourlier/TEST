@@ -28,6 +28,7 @@ SEARCH_LOTS_PARAMS = [
     dict(name="missionId", type=int),
     dict(name="coproId", type=int),
     dict(name="buildingId", type=int),
+    dict(name="csId", type=int),
 ]
 
 
@@ -52,6 +53,9 @@ class LotsResource(AuthenticatedApi):
             else None,
             building_id=request.args.get("buildingId")
             if request.args.get("buildingId") not in [None, ""]
+            else None,
+            cs_id=request.args.get("csId")
+            if request.args.get("csId") not in [None, ""]
             else None,
             user=g.user,
         )

@@ -35,6 +35,7 @@ SEARCH_COPRO_PARAMS = [
     dict(name="sortBy", type=str),
     dict(name="sortDirection", type=str),
     dict(name="missionId", type=str),
+    dict(name="csId", type=int),
 ]
 
 
@@ -57,6 +58,9 @@ class CoprosResource(AuthenticatedApi):
             direction=request.args.get("sortDirection", COPRO_DEFAULT_SORT_DIRECTION),
             mission_id=request.args.get("missionId")
             if request.args.get("missionId") not in [None, ""]
+            else None,
+            cs_id=request.args.get("csId")
+            if request.args.get("csId") not in [None, ""]
             else None,
             user=g.user,
         )

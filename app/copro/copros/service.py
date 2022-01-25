@@ -46,6 +46,7 @@ class CoproService:
         sort_by=COPRO_DEFAULT_SORT_FIELD,
         direction=COPRO_DEFAULT_SORT_DIRECTION,
         mission_id=None,
+        cs_id=None,
         user=None,
     ) -> Pagination:
         import app.mission.permissions as mission_permissions
@@ -67,6 +68,9 @@ class CoproService:
 
         if mission_id is not None:
             q = q.filter(Copro.mission_id == mission_id)
+        
+        if cs_id is not None:
+            q = q.filter(Copro.cs_id == cs_id)
 
         if user is not None and user.role != UserRole.ADMIN:
             q = q.join(Mission)
