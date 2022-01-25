@@ -4,7 +4,7 @@ from app.common.base_model import BaseMixin
 
 
 class Address(BaseMixin, db.Model):
-    """ Represents a phone number """
+    """Represents a phone number"""
 
     __tablename__ = "address"
 

@@ -27,9 +27,8 @@ def on_update(data, context):
         print(f"document with id {thematique_id} not found")
         return f"document with id {thematique_id} not found"
 
-    step = client.document(
-        f"thematiques/{thematique_id}/steps/{step_id}").get()
-    
+    step = client.document(f"thematiques/{thematique_id}/steps/{step_id}").get()
+
     if not step.exists:
         print(f"step not found for id '{step_id}'")
         return f"step not found for id '{step_id}'"

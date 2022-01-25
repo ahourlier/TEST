@@ -159,9 +159,7 @@ def process_subitems(
     else:
         count = lot_fields[step_dict.get("metadata").get("name")]
 
-    update_payload = {
-        "fields": {}
-    }
+    update_payload = {"fields": {}}
     for child_thematique in children_thematiques:
         # for each children thematique, add the fields of the updated step to the count
         # first find the correspondant step for the current thematique
@@ -183,11 +181,10 @@ def process_subitems(
         parent_id=parent_id,
         firestore_client=firestore_client,
         thematique_dict=thematique_dict,
-        step_name=step_dict.get('metadata').get('name')
+        step_name=step_dict.get("metadata").get("name"),
     )
 
-    update_payload["fields"] = get_update_payload(
-        update_payload["fields"], count)
+    update_payload["fields"] = get_update_payload(update_payload["fields"], count)
     firestore_helper.update_item(
         {
             "resource_id": parent_id,
@@ -196,13 +193,15 @@ def process_subitems(
             "version_date": thematique_dict.get("version_date"),
             "thematique_name": thematique_dict.get("thematique_name"),
         },
-        step_dict.get('metadata').get('name'),
+        step_dict.get("metadata").get("name"),
         update_payload,
-        firestore_client
+        firestore_client,
     )
 
 
-def find_parent_step(parent_scope, parent_id, thematique_dict, firestore_client, step_name):
+def find_parent_step(
+    parent_scope, parent_id, thematique_dict, firestore_client, step_name
+):
     parent_thematique = firestore_helper.search_thematic(
         {
             "scope": parent_scope,
@@ -216,12 +215,8 @@ def find_parent_step(parent_scope, parent_id, thematique_dict, firestore_client,
     if not len(parent_thematique):
         print(f"thematique for {parent_scope} not found")
         return
-    step = firestore_helper.search_step(
-        parent_thematique[0], step_name
-    )
+    step = firestore_helper.search_step(parent_thematique[0], step_name)
     if not len(step):
-        print(
-            f"{step_name}: step not found for {parent_scope} {parent_id}"
-        )
+        print(f"{step_name}: step not found for {parent_scope} {parent_id}")
         return
     return step[0].to_dict()

@@ -51,7 +51,7 @@ class TemplatingUtils:
 
     @staticmethod
     def extract_placeholders(g_docs):
-        """ Extract placeholders identified by the syntax "{{...}}" in a google docs."""
+        """Extract placeholders identified by the syntax "{{...}}" in a google docs."""
         if type(g_docs) == "dict":
             doc_str = json.dumps(g_docs)
         if type(g_docs) == "str":
@@ -63,7 +63,7 @@ class TemplatingUtils:
 
     @staticmethod
     def get_changes_mapper(placeholders: List, project_id: int):
-        """ Return a changes_mapper dict such as each key is the original placeholder
+        """Return a changes_mapper dict such as each key is the original placeholder
         and each value is the corresponding data based on the provided project.
         Log invalid values/placeholders"""
         project = projects_service.ProjectService.get_by_id(project_id)
@@ -130,7 +130,7 @@ class TemplatingUtils:
 
     @staticmethod
     def fetch_raw_value(field: str, project):
-        """ Based on a string field chain such as "requester.last_name",
+        """Based on a string field chain such as "requester.last_name",
         return the corresponding value"""
         if field.startswith("$"):
             return TemplatingUtils.fetch_custom_field_value(field, project)
@@ -142,7 +142,7 @@ class TemplatingUtils:
     @staticmethod
     def fetch_custom_field_value(field: str, project):
         """Fetch value from a custom field placeholder identified as '$my_custom_field'
-        If custom_field has multiple values, retrieves item of the list identified by his index : '$my_custom_field/index' """
+        If custom_field has multiple values, retrieves item of the list identified by his index : '$my_custom_field/index'"""
         field = field[1:]
         splitted_field = field.split("/")
         project_custom_field = (
@@ -179,7 +179,7 @@ class TemplatingUtils:
     def fetch_monitoring_field_value(field: str, project):
         """Fetch value from a monitoring field placeholder identified as '&my_monitoring_field'
         If monitoring_field has multiple values (one for each funder associated to the project,
-        retrieves item of the list identified by his index : '&my_monitoring_field/index' """
+        retrieves item of the list identified by his index : '&my_monitoring_field/index'"""
         field = field[1:]
         splitted_field = field.split("/")
         funder_monitoring_values = (
@@ -217,7 +217,7 @@ class TemplatingUtils:
 
     @staticmethod
     def fetch_standard_field_value(field_chain: str, entity):
-        """ From a provided field chain such as "requester.last_name",
+        """From a provided field chain such as "requester.last_name",
         search recursively into the base entity for the corresponding value"""
         splitted_field = field_chain.split(".")
         if entity is None:
@@ -246,7 +246,7 @@ class TemplatingUtils:
     @staticmethod
     def fetch_sub_entity(field: str, entity):
         """From a given entity, returns the sub_entity matching the provided field.
-        If the field is a list, retrieves item identified by his index : 'field/index' """
+        If the field is a list, retrieves item identified by his index : 'field/index'"""
         if "/" in field:
             splitted_field = field.split("/")
             if len(splitted_field) == 2 and splitted_field[1].isdecimal():

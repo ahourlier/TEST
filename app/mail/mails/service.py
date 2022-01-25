@@ -51,7 +51,7 @@ class EmailService:
 
     @staticmethod
     def create(new_attrs: dict, user: User) -> Email:
-        """ Create a new email to be sent """
+        """Create a new email to be sent"""
 
         if user.kind != UserKind.EMPLOYEE:
             raise EmailNotInternalSenderException

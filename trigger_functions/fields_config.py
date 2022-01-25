@@ -9,6 +9,4 @@ building_fields = {
     }
 }
 
-lot_fields = {
-
-}
+lot_fields = {}

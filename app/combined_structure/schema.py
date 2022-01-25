@@ -8,7 +8,6 @@ from app.copro.president.schema import PresidentSchema, PresidentCreateSchema
 from app.copro.syndic.schema import SyndicSchema, SyndicCreateSchema
 
 
-
 class CombinedStructureCreateSchema(SQLAlchemyAutoSchema):
     president = fields.Nested(PresidentCreateSchema())
     president_id = fields.Integer(allow_none=True, required=False)
@@ -38,4 +37,3 @@ class CombinedStructureSchema(SQLAlchemyAutoSchema):
 
 class CombinedStructurePaginatedSchema(PaginatedSchema):
     items = fields.Nested(CombinedStructureSchema(), many=True, dump_only=True)
-

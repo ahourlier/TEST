@@ -21,12 +21,12 @@ from ...common.search import SEARCH_PARAMS
 
 @api.route("/")
 class AgencyResource(AuthenticatedApi):
-    """ Agencies """
+    """Agencies"""
 
     @accepts(*SEARCH_PARAMS, api=api)
     @responds(schema=AgencyPaginatedSchema())
     def get(self) -> Pagination:
-        """ Get all agencies """
+        """Get all agencies"""
         return AgencyService.get_all(
             page=int(request.args.get("page", AGENCIES_DEFAULT_PAGE)),
             size=int(request.args.get("size", AGENCIES_DEFAULT_PAGE_SIZE)),
@@ -41,7 +41,7 @@ class AgencyResource(AuthenticatedApi):
     @responds(schema=AgencySchema)
     @requires(is_admin)
     def post(self) -> Agency:
-        """ Create an agency """
+        """Create an agency"""
 
         return AgencyService.create(request.parsed_obj)
 
@@ -51,7 +51,7 @@ class AgencyResource(AuthenticatedApi):
 class AgencyIdResource(AuthenticatedApi):
     @responds(schema=AgencySchema)
     def get(self, agency_id: int) -> Agency:
-        """ Get single agency """
+        """Get single agency"""
 
         return AgencyService.get_by_id(agency_id)
 

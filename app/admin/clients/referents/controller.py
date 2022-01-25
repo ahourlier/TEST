@@ -28,18 +28,18 @@ from .service import (
 
 @api.route("/")
 class ReferentResource(AuthenticatedApi):
-    """ Referents """
+    """Referents"""
 
     # @responds(schema=ReferentSchema)
     def get(self):
-        """ Get all referents """
+        """Get all referents"""
         return ReferentService.get_all()
 
     @accepts(schema=ReferentSchema, api=api)
     @responds(schema=ReferentSchema)
     @requires(is_manager)
     def post(self) -> Referent:
-        """ Create a referent """
+        """Create a referent"""
         return ReferentService.create(request.parsed_obj)
 
 
@@ -48,7 +48,7 @@ class ReferentResource(AuthenticatedApi):
 class ReferentIdResource(AuthenticatedApi):
     @responds(schema=ReferentSchema)
     def get(self, referent_id: int) -> Referent:
-        """ Get single referent """
+        """Get single referent"""
 
         return ReferentService.get_by_id(referent_id)
 

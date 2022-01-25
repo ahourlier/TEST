@@ -58,7 +58,9 @@ class ProjectDeleteFilesView(InternalAPIView):
                 queue=PROJECT_INIT_QUEUE_NAME,
                 uri=f"{os.getenv('API_URL')}/_internal/projects/init-drive",
                 method="POST",
-                payload={"project_id": db_project.id,},
+                payload={
+                    "project_id": db_project.id,
+                },
             )
 
             return "Success"

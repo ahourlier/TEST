@@ -8,7 +8,7 @@ from app.common.base_model import BaseMixin
 
 
 class Scenario(BaseMixin, db.Model):
-    """ Scenario  """
+    """Scenario"""
 
     __tablename__ = "scenario"
     id = Column(Integer(), primary_key=True, autoincrement=True)

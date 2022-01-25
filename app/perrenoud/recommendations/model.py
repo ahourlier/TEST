@@ -6,7 +6,7 @@ from app.common.base_model import BaseMixin
 
 
 class Recommendation(BaseMixin, db.Model):
-    """ Disorder  """
+    """Disorder"""
 
     __tablename__ = "recommendation"
 

@@ -27,12 +27,12 @@ SEARCH_PARAMS = [
 
 @api.route("")
 class PersonResource(AuthenticatedApi):
-    """ Person """
+    """Person"""
 
     @accepts(*SEARCH_PARAMS, api=api)
     @responds(schema=PersonPaginatedSchema())
     def get(self) -> Pagination:
-        """ Get all clients """
+        """Get all clients"""
         return PersonService.get_all(
             page=int(request.args.get("page", PERSON_DEFAULT_PAGE)),
             size=int(request.args.get("size", PERSON_DEFAULT_PAGE_SIZE)),
@@ -48,30 +48,30 @@ class PersonResource(AuthenticatedApi):
     @responds(schema=PersonSchema)
     # @requires(is_manager)
     def post(self) -> Person:
-        """ Create a client """
+        """Create a client"""
         return PersonService.create(request.parsed_obj)
 
 
 @api.route("/<int:person_id>")
 @api.param("PersonId", "Person unique id")
 class PersonIdResource(AuthenticatedApi):
-    """ Person id resource """
+    """Person id resource"""
 
     @responds(schema=PersonSchema())
     def get(self, person_id: int):
-        """ Get one person """
+        """Get one person"""
         return PersonService.get(person_id)
 
     @accepts(schema=PersonSchema, api=api)
     @responds(schema=PersonSchema)
     # @requires(is_manager)
     def put(self, person_id: int) -> Person:
-        """ Update a person """
+        """Update a person"""
         db_person = PersonService.get(person_id)
         return PersonService.update(db_person, request.parsed_obj)
 
     # @requires(is_manager)
     def delete(self, person_id: int) -> Response:
-        """ Update a person """
+        """Update a person"""
         id = PersonService.delete(person_id)
         return jsonify(dict(status="Success", id=id))

@@ -20,12 +20,12 @@ from ...common.search import SEARCH_PARAMS
 
 @api.route("/")
 class QuoteResource(AuthenticatedApi):
-    """ Quotes """
+    """Quotes"""
 
     @accepts(*SEARCH_PARAMS, dict(name="project_id", type=int), api=api)
     @responds(schema=QuotePaginatedSchema())
     def get(self) -> Pagination:
-        """ Get all quotes """
+        """Get all quotes"""
         return QuoteService.get_all(
             page=int(request.args.get("page", QUOTES_DEFAULT_PAGE)),
             size=int(request.args.get("size", QUOTES_DEFAULT_PAGE_SIZE)),
@@ -41,7 +41,7 @@ class QuoteResource(AuthenticatedApi):
     @responds(schema=QuoteSchema)
     @requires(has_project_permission)
     def post(self) -> Quote:
-        """ Create a quote """
+        """Create a quote"""
         return QuoteService.create(request.parsed_obj)
 
 
@@ -50,7 +50,7 @@ class QuoteResource(AuthenticatedApi):
 class QuoteIdResource(AuthenticatedApi):
     @responds(schema=QuoteSchema)
     def get(self, quote_id: int) -> Quote:
-        """ Get single quote """
+        """Get single quote"""
 
         return QuoteService.get_by_id(quote_id)
 

@@ -6,7 +6,7 @@ from app.common.base_model import BaseMixin
 
 
 class ProjectLead(BaseMixin, db.Model):
-    """ Supervisor """
+    """Supervisor"""
 
     __tablename__ = "project_lead"
 

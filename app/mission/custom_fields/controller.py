@@ -19,7 +19,7 @@ from ...common.search import SEARCH_PARAMS
 
 @api.route("/")
 class CustomFieldResource(AuthenticatedApi):
-    """ CustomFields """
+    """CustomFields"""
 
     @accepts(
         *SEARCH_PARAMS,
@@ -30,7 +30,7 @@ class CustomFieldResource(AuthenticatedApi):
     )
     @responds(schema=CustomFieldPaginatedSchema())
     def get(self) -> Pagination:
-        """ Get all custom_fields """
+        """Get all custom_fields"""
         return CustomFieldService.get_all(
             page=int(request.args.get("page", CUSTOM_FIELDS_DEFAULT_PAGE)),
             size=int(request.args.get("size", CUSTOM_FIELDS_DEFAULT_PAGE_SIZE)),
@@ -53,7 +53,7 @@ class CustomFieldResource(AuthenticatedApi):
     @accepts(schema=CustomFieldSchema, api=api)
     @responds(schema=CustomFieldSchema)
     def post(self) -> CustomField:
-        """ Create an custom_field """
+        """Create an custom_field"""
         return CustomFieldService.create(request.parsed_obj)
 
 
@@ -62,7 +62,7 @@ class CustomFieldResource(AuthenticatedApi):
 class CustomFieldIdResource(AuthenticatedApi):
     @responds(schema=CustomFieldSchema)
     def get(self, custom_field_id: int) -> CustomField:
-        """ Get single custom_field """
+        """Get single custom_field"""
 
         return CustomFieldService.get_by_id(custom_field_id)
 

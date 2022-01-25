@@ -18,7 +18,7 @@ class HeatingService:
 
     @staticmethod
     def create(new_attrs: HeatingInterface, scenario_id=None, commit=True) -> Heating:
-        """ Create a new heating"""
+        """Create a new heating"""
         if scenario_id is not None:
             new_attrs["scenario_id"] = scenario_id
         scenarios_service.ScenarioService.get_by_id(new_attrs.get("scenario_id"))
@@ -92,7 +92,7 @@ class HeatingService:
 
     @staticmethod
     def duplicate(base_heating, clone_scenario_parent_id):
-        """ Duplicate a heating"""
+        """Duplicate a heating"""
         fields_to_treat_separately = ["scenario_id"]
         base_fields = ServicesUtils.fetch_dict_fields_from_object(
             base_heating, extra_fields_to_remove=fields_to_treat_separately
