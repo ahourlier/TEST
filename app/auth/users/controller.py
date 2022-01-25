@@ -32,7 +32,7 @@ from ...common.search import SEARCH_PARAMS
 
 @api.route("/me")
 class UserMe(AuthenticatedApi):
-    """ Current user profile """
+    """Current user profile"""
 
     @responds(schema=UserAuthSchema)
     def get(self):
@@ -44,7 +44,7 @@ class UserMe(AuthenticatedApi):
 
 @api.route("/")
 class UsersResource(AuthenticatedApi):
-    """ users/collaborators api """
+    """users/collaborators api"""
 
     @accepts(
         *SEARCH_PARAMS,
@@ -55,7 +55,7 @@ class UsersResource(AuthenticatedApi):
     )
     @responds(schema=UserPaginatedSchema())
     def get(self) -> Pagination:
-        """ Get all users """
+        """Get all users"""
         return UserService.get_all(
             page=int(request.args.get("page", USERS_DEFAULT_PAGE)),
             size=int(request.args.get("size", USERS_DEFAULT_PAGE_SIZE)),
@@ -73,7 +73,7 @@ class UsersResource(AuthenticatedApi):
     @responds(schema=UserSchema)
     @requires(is_admin)
     def post(self) -> User:
-        """ Create an user """
+        """Create an user"""
         return UserService.create(request.parsed_obj)
 
 
@@ -82,7 +82,7 @@ class UsersResource(AuthenticatedApi):
 class UserIdResource(AuthenticatedApi):
     @responds(schema=UserSchema)
     def get(self, user_id: int) -> User:
-        """ Get single user """
+        """Get single user"""
 
         return UserService.get_by_id(user_id)
 
@@ -109,9 +109,11 @@ class UserIdResource(AuthenticatedApi):
 class UserByMissionResource(AuthenticatedApi):
     @responds(schema=UsersInItemsSchema())
     @accepts(
-        dict(name="term", type=str), api=api,
+        dict(name="term", type=str),
+        api=api,
     )
     def get(self, mission_id: int):
         return UserService.list_users_by_mission_id(
-            mission_id, term=request.args.get("term"),
+            mission_id,
+            term=request.args.get("term"),
         )

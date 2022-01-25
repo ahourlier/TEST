@@ -71,7 +71,7 @@ class ProjectDateStatus(Enum):
 
 
 class Project(BaseMixin, db.Model):
-    """ Project  """
+    """Project"""
 
     __tablename__ = "project"
 

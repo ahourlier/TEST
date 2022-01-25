@@ -1,4 +1,14 @@
-from sqlalchemy import Column, Date, Integer, Text, ForeignKey, String, Boolean, Float, BigInteger
+from sqlalchemy import (
+    Column,
+    Date,
+    Integer,
+    Text,
+    ForeignKey,
+    String,
+    Boolean,
+    Float,
+    BigInteger,
+)
 from sqlalchemy.orm import relationship
 from app.copro.president import President
 from app import db
@@ -54,4 +64,3 @@ class CombinedStructure(SoftDeletableMixin, BaseMixin, db.Model):
     other_technical_equipments = Column(Boolean(), nullable=True)
     # commentaires / precisions
     comment = Column(Text(), nullable=True)
-

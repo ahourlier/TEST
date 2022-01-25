@@ -8,8 +8,8 @@ import app.perrenoud.scenarios.service as scenarios_service
 
 class RecommendationService:
     def get_possible_recommendations_entities(scenario_id: str):
-        """ From a given scenario_id, fetch all heatings, hot_waters and walls that
-        can possibly be injected as recommendations elements """
+        """From a given scenario_id, fetch all heatings, hot_waters and walls that
+        can possibly be injected as recommendations elements"""
         db_scenario = scenarios_service.ScenarioService.get_by_id(scenario_id)
         entities = db_scenario.walls + db_scenario.heatings + db_scenario.hot_waters
         entities_list = []
@@ -26,7 +26,7 @@ class RecommendationService:
 
     @staticmethod
     def create(new_attrs, scenario_id=None, commit=True) -> Recommendation:
-        """ Create a new recommendation """
+        """Create a new recommendation"""
         new_attrs = RecommendationService.reformat_payload(new_attrs)
         if scenario_id is not None:
             new_attrs["scenario_id"] = scenario_id
@@ -39,7 +39,7 @@ class RecommendationService:
 
     @staticmethod
     def reformat_payload(payload):
-        """ Reformat recommendation payload from a schema based format to a flat, sql alchemy format"""
+        """Reformat recommendation payload from a schema based format to a flat, sql alchemy format"""
         new_attrs = {
             "scenario_id": payload.get("scenario_id"),
             "recommendation": payload.get("recommendation"),
@@ -54,7 +54,7 @@ class RecommendationService:
 
     @staticmethod
     def recreate_all(scenario_id, recommendations_list: List):
-        """ Reemplace all recommendations from a given scenario by newly created recommendations"""
+        """Reemplace all recommendations from a given scenario by newly created recommendations"""
         scenario = scenarios_service.ScenarioService.get_by_id(scenario_id)
         scenario.recommendations = []
         for new_recommendation in recommendations_list:
@@ -68,7 +68,7 @@ class RecommendationService:
         clone_heating_parent_id=None,
         clone_hot_water_parent_id=None,
     ):
-        """ Duplicate a recommendation, based on provided cloned parents id"""
+        """Duplicate a recommendation, based on provided cloned parents id"""
         fields_to_treat_separately = [
             "scenario_id",
             "heating_id",
@@ -102,7 +102,7 @@ class RecommendationService:
 
     @staticmethod
     def duplicate_all_from_scenario(base_scenario, clone_scenario, children_id_maps):
-        """ Duplicate all recommendations within a base_scenario"""
+        """Duplicate all recommendations within a base_scenario"""
         for recommendation in base_scenario.recommendations:
             clone_wall_parent_id = None
             clone_heating_parent_id = None

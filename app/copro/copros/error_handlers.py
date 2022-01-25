@@ -3,7 +3,7 @@ from .exceptions import (
     CoproNotFoundException,
     MissionNotTypeCoproException,
     RepartitionKeyLinkedException,
-    PresidentNotFoundException
+    PresidentNotFoundException,
 )
 from ...common.error_handlers import parse_exception
 from ...common.exceptions import EnumException
@@ -27,6 +27,7 @@ def repartition_key_linked(error):  # pragma: no cover
 @api.errorhandler(EnumException)
 def enum_exception(error):  # pragma: no cover
     return parse_exception(error)
+
 
 @api.errorhandler(PresidentNotFoundException)
 def president_not_found_exception(error):  # pragma: no cover

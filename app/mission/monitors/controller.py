@@ -13,7 +13,7 @@ from ...common.api import AuthenticatedApi
 class MonitorIdResource(AuthenticatedApi):
     @responds(schema=MonitorSchema)
     def get(self, monitor_id: int) -> Monitor:
-        """ Get single monitor """
+        """Get single monitor"""
 
         return MonitorService.get_by_id(monitor_id)
 
@@ -32,7 +32,7 @@ class MonitorIdResource(AuthenticatedApi):
 class MonitorMissionIdResource(AuthenticatedApi):
     @responds(schema=MonitorSchema)
     def get(self, mission_id: int) -> Monitor:
-        """ Get single monitor """
+        """Get single monitor"""
         return MonitorService.get_by_mission_id(mission_id)
 
 

@@ -47,7 +47,7 @@ from ...common.tasks import create_task
 
 @api.route("/")
 class ProjectResource(AuthenticatedApi):
-    """ Projects """
+    """Projects"""
 
     @filter_response_with_clients_access(
         projects_permissions.ProjectPermission.filter_projects_list_fields
@@ -64,7 +64,7 @@ class ProjectResource(AuthenticatedApi):
     )
     @responds(schema=ProjectPaginatedSchema(), api=api)
     def get(self) -> Pagination:
-        """ Get all projects """
+        """Get all projects"""
         return ProjectService.get_all(
             page=int(request.args.get("page", PROJECTS_DEFAULT_PAGE)),
             size=int(request.args.get("size", PROJECTS_DEFAULT_PAGE_SIZE)),
@@ -94,7 +94,7 @@ class ProjectResource(AuthenticatedApi):
     @responds(schema=ProjectCreationSchema(), api=api)
     @requires(has_mission_permission)
     def post(self) -> Project:
-        """ Create a project """
+        """Create a project"""
         return ProjectService.create(request.parsed_obj)
 
 
@@ -108,7 +108,7 @@ class ProjectIdResource(AuthenticatedApi):
     @responds(schema=ProjectSchema(), api=api)
     @requires(has_project_employee_or_client_permission)
     def get(self, project_id: int) -> Project:
-        """ Get single project """
+        """Get single project"""
         db_project = ProjectService.get_by_id(project_id)
         if (
             db_project.requester
@@ -154,7 +154,9 @@ class ProjectIdResource(AuthenticatedApi):
                     queue=PROJECT_INIT_QUEUE_NAME,
                     uri=f"{os.getenv('API_URL')}/_internal/projects/init-drive",
                     method="POST",
-                    payload={"project_id": db_project.id,},
+                    payload={
+                        "project_id": db_project.id,
+                    },
                 )
 
         return db_project
@@ -179,21 +181,24 @@ class ProjectIdResource(AuthenticatedApi):
 
 @api.route("/delete-multiple/")
 class ProjectDeleteAllResource(AuthenticatedApi):
-    """ Projects """
+    """Projects"""
 
     @accepts(
-        schema=ProjectDeleteMultipleSchema(), api=api,
+        schema=ProjectDeleteMultipleSchema(),
+        api=api,
     )
     @requires(has_multiple_projects_permission)
     def put(self) -> Response:
         """Delete multiple project"""
-        projects_id = ProjectService.delete_list(request.parsed_obj.get("projects_id"),)
+        projects_id = ProjectService.delete_list(
+            request.parsed_obj.get("projects_id"),
+        )
         return jsonify(dict(status="Success", projects_id=projects_id))
 
 
 @api.route("/anonymize-multiple/")
 class ProjectAnonymizeAllResource(AuthenticatedApi):
-    """ Projects anonymization """
+    """Projects anonymization"""
 
     @accepts(
         dict(name="delete_documents", type=inputs.boolean),
@@ -241,27 +246,33 @@ class ProjectDocumentResource(AuthenticatedApi):
 
 @api.route("/locations/")
 class ProjectLocation(AuthenticatedApi):
-    """ Projects locations """
+    """Projects locations"""
 
     @accepts(
-        *SEARCH_PARAMS, api=api,
+        *SEARCH_PARAMS,
+        api=api,
     )
     # @requires(has_multiple_projects_permission)
     def get(self) -> Response:
         """Search possible project locations"""
-        locations = ProjectService.get_project_locations(term=request.args.get("term"),)
+        locations = ProjectService.get_project_locations(
+            term=request.args.get("term"),
+        )
         return jsonify(dict(status="Success", items=locations))
 
 
 @api.route("/fields/")
 class ProjectFields(AuthenticatedApi):
-    """ Projects fields """
+    """Projects fields"""
 
     @accepts(
-        *SEARCH_PARAMS, api=api,
+        *SEARCH_PARAMS,
+        api=api,
     )
     # @requires(has_multiple_projects_permission)
     def get(self) -> Response:
         """Search possible project fields for filter"""
-        fields = ProjectService.get_project_fields(term=request.args.get("term"),)
+        fields = ProjectService.get_project_fields(
+            term=request.args.get("term"),
+        )
         return jsonify(dict(status="Success", items=fields))

@@ -8,7 +8,7 @@ from app.common.phone_number.model import HasPhones, PhoneNumber
 
 
 class Task(SoftDeletableMixin, BaseMixin, db.Model):
-    """ Represents a task """
+    """Represents a task"""
 
     __tablename__ = "task"
 

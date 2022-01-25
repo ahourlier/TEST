@@ -35,9 +35,6 @@ def update_item(version_details, step_name, changes, firestore_client):
     if not len(thematics_found):
         print(f"{step_name} not found in thematic with these details")
         print(version_details)
-    
+
     step = step[0]
-    step.reference.set(
-        changes,
-        merge=True
-    )
+    step.reference.set(changes, merge=True)

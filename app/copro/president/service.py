@@ -7,7 +7,6 @@ from app.copro.president.model import President
 
 
 class PresidentService:
-
     @staticmethod
     def get(president_id: int) -> President:
         president = President.query.get(president_id)

@@ -1,7 +1,7 @@
 from werkzeug.exceptions import HTTPException
 from app.common.config_error_messages import (
     BUILDING_NOT_FOUND_EXCEPTION,
-    KEY_BUILDING_NOT_FOUND_EXCEPTION
+    KEY_BUILDING_NOT_FOUND_EXCEPTION,
 )
 
 
@@ -12,4 +12,3 @@ class CombinedStructureNotFoundException(HTTPException):
         self.key = KEY_BUILDING_NOT_FOUND_EXCEPTION
         self.message = message
         self.status = "NOT FOUND"
-

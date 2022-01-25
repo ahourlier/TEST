@@ -35,7 +35,8 @@ SEARCH_LOTS_PARAMS = [
 @api.route("")
 class LotsResource(AuthenticatedApi):
     @accepts(
-        *SEARCH_LOTS_PARAMS, api=api,
+        *SEARCH_LOTS_PARAMS,
+        api=api,
     )
     @responds(schema=LotPaginatedSchema(), api=api)
     @requires(has_lot_list_permissions)

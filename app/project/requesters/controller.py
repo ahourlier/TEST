@@ -17,7 +17,7 @@ from ...common.search import SEARCH_PARAMS
 
 @api.route("/")
 class RequesterResource(AuthenticatedApi):
-    """ Requesters """
+    """Requesters"""
 
     @accepts(
         *SEARCH_PARAMS,
@@ -30,7 +30,7 @@ class RequesterResource(AuthenticatedApi):
     )
     @responds(schema=RequesterPaginatedSchema)
     def get(self) -> Pagination:
-        """ Get all requesters """
+        """Get all requesters"""
         return RequesterService.get_all(
             page=int(request.args.get("page", REQUESTERS_DEFAULT_PAGE)),
             size=int(request.args.get("size", REQUESTERS_DEFAULT_PAGE_SIZE)),
