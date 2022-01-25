@@ -15,6 +15,7 @@ class PresidentSchema(SQLAlchemyAutoSchema):
 class PresidentCreateSchema(SQLAlchemyAutoSchema):
     phone_number = fields.Nested(PhoneNumberSchema(), allow_none=True)
     copro_id = fields.Integer(allow_none=True, required=False)
+    cs_id = fields.Integer(allow_none=True, required=False)
 
     class Meta:
         model = President

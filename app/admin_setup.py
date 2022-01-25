@@ -1,5 +1,6 @@
 from app.referential.enums import AppEnum
 from app.referential.enums.admin import (
+    CombinedStructureType,
     ProjectStatusAdminView,
     MissionStatusAdminView,
     ProjectContactSource,
@@ -462,5 +463,14 @@ def register_admin_views(admin, db):
             "Nature aide",
             url="nature-aide",
             endpoint="manage_nature_aide",
+        )
+    )
+    admin.add_view(
+        CombinedStructureType(
+            AppEnum,
+            db.session,
+            "Type de Structure Combinée",
+            url="combined-structure-type",
+            endpoint="manage_combined_structure_type",
         )
     )

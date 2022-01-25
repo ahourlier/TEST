@@ -20,7 +20,7 @@ try:
     # on GCP.
     googlecloudprofiler.start(verbose=3)
 except (ValueError, NotImplementedError) as exc:
-    print(exc)  # Handle errors here
+    pass  # Handle errors here
 
 app = create_app(os.getenv("FLASK_ENV") or "test")
 if __name__ == "__main__":

@@ -2,6 +2,7 @@ import functools
 from enum import Enum
 
 from flask import request, g
+from app.combined_structure.service import CombinedStructureService
 
 from app.funder.funders.service import FunderService
 from app.auth.users.model import UserRole
@@ -253,7 +254,21 @@ def has_lot_list_permissions(user):
     return True
 
 
+def has_combined_structure_permissions(user):
+    cs_id = PermissionsUtils.get_entity_id("cs_id")
+    if not cs_id:
+        cs_id = PermissionsUtils.get_entity_id("csId")
+    if not cs_id:
+        return True
+    return check_combined_structure_permissions(cs_id, user)
+
+
+
 # check helpers
+
+def check_combined_structure_permissions(cs_id, user):
+    cs = CombinedStructureService.get(cs_id)
+    return check_mission_permissions(cs.mission_id, user)
 
 
 def check_mission_permissions(mission_id, user):
