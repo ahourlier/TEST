@@ -26,7 +26,7 @@ class DriveUtils:
     def create_shared_drive(
         name, user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL"), client=None
     ):
-        """ Creates a shared drive using provided name and user_email """
+        """Creates a shared drive using provided name and user_email"""
         if not client:
             client = DriveService(user_email).get()
         try:
@@ -49,7 +49,7 @@ class DriveUtils:
         client=None,
         batch=False,
     ):
-        """ Creates a folder using provided name and user_email in the parent_id """
+        """Creates a folder using provided name and user_email in the parent_id"""
         if not client:
             client = DriveService(user_email).get()
         try:
@@ -112,7 +112,7 @@ class DriveUtils:
     def rename_shared_drive(
         sd_id, name, user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL"), client=None
     ):
-        """ Rename shared drive sd_id with provided name """
+        """Rename shared drive sd_id with provided name"""
         if not client:
             client = DriveService(user_email).get()
         try:
@@ -138,7 +138,7 @@ class DriveUtils:
         client=None,
         fields="id",
     ):
-        """ Copy a file to the destination folder """
+        """Copy a file to the destination folder"""
         if not client:
             client = DriveService(user_email).get()
         try:
@@ -181,7 +181,7 @@ class DriveUtils:
         user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL"),
         client=None,
     ):
-        """ Get a file """
+        """Get a file"""
         if not client:
             client = DriveService(user_email).get()
         try:
@@ -202,7 +202,7 @@ class DriveUtils:
         user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL"),
         client=None,
     ):
-        """ List files """
+        """List files"""
         if not client:
             client = DriveService(user_email).get()
 
@@ -242,7 +242,7 @@ class DriveUtils:
     def update_file(
         file_id, payload, user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL"), client=None
     ):
-        """ Update File """
+        """Update File"""
         if not client:
             client = DriveService(user_email).get()
         try:
@@ -263,7 +263,7 @@ class DriveUtils:
         file_id, user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL"), client=None
     ):
 
-        """ Delete File """
+        """Delete File"""
         if not client:
             client = DriveService(user_email).get()
         try:
@@ -289,7 +289,7 @@ class DriveUtils:
 
     @staticmethod
     def export_file(file_id, user_email, mime_type="application/pdf", client=None):
-        """ Export a file to the given mime_type """
+        """Export a file to the given mime_type"""
         if not client:
             client = DriveService(user_email).get()
 
@@ -302,7 +302,7 @@ class DriveUtils:
 
     @staticmethod
     def download_file(file_id, user_email, client=None):
-        """ Download a file """
+        """Download a file"""
         if not client:
             client = DriveService(user_email).get()
 
@@ -350,7 +350,7 @@ class DriveUtils:
         properties=None,
         client=None,
     ):
-        """ Upload a file from the provided server path"""
+        """Upload a file from the provided server path"""
         if not client:
             client = DriveService(user_email).get()
         file_metadata = {"name": filename, "parents": [parent_folder_id]}

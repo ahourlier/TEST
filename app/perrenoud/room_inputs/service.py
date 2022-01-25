@@ -32,11 +32,14 @@ class RoomInputService:
     def create(
         new_attrs: RoomInputInterface, kind, room_id=None, commit=True
     ) -> RoomInput:
-        """ Create a new room_input"""
+        """Create a new room_input"""
         inputs_kind = [input_kind.value for input_kind in RoomInputKinds]
         fields_to_remove = inputs_kind.copy()
         fields_to_remove.extend(["heating", "areas"])
-        extracted_fields = ServicesUtils.clean_attrs(new_attrs, fields_to_remove,)
+        extracted_fields = ServicesUtils.clean_attrs(
+            new_attrs,
+            fields_to_remove,
+        )
         if room_id is not None:
             new_attrs["room_id"] = room_id
         rooms_service.RoomService.get_by_id(new_attrs.get("room_id"))
@@ -66,7 +69,10 @@ class RoomInputService:
             inputs_kind = [input_kind.value for input_kind in RoomInputKinds]
             fields_to_remove = inputs_kind.copy()
             fields_to_remove.extend(["heating", "areas"])
-            extracted_fields = ServicesUtils.clean_attrs(changes, fields_to_remove,)
+            extracted_fields = ServicesUtils.clean_attrs(
+                changes,
+                fields_to_remove,
+            )
             if RoomInputService.is_type_forbidden(changes, room_input):
                 raise TypeRoomInputInUseException()
             room_input.update(changes)
@@ -164,7 +170,7 @@ class RoomInputService:
         clone_ceiling_parent_id=None,
         clone_floor_parent_id=None,
     ):
-        """ Duplicate a room_input, based on provided cloned parents id"""
+        """Duplicate a room_input, based on provided cloned parents id"""
         fields_to_treat_separately = [
             "room_id",
             "wall_id",
@@ -193,7 +199,7 @@ class RoomInputService:
 
     @staticmethod
     def duplicate_all_from_room(base_room, clone_room, children_id_maps):
-        """ Duplicate all rooms_input within a base_room"""
+        """Duplicate all rooms_input within a base_room"""
         for room_input in base_room.inputs:
             clone_wall_parent_id = None
             clone_woodwork_parent_id = None

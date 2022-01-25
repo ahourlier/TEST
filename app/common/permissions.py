@@ -152,7 +152,7 @@ def can_manage_funders(user):
 
 
 def filter_response_with_clients_access(filter_func):
-    """ Decorator that filters responses objects according to mission settings """
+    """Decorator that filters responses objects according to mission settings"""
 
     def wrap(func):
         def wrapped_func(*args, **kwargs):
@@ -263,8 +263,8 @@ def has_combined_structure_permissions(user):
     return check_combined_structure_permissions(cs_id, user)
 
 
-
 # check helpers
+
 
 def check_combined_structure_permissions(cs_id, user):
     cs = CombinedStructureService.get(cs_id)

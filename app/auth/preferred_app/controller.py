@@ -19,7 +19,7 @@ class PreferredAppMe(AuthenticatedApi):
 
 @api.route("/")
 class PreferredApp(AuthenticatedApi):
-    """ Current preferred app """
+    """Current preferred app"""
 
     @responds(schema=PreferredAppSchema)
     @accepts(schema=PreferredAppSchema, api=api)

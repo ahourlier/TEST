@@ -14,7 +14,10 @@ from .. import Ceiling
 class CeilingScenarioIdResource(AuthenticatedApi):
     @accepts(schema=CeilingSchema, api=api)
     @responds(schema=CeilingSchema)
-    def post(self, scenario_id: int,) -> Ceiling:
+    def post(
+        self,
+        scenario_id: int,
+    ) -> Ceiling:
         """Create single ceiling"""
 
         return CeilingService.create(request.parsed_obj, scenario_id)

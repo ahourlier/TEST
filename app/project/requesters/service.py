@@ -107,7 +107,7 @@ class RequesterService:
 
     @staticmethod
     def create(new_attrs: dict) -> Requester:
-        """ Create a new requester, with its contacts and taxable_incomes """
+        """Create a new requester, with its contacts and taxable_incomes"""
         requester_fields = RequesterInterface(**new_attrs)
         del requester_fields["contacts"]
         del requester_fields["taxable_incomes"]

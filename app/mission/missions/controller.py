@@ -44,7 +44,7 @@ from ...common.tasks import create_task
 
 @api.route("/")
 class MissionResource(AuthenticatedApi):
-    """ Missions """
+    """Missions"""
 
     @filter_response_with_clients_access(
         missions_permissions.MissionPermission.filter_missions_list_fields
@@ -59,7 +59,7 @@ class MissionResource(AuthenticatedApi):
     )
     @responds(schema=MissionPaginatedSchema(), api=api)
     def get(self) -> Pagination:
-        """ Get all missions """
+        """Get all missions"""
         return MissionService.get_all(
             page=int(request.args.get("page", MISSIONS_DEFAULT_PAGE)),
             size=int(request.args.get("size", MISSIONS_DEFAULT_PAGE_SIZE)),
@@ -87,7 +87,7 @@ class MissionResource(AuthenticatedApi):
     @responds(schema=MissionSchema(), api=api)
     @requires(is_manager)
     def post(self) -> Mission:
-        """ Create a mission """
+        """Create a mission"""
         return MissionService.create(request.parsed_obj)
 
 
@@ -98,7 +98,7 @@ class MissionIdResource(AuthenticatedApi):
     @accepts(dict(name="check_drive_structure", type=inputs.boolean))
     @requires(is_contributor, has_mission_permission)
     def get(self, mission_id: int) -> Mission:
-        """ Get single mission """
+        """Get single mission"""
         db_mission = MissionService.get_by_id(mission_id)
 
         if db_mission.mission_type == App.INDIVIDUAL:
@@ -130,7 +130,9 @@ class MissionIdResource(AuthenticatedApi):
                         queue=MISSION_INIT_QUEUE_NAME,
                         uri=f"{os.getenv('API_URL')}/_internal/missions/init-drive",
                         method="POST",
-                        payload={"mission_id": db_mission.id,},
+                        payload={
+                            "mission_id": db_mission.id,
+                        },
                     )
         return db_mission
 
@@ -166,7 +168,7 @@ class MissionByUserResource(AuthenticatedApi):
     @responds(schema=MissionPaginatedSchema(), api=api)
     @requires(is_admin)
     def get(self, user_id: int) -> Pagination:
-        """ Get missions filtered by user """
+        """Get missions filtered by user"""
         user = UserService.get_by_id(user_id)
         return MissionService.get_all(
             page=int(request.args.get("page", MISSIONS_DEFAULT_PAGE)),

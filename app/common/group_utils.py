@@ -11,7 +11,7 @@ class GroupUtils:
     def create_google_group(
         email, name, user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL"), client=None
     ):
-        """ Creates a Google Group """
+        """Creates a Google Group"""
         if not client:
             client = DirectoryService(user_email).get()
         try:
@@ -29,7 +29,7 @@ class GroupUtils:
     def get_google_group(
         email, user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL"), client=None
     ):
-        """ Gets a Google Group """
+        """Gets a Google Group"""
         if not client:
             client = DirectoryService(user_email).get()
         try:
@@ -126,7 +126,9 @@ class GroupUtils:
 
     @staticmethod
     def list_members(
-        group, user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL"), client=None,
+        group,
+        user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL"),
+        client=None,
     ):
         """
         List direct members of a group

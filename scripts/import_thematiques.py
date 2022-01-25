@@ -7,7 +7,12 @@ import os
 
 # Use the application default credentials
 cred = credentials.ApplicationDefault()
-firebase_admin.initialize_app(cred, {"projectId": "app-oslo-dev",})
+firebase_admin.initialize_app(
+    cred,
+    {
+        "projectId": "app-oslo-dev",
+    },
+)
 db = firestore.client()
 
 DRY_RUN = False

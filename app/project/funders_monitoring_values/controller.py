@@ -14,12 +14,12 @@ from ...common.api import AuthenticatedApi
 class ProjectFunderMonitoringValueResource(AuthenticatedApi):
     @responds(schema=FunderMonitoringValueByFunderSchema(many=True))
     def get(self, project_id: int) -> List:
-        """ Fetch all field by project_id (sorted by funder) """
+        """Fetch all field by project_id (sorted by funder)"""
         return FunderMonitoringValueService.fetch_project_fields_funders(project_id)
 
     @accepts(schema=FunderMonitoringValueByFunderSchema(many=True), api=api)
     @responds(schema=FunderMonitoringValueByFunderSchema(many=True))
     def put(self, project_id: int) -> List:
-        """Update provided list of project monitored fields """
+        """Update provided list of project monitored fields"""
         changes = request.parsed_obj
         return FunderMonitoringValueService.update_list(project_id, changes)

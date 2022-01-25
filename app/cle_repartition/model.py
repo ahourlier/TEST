@@ -27,7 +27,7 @@ class LotCleRepartition(db.Model):
 
 
 class CleRepartition(BaseMixin, db.Model):
-    """ Represents a cle_repartition """
+    """Represents a cle_repartition"""
 
     __tablename__ = "cle_repartition"
 
@@ -35,5 +35,6 @@ class CleRepartition(BaseMixin, db.Model):
     label = Column(String(255), nullable=False)
     copro_id = Column(Integer, ForeignKey("copro.id"), nullable=False)
     copro = relationship(
-        "Copro", backref=backref("cles_repartition", cascade="all, delete"),
+        "Copro",
+        backref=backref("cles_repartition", cascade="all, delete"),
     )

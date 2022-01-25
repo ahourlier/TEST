@@ -3,7 +3,12 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 
 cred = credentials.ApplicationDefault()
-firebase_admin.initialize_app(cred, {"projectId": "app-oslo-dev",})
+firebase_admin.initialize_app(
+    cred,
+    {
+        "projectId": "app-oslo-dev",
+    },
+)
 db = firestore.client()
 
 thematics = db.collection("thematiques").get()

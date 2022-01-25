@@ -68,7 +68,7 @@ class CoproService:
 
         if mission_id is not None:
             q = q.filter(Copro.mission_id == mission_id)
-        
+
         if cs_id is not None:
             q = q.filter(Copro.cs_id == cs_id)
 

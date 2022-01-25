@@ -35,14 +35,14 @@ class ProjectSectionsAccess(Enum):
 class MissionPermission:
     @staticmethod
     def check_mission_permission(mission_id: int, user):
-        """ Return True if user has a personal access to a given mission """
+        """Return True if user has a personal access to a given mission"""
         accesses = MissionPermission.fetch_mission_access_list(mission_id, user)
         return len(accesses) > 0
 
     @staticmethod
     def fetch_mission_access_list(mission_id: int, user):
-        """ Return the list of user accesses to a given mission. (but not "clients accesses", which are checked in
-        another method """
+        """Return the list of user accesses to a given mission. (but not "clients accesses", which are checked in
+        another method"""
         mission = missions_service.MissionService.get_by_id(mission_id)
         user_roles = []
 
@@ -66,7 +66,7 @@ class MissionPermission:
     @staticmethod
     def has_client_mission_access(mission_id: int, user, app_section=None):
         """Return True if user has a client_access set for this mission.
-         The 'app_section' params allows to filter by one specific app_section access """
+        The 'app_section' params allows to filter by one specific app_section access"""
         if app_section and app_section not in ProjectSectionsAccess.__members__:
             return False
         mission = missions_service.MissionService.get_by_id(mission_id)
@@ -115,18 +115,22 @@ class MissionPermission:
         fields_access_map: dict = None,
         authorized_fields: List = None,
     ):
-        """ Remove forbidden fields from a unique item response.
+        """Remove forbidden fields from a unique item response.
         Meant to be used within an endpoint decorator
         fields_access_map : a dictionnary used to build an authorized_fields list according to mission client access settings
         authorized_fields : a list of authorized_fields in order to filter the response."""
         mission_id = extract_mission_id_func(response)
         mission = missions_service.MissionService.get_by_id(mission_id)
         if not authorized_fields:
-            authorized_fields = permissions_utils.PermissionsUtils.determine_authorized_fields(
-                mission, fields_access_map
+            authorized_fields = (
+                permissions_utils.PermissionsUtils.determine_authorized_fields(
+                    mission, fields_access_map
+                )
             )
-        filtered_response = permissions_utils.PermissionsUtils.remove_fields_from_response(
-            response, authorized_fields
+        filtered_response = (
+            permissions_utils.PermissionsUtils.remove_fields_from_response(
+                response, authorized_fields
+            )
         )
         return filtered_response
 
@@ -137,7 +141,7 @@ class MissionPermission:
         fields_access_map: dict = None,
         authorized_fields: List = None,
     ):
-        """ Remove forbidden fields from a list of items.
+        """Remove forbidden fields from a list of items.
         Meant to be used within an endpoint decorator
         fields_access_map : a dictionnary used to build an authorized_fields list according to mission client access settings
         authorized_fields : a list of authorized_fields in order to filter the response.
@@ -154,11 +158,15 @@ class MissionPermission:
                 missions_reference[mission_id] = mission
             mission = missions_reference.get(mission_id)
             if not authorized_fields:
-                authorized_fields = permissions_utils.PermissionsUtils.determine_authorized_fields(
-                    mission, fields_access_map
+                authorized_fields = (
+                    permissions_utils.PermissionsUtils.determine_authorized_fields(
+                        mission, fields_access_map
+                    )
                 )
-            filtered_item = permissions_utils.PermissionsUtils.remove_fields_from_response(
-                item, authorized_fields
+            filtered_item = (
+                permissions_utils.PermissionsUtils.remove_fields_from_response(
+                    item, authorized_fields
+                )
             )
             filtered_response.append(filtered_item)
 
@@ -166,8 +174,8 @@ class MissionPermission:
 
     @staticmethod
     def filter_missions_list_fields(response):
-        """ Callback for "filter_response_with_clients_access" decorator.
-         Extract forbidden fields from a missions list, according to clients access permissions"""
+        """Callback for "filter_response_with_clients_access" decorator.
+        Extract forbidden fields from a missions list, according to clients access permissions"""
 
         if g.user.role == UserRole.CLIENT:
             items = MissionPermission.filter_list_response_by_mission_settings(
@@ -180,5 +188,5 @@ class MissionPermission:
 
     @staticmethod
     def extract_mission_id_from_project(mission):
-        """ Callback used during client access decorator workflow"""
+        """Callback used during client access decorator workflow"""
         return mission.get("id")

@@ -59,7 +59,7 @@ class LotService:
 
         if mission_id:
             q = q.join(Copro).filter(Copro.mission_id == mission_id)
-        
+
         if cs_id:
             if not mission_id:
                 q = q.join(Copro)

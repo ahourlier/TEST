@@ -57,7 +57,7 @@ class AntennaService:
 
     @staticmethod
     def create(new_attrs: AntennaInterface) -> Antenna:
-        """ Create a new antenna in a given agency """
+        """Create a new antenna in a given agency"""
         try:
             agency_service.AgencyService.get_by_id(new_attrs.get("agency_id"))
         except AgencyNotFoundException as e:

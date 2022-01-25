@@ -29,12 +29,12 @@ from ...common.tasks import create_task
 
 @api.route("")
 class SyndicResource(AuthenticatedApi):
-    """ Syndic """
+    """Syndic"""
 
     @accepts(schema=SyndicCreateSchema(), api=api)
     @responds(schema=SyndicSchema(), api=api)
     def post(self) -> Syndic:
-        """ Create a syndic """
+        """Create a syndic"""
         return SyndicService.create(request.parsed_obj)
 
 

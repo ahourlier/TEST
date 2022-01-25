@@ -20,12 +20,12 @@ from ...common.search import SEARCH_PARAMS
 
 @api.route("/")
 class AntennaResource(AuthenticatedApi):
-    """ Antennas """
+    """Antennas"""
 
     @accepts(*SEARCH_PARAMS, dict(name="agency_id", type=int), api=api)
     @responds(schema=AntennaPaginatedSchema())
     def get(self) -> Pagination:
-        """ Get all antennas """
+        """Get all antennas"""
         return AntennaService.get_all(
             page=int(request.args.get("page", ANTENNAS_DEFAULT_PAGE)),
             size=int(request.args.get("size", ANTENNAS_DEFAULT_PAGE_SIZE)),
@@ -43,7 +43,7 @@ class AntennaResource(AuthenticatedApi):
     @responds(schema=AntennaSchema)
     @requires(is_admin)
     def post(self) -> Antenna:
-        """ Create an antenna """
+        """Create an antenna"""
         return AntennaService.create(request.parsed_obj)
 
 
@@ -52,7 +52,7 @@ class AntennaResource(AuthenticatedApi):
 class AntennaIdResource(AuthenticatedApi):
     @responds(schema=AntennaSchema)
     def get(self, antenna_id: int) -> Antenna:
-        """ Get single antenna """
+        """Get single antenna"""
 
         return AntennaService.get_by_id(antenna_id)
 

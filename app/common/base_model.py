@@ -28,7 +28,7 @@ def before_update_function(mapper, connection, target):
 
 
 class SoftDeletableMixin:
-    """ Add this mixin to make an entity soft deletable """
+    """Add this mixin to make an entity soft deletable"""
 
     is_deleted = db.Column(db.Boolean, default=False)
 

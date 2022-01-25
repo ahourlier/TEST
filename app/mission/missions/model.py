@@ -30,7 +30,7 @@ class MissionStatus:
 
 
 class Mission(SoftDeletableMixin, BaseMixin, db.Model):
-    """ Mission  """
+    """Mission"""
 
     __tablename__ = "mission"
 
