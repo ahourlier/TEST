@@ -1,4 +1,5 @@
 import base64
+from http.cookiejar import CookiePolicy
 
 from sqlalchemy import or_, and_
 
@@ -14,6 +15,7 @@ from app.common.exceptions import EnumException
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.copro.copros.model import Copro
+from app.mission import missions
 from app.thematique.service import ThematiqueService
 
 SEARCH_BUILDINGS_PARAMS = [
@@ -24,6 +26,7 @@ SEARCH_BUILDINGS_PARAMS = [
     dict(name="sortDirection", type=str),
     dict(name="missionId", type=int),
     dict(name="coproId", type=int),
+    dict(name="csId", type=int),
 ]
 
 BUILDING_DEFAULT_PAGE = 1
@@ -61,6 +64,7 @@ class BuildingService:
             direction=BUILDING_DEFAULT_SORT_DIRECTION,
             mission_id=None,
             copro_id=None,
+            cs_id=None,
             user=None
     ):
         from app.copro.copros import Copro
@@ -86,9 +90,14 @@ class BuildingService:
 
         if mission_id:
             q = q.join(Copro, Building.copro_id == Copro.id).filter(Copro.mission_id == int(mission_id))
+        
+        if cs_id:
+            if not mission_id:
+                q = q.join(Copro)
+            q = q.filter(Copro.cs_id == cs_id)
 
         if user is not None and user.role != UserRole.ADMIN:
-            if not mission_id:
+            if not mission_id and not cs_id:
                 q = q.join(Copro)
             q = q.join(Mission)
             q = mission_permissions.MissionPermission.filter_query_mission_by_user_permissions(

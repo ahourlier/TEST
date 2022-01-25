@@ -28,3 +28,4 @@ Werkzeug==0.16.1
 python-magic==0.4.18
 python-dateutil==2.8.2
 psutil==5.9.0
+google-cloud-profiler==3.0.7; sys_platform == 'linux'

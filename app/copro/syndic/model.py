@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, String, Column, Integer, ForeignKey, Text, select
+from sqlalchemy import Boolean, String, Column, Integer, ForeignKey, Text, select, Date
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship, backref
 
@@ -13,10 +13,13 @@ class Syndic(HasPhones, BaseMixin, db.Model):
     __tablename__ = "syndic"
 
     id = Column(Integer(), primary_key=True, autoincrement=True)
-    copro_id = Column(Integer, ForeignKey("copro.id"), nullable=False)
+    copro_id = Column(Integer, ForeignKey("copro.id"), nullable=True)
     copro = relationship("Copro", backref="syndics")
+    cs_id = Column(Integer, ForeignKey("combined_structure.id"), nullable=True)
+    cs = relationship("CombinedStructure", backref="syndics")
     name = Column(String(255))
     type = Column(String(255))
+    contract_date = Column(Date)
     manager_name = Column(String(255))
     manager_address_id = Column(Integer(), ForeignKey("address.id"), nullable=True)
     manager_address = relationship("Address", cascade="all, delete",)

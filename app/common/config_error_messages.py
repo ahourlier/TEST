@@ -500,7 +500,7 @@ VERSION_NOT_FOUND_EXCEPTION = "Could not find a thematique version with this id"
 KEY_VERSION_NOT_FOUND_EXCEPTION = "VERSION_NOT_FOUND_EXCEPTION"
 
 STEP_NOT_FOUND_EXCEPTION = (
-    "Could not find a step with this id"  # todo add in translation
+    "Could not find a step with this id"
 )
 KEY_STEP_NOT_FOUND_EXCEPTION = "STEP_NOT_FOUND_EXCEPTION"
 
@@ -540,3 +540,9 @@ VERSION_DELETION_UNAUTHORIZED = (
     "Unauthorized to delete this version. Hint: only version for copros are deletable."
 )
 KEY_VERSION_DELETION_UNAUTHORIZED = "VERSION_DELETION_UNAUTHORIZED"
+
+COMBINED_STRUTURE_NOT_FOUND_EXCEPTION = "Could not find a combined struture with this id"
+KEY_COMBINED_STRUTURE_NOT_FOUND_EXCEPTION = "COMBINED_STRUTURE_NOT_FOUND_EXCEPTION" # TODO add in translation
+
+PRESIDENT_NOT_FOUND_EXCEPTION = "Could not find a president with this id"
+KEY_PRESIDENT_NOT_FOUND_EXCEPTION = "PRESIDENT_NOT_FOUND_EXCEPTION" # TODO add in translation

@@ -21,6 +21,7 @@ from ...project.disorders import DisorderType
 from ...project.projects import Project
 from ...project.requesters import Requester
 from ...task import Task
+from ...combined_structure import CombinedStructure
 
 
 class BaseReadOnly:
@@ -392,3 +393,9 @@ class NatureAide(EnumBaseAdminView):
     ENUM_KIND = "NatureAide"
     FIELD_MODEL = None
     FIELD_REF = None
+
+
+class CombinedStructureType(EnumBaseAdminView):
+    ENUM_KIND = "CombinedStructureType"
+    FIELD_MODEL = CombinedStructure
+    FIELD_REF = "type"
