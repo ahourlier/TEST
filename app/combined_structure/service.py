@@ -7,12 +7,10 @@ from app.combined_structure.error_handlers import (
 )
 from app.combined_structure.interface import CombinedStructureInterface
 from app.combined_structure.model import CombinedStructure
-from app.common.address.model import Address
-from app.common.address.service import AddressService
+from app.common.address.schema import AddressSchema
 from app.common.exceptions import EnumException
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
-from app.copro.president.model import President
 from app.copro.president.service import PresidentService
 from app.copro.syndic.service import SyndicService
 from app.thematique.service import ThematiqueService
@@ -54,10 +52,10 @@ class CombinedStructureService:
         )
         if term not in [None, ""]:
             search_term = f"%{term}%"
-            q = q.outerjoin(Address, CombinedStructure.address_id == Address.id).filter(
+            q = q.filter(
                 or_(
                     CombinedStructure.name.ilike(search_term),
-                    Address.full_address.ilike(search_term),
+                    CombinedStructure.type.ilike(search_term),
                 )
             )
 
@@ -155,6 +153,25 @@ class CombinedStructureService:
         existing_combined_structure.soft_delete()
         db.session.commit()
         return combined_structure_id
+
+    @staticmethod
+    def get_tantiemes_for_cs(cs):
+        items = []
+        address_schema = AddressSchema()
+        for copro in cs.copros:
+            item = {
+                "copro": {
+                    "name": copro.name,
+                    "address_1": address_schema.dump(copro.address_1),
+                }
+            }
+            tantieme = 0
+            for lot in copro.lots:
+                for cle in lot.cles_repartition:
+                    tantieme += cle.tantieme
+            item["tantieme"] = tantieme
+            items.append(item)
+        return items
 
     @staticmethod
     def get_thematiques(copro_id: int):
