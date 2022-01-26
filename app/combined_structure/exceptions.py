@@ -1,7 +1,7 @@
 from werkzeug.exceptions import HTTPException
 from app.common.config_error_messages import (
     COMBINED_STRUTURE_NOT_FOUND_EXCEPTION,
-    KEY_COMBINED_STRUTURE_NOT_FOUND_EXCEPTION
+    KEY_COMBINED_STRUTURE_NOT_FOUND_EXCEPTION,
 )
 
 

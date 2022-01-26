@@ -153,7 +153,7 @@ class CombinedStructureService:
         existing_combined_structure.soft_delete()
         db.session.commit()
         return combined_structure_id
-    
+
     @staticmethod
     def get_tantiemes_for_cs(cs):
         items = []
@@ -162,7 +162,7 @@ class CombinedStructureService:
             item = {
                 "copro": {
                     "name": copro.name,
-                    "address_1": address_schema.dump(copro.address_1)
+                    "address_1": address_schema.dump(copro.address_1),
                 }
             }
             tantieme = 0
