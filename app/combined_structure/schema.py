@@ -2,6 +2,7 @@ from marshmallow import fields
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
 from app.combined_structure.model import CombinedStructure
+from app.combined_structure.service import CombinedStructureService
 from app.common.schemas import PaginatedSchema
 
 from app.copro.president.schema import PresidentSchema, PresidentCreateSchema
@@ -29,6 +30,19 @@ class CombinedStructureUpdateSchema(SQLAlchemyAutoSchema):
 class CombinedStructureSchema(SQLAlchemyAutoSchema):
     president = fields.Nested(PresidentSchema())
     syndics = fields.List(fields.Nested(SyndicSchema()), dump_only=True)
+    tantiemes = fields.Method("get_tantiemes_for_cs")
+
+    def get_tantiemes_for_cs(self, obj):
+        return CombinedStructureService.get_tantiemes_for_cs(obj)
+
+    class Meta:
+        model = CombinedStructure
+        include_fk = True
+
+
+class CombinedStructureForListSchema(SQLAlchemyAutoSchema):
+    president = fields.Nested(PresidentSchema())
+    syndics = fields.List(fields.Nested(SyndicSchema()), dump_only=True)
 
     class Meta:
         model = CombinedStructure
@@ -36,4 +50,4 @@ class CombinedStructureSchema(SQLAlchemyAutoSchema):
 
 
 class CombinedStructurePaginatedSchema(PaginatedSchema):
-    items = fields.Nested(CombinedStructureSchema(), many=True, dump_only=True)
+    items = fields.Nested(CombinedStructureForListSchema(), many=True, dump_only=True)
