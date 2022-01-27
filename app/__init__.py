@@ -1,13 +1,10 @@
 import os
-import psutil
-import tracemalloc
 import firebase_admin
 from firebase_admin import credentials
 from flask import Flask, jsonify, g
 from flask_admin import Admin
 from flask_allows import Allows
 from flask_babelex import Babel
-from memory_profiler import profile
 from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
@@ -34,10 +31,6 @@ co = CORS()
 allows = Allows()
 babel = Babel()
 
-process = psutil.Process(os.getpid())
-tracemalloc.start()
-s = None
-
 
 def create_app(env=None):
     from app.config import config_by_name
@@ -52,18 +45,12 @@ def create_app(env=None):
     api = Api(app, title="OSLO API", version="1.0.0")
     print(f"Current env is {app.config['CONFIG_NAME']}")
     db.init_app(app)
-    print("db initialized")
     ma.init_app(app)
-    print("ma initialized")
     migrate.init_app(app, db)
-    print("migrate initialized")
     co.init_app(app)
-    print("cors initialized")
     allows.init_app(app)
     allows.identity_loader(lambda: g.user)
-    print("allows initialized")
     babel.init_app(app)
-    print("babel initialized")
     if env != "test":
         creds = credentials.Certificate(
             app.config.get("FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY_PATH")
@@ -89,22 +76,5 @@ def create_app(env=None):
     def warmup():
         # Handle warmup
         return "", 200, {}
-
-    @app.route("/api/memory")
-    def print_memory():
-        return {"memory": process.memory_info().rss}
-
-    @app.route("/api/snapshot")
-    def snap():
-        global s
-        if not s:
-            s = tracemalloc.take_snapshot()
-            return "taken snapshot\n"
-        else:
-            lines = []
-            top_stats = tracemalloc.take_snapshot().compare_to(s, "lineno")
-            for stat in top_stats[:5]:
-                lines.append(str(stat))
-            return "\n".join(lines)
 
     return app
