@@ -4,9 +4,6 @@ from flask_accepts import responds, accepts
 from flask_allows import requires
 from flask_restx import inputs
 from flask_sqlalchemy import Pagination
-import gc
-import psutil
-import os
 
 from . import api
 from .interface import UserInterface
@@ -14,10 +11,9 @@ from .schema import (
     UserSchema,
     UserPaginatedSchema,
     UserAuthSchema,
-    UserLightSchema,
     UsersInItemsSchema,
 )
-from .model import User, UserRole
+from .model import User
 from .service import (
     UserService,
     USERS_DEFAULT_PAGE,
