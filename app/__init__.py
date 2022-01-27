@@ -1,5 +1,6 @@
 import os
-
+import psutil
+import tracemalloc
 import firebase_admin
 from firebase_admin import credentials
 from flask import Flask, jsonify, g
@@ -32,6 +33,10 @@ migrate = Migrate()
 co = CORS()
 allows = Allows()
 babel = Babel()
+
+process = psutil.Process(os.getpid())
+tracemalloc.start()
+s = None
 
 
 def create_app(env=None):
@@ -76,5 +81,22 @@ def create_app(env=None):
     def warmup():
         # Handle warmup
         return "", 200, {}
+
+    @app.route("/memory")
+    def print_memory():
+        return {"memory": process.memory_info().rss}
+
+    @app.route("/snapshot")
+    def snap():
+        global s
+        if not s:
+            s = tracemalloc.take_snapshot()
+            return "taken snapshot\n"
+        else:
+            lines = []
+            top_stats = tracemalloc.take_snapshot().compare_to(s, "lineno")
+            for stat in top_stats[:5]:
+                lines.append(str(stat))
+            return "\n".join(lines)
 
     return app
