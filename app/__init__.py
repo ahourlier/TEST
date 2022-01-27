@@ -81,11 +81,10 @@ def create_app(env=None):
     def warmup():
         # Handle warmup
         return "", 200, {}
-    
-    @app.route('/memory')
-    def print_memory():
-        return {'memory': process.memory_info().rss}
 
+    @app.route("/memory")
+    def print_memory():
+        return {"memory": process.memory_info().rss}
 
     @app.route("/snapshot")
     def snap():
@@ -95,7 +94,7 @@ def create_app(env=None):
             return "taken snapshot\n"
         else:
             lines = []
-            top_stats = tracemalloc.take_snapshot().compare_to(s, 'lineno')
+            top_stats = tracemalloc.take_snapshot().compare_to(s, "lineno")
             for stat in top_stats[:5]:
                 lines.append(str(stat))
             return "\n".join(lines)
