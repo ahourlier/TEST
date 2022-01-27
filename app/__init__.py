@@ -27,12 +27,19 @@ convention = {
 }
 
 metadata = MetaData(schema="core", naming_convention=convention)
+print("metadata created")
 db = SQLAlchemy(metadata=metadata)
+print("db created")
 ma = Marshmallow()
+print("marshmallow created")
 migrate = Migrate()
+print("migrate initialized")
 co = CORS()
+print("cors initialized")
 allows = Allows()
+print("allows initialized")
 babel = Babel()
+print("babel initialized")
 
 process = psutil.Process(os.getpid())
 tracemalloc.start()
