@@ -1,4 +1,3 @@
-import logging
 from flask import g, request, Response, jsonify
 from flask_accepts import responds, accepts
 from flask_allows import requires
