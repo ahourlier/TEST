@@ -3,7 +3,6 @@ from flask_accepts import responds, accepts
 from flask_allows import requires
 from flask_restx import inputs
 from flask_sqlalchemy import Pagination
-from memory_profiler import profile
 
 from . import api
 from .interface import UserInterface
