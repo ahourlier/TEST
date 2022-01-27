@@ -3,94 +3,6 @@ import firestore_helper
 from fields_config import building_fields, lot_fields
 
 
-def process_building(building_id, sql_engine, firestore_client, version):
-    # get all lots to get all items required
-    lot_ids = sql_helper.get_children_ids(
-        sql_engine,
-        {"children_table": "lot", "parent_id_column": "building_id", "id": building_id},
-    )
-    if not len(lot_ids):
-        print("no lot to process")
-        return
-
-    lot_thematiques = firestore_helper.search_thematic(
-        {
-            "resource_id": lot_ids,
-            "scope": "lot",
-            "version_name": version.get("version_name"),
-            "version_date": version.get("version_date"),
-            "thematique_name": version.get("thematique_name"),
-        },
-        firestore_client,
-    )
-    print("no example yet")
-
-
-def process_copro(copro_id, sql_engine, firestore_client, thematique, step):
-    # get all buildings to fetch columns to add and update copro
-    building_ids = sql_helper.get_children_ids(
-        sql_engine,
-        {"children_table": "building", "parent_id_column": "copro_id", "id": copro_id},
-    )
-
-    if not len(building_ids):
-        print("no lot to process")
-        return
-
-    thematique_dict = thematique.to_dict()
-    step_dict = step.to_dict()
-    # fetching all building thematics for buildings of the copro
-    building_thematiques = firestore_helper.search_thematic(
-        {
-            "resource_id": building_ids,
-            "scope": "building",
-            "version_name": thematique_dict.get("version_name"),
-            "version_date": thematique_dict.get("version_date"),
-            "thematique_name": thematique_dict.get("thematique_name"),
-        },
-        firestore_client,
-    )
-    # init of the count of the fields to add and update
-    count = building_fields[step_dict.get("metadata").get("name")]
-
-    for bt in building_thematiques:
-        # for each building, add the fields of the updated step to the count
-        building_step = (
-            firestore_client.collection("thematiques")
-            .document(bt.id)
-            .collection("steps")
-            .where("metadata.name", "==", step_dict.get("metadata").get("name"))
-        ).get()
-        if len(building_step) == 0:
-            print(f"step {step_dict.get('metadata').get('name')} not found")
-            continue
-        building_step = building_step[0]
-        count = update_count(building_step.get("fields"), count)
-        copro_thematique = firestore_helper.search_thematic(
-            {
-                "scope": "copro",
-                "resource_id": copro_id,
-                "version_name": thematique_dict.get("version_name"),
-                "version_date": thematique_dict.get("version_date"),
-                "thematique_name": thematique_dict.get("thematique_name"),
-            },
-            firestore_client,
-        )
-        if not len(copro_thematique):
-            print("thematique for copro not found")
-            return
-        step = firestore_helper.search_step(
-            copro_thematique[0], step_dict.get("metadata").get("name")
-        )
-        if not len(step):
-            print(
-                f"{step_dict.get('metadata').get('name')}: step not found for copro {copro_id}"
-            )
-            return
-        update_payload = get_update_payload(step[0].get("fields"), count)
-        print()
-
-
 def update_count(fields, count):
     for field_name, field_item in fields.items():
         if field_item.get("type") == "group":
@@ -100,7 +12,16 @@ def update_count(fields, count):
             value = field_item.get("value", [0])
             if len(value) == 0:
                 continue
-            count[field_name] += value[0]
+            try:
+                count[field_name] += int(value[0])
+            except TypeError as e:
+                print(e)
+                print(f"error updating count for field: {field_name}")
+                print(f"tryied to add {value[0]} to {count[field_name]}")
+            except Exception as e:
+                print(e)
+                print(f"error updating count for field: {field_name}")
+                print(f"tryied to add {value[0]} to {count[field_name]}")
     return count
 
 
@@ -175,6 +96,9 @@ def process_subitems(
         # child_step is an array, but a thematic can only have each step once
         child_step = child_step[0]
         count = update_count(child_step.get("fields"), count)
+
+    print("updated count")
+    print(count)
 
     update_payload = find_parent_step(
         parent_scope=parent_scope,
