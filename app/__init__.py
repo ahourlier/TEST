@@ -7,7 +7,7 @@ from flask import Flask, jsonify, g
 from flask_admin import Admin
 from flask_allows import Allows
 from flask_babelex import Babel
-
+from memory_profiler import profile
 from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
@@ -38,7 +38,7 @@ process = psutil.Process(os.getpid())
 tracemalloc.start()
 s = None
 
-
+@profile
 def create_app(env=None):
     from app.config import config_by_name
     from app.routes import register_routes

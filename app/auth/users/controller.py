@@ -4,6 +4,7 @@ from flask_accepts import responds, accepts
 from flask_allows import requires
 from flask_restx import inputs
 from flask_sqlalchemy import Pagination
+from memory_profiler import profile
 
 from . import api
 from .interface import UserInterface
@@ -31,6 +32,7 @@ class UserMe(AuthenticatedApi):
     """Current user profile"""
 
     @responds(schema=UserAuthSchema)
+    @profile
     def get(self):
         UserService.update_user_groups(g.user)
         permissions = UserService.get_permissions_for_role(g.user.role_data)
