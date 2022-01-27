@@ -68,9 +68,9 @@ def create_app(env=None):
         creds = credentials.Certificate(
             app.config.get("FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY_PATH")
         )
-        firebase_admin.initialize_app(creds, options={
-            "projectId": app.config.get("GOOGLE_CLOUD_PROJECT")
-        })
+        firebase_admin.initialize_app(
+            creds, options={"projectId": app.config.get("GOOGLE_CLOUD_PROJECT")}
+        )
     fa = Admin(name="OSLO", template_mode="bootstrap3", url="/_/manage")
     fa.init_app(app)
 
