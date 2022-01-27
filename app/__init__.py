@@ -27,26 +27,18 @@ convention = {
 }
 
 metadata = MetaData(schema="core", naming_convention=convention)
-print("metadata created")
 db = SQLAlchemy(metadata=metadata)
-print("db created")
 ma = Marshmallow()
-print("marshmallow created")
 migrate = Migrate()
-print("migrate initialized")
 co = CORS()
-print("cors initialized")
 allows = Allows()
-print("allows initialized")
 babel = Babel()
-print("babel initialized")
 
 process = psutil.Process(os.getpid())
 tracemalloc.start()
 s = None
 
 
-@profile
 def create_app(env=None):
     from app.config import config_by_name
     from app.routes import register_routes
@@ -60,17 +52,25 @@ def create_app(env=None):
     api = Api(app, title="OSLO API", version="1.0.0")
     print(f"Current env is {app.config['CONFIG_NAME']}")
     db.init_app(app)
+    print("db initialized")
     ma.init_app(app)
+    print("ma initialized")
     migrate.init_app(app, db)
+    print("migrate initialized")
     co.init_app(app)
+    print("cors initialized")
     allows.init_app(app)
     allows.identity_loader(lambda: g.user)
+    print("allows initialized")
     babel.init_app(app)
+    print("babel initialized")
     if env != "test":
         creds = credentials.Certificate(
             app.config.get("FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY_PATH")
         )
-        firebase_admin.initialize_app(creds)
+        firebase_admin.initialize_app(
+            creds, options={"projectId": app.config.get("GOOGLE_CLOUD_PROJECT")}
+        )
     fa = Admin(name="OSLO", template_mode="bootstrap3", url="/_/manage")
     fa.init_app(app)
 
