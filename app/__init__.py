@@ -38,6 +38,7 @@ process = psutil.Process(os.getpid())
 tracemalloc.start()
 s = None
 
+
 @profile
 def create_app(env=None):
     from app.config import config_by_name
