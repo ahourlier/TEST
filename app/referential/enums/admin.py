@@ -76,7 +76,7 @@ class EnumBaseAdminView(ModelView):
 
     def get_count_query(self):
         return (
-            self.session.query(func.count("*"))
+            self.session.query(func.count(AppEnum.name))
             .select_from(AppEnum)
             .filter(AppEnum.kind == self.ENUM_KIND)
         )
