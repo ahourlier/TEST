@@ -32,7 +32,6 @@ class UserMe(AuthenticatedApi):
     """Current user profile"""
 
     @responds(schema=UserAuthSchema)
-    @profile
     def get(self):
         UserService.update_user_groups(g.user)
         permissions = UserService.get_permissions_for_role(g.user.role_data)
