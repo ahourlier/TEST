@@ -82,11 +82,11 @@ def create_app(env=None):
         # Handle warmup
         return "", 200, {}
 
-    @app.route("/memory")
+    @app.route("/api/memory")
     def print_memory():
         return {"memory": process.memory_info().rss}
 
-    @app.route("/snapshot")
+    @app.route("/api/snapshot")
     def snap():
         global s
         if not s:
