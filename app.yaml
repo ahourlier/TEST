@@ -1,6 +1,6 @@
 runtime: python37
 service: api
-
+entrypoint: gunicorn -b :8080 -w 4 main:app
 instance_class: F4
 
 # inbound_services:
