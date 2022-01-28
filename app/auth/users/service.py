@@ -7,7 +7,6 @@ from googleapiclient.errors import HttpError
 from sqlalchemy import or_, and_
 from flask import g, jsonify
 import logging
-from memory_profiler import profile
 
 from .error_handlers import UserNotFoundException, UnknownConnexionEmail, InactiveUser
 from .interface import UserInterface
@@ -291,7 +290,6 @@ class UserService:
         return groups
 
     @staticmethod
-    @profile
     def update_user_groups(user: User):
         source_groups = UserService.get_user_groups_from_gsuite(user.email)
         if source_groups is not None:
