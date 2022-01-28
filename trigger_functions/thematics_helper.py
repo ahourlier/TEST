@@ -13,6 +13,8 @@ def update_count(fields, count):
             if len(value) == 0:
                 continue
             try:
+                if count[field_name] is None:
+                    count[field_name] = 0
                 count[field_name] += int(value[0])
             except TypeError as e:
                 print(e)
@@ -31,8 +33,9 @@ def get_update_payload(fields, changes):
             for idx, v in enumerate(field_item.get("value")):
                 field_item["value"][idx] = get_update_payload(v, changes)
         if field_name in changes:
-            field_item["value"] = [changes[field_name]]
-            field_item["disabled"] = True
+            if changes[field_name] is not None:
+                field_item["value"] = [changes[field_name]]
+                field_item["disabled"] = True
     return fields
 
 

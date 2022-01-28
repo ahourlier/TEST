@@ -158,5 +158,4 @@ De deploy it, move to folder `trigger_functions/` and run:
 
 ```shell
 gcloud functions deploy on_update --project app-oslo-dev --entry-point on_update --runtime python38 --trigger-event "providers/cloud.firestore/eventTypes/document.update" --trigger-resource "projects/app-oslo-dev/databases/(default)/documents/thematiques/{thematiqueId}/steps/{stepId}" --region europe-west1
-
 ```
