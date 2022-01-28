@@ -7,6 +7,8 @@ from app.common.address.schema import AddressSchema
 from app.common.schemas import PaginatedSchema
 import base64
 
+from app.copro.copros.schema import CoproSchema
+
 
 class BuildingCreateSchema(SQLAlchemyAutoSchema):
     address = fields.Nested(AddressSchema(), allow_none=True)
@@ -31,6 +33,7 @@ class BuildingUpdateSchema(SQLAlchemyAutoSchema):
 class BuildingSchema(SQLAlchemyAutoSchema):
     address = fields.Nested(AddressSchema(), allow_none=True)
     access_code = fields.Method("decode_access_code", dump_only=True)
+    copro = fields.Nested(CoproSchema(), dump_only=True)
 
     def decode_access_code(self, obj):
         if not obj.access_code:
