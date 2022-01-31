@@ -188,6 +188,7 @@ class CombinedStructureService:
     def parse_payload(payload):
         if (
             "account_closing_date" in payload
+            and payload.get("account_closing_date") is not None
             and payload.get("account_closing_date").count("-") == 1
         ):
             payload["account_closing_date"] = f"{payload['account_closing_date']}-01"
