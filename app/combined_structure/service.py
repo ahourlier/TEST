@@ -77,6 +77,8 @@ class CombinedStructureService:
                 enum=e.details.get("enum"),
             )
 
+        new_attrs = CombinedStructureService.parse_payload(new_attrs)
+
         new_attrs["president_id"] = PresidentService.create(
             new_attrs.get("president", {})
         )
@@ -131,6 +133,8 @@ class CombinedStructureService:
                 enum=e.details.get("enum"),
             )
 
+        changes = CombinedStructureService.parse_payload(changes)
+
         if "president" in changes:
             PresidentService.update(
                 PresidentService.get(db_combined_structure.president_id),
@@ -179,3 +183,13 @@ class CombinedStructureService:
         return ThematiqueService.get_thematiques_from_mission(
             combined_structure.copro.mission_id
         )
+
+    @staticmethod
+    def parse_payload(payload):
+        if (
+            "account_closing_date" in payload
+            and payload.get("account_closing_date") is not None
+            and payload.get("account_closing_date").count("-") == 1
+        ):
+            payload["account_closing_date"] = f"{payload['account_closing_date']}-01"
+        return payload
