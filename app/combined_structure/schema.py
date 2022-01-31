@@ -13,6 +13,7 @@ class CombinedStructureCreateSchema(SQLAlchemyAutoSchema):
     president = fields.Nested(PresidentCreateSchema())
     president_id = fields.Integer(allow_none=True, required=False)
     syndics = fields.List(fields.Nested(SyndicCreateSchema()))
+    account_closing_date = fields.String()
 
     class Meta:
         model = CombinedStructure
@@ -21,6 +22,7 @@ class CombinedStructureCreateSchema(SQLAlchemyAutoSchema):
 
 class CombinedStructureUpdateSchema(SQLAlchemyAutoSchema):
     president = fields.Nested(PresidentCreateSchema())
+    account_closing_date = fields.String()
 
     class Meta:
         model = CombinedStructure
