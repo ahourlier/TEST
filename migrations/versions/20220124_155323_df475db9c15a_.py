@@ -42,7 +42,7 @@ def upgrade():
                     sa.Column('last_general_assemblee_date',
                               sa.Date(), nullable=True),
                     sa.Column('account_closing_date',
-                              sa.String(), nullable=True),
+                              sa.Date(), nullable=True),
                     sa.Column('main_member_exists',
                               sa.Boolean(), nullable=True),
                     sa.Column('main_member', sa.Text(), nullable=True),

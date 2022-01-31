@@ -37,7 +37,7 @@ class CombinedStructure(SoftDeletableMixin, BaseMixin, db.Model):
     # gestion fonctionnement
     annual_budget = Column(Float())
     last_general_assemblee_date = Column(Date(), nullable=True)
-    account_closing_date = Column(String(), nullable=True)
+    account_closing_date = Column(Date(), nullable=True)
     main_member_exists = Column(Boolean(), nullable=True)
     main_member = Column(Text(), nullable=True)
     rules_exists = Column(Boolean(), nullable=True)
