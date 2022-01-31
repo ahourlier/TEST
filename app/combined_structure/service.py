@@ -76,7 +76,7 @@ class CombinedStructureService:
                 allowed_values=e.details.get("allowed_values"),
                 enum=e.details.get("enum"),
             )
-        
+
         new_attrs = CombinedStructureService.parse_payload(new_attrs)
 
         new_attrs["president_id"] = PresidentService.create(
@@ -186,7 +186,9 @@ class CombinedStructureService:
 
     @staticmethod
     def parse_payload(payload):
-        if "account_closing_date" in payload and payload.get("account_closing_date").count("-") == 1:
+        if (
+            "account_closing_date" in payload
+            and payload.get("account_closing_date").count("-") == 1
+        ):
             payload["account_closing_date"] = f"{payload['account_closing_date']}-01"
         return payload
-        
