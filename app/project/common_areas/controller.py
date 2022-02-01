@@ -14,7 +14,7 @@ class CommonAreaResource(AuthenticatedApi):
     @accepts(schema=CommonAreaSchema(), api=api)
     @responds(schema=CommonAreaSchema(), api=api)
     def post(self, project_id) -> CommonArea:
-        """ Create an common_area """
+        """Create an common_area"""
         return CommonAreaService.create(request.parsed_obj, project_id)
 
 
@@ -23,7 +23,7 @@ class CommonAreaResource(AuthenticatedApi):
 class CommonAreaIdResource(AuthenticatedApi):
     @responds(schema=CommonAreaSchema(), api=api)
     def get(self, common_area_id: int) -> CommonArea:
-        """ Get single common_area """
+        """Get single common_area"""
 
         return CommonAreaService.get_by_id(common_area_id)
 

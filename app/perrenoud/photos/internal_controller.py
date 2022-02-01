@@ -13,7 +13,10 @@ class RenamePhotosRoomView(InternalAPIView):
     def post(self):
         data = request.get_json(force=True)
         files = photos_service.PhotoService.fetch_photos(
-            {"project_id": data.get("project_id"), "room_id": data.get("room_id"),},
+            {
+                "project_id": data.get("project_id"),
+                "room_id": data.get("room_id"),
+            },
             email_user=data.get("email_user"),
         )
         for file in files:

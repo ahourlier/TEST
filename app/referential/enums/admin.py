@@ -21,6 +21,7 @@ from ...project.disorders import DisorderType
 from ...project.projects import Project
 from ...project.requesters import Requester
 from ...task import Task
+from ...combined_structure import CombinedStructure
 
 
 class BaseReadOnly:
@@ -75,7 +76,7 @@ class EnumBaseAdminView(ModelView):
 
     def get_count_query(self):
         return (
-            self.session.query(func.count("*"))
+            self.session.query(func.count(AppEnum.name))
             .select_from(AppEnum)
             .filter(AppEnum.kind == self.ENUM_KIND)
         )
@@ -392,3 +393,9 @@ class NatureAide(EnumBaseAdminView):
     ENUM_KIND = "NatureAide"
     FIELD_MODEL = None
     FIELD_REF = None
+
+
+class CombinedStructureType(EnumBaseAdminView):
+    ENUM_KIND = "CombinedStructureType"
+    FIELD_MODEL = CombinedStructure
+    FIELD_REF = "type"

@@ -7,7 +7,7 @@ from app.common.phone_number.model import HasPhones, PhoneNumber
 
 
 class Client(HasPhones, BaseMixin, db.Model):
-    """ Client model """
+    """Client model"""
 
     __tablename__ = "client"
 

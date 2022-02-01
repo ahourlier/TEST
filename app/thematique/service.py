@@ -3,14 +3,18 @@ from flask import current_app, jsonify
 from app.building import Building
 from app.common.firestore_utils import FirestoreUtils
 from app.lot import Lot
+from app.thematique.config import THEMATICS
 from app.thematique.error_handlers import (
     VersionNotFoundException,
     InvalidScopeException,
     InvalidResourceIdException,
     MissingVersionIdException,
     MissingStepIdException,
+    UnauthorizedToDeleteException,
 )
+from app.thematique.model import ThematiqueMission
 from app.thematique.schema import StepSchema
+from app import db
 
 
 class ThematiqueService:
@@ -229,3 +233,82 @@ class ThematiqueService:
                 version_created = ThematiqueService.duplicate_thematique(template)
                 list_docs.append(version_created)
         return list_docs
+
+    @staticmethod
+    def delete_copro_version(version_id):
+        """
+        Delete a copro version of a thematic, with versions of same thematic, version name and date for its buildings and lots
+        """
+        version = ThematiqueService.get_version(version_id)
+        if version.get("scope") != "copro":
+            raise UnauthorizedToDeleteException
+        ThematiqueService.delete_sub_versions(
+            copro_id=version.get("resource_id"),
+            thematique_name=version.get("thematique_name"),
+            version_name=version.get("version_name"),
+            version_date=version.get("version_date"),
+        )
+        ThematiqueService.delete_version(version_id)
+
+    @staticmethod
+    def delete_version(version_id, firestore_service=None):
+        """
+        Delete a specified version and its steps
+        """
+        if not firestore_service:
+            firestore_service = FirestoreUtils()
+        version = firestore_service.get_version_by_id(version_id)
+        if not version.exists:
+            raise VersionNotFoundException
+        steps = version.reference.collection(
+            current_app.config.get("FIRESTORE_STEPS_COLLECTION")
+        ).get()
+        for step in steps:
+            step.reference.delete()
+        version.reference.delete()
+
+    @staticmethod
+    def delete_sub_versions(copro_id, thematique_name, version_name, version_date):
+        """
+        Delete versions with same thematic, name and date for sub items of a copro
+        """
+        # fetch building ids of copro
+        buildings = (
+            Building.query.with_entities(Building.id)
+            .filter(Building.copro_id == copro_id)
+            .all()
+        )
+        # fetch lot ids of copro
+        lots = Lot.query.with_entities(Lot.id).filter(Lot.copro_id == copro_id).all()
+        firestore_service = FirestoreUtils()
+        # fetch all versions of same name, version name and date
+        documents = firestore_service.query_version(
+            thematique_name=thematique_name,
+            version_name=version_name,
+            version_date=version_date,
+        )
+        for d in documents:
+            doc_dict = d.to_dict()
+            if (
+                doc_dict.get("scope") == "building"
+                and (doc_dict.get("resource_id"),) in buildings
+            ):
+                ThematiqueService.delete_version(
+                    d.id, firestore_service=firestore_service
+                )
+            if (
+                doc_dict.get("scope") == "lot"
+                and (doc_dict.get("resource_id"),) in lots
+            ):
+                ThematiqueService.delete_version(
+                    d.id, firestore_service=firestore_service
+                )
+
+    @staticmethod
+    def init_mission_thematics(mission_id):
+        for t in THEMATICS:
+            tm = ThematiqueMission(
+                **{"mission_id": mission_id, "thematique_name": t, "authorized": True}
+            )
+            db.session.add(tm)
+            db.session.commit()

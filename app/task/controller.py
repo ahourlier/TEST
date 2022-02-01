@@ -30,12 +30,12 @@ SEARCH_PARAMS = [
 
 @api.route("")
 class TaskResource(AuthenticatedApi):
-    """ Task """
+    """Task"""
 
     @accepts(*SEARCH_PARAMS, api=api)
     @responds(schema=TaskPaginatedSchema())
     def get(self) -> Pagination:
-        """ Get all tasks """
+        """Get all tasks"""
         return TaskService.get_all(
             page=int(request.args.get("page", TASK_DEFAULT_PAGE)),
             size=int(request.args.get("size", TASK_DEFAULT_PAGE_SIZE)),
@@ -60,30 +60,30 @@ class TaskResource(AuthenticatedApi):
     @responds(schema=TaskSchema)
     @requires(has_mission_permission)
     def post(self) -> Task:
-        """ Create a client """
+        """Create a client"""
         return TaskService.create(request.parsed_obj)
 
 
 @api.route("/<int:task_id>")
 @api.param("TaskId", "Task unique id")
 class TaskIdResource(AuthenticatedApi):
-    """ Task id resource """
+    """Task id resource"""
 
     @responds(schema=TaskSchema())
     def get(self, task_id: int):
-        """ Get one task """
+        """Get one task"""
         return TaskService.get(task_id)
 
     @accepts(schema=TaskUpdateSchema, api=api)
     @responds(schema=TaskSchema)
     @requires(has_mission_permission)
     def put(self, task_id: int) -> Task:
-        """ Update a task """
+        """Update a task"""
         db_task = TaskService.get(task_id)
         return TaskService.update(db_task, request.parsed_obj)
 
     @requires(has_mission_permission)
     def delete(self, task_id: int) -> Response:
-        """ Update a task """
+        """Update a task"""
         id = TaskService.delete(task_id)
         return jsonify(dict(status="Success", id=id))

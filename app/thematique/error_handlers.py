@@ -7,6 +7,7 @@ from .exceptions import (
     MissingVersionIdException,
     MissingStepIdException,
     StepNotFoundException,
+    UnauthorizedToDeleteException,
 )
 from ..common.error_handlers import parse_exception
 
@@ -43,4 +44,9 @@ def missing_step_id(error):  # pragma: no cover
 
 @api.errorhandler(StepNotFoundException)
 def step_not_found(error):  # pragma: no cover
+    return parse_exception(error)
+
+
+@api.errorhandler(UnauthorizedToDeleteException)
+def deletion_unauthorized(error):  # pragma: no cover
     return parse_exception(error)

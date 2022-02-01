@@ -19,7 +19,7 @@ class HotWaterService:
 
     @staticmethod
     def create(new_attrs: HotWaterInterface, scenario_id=None, commit=True) -> HotWater:
-        """ Create a new hot_water entity associated to a custom_field"""
+        """Create a new hot_water entity associated to a custom_field"""
         if scenario_id is not None:
             new_attrs["scenario_id"] = scenario_id
         scenarios_service.ScenarioService.get_by_id(new_attrs.get("scenario_id"))
@@ -85,7 +85,7 @@ class HotWaterService:
 
     @staticmethod
     def duplicate(base_hot_water, clone_scenario_parent_id):
-        """ Duplicate an hot_water"""
+        """Duplicate an hot_water"""
         fields_to_treat_separately = ["scenario_id"]
         base_fields = ServicesUtils.fetch_dict_fields_from_object(
             base_hot_water, extra_fields_to_remove=fields_to_treat_separately.copy()

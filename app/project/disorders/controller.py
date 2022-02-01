@@ -11,12 +11,12 @@ from ...common.api import AuthenticatedApi
 
 @api.route("/")
 class DisorderResource(AuthenticatedApi):
-    """ Disorders """
+    """Disorders"""
 
     @accepts(schema=DisorderSchema, api=api)
     @responds(schema=DisorderSchema)
     def post(self) -> Disorder:
-        """ Create an disorder """
+        """Create an disorder"""
         return DisorderService.create(request.parsed_obj)
 
 

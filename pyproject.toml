@@ -2,4 +2,4 @@
 line-length = 88
 target-version = ['py37']
 include = '.*\.py'
-exclude = '(\.eggs|\.git|\.hg|\.mypy_cache|\.nox|\.tox|\.venv|\.pyc|__pycache__|_build|buck-out|build|dist|migrations\/.*\.py)'
+exclude = '(.pytest_cache|\.eggs|\.git|\.hg|\.mypy_cache|\.nox|\.tox|\.venv|\.pyc|__pycache__|_build|buck-out|build|venv|trigger_functions/venv|dist|migrations\/.*\.py)'

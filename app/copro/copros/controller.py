@@ -35,20 +35,22 @@ SEARCH_COPRO_PARAMS = [
     dict(name="sortBy", type=str),
     dict(name="sortDirection", type=str),
     dict(name="missionId", type=str),
+    dict(name="csId", type=int),
 ]
 
 
 @api.route("")
 class CoprosResource(AuthenticatedApi):
-    """ Coproprietes """
+    """Coproprietes"""
 
     @accepts(
-        *SEARCH_COPRO_PARAMS, api=api,
+        *SEARCH_COPRO_PARAMS,
+        api=api,
     )
     @responds(schema=CoproPaginatedSchema(), api=api)
     @requires(has_copro_list_permissions)
     def get(self) -> Pagination:
-        """ Get all coproprietes """
+        """Get all coproprietes"""
         return CoproService.get_all(
             page=int(request.args.get("page", COPRO_DEFAULT_PAGE)),
             size=int(request.args.get("size", COPRO_DEFAULT_PAGE_SIZE)),
@@ -58,6 +60,9 @@ class CoprosResource(AuthenticatedApi):
             mission_id=request.args.get("missionId")
             if request.args.get("missionId") not in [None, ""]
             else None,
+            cs_id=request.args.get("csId")
+            if request.args.get("csId") not in [None, ""]
+            else None,
             user=g.user,
         )
 
@@ -65,7 +70,7 @@ class CoprosResource(AuthenticatedApi):
     @responds(schema=CoproSchema(), api=api)
     @requires(has_mission_permission, is_contributor)
     def post(self) -> Copro:
-        """ Create a mission """
+        """Create a mission"""
         return CoproService.create(request.parsed_obj)
 
 

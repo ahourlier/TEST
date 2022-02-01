@@ -1,3 +1,6 @@
+import imp
+
+
 def register_routes(api, app, root="api"):
     from app.auth import register_routes as attach_auth
     from app.admin import register_routes as attach_admin
@@ -16,6 +19,7 @@ def register_routes(api, app, root="api"):
     from app.person import register_routes as attach_people
     from app.thematique import register_routes as attach_thematiques
     from app.task import register_routes as attach_tasks
+    from app.combined_structure import register_routes as attach_combined_structures
 
     attach_auth(api, app, root)
     attach_admin(api, app, root)
@@ -34,3 +38,4 @@ def register_routes(api, app, root="api"):
     attach_people(api, app, root)
     attach_thematiques(api, app, root)
     attach_tasks(api, app, root)
+    attach_combined_structures(api, app, root)

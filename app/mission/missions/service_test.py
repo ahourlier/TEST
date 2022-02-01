@@ -121,7 +121,8 @@ def test_get_all(
 
 
 def test_create_bad_relations(
-    agency_one: Agency, antenna_one: Antenna,
+    agency_one: Agency,
+    antenna_one: Antenna,
 ):
     mission_1: MissionInterface = get_mission_one_interface()
 
@@ -162,7 +163,10 @@ def test_get_by_id(
 
 
 def test_create(
-    db: SQLAlchemy, agency_one: Agency, antenna_one: Antenna, client_one: Client,
+    db: SQLAlchemy,
+    agency_one: Agency,
+    antenna_one: Antenna,
+    client_one: Client,
 ):
     mission_1: MissionInterface = get_mission_one_interface()
 
@@ -293,7 +297,10 @@ def test_has_changed(
 
 
 def test_delete_by_id(
-    agency_one: Agency, antenna_one: Antenna, client_one: Client, db: SQLAlchemy,
+    agency_one: Agency,
+    antenna_one: Antenna,
+    client_one: Client,
+    db: SQLAlchemy,
 ):
     m1: Mission = create_mission_one(agency_one.id, antenna_one.id, client_one.id)
     db.session.add(m1)

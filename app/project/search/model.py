@@ -20,7 +20,7 @@ FORBIDDEN_FIELDS = [
 
 
 class Search(BaseMixin, db.Model):
-    """ Search  """
+    """Search"""
 
     __tablename__ = "search"
 

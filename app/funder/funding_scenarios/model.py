@@ -75,7 +75,7 @@ FUNDING_SCENARIOS_CRITERIA_CONFIGURATION = {
 
 
 class FundingScenario(BaseMixin, db.Model):
-    """ Represents a scenario for a funder """
+    """Represents a scenario for a funder"""
 
     __tablename__ = "funding_scenario"
 

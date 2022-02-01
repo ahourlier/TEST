@@ -36,7 +36,7 @@ class SimulationAccommodationService:
 
     @staticmethod
     def accommodation_already_used(simulation_id, accommodation_id):
-        """ Check if accommodation is already associated to a simulation"""
+        """Check if accommodation is already associated to a simulation"""
         q = Simulation.query.filter(Simulation.id == simulation_id).filter(
             Simulation.simulations_accommodations.any(
                 SimulationAccommodation.accommodation_id == accommodation_id

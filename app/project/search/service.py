@@ -56,7 +56,7 @@ class ProjectSearchService:
         sort_by=SEARCH_DEFAULT_SORT_FIELD,
         direction=SEARCH_DEFAULT_SORT_DIRECTION,
     ) -> Pagination:
-        """Extract specific project case : MANAGERS """
+        """Extract specific project case : MANAGERS"""
         manager_filter = None
         custom_fields = []
         accommodation_filters = {}

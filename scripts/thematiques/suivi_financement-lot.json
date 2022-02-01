@@ -6,54 +6,51 @@
     {
       "metadata": {
         "legendes": [],
-        "name": "DECOMPOSITION_DEPENSE",
+        "name": "TRAVAUX_VOTES_AG_DECOMPOSITION_DEPENSE",
         "order": 1,
         "status": ""
       },
       "fields": {
-        "campagne_travaux": {
-          "value": [
-            {
-              "nature_travaux_interet_collectifs_pp": {
-                "type": "select_multiple",
-                "multiple": false,
-                "value": [],
-                "endpoint": "/api/referential/enums/?enums=NatureTravauxInteretCollectifsPP"
-              },
-              "travaux_ppic_ht": {
-                "type": "number",
-                "multiple": false,
-                "value": []
-              },
-              "travaux_ppic_ttc": {
-                "type": "number",
-                "multiple": false,
-                "value": []
-              },
-              "frais_ppic_ht": {
-                "type": "number",
-                "multiple": false,
-                "value": []
-              },
-              "frais_ppic_ttc": {
-                "type": "number",
-                "multiple": false,
-                "value": []
-              },
-              "depense_subventionnable_ppic_ht": {
-                "type": "number",
-                "multiple": false,
-                "value": []
-              },
-              "depense_totale_ppic_ttc": {
-                "type": "number",
-                "multiple": false,
-                "value": []
-              }
-            }
-          ],
-          "multiple": true,
-          "type": "group"
+        "nature_travaux_interet_collectifs_pp": {
+          "type": "select_multiple",
+          "multiple": false,
+          "value": [],
+          "endpoint": "/referential/enums/?enums=NatureTravauxInteretCollectifsPP"
+        },
+        "description_succinte_poste_poste": {
+          "type": "string",
+          "multiple": false,
+          "value": []
+        },
+        "travaux_ppic_ht": {
+          "type": "number",
+          "multiple": false,
+          "value": []
+        },
+        "travaux_ppic_ttc": {
+          "type": "number",
+          "multiple": false,
+          "value": []
+        },
+        "frais_ppic_ht": {
+          "type": "number",
+          "multiple": false,
+          "value": []
+        },
+        "frais_ppic_ttc": {
+          "type": "number",
+          "multiple": false,
+          "value": []
+        },
+        "depense_subventionnable_ppic_ht": {
+          "type": "number",
+          "multiple": false,
+          "value": []
+        },
+        "depense_totale_ppic_ttc": {
+          "type": "number",
+          "multiple": false,
+          "value": []
         }
       }
     },
@@ -68,69 +65,71 @@
         "organisme_pret_individuel": {
           "multiple": true,
           "type": "group",
-          "value": [{
-            "organisme_pret_individuel": {
-              "type": "string",
-              "multiple": false,
-              "value": []
-            },
-            "tel_preteur": {
-              "type": "telephone",
-              "multiple": false,
-              "value": []
-            },
-            "mail_preteur": {
-              "type": "email",
-              "multiple": false,
-              "value": []
-            },
-            "pret_individuel_type": {
-              "type": "select_multiple",
-              "multiple": false,
-              "endpoint": "/api/referential/enums/?enums=TypePretIndividuel",
-              "value": []
-            },
-            "demande_pret": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "pret_individuel_montant_demande": {
-              "type": "number",
-              "multiple": false,
-              "value": []
-            },
-            "pret_individuel_taux_annuel_effectif_global": {
-              "type": "number",
-              "multiple": false,
-              "value": []
-            },
-            "pret_individuel_notification_decision": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "pret_individuel_montant_accorde": {
-              "type": "number",
-              "multiple": false,
-              "value": []
-            },
-            "pret_individuel_forclusion": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "pret_individuel_versement": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "pret_individuel_montant_verse": {
-              "type": "date",
-              "multiple": false,
-              "value": []
+          "value": [
+            {
+              "organisme_pret_individuel": {
+                "type": "string",
+                "multiple": false,
+                "value": []
+              },
+              "tel_preteur": {
+                "type": "telephone",
+                "multiple": false,
+                "value": []
+              },
+              "mail_preteur": {
+                "type": "email",
+                "multiple": false,
+                "value": []
+              },
+              "pret_individuel_type": {
+                "type": "select_multiple",
+                "multiple": false,
+                "endpoint": "/referential/enums/?enums=TypePretIndividuel",
+                "value": []
+              },
+              "demande_pret": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "pret_individuel_montant_demande": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "pret_individuel_taux_annuel_effectif_global": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "pret_individuel_notification_decision": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "pret_individuel_montant_accorde": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "pret_individuel_forclusion": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "pret_individuel_versement": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "pret_individuel_montant_verse": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              }
             }
-          }]
+          ]
         }
       }
     },
@@ -142,41 +141,54 @@
         "status": ""
       },
       "fields": {
-        "nature_travaux": {
-          "type": "select_multiple",
-          "multiple": false,
-          "value": [],
-          "endpoint": "/api/referential/enums/?enums=NatureTravauxInteretCollectifsPP"
-        },
-        "travaux_pp_ht": {
-          "type": "number",
-          "multiple": false,
-          "value": []
-        },
-        "travaux_pp_ttc": {
-          "type": "number",
-          "multiple": false,
-          "value": []
-        },
-        "frais_pp_ht": {
-          "type": "number",
-          "multiple": false,
-          "value": []
-        },
-        "frais_pp_ttc": {
-          "type": "number",
-          "multiple": false,
-          "value": []
-        },
-        "depenses_subventionnable_pp_htt": {
-          "type": "number",
-          "multiple": false,
-          "value": []
-        },
-        "depenses_totale_pp_ttc": {
-          "type": "number",
-          "multiple": false,
-          "value": []
+        "travaux": {
+          "type": "group",
+          "multiple": true,
+          "value": [
+            {
+              "nature_travaux": {
+                "type": "select_multiple",
+                "multiple": false,
+                "value": [],
+                "endpoint": "/referential/enums/?enums=NatureTravauxInteretCollectifsPP"
+              },
+              "description_succinte_poste_poste": {
+                "type": "string",
+                "multiple": false,
+                "value": []
+              },
+              "travaux_pp_ht": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "travaux_pp_ttc": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "frais_pp_ht": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "frais_pp_ttc": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "depenses_subventionnable_pp_htt": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "depenses_totale_pp_ttc": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              }
+            }
+          ]
         }
       }
     },
@@ -191,145 +203,149 @@
         "financeurs": {
           "multiple": true,
           "type": "group",
-          "value": [{
-            "financeur": {
-              "type": "autocomplete",
-              "endpoint": "/api/funder/funders/",
-              "multiple": false,
-              "value": []
-            },
-            "tel_financeur": {
-              "type": "telephone",
-              "multiple": false,
-              "value": []
-            },
-            "mail_financeur": {
-              "type": "email",
-              "multiple": false,
-              "value": []
-            },
-            "demande_aide": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "mondant_aide_demande_sub_primes": {
-              "type": "number",
-              "multiple": false,
-              "value": []
-            },
-            "mondant_aide_demande_primes": {
-              "type": "number",
-              "multiple": false,
-              "value": []
-            },
-            "accuse_reception_dossier": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "notification_decision": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "montant_aide_engage_sub_primes": {
-              "type": "number",
-              "multiple": false,
-              "value": []
-            },
-            "montant_aide_engage_primes": {
-              "type": "number",
-              "multiple": false,
-              "value": []
-            },
-            "forclusion": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "demande_avance": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "montant_avance_demande": {
-              "type": "number",
-              "multiple": false,
-              "value": []
-            },
-            "versement_avance": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "montant_avance_verse": {
-              "type": "number",
-              "multiple": false,
-              "value": []
-            },
-            "accompte": {
-              "type": "group",
-              "multiple": true,
-              "value": [{
-                "demande_accompte": {
-                  "type": "date",
-                  "multiple": true,
-                  "value": []
-                },
-                "montant_accompte_demande": {
-                  "type": "number",
-                  "multiple": true,
-                  "value": []
-                },
-                "accompte_versement": {
-                  "type": "date",
-                  "multiple": true,
-                  "value": []
-                },
-                "accompte_montant_verse": {
-                  "type": "number",
-                  "multiple": true,
-                  "value": []
-                }
-              }]
-            },
-            "demande_solde": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "montant_solde_demande": {
-              "type": "number",
-              "multiple": false,
-              "value": []
-            },
-            "versement_solde": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "solde_montant_verse": {
-              "type": "number",
-              "multiple": false,
-              "value": []
-            },
-            "delta_total_engage_total_verse": {
-              "type": "number",
-              "multiple": false,
-              "value": []
-            },
-            "demande_prorogation": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "nouvelle_forclusion": {
-              "type": "date",
-              "multiple": false,
-              "value": []
+          "value": [
+            {
+              "financeur": {
+                "type": "autocomplete",
+                "endpoint": "/funder/funders/",
+                "multiple": false,
+                "value": []
+              },
+              "tel_financeur": {
+                "type": "telephone",
+                "multiple": false,
+                "value": []
+              },
+              "mail_financeur": {
+                "type": "email",
+                "multiple": false,
+                "value": []
+              },
+              "demande_aide": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "mondant_aide_demande_sub_primes": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "mondant_aide_demande_primes": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "accuse_reception_dossier": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "notification_decision": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "montant_aide_engage_sub_primes": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "montant_aide_engage_primes": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "forclusion": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "demande_avance": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "montant_avance_demande": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "versement_avance": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "montant_avance_verse": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "accompte": {
+                "type": "group",
+                "multiple": true,
+                "value": [
+                  {
+                    "demande_accompte": {
+                      "type": "date",
+                      "multiple": true,
+                      "value": []
+                    },
+                    "montant_accompte_demande": {
+                      "type": "number",
+                      "multiple": true,
+                      "value": []
+                    },
+                    "accompte_versement": {
+                      "type": "date",
+                      "multiple": true,
+                      "value": []
+                    },
+                    "accompte_montant_verse": {
+                      "type": "number",
+                      "multiple": true,
+                      "value": []
+                    }
+                  }
+                ]
+              },
+              "demande_solde": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "montant_solde_demande": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "versement_solde": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "solde_montant_verse": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "delta_total_engage_total_verse": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "demande_prorogation": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "nouvelle_forclusion": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              }
             }
-          }]
+          ]
         }
       }
     },
@@ -344,75 +360,79 @@
         "prefinanceurs": {
           "multiple": true,
           "type": "group",
-          "value": [{
-            "prefinanceur": {
-              "type": "select",
-              "multiple": false,
-              "endpoint": "/api/referential/enums/?enums=Prefinanceurs",
-              "value": []
-            },
-            "tel_prefinanceur": {
-              "type": "telephone",
-              "multiple": false,
-              "value": []
-            },
-            "mail_prefinanceur": {
-              "type": "email",
-              "multiple": false,
-              "value": []
-            },
-            "demande_prefinancement": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "prefinancement_demande": {
-              "type": "number",
-              "multiple": false,
-              "value": []
-            },
-            "prefinancement_accuse_reception_dossier": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "prefinancement_notification_decision": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "prefinancement_accorde": {
-              "type": "number",
-              "multiple": false,
-              "value": []
-            },
-            "prefinancement_forclusion": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "deblocage": {
-              "type": "group",
-              "multiple": true,
-              "value": [{
-                "demande_deblocage": {
-                  "type": "date",
-                  "multiple": false,
-                  "value": []
-                },
-                "deblocage_versement": {
-                  "type": "date",
-                  "multiple": false,
-                  "value": []
-                },
-                "deblocage_montant_verse": {
-                  "type": "number",
-                  "multiple": false,
-                  "value": []
-                }
-              }]
+          "value": [
+            {
+              "prefinanceur": {
+                "type": "select",
+                "multiple": false,
+                "endpoint": "/referential/enums/?enums=Prefinanceurs",
+                "value": []
+              },
+              "tel_prefinanceur": {
+                "type": "telephone",
+                "multiple": false,
+                "value": []
+              },
+              "mail_prefinanceur": {
+                "type": "email",
+                "multiple": false,
+                "value": []
+              },
+              "demande_prefinancement": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "prefinancement_demande": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "prefinancement_accuse_reception_dossier": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "prefinancement_notification_decision": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "prefinancement_accorde": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "prefinancement_forclusion": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "deblocage": {
+                "type": "group",
+                "multiple": true,
+                "value": [
+                  {
+                    "demande_deblocage": {
+                      "type": "date",
+                      "multiple": false,
+                      "value": []
+                    },
+                    "deblocage_versement": {
+                      "type": "date",
+                      "multiple": false,
+                      "value": []
+                    },
+                    "deblocage_montant_verse": {
+                      "type": "number",
+                      "multiple": false,
+                      "value": []
+                    }
+                  }
+                ]
+              }
             }
-          }]
+          ]
         }
       }
     },
@@ -427,74 +447,76 @@
         "financeur_pret_individuel": {
           "multiple": true,
           "type": "group",
-          "value": [{
-            "financeur_pret_individuel": {
-              "type": "string",
-              "multiple": false,
-              "value": []
-            },
-            "tel_financeur": {
-              "type": "telephone",
-              "multiple": false,
-              "value": []
-            },
-            "mail_financeur": {
-              "type": "email",
-              "multiple": false,
-              "value": []
-            },
-            "pret_individuel_type": {
-              "type": "select_multiple",
-              "multiple": false,
-              "endpoint": "/api/referential/enums/?enums=TypePretIndividuel",
-              "value": []
-            },
-            "demande_pret": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "pret_individuel_montant_demande": {
-              "type": "number",
-              "multiple": false,
-              "value": []
-            },
-            "pret_individuel_taux_annuel_effectif_global": {
-              "type": "number",
-              "multiple": false,
-              "value": []
-            },
-            "pret_individuel_notification_decision": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "pret_individuel_montant_accorde": {
-              "type": "number",
-              "multiple": false,
-              "value": []
-            },
-            "pret_individuel_forclusion": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "pret_individuel_demande_versement": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "pret_individuel_versement": {
-              "type": "date",
-              "multiple": false,
-              "value": []
-            },
-            "pret_individuel_montant_verse": {
-              "type": "date",
-              "multiple": false,
-              "value": []
+          "value": [
+            {
+              "financeur_pret_individuel": {
+                "type": "string",
+                "multiple": false,
+                "value": []
+              },
+              "tel_financeur": {
+                "type": "telephone",
+                "multiple": false,
+                "value": []
+              },
+              "mail_financeur": {
+                "type": "email",
+                "multiple": false,
+                "value": []
+              },
+              "pret_individuel_type": {
+                "type": "select_multiple",
+                "multiple": false,
+                "endpoint": "/referential/enums/?enums=TypePretIndividuel",
+                "value": []
+              },
+              "demande_pret": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "pret_individuel_montant_demande": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "pret_individuel_taux_annuel_effectif_global": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "pret_individuel_notification_decision": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "pret_individuel_montant_accorde": {
+                "type": "number",
+                "multiple": false,
+                "value": []
+              },
+              "pret_individuel_forclusion": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "pret_individuel_demande_versement": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "pret_individuel_versement": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              },
+              "pret_individuel_montant_verse": {
+                "type": "date",
+                "multiple": false,
+                "value": []
+              }
             }
-          }]
+          ]
         }
       }
     }

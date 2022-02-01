@@ -61,7 +61,10 @@ class MissionInitPermissions(InternalAPIView):
 
             # mission creator is organizer
             permission = DriveUtils.insert_permission(
-                db_mission.sd_root_folder_id, "organizer", "user", db_mission.creator,
+                db_mission.sd_root_folder_id,
+                "organizer",
+                "user",
+                db_mission.creator,
             )
             if not permission:
                 raise SharedDriveException(KEY_SHARED_DRIVE_PERMISSION_EXCEPTION)
@@ -105,7 +108,9 @@ class MissionInitPermissions(InternalAPIView):
                         queue="project-queue",
                         uri=f"{os.getenv('API_URL')}/_internal/projects/init-drive",
                         method="POST",
-                        payload={"project_id": db_project.id,},
+                        payload={
+                            "project_id": db_project.id,
+                        },
                     )
 
         return "OK"
@@ -117,14 +122,14 @@ class MissionComputePermissions(InternalAPIView):
         db_mission = MissionService.get_by_id(data.get("mission_id"))
         if not db_mission.google_group_id:
             if not data.get("update", True):
-                create_task(
-                    project=os.getenv("GOOGLE_CLOUD_PROJECT"),
-                    location=os.getenv("QUEUES_LOCATION"),
-                    queue=MISSION_INIT_QUEUE_NAME,
-                    uri=f"{os.getenv('API_URL')}/_internal/missions/compute-permissions",
-                    method="POST",
-                    payload={"mission_id": db_mission.id, "update": False},
-                )
+                # create_task(
+                #     project=os.getenv("GOOGLE_CLOUD_PROJECT"),
+                #     location=os.getenv("QUEUES_LOCATION"),
+                #     queue=MISSION_INIT_QUEUE_NAME,
+                #     uri=f"{os.getenv('API_URL')}/_internal/missions/compute-permissions",
+                #     method="POST",
+                #     payload={"mission_id": db_mission.id, "update": False},
+                # )
                 return "OK"
             else:
                 raise SharedDriveException(KEY_SHARED_DRIVE_PERMISSION_EXCEPTION)

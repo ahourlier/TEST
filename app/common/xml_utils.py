@@ -145,8 +145,8 @@ class XMLBuilder:
         self.instanciate_elements(item, parent_elements)
 
     def instanciate_elements(self, item, parent_elements):
-        """ Instanciate an element, set his content and update the
-        generation map """
+        """Instanciate an element, set his content and update the
+        generation map"""
         for element, entity in parent_elements.items():
             self.instanciate_element(item, element, entity)
 
@@ -156,7 +156,7 @@ class XMLBuilder:
         self.update_generation_map(new_element, item, entity)
 
     def update_generation_map(self, new_element, item, entity):
-        """ Each time an element is created, monitoring collection xml_generation_map must be updated"""
+        """Each time an element is created, monitoring collection xml_generation_map must be updated"""
         ServicesUtils.set_nested_dict(
             self.xml_generation_map,
             [item.get("id"), "instances"],
@@ -165,7 +165,7 @@ class XMLBuilder:
         )
 
     def build_iteration(self, item, parent_elements):
-        """ Build an iterated item (this item will be instanciated
+        """Build an iterated item (this item will be instanciated
         for each entity of the list pointed by the fields of the item)"""
         item.get("structure_type").remove(StructureTypes.ITERATION.value)
         for parent_element, parent_entity in parent_elements.items():
@@ -193,7 +193,7 @@ class XMLBuilder:
         return parent_iterations_map.get("instances")
 
     def set_element_value(self, element, entity, item):
-        """ Creates and returns an 'instance' of an iteration child. Each iteration child has as many elements
+        """Creates and returns an 'instance' of an iteration child. Each iteration child has as many elements
         instanciated as the iteration size"""
         if element is None:
             logging.error(
@@ -225,7 +225,7 @@ class XMLBuilder:
         return element
 
     def set_primary_key(self, element, item, entity):
-        """ Primary key elements are tags containing a specific 'ID', auto-incremented, which allows
+        """Primary key elements are tags containing a specific 'ID', auto-incremented, which allows
         to identify the object within other tags.
         Example :   <Mur_collection>
                     <Mur><primary_key_element>1</primary_key_element></Mur>
@@ -246,12 +246,14 @@ class XMLBuilder:
         self.last_id_incremented = new_primary_key
         self.set_raw_value(element, entity, item, value=new_primary_key)
         ServicesUtils.set_nested_dict(
-            self.foreign_keys_map, [entity_model, entity_id], new_primary_key,
+            self.foreign_keys_map,
+            [entity_model, entity_id],
+            new_primary_key,
         )
 
     def set_foreign_key(self, new_element, item, entity):
-        """ Foreign key elements are tags containing an 'ID' pointing to others elements. Link is done
-        through this ID (see build_foreign_key_element method) """
+        """Foreign key elements are tags containing an 'ID' pointing to others elements. Link is done
+        through this ID (see build_foreign_key_element method)"""
 
         foreign_key_id = self.fetch_foreign_key(item, entity)
         self.set_raw_value(new_element, entity, item, value=foreign_key_id)
@@ -280,7 +282,11 @@ class XMLBuilder:
             )
         if isinstance(parent_entity, list):
             return parent_entity
-        return self.fetch_data(parent_entity, item.get("fields"), item.get("rule"),)
+        return self.fetch_data(
+            parent_entity,
+            item.get("fields"),
+            item.get("rule"),
+        )
 
     def fetch_parent_iterations(self, parent_id):
         """Given a parent_id, fetch all elements instanciated from it."""
@@ -318,7 +324,7 @@ class XMLBuilder:
 
     def is_item_mandatory(self, item, current_entity=None):
         """Given a set of conditions, return True if elements for this item
-         will be mandatory, else False"""
+        will be mandatory, else False"""
         if not item.get("validation"):
             return True
         conditions = item.get("validation").get("conditions")
@@ -328,7 +334,7 @@ class XMLBuilder:
             return not item.get("validation").get("mandatory")
 
     def check_conditions(self, conditions, current_entity):
-        """ Check recursively all mandatory conditions by And or Or keyword. """
+        """Check recursively all mandatory conditions by And or Or keyword."""
         if isinstance(conditions, dict):
             return self.is_condition_fulfilled(conditions, current_entity)
         if conditions[0] != "and" and conditions[0] != "or":
@@ -348,7 +354,7 @@ class XMLBuilder:
         return False
 
     def is_condition_fulfilled(self, condition, current_entity):
-        """ Return True if one specific condition is fulfilled, esle False"""
+        """Return True if one specific condition is fulfilled, esle False"""
         target_item = self.xml_generation_map.get(condition.get("id"))
         target_element = self.find_target_element(target_item, current_entity)
         if target_element is None:
@@ -360,7 +366,7 @@ class XMLBuilder:
         return True
 
     def find_target_element(self, target_item, current_entity):
-        """ Within the previously generated XML, find and return the element/tag
+        """Within the previously generated XML, find and return the element/tag
         targetted by the given condition"""
         if not target_item.get("instances") or len(target_item.get("instances")) < 1:
             return None
@@ -373,7 +379,7 @@ class XMLBuilder:
         return None
 
     def check_value_by_operator(self, value, target_value, operator):
-        """ Return True if value is compliant with target-value, given the operator,
+        """Return True if value is compliant with target-value, given the operator,
         else False"""
         value = float(value) if value else None
         if not value:
@@ -415,7 +421,7 @@ class XMLBuilder:
         )
 
     def set_raw_value(self, element, entity, item, value=None):
-        """ Set a value within a XML tag. Example : <My_Element> Fetched_Value </My_Element> """
+        """Set a value within a XML tag. Example : <My_Element> Fetched_Value </My_Element>"""
         if value:
             element.text = str(value)
             return element
@@ -440,7 +446,7 @@ class XMLBuilder:
         return element
 
     def fetch_data(self, entity, fields, rule_name, enum_index=None):
-        """ For a given XML node, fields and corresponding rules, fetch the value in database.
+        """For a given XML node, fields and corresponding rules, fetch the value in database.
         Optionaly, can give an enum_index to convert the raw value into a Perrenoud enum integer value"""
         if not rule_name:
             rule_name = "get_basic_value"
@@ -476,12 +482,12 @@ class XMLBuilder:
 
 
 class PerrenoudFetchRulesCollection:
-    """ Class acting as a collection of custom business rules ready to be used within the XML generation.
-    Theses rules are designed to fit the needs of the Perrenoud webservice """
+    """Class acting as a collection of custom business rules ready to be used within the XML generation.
+    Theses rules are designed to fit the needs of the Perrenoud webservice"""
 
     @staticmethod
     def fetch_perrenoud_enum_value(label, enum_index):
-        """ Returns an integer value (stringified) correspond to the provided label and Perrenoud Enum"""
+        """Returns an integer value (stringified) correspond to the provided label and Perrenoud Enum"""
         if label and not isinstance(label, (float, str, int)):
             logging.error(
                 f"ERROR : {label} value does not match any value within perrenoud enum number {enum_index}"
@@ -499,7 +505,7 @@ class PerrenoudFetchRulesCollection:
 
     @staticmethod
     def get_basic_value(entity, fields):
-        """ Basic, default route. Fetch in database the value corresponding to the provided parent entity and fields path.
+        """Basic, default route. Fetch in database the value corresponding to the provided parent entity and fields path.
         Example : entity = scenario, fields = "", "annual_energy_consumption"""
         if not isinstance(fields, list):
             fields = [fields]
@@ -531,7 +537,7 @@ class PerrenoudFetchRulesCollection:
 
     @staticmethod
     def get_department_number(entity, field):
-        """ Given an address code, return a 'department' number """
+        """Given an address code, return a 'department' number"""
         code = entity.accommodation.project.address_code
         if code:
             code = code[:-3]
@@ -539,7 +545,7 @@ class PerrenoudFetchRulesCollection:
 
     @staticmethod
     def get_living_area(entity, field):
-        """ Fetch living area, calculated or given"""
+        """Fetch living area, calculated or given"""
         if entity.accommodation.living_area:
             return str(entity.accommodation.living_area)
         else:
@@ -547,7 +553,7 @@ class PerrenoudFetchRulesCollection:
 
     @staticmethod
     def get_initial_state_status(entity, field):
-        """Return 0 if is initial state, 1 for scenario """
+        """Return 0 if is initial state, 1 for scenario"""
         return "0" if entity.is_initial_state else "1"
 
     @staticmethod
@@ -557,7 +563,7 @@ class PerrenoudFetchRulesCollection:
 
     @staticmethod
     def has_seal(entity, field):
-        """ Business custom rule for field 84,'Lst011_Avec_Joint' """
+        """Business custom rule for field 84,'Lst011_Avec_Joint'"""
         field_91_value = PerrenoudFetchRulesCollection.fetch_perrenoud_enum_value(
             entity.glass_type, 24
         )
@@ -568,7 +574,7 @@ class PerrenoudFetchRulesCollection:
 
     @staticmethod
     def get_regulation_by_room(entity, field):
-        """ Business rule for field number 258 :
+        """Business rule for field number 258 :
         ""Lst011_Regul_Piece"" field"""
         emettor_type_value = PerrenoudFetchRulesCollection.fetch_perrenoud_enum_value(
             entity.emettor_type, 43
@@ -620,7 +626,7 @@ class PerrenoudFetchRulesCollection:
 
     @staticmethod
     def get_generator_energy(heating, field):
-        """ Given a heating, return the energy type value (as
+        """Given a heating, return the energy type value (as
         described into the enum 0038 Perrenoud, hardcoded below)"""
         energy_correspondance = {
             "Fioul": "0",
@@ -672,7 +678,7 @@ class PerrenoudFetchRulesCollection:
 
     @staticmethod
     def has_gaz_heating(scenario, field):
-        """ Return "1" if at least one gaz hearting is present  """
+        """Return "1" if at least one gaz hearting is present"""
         for heating in scenario.heatings:
             if heating.energy_used == "Gaz":
                 return "1"
@@ -680,7 +686,7 @@ class PerrenoudFetchRulesCollection:
 
     @staticmethod
     def get_building_type(scenario, field):
-        """ Return 2 if apartment, else 1"""
+        """Return 2 if apartment, else 1"""
         return (
             "2" if scenario.accommodation.accommodation_type == "Appartement" else "1"
         )
@@ -714,11 +720,11 @@ PERRENOUD_RESPONSE_CODES = {
 
 
 class PerrenoudParser:
-    """ Class dedicated to Perrenoud response parsing """
+    """Class dedicated to Perrenoud response parsing"""
 
     @staticmethod
     def parse_xml(xml):
-        """ Parse XML and returns Perrenoud results changes for a scenario"""
+        """Parse XML and returns Perrenoud results changes for a scenario"""
 
         root = ET.fromstring(xml)
 
@@ -868,7 +874,7 @@ class PerrenoudParser:
 
     @staticmethod
     def fetch_deperditions_repartition(root, type_paroi):
-        """ Business rule.
+        """Business rule.
         Deperdition repartition = sum thermal deperdition / deperdition envelope"""
         thermal_depertition_sum = PerrenoudParser.fetch_summed_elements(
             root,
@@ -890,8 +896,8 @@ class PerrenoudParser:
 
     @staticmethod
     def fetch_deperdition_bridges(root):
-        """ Business rule.
-        Deperdition bridge = ((deperdition_envelope - sum_bridge_deperditions) / sum_bridge_deperditions) * 100 """
+        """Business rule.
+        Deperdition bridge = ((deperdition_envelope - sum_bridge_deperditions) / sum_bridge_deperditions) * 100"""
         deperdition_envelope = PerrenoudParser.fetch_unique_element(
             ["le_batiment"], root, "deperdition_enveloppe"
         )
@@ -915,7 +921,7 @@ class PerrenoudParser:
 
     @staticmethod
     def fetch_deperdition_airflow(root):
-        """ Business rule.
+        """Business rule.
         Deperdition airflow = (airflow_reuse_loss / deperdition_envelope) * 100"""
         air_flow_reuse_loss = float(
             PerrenoudParser.fetch_unique_element(
@@ -933,7 +939,7 @@ class PerrenoudParser:
 
     @staticmethod
     def fetch_energy_consumption(root, fields, conditions, summed_field):
-        """ Fetch energy consumptions, sorted by type (energy 1 and energy 2)"""
+        """Fetch energy consumptions, sorted by type (energy 1 and energy 2)"""
         elements = PerrenoudParser.find_subelement(
             ["consommations", "item"], root, fields
         )
@@ -963,7 +969,10 @@ class PerrenoudParser:
         for element in elements:
             if element.get(sorting_field):
                 ServicesUtils.set_nested_dict(
-                    result, [element.get(sorting_field)], [element], append=True,
+                    result,
+                    [element.get(sorting_field)],
+                    [element],
+                    append=True,
                 )
         return result
 
@@ -998,7 +1007,7 @@ class PerrenoudParser:
     def filter_list_elements(elements_list: List, conditions: dict):
         """fields_list : a list of dict. conditions : a dict where keys are conditioned fields, and values
         required values for theses fields.
-        Remove elements from elements_list if they do not match all given conditions """
+        Remove elements from elements_list if they do not match all given conditions"""
         result = []
         for element in elements_list:
             item_validated = True
@@ -1018,7 +1027,7 @@ class PerrenoudParser:
 
     @staticmethod
     def find_subelement(path: List, node, fields):
-        """ Fetch all elements matching a given path. Returns a list of formatted dict"""
+        """Fetch all elements matching a given path. Returns a list of formatted dict"""
         if len(path) == 0:
             return [PerrenoudParser.parse_element(node, fields)]
         if len(path) > 1:
@@ -1042,7 +1051,7 @@ class PerrenoudParser:
 
     @staticmethod
     def parse_element(element_parent, fields):
-        """ Returns targetted fields within an XML element (as a dict of field_name:value)"""
+        """Returns targetted fields within an XML element (as a dict of field_name:value)"""
         if not isinstance(fields, list):
             fields = [fields]
         item = {}

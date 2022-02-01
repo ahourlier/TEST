@@ -7,7 +7,7 @@ from app.common.phone_number.model import HasPhones, PhoneNumber
 
 
 class Referent(HasPhones, BaseMixin, db.Model):
-    """ Referent model """
+    """Referent model"""
 
     __tablename__ = "referent"
 

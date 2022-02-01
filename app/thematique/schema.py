@@ -34,8 +34,8 @@ class ThematiqueSchema(SQLAlchemyAutoSchema):
 
 
 class VersionSchema(ThematiqueSchema):
-    version_name = fields.String()
-    version_date = fields.String()
+    version_name = fields.String(allow_none=False, required=True)
+    version_date = fields.String(allow_none=False, required=True)
 
 
 class ThematiqueMissionSchema(SQLAlchemyAutoSchema):
