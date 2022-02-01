@@ -1,4 +1,3 @@
-import imp
 from flask import current_app, jsonify
 
 from app.building import Building
