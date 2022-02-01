@@ -33,7 +33,7 @@ black:
   allow_failure: true
   before_script:
   - python --version
-  - pip install black==19.10b0
+  - pip install black==21.12b0
   script:
   - black . --check
 

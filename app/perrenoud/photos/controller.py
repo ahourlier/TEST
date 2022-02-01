@@ -14,12 +14,12 @@ from app.perrenoud.photos.service import PhotoService
 @api.route("/<int:project_id>/upload")
 @api.param("ProjectId", "Project unique ID")
 class PhotoUploadResource(AuthenticatedApi):
-    """ Photos upload for front mobile """
+    """Photos upload for front mobile"""
 
     @accepts(api=api)
     @responds(schema=PhotoSchema(many=True))
     def post(self, project_id):
-        """ Upload a photo """
+        """Upload a photo"""
         if "photo" not in request.files:
             raise MissingPhotoException()
         if "section" not in request.form:

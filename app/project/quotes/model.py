@@ -7,7 +7,7 @@ from app.common.base_model import BaseMixin
 
 
 class QuoteAccommodation(BaseMixin, db.Model):
-    """ QuoteAccommodation """
+    """QuoteAccommodation"""
 
     __tablename__ = "quote_accommodation"
 
@@ -26,7 +26,7 @@ class QuoteAccommodation(BaseMixin, db.Model):
 
 
 class Quote(BaseMixin, db.Model):
-    """ Quote  """
+    """Quote"""
 
     __tablename__ = "quote"
 

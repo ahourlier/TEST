@@ -1,6 +1,10 @@
-from sqlalchemy import or_
+import imp
+from sqlalchemy import or_, desc
 from flask import g
+from datetime import date
+
 from app import db
+from app import task
 from app.common.exceptions import EnumException
 from app.common.firestore_utils import FirestoreUtils
 from app.common.search import sort_query
@@ -16,8 +20,8 @@ from app.thematique.exceptions import VersionNotFoundException, StepNotFoundExce
 
 TASK_DEFAULT_PAGE = 1
 TASK_DEFAULT_PAGE_SIZE = 100
-TASK_DEFAULT_SORT_FIELD = "id"
-TASK_DEFAULT_SORT_DIRECTION = "desc"
+TASK_DEFAULT_SORT_FIELD = "reminder_date"
+TASK_DEFAULT_SORT_DIRECTION = "asc"
 
 ENUM_MAPPING = {
     "status": {"enum_key": "TaskStatus"},
@@ -54,7 +58,8 @@ class TaskService:
             raise VersionNotFoundException
 
         document = firestore_service.get_step_by_id(
-            version_id=new_attrs.get("version_id"), step_id=new_attrs.get("step_id"),
+            version_id=new_attrs.get("version_id"),
+            step_id=new_attrs.get("step_id"),
         )
         if document.exists is None:
             raise StepNotFoundException
@@ -85,7 +90,10 @@ class TaskService:
         if term is not None:
             search_term = f"%{term}%"
             q = q.filter(
-                or_(Task.title.ilike(search_term), Task.description.ilike(search_term),)
+                or_(
+                    Task.title.ilike(search_term),
+                    Task.description.ilike(search_term),
+                )
             )
 
         if mission_id:
@@ -106,7 +114,27 @@ class TaskService:
             version = version.split(",")
             q = q.filter(Task.version_id.in_(version))
 
-        return q.paginate(page=page, per_page=size)
+        count = q.count()
+        tasks = q.all()
+        # order by most close reminder date, past reminders at the end
+        expired_tasks = []
+        now = date.today()
+        # moved expired tasks to the side
+        # TODO ask Urbanis: status ? what to do with finished tasks ?
+        for t in tasks:
+            if t.reminder_date and t.reminder_date < now:
+                expired_tasks.insert(0, t)
+        # get their ids
+        expired_ids = [t.id for t in expired_tasks]
+        # remove them from the list
+        tasks = [t for t in tasks if t.id not in expired_ids]
+        # add them at the end
+        tasks.extend(expired_tasks)
+        # manually paginate
+        tasks = tasks[(page - 1) * size : (page * size)]
+        response = {"items": tasks, "page": page, "per_page": size, "total": count}
+
+        return response
 
     @staticmethod
     def update(db_task: Task, changes: TaskInterface):

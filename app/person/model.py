@@ -17,7 +17,7 @@ LotPerson = Table(
 
 
 class Person(SoftDeletableMixin, HasPhones, BaseMixin, db.Model):
-    """ Represents a person """
+    """Represents a person"""
 
     __tablename__ = "person"
 

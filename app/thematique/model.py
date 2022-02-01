@@ -16,7 +16,7 @@ from app import db
 
 
 class ThematiqueMission(db.Model):
-    """ Autorized thematiques per mission """
+    """Autorized thematiques per mission"""
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     mission_id = Column(Integer(), ForeignKey("mission.id"), nullable=False)

@@ -45,7 +45,11 @@ class ProjectCustomFieldService:
         q = sort_query(ProjectCustomField.query, sort_by, direction)
         if term is not None:
             search_term = f"%{term}%"
-            q = q.filter(or_(ProjectCustomField.value.ilike(search_term),))
+            q = q.filter(
+                or_(
+                    ProjectCustomField.value.ilike(search_term),
+                )
+            )
 
         if project_id is not None:
             q = q.filter(ProjectCustomField.project_id == project_id)
@@ -73,7 +77,7 @@ class ProjectCustomFieldService:
     def create(
         new_attrs: ProjectCustomFieldInterface, project_id=None
     ) -> ProjectCustomField:
-        """ Create a new project_custom_field associated to a project"""
+        """Create a new project_custom_field associated to a project"""
         if project_id is not None:
             new_attrs["project_id"] = project_id
         projects_service.ProjectService.get_by_id(new_attrs.get("project_id"))
@@ -185,7 +189,7 @@ class CustomFieldValueService:
     def create(
         new_attrs: CustomFieldValueInterface, project_custom_field_id: None
     ) -> CustomFieldValue:
-        """ Create a new custom_field_value associated to a project_custom_field"""
+        """Create a new custom_field_value associated to a project_custom_field"""
         if project_custom_field_id is not None:
             new_attrs["project_custom_field_id"] = project_custom_field_id
         ProjectCustomFieldService.get_by_id(new_attrs.get("project_custom_field_id"))

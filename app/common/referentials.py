@@ -6,7 +6,7 @@ from app.common.base_model import BaseMixin
 
 
 class Role(BaseMixin, db.Model):
-    """ User Role """
+    """User Role"""
 
     __tablename__ = "role"
     name = Column(String(255), nullable=False, primary_key=True)
@@ -14,7 +14,7 @@ class Role(BaseMixin, db.Model):
 
 
 class Permission(BaseMixin, db.Model):
-    """ Permission Matrix """
+    """Permission Matrix"""
 
     __tablename__ = "permission"
 

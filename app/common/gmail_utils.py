@@ -68,7 +68,8 @@ class GmailUtils:
 
     @staticmethod
     def send_message(
-        message, user_email,
+        message,
+        user_email,
     ):
         """Send an email message.
 

@@ -38,7 +38,11 @@ class SearchService:
         q = model.query
         # filter by term
         if "term" in search:
-            q = SearchService.filter_by_input_text(q, search_fields, search["term"],)
+            q = SearchService.filter_by_input_text(
+                q,
+                search_fields,
+                search["term"],
+            )
             del search["term"]
         # apply filters
 
@@ -73,7 +77,7 @@ class SearchService:
 
     @staticmethod
     def build_query(model, search, op, values):
-        """Build a query recursively to dive into the "search" field hierarchy """
+        """Build a query recursively to dive into the "search" field hierarchy"""
         splitted_search = search.split(".")
         property = getattr(model, splitted_search[0], None)
         if not property:
@@ -119,7 +123,7 @@ class SearchService:
 
     @staticmethod
     def apply_filter(field, op, values):
-        """Apply a filter on a specific field, looking for a correspondance within the values list """
+        """Apply a filter on a specific field, looking for a correspondance within the values list"""
 
         # As targetted values, we may receive a list of IDs OR plain dicts from the front-app.
         # If plain dicts, we need here to flatten values by extracting their ids

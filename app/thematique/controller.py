@@ -1,4 +1,4 @@
-from flask import Response, request
+from flask import Response, request, jsonify
 from flask_accepts import responds, accepts
 from flask_allows import requires
 
@@ -35,7 +35,7 @@ class ThematiqueForObjectResource(AuthenticatedApi):
 
 @api.route("/templates")
 class ThematiqueResource(AuthenticatedApi):
-    """ Thematique """
+    """Thematique"""
 
     @responds(schema=ThematiqueSchema(many=True), api=api)
     @accepts(*THEMATIQUE_TEMPLATE_SEARCH_PARAMS, api=api)
@@ -68,3 +68,14 @@ class ThematiqueIdResource(AuthenticatedApi):
     @requires(has_thematic_permissions)
     def post(self):
         return ThematiqueService.duplicate_thematique(request.parsed_obj)
+
+
+@api.route("/<string:version_id>")
+class ThematiqueIdResource(AuthenticatedApi):
+    @responds(api=api)
+    @requires(has_version_permissions)
+    def delete(self, version_id):
+        ThematiqueService.delete_copro_version(
+            version_id=version_id,
+        )
+        return jsonify(dict(status="Success", id=version_id))

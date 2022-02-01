@@ -28,13 +28,15 @@ SEARCH_LOTS_PARAMS = [
     dict(name="missionId", type=int),
     dict(name="coproId", type=int),
     dict(name="buildingId", type=int),
+    dict(name="csId", type=int),
 ]
 
 
 @api.route("")
 class LotsResource(AuthenticatedApi):
     @accepts(
-        *SEARCH_LOTS_PARAMS, api=api,
+        *SEARCH_LOTS_PARAMS,
+        api=api,
     )
     @responds(schema=LotPaginatedSchema(), api=api)
     @requires(has_lot_list_permissions)
@@ -52,6 +54,9 @@ class LotsResource(AuthenticatedApi):
             else None,
             building_id=request.args.get("buildingId")
             if request.args.get("buildingId") not in [None, ""]
+            else None,
+            cs_id=request.args.get("csId")
+            if request.args.get("csId") not in [None, ""]
             else None,
             user=g.user,
         )

@@ -499,9 +499,7 @@ KEY_PERSON_NOT_FOUND_EXCEPTION = "PERSON_NOT_FOUND_EXCEPTION"
 VERSION_NOT_FOUND_EXCEPTION = "Could not find a thematique version with this id"
 KEY_VERSION_NOT_FOUND_EXCEPTION = "VERSION_NOT_FOUND_EXCEPTION"
 
-STEP_NOT_FOUND_EXCEPTION = (
-    "Could not find a step with this id"  # todo add in translation
-)
+STEP_NOT_FOUND_EXCEPTION = "Could not find a step with this id"
 KEY_STEP_NOT_FOUND_EXCEPTION = "STEP_NOT_FOUND_EXCEPTION"
 
 INVALID_SCOPE_EXCEPTION = "Invalid scope. Hint, scope cannot be empty"
@@ -535,3 +533,20 @@ KEY_INCORRECT_REPARTITION_KEY_EXCEPTION = "INCORRECT_REPARTITION_KEY_EXCEPTION"
 
 REPARTITION_KEY_LINKED_EXCEPTION = "Looks like repartition key '{}' is linked to a lot."
 KEY_REPARTITION_KEY_LINKED_EXCEPTION = "REPARTITION_KEY_LINKED_EXCEPTION"
+
+VERSION_DELETION_UNAUTHORIZED = (
+    "Unauthorized to delete this version. Hint: only version for copros are deletable."
+)
+KEY_VERSION_DELETION_UNAUTHORIZED = "VERSION_DELETION_UNAUTHORIZED"
+
+COMBINED_STRUTURE_NOT_FOUND_EXCEPTION = (
+    "Could not find a combined struture with this id"
+)
+KEY_COMBINED_STRUTURE_NOT_FOUND_EXCEPTION = (
+    "COMBINED_STRUTURE_NOT_FOUND_EXCEPTION"  # TODO add in translation
+)
+
+PRESIDENT_NOT_FOUND_EXCEPTION = "Could not find a president with this id"
+KEY_PRESIDENT_NOT_FOUND_EXCEPTION = (
+    "PRESIDENT_NOT_FOUND_EXCEPTION"  # TODO add in translation
+)

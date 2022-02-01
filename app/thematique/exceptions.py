@@ -12,12 +12,13 @@ from app.common.config_error_messages import (
     KEY_MISSING_STEP_ID_EXCEPTION,
     STEP_NOT_FOUND_EXCEPTION,
     KEY_STEP_NOT_FOUND_EXCEPTION,
+    KEY_VERSION_DELETION_UNAUTHORIZED,
+    VERSION_DELETION_UNAUTHORIZED,
 )
 
 
 class VersionNotFoundException(HTTPException):
     def __init__(self, message=VERSION_NOT_FOUND_EXCEPTION):
-        super().__init__(description=message)
         self.code = 404
         self.key = KEY_VERSION_NOT_FOUND_EXCEPTION
         self.message = message
@@ -26,7 +27,6 @@ class VersionNotFoundException(HTTPException):
 
 class StepNotFoundException(HTTPException):
     def __init__(self, message=STEP_NOT_FOUND_EXCEPTION):
-        super().__init__(description=message)
         self.code = 404
         self.key = KEY_STEP_NOT_FOUND_EXCEPTION
         self.message = message
@@ -35,7 +35,6 @@ class StepNotFoundException(HTTPException):
 
 class InvalidScopeException(HTTPException):
     def __init__(self, message=INVALID_SCOPE_EXCEPTION):
-        super().__init__(description=message)
         self.code = 400
         self.key = KEY_INVALID_SCOPE_EXCEPTION
         self.message = message
@@ -44,7 +43,6 @@ class InvalidScopeException(HTTPException):
 
 class InvalidResourceIdException(HTTPException):
     def __init__(self, message=INVALID_RESOURCE_ID_EXCEPTION):
-        super().__init__(description=message)
         self.code = 400
         self.key = KEY_INVALID_RESOURCE_ID_EXCEPTION
         self.message = message
@@ -53,7 +51,6 @@ class InvalidResourceIdException(HTTPException):
 
 class InvalidThematiqueNameException(HTTPException):
     def __init__(self, message=INVALID_RESOURCE_ID_EXCEPTION):
-        super().__init__(description=message)
         self.code = 400
         self.key = KEY_INVALID_RESOURCE_ID_EXCEPTION
         self.message = message
@@ -62,7 +59,6 @@ class InvalidThematiqueNameException(HTTPException):
 
 class MissingVersionIdException(HTTPException):
     def __init__(self, message=MISSING_VERSION_ID_EXCEPTION):
-        super().__init__(description=message)
         self.code = 400
         self.key = KEY_MISSING_VERSION_ID_EXCEPTION
         self.message = message
@@ -71,8 +67,15 @@ class MissingVersionIdException(HTTPException):
 
 class MissingStepIdException(HTTPException):
     def __init__(self, message=MISSING_STEP_ID_EXCEPTION):
-        super().__init__(description=message)
         self.code = 400
         self.key = KEY_MISSING_STEP_ID_EXCEPTION
         self.message = message
         self.status = "BAD REQUEST"
+
+
+class UnauthorizedToDeleteException(HTTPException):
+    def __init__(self, message=VERSION_DELETION_UNAUTHORIZED):
+        self.code = 401
+        self.key = KEY_VERSION_DELETION_UNAUTHORIZED
+        self.message = message
+        self.status = "UNAUTHORIZED"

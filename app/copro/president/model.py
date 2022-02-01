@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, String, Column, Integer, ForeignKey, Text, select
+from sqlalchemy import Boolean, Date, String, Column, Integer, ForeignKey, Text, select
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.hybrid import hybrid_property
 
@@ -13,6 +13,7 @@ class President(HasPhones, BaseMixin, db.Model):
     id = Column(Integer(), primary_key=True, autoincrement=True)
     name = Column(String(255))
     email_address = Column(String(255))
+    election_date = Column(Date, nullable=True)
 
     @hybrid_property
     def phone_number(self):

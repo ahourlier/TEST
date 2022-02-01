@@ -1,11 +1,19 @@
 from app import db
 from app.common.phone_number.model import PhoneNumber
 from app.common.phone_number.service import PhoneNumberService
+from app.copro.copros.error_handlers import PresidentNotFoundException
 from app.copro.president.interface import PresidentInterface
 from app.copro.president.model import President
 
 
 class PresidentService:
+    @staticmethod
+    def get(president_id: int) -> President:
+        president = President.query.get(president_id)
+        if not president:
+            raise PresidentNotFoundException
+        return president
+
     @staticmethod
     def create(president: PresidentInterface) -> int:
         if "phone_number" in president:

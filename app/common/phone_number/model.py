@@ -7,7 +7,7 @@ from app.common.base_model import BaseMixin
 
 
 class PhoneNumber(BaseMixin, db.Model):
-    """ Represents a phone number """
+    """Represents a phone number"""
 
     __tablename__ = "phone_number"
 
@@ -21,7 +21,7 @@ class PhoneNumber(BaseMixin, db.Model):
 
     @property
     def resource(self):
-        """ Provides access to the "parent" resource by using the proper relationship """
+        """Provides access to the "parent" resource by using the proper relationship"""
         return getattr(self, f"resource_{self.resource_type}")
 
     def __repr__(self):
@@ -35,7 +35,7 @@ class PhoneNumber(BaseMixin, db.Model):
 
 
 class HasPhones:
-    """ Placeholder mixin that will create a relationship to
+    """Placeholder mixin that will create a relationship to
     the phone_number_association table for each resource
 
     """

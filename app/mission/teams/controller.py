@@ -19,14 +19,16 @@ from ...common.search import SEARCH_PARAMS
 
 @api.route("/")
 class TeamResource(AuthenticatedApi):
-    """ Teams """
+    """Teams"""
 
     @accepts(
-        *SEARCH_PARAMS, dict(name="mission_id", type=int), api=api,
+        *SEARCH_PARAMS,
+        dict(name="mission_id", type=int),
+        api=api,
     )
     @responds(schema=TeamMultipleSchema())
     def get(self):
-        """ Get all teams """
+        """Get all teams"""
         return TeamService.get_all(
             mission_id=int(request.args.get("mission_id"))
             if request.args.get("mission_id") not in [None, ""]
@@ -36,7 +38,7 @@ class TeamResource(AuthenticatedApi):
     @accepts(schema=TeamMultipleSchema(), api=api)
     @responds(schema=TeamMultipleSchema(), api=api)
     def post(self) -> Response:
-        """ Create multiple team """
+        """Create multiple team"""
 
         return TeamService.create_list(request.parsed_obj, update=False, user=g.user)
 
@@ -53,7 +55,7 @@ class TeamResource(AuthenticatedApi):
 class TeamIdResource(AuthenticatedApi):
     @responds(schema=TeamSchema(), api=api)
     def get(self, team_id: int) -> Team:
-        """ Get single team """
+        """Get single team"""
 
         return TeamService.get_by_id(team_id)
 
@@ -69,7 +71,7 @@ class MissionManagerResource(AuthenticatedApi):
     @accepts(*SEARCH_PARAMS, api=api)
     @responds(schema=UserPaginatedSchema())
     def get(self) -> Pagination:
-        """ Get all managers """
+        """Get all managers"""
         return TeamService.get_all_mission_managers(
             page=int(request.args.get("page", MISSION_MANAGERS_DEFAULT_PAGE)),
             size=int(request.args.get("size", MISSION_MANAGERS_DEFAULT_PAGE_SIZE)),

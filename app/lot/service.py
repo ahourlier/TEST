@@ -42,6 +42,7 @@ class LotService:
         mission_id=None,
         copro_id=None,
         building_id=None,
+        cs_id=None,
         user=None,
     ):
         from app.mission.missions import Mission
@@ -59,8 +60,13 @@ class LotService:
         if mission_id:
             q = q.join(Copro).filter(Copro.mission_id == mission_id)
 
-        if user is not None and user.role != UserRole.ADMIN:
+        if cs_id:
             if not mission_id:
+                q = q.join(Copro)
+            q = q.filter(Copro.cs_id == cs_id)
+
+        if user is not None and user.role != UserRole.ADMIN:
+            if not mission_id and not cs_id:
                 q = q.join(Copro)
             q = q.join(Mission)
             q = mission_permissions.MissionPermission.filter_query_mission_by_user_permissions(

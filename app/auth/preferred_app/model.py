@@ -5,7 +5,7 @@ from app.common.base_model import BaseMixin
 
 
 class PreferredApp(BaseMixin, db.Model):
-    """ Application User """
+    """Application User"""
 
     __tablename__ = "preferred_app"
 
