@@ -122,7 +122,7 @@ class TaskService:
         # moved expired tasks to the side
         # TODO ask Urbanis: status ? what to do with finished tasks ?
         for t in tasks:
-            if t.reminder_date and t.reminder_date < now :
+            if t.reminder_date and t.reminder_date < now:
                 expired_tasks.insert(0, t)
         # get their ids
         expired_ids = [t.id for t in expired_tasks]
