@@ -307,10 +307,8 @@ class ThematiqueService:
     @staticmethod
     def init_mission_thematics(mission_id):
         for t in THEMATICS:
-            tm = ThematiqueMission(**{
-                "mission_id": mission_id,
-                "thematique_name": t,
-                "authorized": True
-            })
+            tm = ThematiqueMission(
+                **{"mission_id": mission_id, "thematique_name": t, "authorized": True}
+            )
             db.session.add(tm)
             db.session.commit()
