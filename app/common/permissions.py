@@ -199,6 +199,9 @@ def has_lot_permissions(user):
 def has_mission_permission(user):
     mission_id = PermissionsUtils.get_entity_id("mission_id")
     if not mission_id:
+        mission_id = PermissionsUtils.get_entity_id("missionId")
+
+    if not mission_id:
         # Mission_id is not provided. Only admin has access to the road.
         return user.role == UserRole.ADMIN
     missions_service.MissionService.get_by_id(mission_id)
