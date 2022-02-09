@@ -34,5 +34,6 @@ class ProjectInterface(TypedDict, total=False):
     notes: str
     mission_id: int
     requester_id: int
+    required_action: bool
     accommodation_id: int
     active: bool
