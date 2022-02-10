@@ -14,6 +14,7 @@ class RequesterInterface(TypedDict, total=False):
     phone_number_2: dict
     type: str
     address: str
+    cadastral_reference: str
     date_contact: date
     contact_source: str
     minors_occupants_number: int
