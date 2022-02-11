@@ -94,6 +94,7 @@ class Project(BaseMixin, db.Model):
     urgent_visit = Column(Boolean, nullable=True)
     date_advice_meet = db.Column(db.Date, nullable=True)
     date_control_meet = db.Column(db.Date, nullable=True)
+    required_action = Column(Boolean, nullable=False, server_default="False")
     notes = Column(String(2083), nullable=True)
     mission_id = Column(Integer, ForeignKey("mission.id"), nullable=False)
     mission = relationship("Mission", backref="projects")

@@ -1,8 +1,26 @@
-## [1.2.1-rc.3](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.1-rc.2...v1.2.1-rc.3) (2021-09-10)
+## [1.2.2](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.1...v1.2.2) (2021-09-20)
 
 
 ### Bug Fixes
 
+* custom select filter ([4e40eaf](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/4e40eaf3591de434161c4b6e129ea10aa3f73128))
+* project drive init ([2d83abc](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/2d83abcc580d5b29716706cf8f5f01404df6fef1))
+* reqs ([7efc9ee](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/7efc9eeb66a498c92b3cdd3e6095a6f77ada6276))
+
+<<<<<<< HEAD
+## [1.2.1](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.0...v1.2.1) (2021-07-19)
+=======
+## [1.2.1-rc.3](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.1-rc.2...v1.2.1-rc.3) (2021-09-10)
+>>>>>>> next
+
+
+### Bug Fixes
+
+<<<<<<< HEAD
+* api url ([0aa2d26](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/0aa2d26fe4071bd217abf7d4c8b1d64f4b1f9113))
+* api url for tasks ([ebc33fb](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/ebc33fb01cc47ec28d00d8ac3aa976203ebe5ec7))
+* init drive + memory exceeded ([480ca74](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/480ca74318ef29cfc584a3802ae0cfd09a5d8309))
+=======
 * custom select filter ([4e40eaf](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/4e40eaf3591de434161c4b6e129ea10aa3f73128))
 
 ## [1.2.1-rc.2](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.1-rc.1...v1.2.1-rc.2) (2021-09-06)
@@ -12,6 +30,7 @@
 
 * project drive init ([2d83abc](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/2d83abcc580d5b29716706cf8f5f01404df6fef1))
 * reqs ([7efc9ee](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/7efc9eeb66a498c92b3cdd3e6095a6f77ada6276))
+>>>>>>> next
 
 ## [1.2.1-rc.1](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.0...v1.2.1-rc.1) (2021-07-19)
 

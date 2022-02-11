@@ -16,6 +16,8 @@ from app.common.exceptions import (
 from app.common.search import sort_query
 from app.funder.funders import Funder
 from app.funder.funding_scenarios import FundingScenario
+from app.perrenoud.scenarios.service import ScenarioService
+from app.project import simulations
 from app.project.quotes.interface import QuoteInterface
 from app.project.simulations import Simulation
 from .error_handlers import (
@@ -25,6 +27,7 @@ from .error_handlers import (
     CloneFunderException,
     SimulationQuoteNotFoundException,
     SimulationFunderNotFoundException,
+    InconsistentScenarioException
 )
 from app.project.simulations.interface import (
     SimulationInterface,
@@ -130,6 +133,7 @@ class SimulationService:
                 "simulations_accommodations",
             ],
         )
+        
 
         # Create new simulation
         simulation = Simulation(**new_attrs)
@@ -224,6 +228,12 @@ class SimulationService:
                 changes.get("use_cases"), simulation.id
             )
             del changes["use_cases"]
+
+            # If scenario_id, check if scenario is in the same project
+            if changes.get("scenario_id"):
+                existing_scenario = ScenarioService.get_by_id(changes.get("scenario_id"))
+                if existing_scenario.accommodation.project_id != simulation.project_id:
+                    raise InconsistentScenarioException
 
             # Update simulations_use notes :
             # (Notes can always be updated, even when simulation is "frozen")
