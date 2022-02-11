@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 
 from mypy_extensions import TypedDict
 
@@ -11,6 +12,7 @@ class SimulationInterface(TypedDict, total=False):
     note_certifications: str
     note_payment_requests: str
     note_deposits: str
+    scenario_id: Optional[int]
 
 
 class SimulationQuoteInterface(TypedDict, total=False):
