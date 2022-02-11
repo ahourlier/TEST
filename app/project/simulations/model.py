@@ -1,7 +1,6 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, Float
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship, backref
-
 from app import db
 from app.common.base_model import BaseMixin
 
@@ -223,6 +222,7 @@ class Simulation(BaseMixin, db.Model):
     remaining_costs = Column(Float, nullable=True)
     subvention_on_TTC = Column(Integer, nullable=True)
     total_advances = Column(Float, nullable=True)
+    scenario_id = Column(Integer, ForeignKey("scenario.id"), nullable=True)
 
     @hybrid_property
     def quotes(self):

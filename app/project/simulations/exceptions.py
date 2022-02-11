@@ -1,6 +1,8 @@
 from werkzeug.exceptions import HTTPException
 
 from app.common.config_error_messages import (
+    INCONSISTENT_SCENARIO_EXCEPTION,
+    KEY_INCONSISTENT_SCENARIO_EXCEPTION,
     SIMULATION_NOT_FOUND_EXCEPTION,
     KEY_SIMULATION_NOT_FOUND_EXCEPTION,
     USE_CASE_SIMULATION_NOT_FOUND_EXCEPTION,
@@ -60,5 +62,13 @@ class CloneFunderException(HTTPException):
     def __init__(self, message=CLONE_FUNDER_EXCEPTION):
         self.code = 400
         self.key = KEY_CLONE_FUNDER_EXCEPTION
+        self.message = message
+        self.status = "BAD REQUEST"
+
+
+class InconsistentScenarioException(HTTPException):
+    def __init__(self, message=INCONSISTENT_SCENARIO_EXCEPTION):
+        self.code = 400
+        self.key = KEY_INCONSISTENT_SCENARIO_EXCEPTION
         self.message = message
         self.status = "BAD REQUEST"
