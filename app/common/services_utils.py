@@ -1,11 +1,15 @@
 import copy
 import logging
+from typing import List
+
+from app.common.exceptions import EnumException
+from app.referential.enums.service import AppEnumService
 
 
 class ServicesUtils:
     @staticmethod
     def clean_attrs(attrs: dict, excluded_fields: []):
-        """ Remove excluded fields from entring attrs and return them"""
+        """Remove excluded fields from entring attrs and return them"""
 
         extracted_fields = {}
 
@@ -38,7 +42,7 @@ class ServicesUtils:
 
     @staticmethod
     def set_nested_dict(dic, keys, value, append=False):
-        """ Small util to set value into nested dict.
+        """Small util to set value into nested dict.
         Can append new value into existing as dict or list"""
         for key in keys[:-1]:
             dic = dic.setdefault(key, {})
@@ -57,9 +61,34 @@ class ServicesUtils:
 
     @staticmethod
     def deep_copy_list_of_dicts(list):
-        """ Returns a deepcopy of the given list of dicts"""
+        """Returns a deepcopy of the given list of dicts"""
         copy_list = []
         for li in list:
             copy_item = copy.deepcopy(li)
             copy_list.append(copy_item)
         return copy_list
+
+    @staticmethod
+    def check_enums(payload, key_mapping):
+        enum_list = list(map(lambda x: key_mapping[x]["enum_key"], key_mapping))
+        enums = AppEnumService.get_enums(enum_list)
+        for key in key_mapping:
+            if payload.get(key) is not None and payload.get(key) not in enums.get(
+                key_mapping[key]["enum_key"], []
+            ):
+                exception = EnumException(
+                    enum=key_mapping[key]["enum_key"],
+                    value=payload.get(key),
+                    allowed_values=", ".join(
+                        enums.get(key_mapping[key]["enum_key"], [])
+                    ),
+                    details={
+                        "enum": key_mapping[key]["enum_key"],
+                        "value": payload.get(key),
+                        "allowed_values": ", ".join(
+                            enums.get(key_mapping[key]["enum_key"], [])
+                        ),
+                    },
+                )
+                raise exception
+        return

@@ -6,7 +6,7 @@ from app.common.base_model import BaseMixin
 
 
 class Document(BaseMixin, db.Model):
-    """ Document  """
+    """Document"""
 
     __tablename__ = "document"
 

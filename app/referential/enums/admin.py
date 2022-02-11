@@ -5,12 +5,23 @@ from wtforms import StringField, BooleanField
 
 from .model import AppEnum
 from ... import db
+from ...building import Building
+from ...copro.copros.model import Copro
+from ...copro.syndic.model import Syndic
 from ...funder.funders import Funder
+from ...lot import Lot
 from ...mission.missions import Mission
+from ...mission.missions.mission_details.job import Job
+from ...mission.missions.mission_details.model import MissionDetail
+from ...mission.missions.mission_details.operational_plan import OperationalPlan
+from ...mission.missions.mission_details.subjob import Subjob
+from ...person import Person
 from ...project.accommodations import Accommodation
 from ...project.disorders import DisorderType
 from ...project.projects import Project
 from ...project.requesters import Requester
+from ...task import Task
+from ...combined_structure import CombinedStructure
 
 
 class BaseReadOnly:
@@ -65,7 +76,7 @@ class EnumBaseAdminView(ModelView):
 
     def get_count_query(self):
         return (
-            self.session.query(func.count("*"))
+            self.session.query(func.count(AppEnum.name))
             .select_from(AppEnum)
             .filter(AppEnum.kind == self.ENUM_KIND)
         )
@@ -238,3 +249,153 @@ class QuoteCompanyOrigin(EnumBaseAdminView):
     ENUM_KIND = "QuoteCompanyOrigin"
     FIELD_MODEL = Quote
     FIELD_REF = "company_origin"
+
+
+class MissionOperationalPlan(EnumBaseAdminView):
+    ENUM_KIND = "OperationalPlan"
+    FIELD_MODEL = MissionDetail
+    FIELD_REF = "operational_plan"
+
+
+class MissionJob(EnumBaseAdminView):
+    ENUM_KIND = "Job"
+    FIELD_MODEL = MissionDetail
+    FIELD_REF = "job"
+
+
+class MissionSubjob(EnumBaseAdminView):
+    ENUM_KIND = "Subjob"
+    FIELD_MODEL = MissionDetail
+    FIELD_REF = "subjob"
+
+
+class CoproConstructionTime(EnumBaseAdminView):
+    ENUM_KIND = "ConstructionTime"
+    FIELD_MODEL = Copro
+    FIELD_REF = "construction_time"
+
+
+class CoproType(EnumBaseAdminView):
+    ENUM_KIND = "CoproType"
+    FIELD_MODEL = Copro
+    FIELD_REF = "copro_type"
+
+
+class SyndicType(EnumBaseAdminView):
+    ENUM_KIND = "SyndicType"
+    FIELD_MODEL = Syndic
+    FIELD_REF = "type"
+
+
+class BuildingConstructionTime(EnumBaseAdminView):
+    ENUM_KIND = "BuildingConstructionTime"
+    FIELD_MODEL = Building
+    FIELD_REF = "construction_time"
+
+
+class BuildingERPCategory(EnumBaseAdminView):
+    ENUM_KIND = "BuildingERPCategory"
+    FIELD_MODEL = Building
+    FIELD_REF = "erp_category"
+
+
+class BuildingAccessType(EnumBaseAdminView):
+    ENUM_KIND = "AccessType"
+    FIELD_MODEL = Building
+    FIELD_REF = "access_type"
+
+
+class BuildingCollectiveHeater(EnumBaseAdminView):
+    ENUM_KIND = "CollectiveHeater"
+    FIELD_MODEL = Building
+    FIELD_REF = "collective_heater"
+
+
+class BuildingAsbestosDiagnosisResult(EnumBaseAdminView):
+    ENUM_KIND = "AsbestosDiagnosisResult"
+    FIELD_MODEL = Building
+    FIELD_REF = "asbestos_diagnosis_result"
+
+
+class LotType(EnumBaseAdminView):
+    ENUM_KIND = "LotType"
+    FIELD_MODEL = Lot
+    FIELD_REF = "type"
+
+
+class LotHabitationType(EnumBaseAdminView):
+    ENUM_KIND = "LotHabitationType"
+    FIELD_MODEL = Lot
+    FIELD_REF = "habitation_type"
+
+
+class LotOccupantStatus(EnumBaseAdminView):
+    ENUM_KIND = "LotOccupantStatus"
+    FIELD_MODEL = Lot
+    FIELD_REF = "occupant_status"
+
+
+class LotLeaseType(EnumBaseAdminView):
+    ENUM_KIND = "LotLeaseType"
+    FIELD_MODEL = Lot
+    FIELD_REF = "lease_type"
+
+
+class LotConventionRentType(EnumBaseAdminView):
+    ENUM_KIND = "LotConventionRentType"
+    FIELD_MODEL = Lot
+    FIELD_REF = "convention_rent_type"
+
+
+class PersonStatus(EnumBaseAdminView):
+    ENUM_KIND = "PersonStatus"
+    FIELD_MODEL = Person
+    FIELD_REF = "status"
+
+
+class TaskStatus(EnumBaseAdminView):
+    ENUM_KIND = "TaskStatus"
+    FIELD_MODEL = Task
+    FIELD_REF = "status"
+
+
+class TypePretCollectif(EnumBaseAdminView):
+    ENUM_KIND = "TypePretCollectif"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class NatureTravauxInteretCollectifsPP(EnumBaseAdminView):
+    ENUM_KIND = "NatureTravauxInteretCollectifsPP"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class TypePretIndividuel(EnumBaseAdminView):
+    ENUM_KIND = "TypePretIndividuel"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class Prefinanceurs(EnumBaseAdminView):
+    ENUM_KIND = "Prefinanceurs"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class NatureTravauxPartieCommune(EnumBaseAdminView):
+    ENUM_KIND = "NatureTravauxPartieCommune"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class NatureAide(EnumBaseAdminView):
+    ENUM_KIND = "NatureAide"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class CombinedStructureType(EnumBaseAdminView):
+    ENUM_KIND = "CombinedStructureType"
+    FIELD_MODEL = CombinedStructure
+    FIELD_REF = "type"

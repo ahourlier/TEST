@@ -14,7 +14,7 @@ class RequesterTypes(Enum):
 
 
 class Requester(HasPhones, BaseMixin, db.Model):
-    """ Requester  """
+    """Requester"""
 
     __tablename__ = "requester"
 

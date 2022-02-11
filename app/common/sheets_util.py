@@ -15,7 +15,7 @@ class SheetsUtils:
         client=None,
         fetch_data=True,
     ):
-        """ Get a spreadsheets """
+        """Get a spreadsheets"""
         if not client:
             client = SheetsService(user_email).get()
         try:
@@ -37,7 +37,7 @@ class SheetsUtils:
         client=None,
         fetch_data=True,
     ):
-        """ Get a spreadsheets """
+        """Get a spreadsheets"""
         if not client:
             client = SheetsService(user_email).get()
 
@@ -108,7 +108,7 @@ class SheetsUtils:
         client=None,
         changes_map={},
     ):
-        """ Update a spreadsheet """
+        """Update a spreadsheet"""
         if not client:
             client = SheetsService(user_email).get()
 

@@ -29,7 +29,7 @@ from ...funder.funders import FunderSchema
 
 @api.route("/")
 class SimulationResource(AuthenticatedApi):
-    """ Simulations """
+    """Simulations"""
 
     @accepts(
         *SEARCH_PARAMS,
@@ -41,7 +41,7 @@ class SimulationResource(AuthenticatedApi):
     )
     @responds(schema=SimulationPaginatedSchema())
     def get(self) -> Pagination:
-        """ Get all simulations """
+        """Get all simulations"""
         return SimulationService.get_all(
             page=int(request.args.get("page", SIMULATIONS_DEFAULT_PAGE)),
             size=int(request.args.get("size", SIMULATIONS_DEFAULT_PAGE_SIZE)),
@@ -67,7 +67,7 @@ class SimulationResource(AuthenticatedApi):
     @accepts(schema=SimulationSchema, api=api)
     @responds(schema=SimulationSchema)
     def post(self) -> Simulation:
-        """ Create a simulation """
+        """Create a simulation"""
         return SimulationService.create(request.parsed_obj)
 
 
@@ -76,7 +76,7 @@ class SimulationResource(AuthenticatedApi):
 class SimulationIdResource(AuthenticatedApi):
     @responds(schema=SimulationSchema)
     def get(self, simulation_id: int) -> Simulation:
-        """ Get single simulation """
+        """Get single simulation"""
 
         return SimulationService.get_by_id(simulation_id)
 
@@ -182,7 +182,7 @@ class HelperResetScenarioFunderResource(AuthenticatedApi):
     )
     @responds(schema=SimulationFunderSchema(many=True))
     def post(self) -> Simulation:
-        """ Get informations about multiples funders and match scenario """
+        """Get informations about multiples funders and match scenario"""
 
         payload: SimulationInterface = request.parsed_obj
 

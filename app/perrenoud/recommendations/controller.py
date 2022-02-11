@@ -11,5 +11,5 @@ from app.perrenoud.recommendations.service import RecommendationService
 class RecommendationHelperResource(AuthenticatedApi):
     @responds(schema=RecommendationEntitySchema(many=True))
     def get(self, scenario_id: int):
-        """ Fetch possible recommendations  """
+        """Fetch possible recommendations"""
         return RecommendationService.get_possible_recommendations_entities(scenario_id)

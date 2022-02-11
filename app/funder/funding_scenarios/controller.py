@@ -77,7 +77,7 @@ class FundingScenarioResource(AuthenticatedApi):
     @responds(schema=FundingScenarioSchema, api=api)
     @requires(can_manage_funders)
     def post(self) -> FundingScenario:
-        """ Create a funding scenario """
+        """Create a funding scenario"""
 
         return FundingScenarioService.create(request.parsed_obj, commit=True)
 
@@ -91,7 +91,7 @@ class FundingScenarioIdResource(AuthenticatedApi):
 
     @requires(can_manage_funders)
     def delete(self, funding_scenario_id: int) -> Response:
-        """ Delete a funding scenario """
+        """Delete a funding scenario"""
         id = FundingScenarioService.delete_by_id(funding_scenario_id, commit=True)
         return jsonify(dict(status="Success", id=id))
 
@@ -99,7 +99,7 @@ class FundingScenarioIdResource(AuthenticatedApi):
     @responds(schema=FundingScenarioSchema, api=api)
     @requires(can_manage_funders)
     def put(self, funding_scenario_id: int) -> FundingScenario:
-        """ Update a single funding scenario """
+        """Update a single funding scenario"""
 
         changes: FundingScenarioInterface = request.parsed_obj
         db_funding_scenario = FundingScenarioService.get_by_id(funding_scenario_id)
@@ -108,7 +108,7 @@ class FundingScenarioIdResource(AuthenticatedApi):
 
 @api.route("/criteria")
 class FundingScenarioAvailableCriteriasResource(AuthenticatedApi):
-    """ To retrieve data needed to create new criterias """
+    """To retrieve data needed to create new criterias"""
 
     def get(self):
         items = []

@@ -142,7 +142,10 @@ class FundingScenarioService:
 
     @staticmethod
     def check_scenario_compliance(
-        funding_scenario, project_id, quotes_id=[], accommodation_id: str = None,
+        funding_scenario,
+        project_id,
+        quotes_id=[],
+        accommodation_id: str = None,
     ) -> bool:
         # Return true if the provided project (and the optional accommodation) fit all scenario criterium
         requester_type = projects_service.ProjectService.get_by_id(
@@ -181,7 +184,7 @@ class FundingScenarioService:
 
     @staticmethod
     def format_criteria(criteria) -> dict:
-        """ We shall use the search module to look for appropriate funding_scenario.
+        """We shall use the search module to look for appropriate funding_scenario.
         So we must parse the criteria into to a search compliant format"""
         local_criteria = json.loads(json.dumps(criteria))
         OPERATORS_CONVERTION = {
@@ -297,7 +300,7 @@ class FundingScenarioService:
     def check_work_type_matching(
         work_types_criterium, quotes_id=[], accommodation_id=None
     ):
-        """ Return True if all work_types_criterium "values" are in quotes 's work_types, else False.
+        """Return True if all work_types_criterium "values" are in quotes 's work_types, else False.
         If an accommodation_id is provided, remove all quotes that does not contain the linked accommodation"""
         if not work_types_criterium or len(work_types_criterium) == 0:
             # No work types was present into scenario criterium, so work_type_matching is True by default

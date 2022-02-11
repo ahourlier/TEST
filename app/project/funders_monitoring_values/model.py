@@ -11,7 +11,7 @@ from app.mission.monitors.model import MonitorField  # To keep for import purpos
 
 
 class FunderMonitoringValue(BaseMixin, db.Model):
-    """ FundersMonitoringValues  """
+    """FundersMonitoringValues"""
 
     __tablename__ = "funders_monitoring_values"
 

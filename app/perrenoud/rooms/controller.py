@@ -13,7 +13,7 @@ from ...common.api import AuthenticatedApi
 class RoomIdResource(AuthenticatedApi):
     @responds(schema=RoomSchema)
     def get(self, room_id: int) -> Room:
-        """ Get single room """
+        """Get single room"""
 
         return RoomService.get_by_id(room_id)
 

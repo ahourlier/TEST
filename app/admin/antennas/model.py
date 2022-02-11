@@ -10,7 +10,7 @@ from app.admin.agencies import Agency
 
 
 class Antenna(BaseMixin, db.Model):
-    """ Antenna  """
+    """Antenna"""
 
     __tablename__ = "antenna"
 

@@ -1,6 +1,6 @@
 from app import db
 from app.common.services_utils import ServicesUtils
-from app.project.funder_accommodations.exceptions import (
+from app.project.funder_accommodations.error_handlers import (
     FunderAccommodationsNotFoundException,
 )
 from app.project.simulations.model import FunderAccommodation, SimulationFunder
@@ -62,7 +62,11 @@ class FunderAccommodationService:
     ) -> FunderAccommodation:
         ServicesUtils.clean_attrs(
             changes,
-            ["accommodation", "scenario", "simulation_funder" "simulation_funder_id",],
+            [
+                "accommodation",
+                "scenario",
+                "simulation_funder" "simulation_funder_id",
+            ],
         )
         if force_update or FunderAccommodationService.has_changed(
             funder_accommodation, changes
@@ -157,14 +161,17 @@ class FunderAccommodationService:
 
     @staticmethod
     def duplicate_funders_accommodations(
-        source_simulation_funder_id: int, new_simulation_funder_id: int,
+        source_simulation_funder_id: int,
+        new_simulation_funder_id: int,
     ) -> SimulationFunder:
         """
         Duplicate all funders_accommodations from a simulation_funder to another
         """
 
-        source_simulation_funder = simulations_service.SimulationFunderService.get_by_id(
-            source_simulation_funder_id
+        source_simulation_funder = (
+            simulations_service.SimulationFunderService.get_by_id(
+                source_simulation_funder_id
+            )
         )
         new_simulation_funder = simulations_service.SimulationFunderService.get_by_id(
             new_simulation_funder_id
@@ -197,8 +204,10 @@ class FunderAccommodationService:
         common_scenario=None,
     ):
         if not common_scenario:
-            common_scenario = scenarios_service.FundingScenarioService.get_match_scenarios(
-                base_funder, project_id, quotes_id=quotes_id
+            common_scenario = (
+                scenarios_service.FundingScenarioService.get_match_scenarios(
+                    base_funder, project_id, quotes_id=quotes_id
+                )
             )
         funder_accommodations = []
 

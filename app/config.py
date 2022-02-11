@@ -50,6 +50,10 @@ class BaseConfig:
 
     IDENTITY_TOOLKIT_API_BASE_URL = "https://identitytoolkit.googleapis.com/v1/"
 
+    FIRESTORE_THEMATIQUE_TEMPLATE_COLLECTION = "thematiques_template"
+    FIRESTORE_STEPS_COLLECTION = "steps"
+    FIRESTORE_THEMATIQUE_COLLECTION = "thematiques"
+
 
 class DevelopmentConfig(BaseConfig):
     CONFIG_NAME = "dev"
@@ -65,7 +69,9 @@ class TestingConfig(BaseConfig):
     CONFIG_NAME = "test"
     DEBUG = True
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = "sqlite://"
+    SQLALCHEMY_DATABASE_URI = (
+        "postgresql+psycopg2://postgres:root@127.0.0.1:5432/oslo-test"
+    )
     PRESERVE_CONTEXT_ON_EXCEPTION = False
 
 
