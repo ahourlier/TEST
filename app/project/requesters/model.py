@@ -33,6 +33,7 @@ class Requester(HasPhones, BaseMixin, db.Model):
     address_location = Column(String(255), nullable=True)
     address_latitude = Column(Float(), nullable=True)
     address_longitude = Column(Float(), nullable=True)
+    cadastral_reference = Column(String(255), nullable=True)
     date_contact = db.Column(db.Date, nullable=True)
     contact_source = Column(String(255), nullable=True)
     minors_occupants_number = Column(Integer(), nullable=True)

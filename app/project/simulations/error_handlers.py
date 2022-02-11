@@ -1,6 +1,7 @@
 from . import api
 from app.common.error_handlers import parse_exception
 from .exceptions import (
+    InconsistentScenarioException,
     SimulationNotFoundException,
     UseCaseSimulationNotFoundException,
     SimulationQuoteNotFoundException,
@@ -37,4 +38,9 @@ def simulation_used(error):  # pragma: no cover
 
 @api.errorhandler(CloneFunderException)
 def clone_funder(error):  # pragma: no cover
+    return parse_exception(error)
+
+
+@api.errorhandler(InconsistentScenarioException)
+def inconsistent_scenario(error):  # pragma: no cover
     return parse_exception(error)

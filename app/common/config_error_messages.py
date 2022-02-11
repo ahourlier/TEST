@@ -550,3 +550,8 @@ PRESIDENT_NOT_FOUND_EXCEPTION = "Could not find a president with this id"
 KEY_PRESIDENT_NOT_FOUND_EXCEPTION = (
     "PRESIDENT_NOT_FOUND_EXCEPTION"  # TODO add in translation
 )
+
+INCONSISTENT_SCENARIO_EXCEPTION = (
+    "Scenario selected does not belong to the same project as the "
+)
+KEY_INCONSISTENT_SCENARIO_EXCEPTION = "INCONSISTENT_SCENARIO_EXCEPTION"

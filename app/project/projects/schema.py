@@ -38,6 +38,7 @@ class ProjectSchema(SQLAlchemyAutoSchema):
     common_areas = fields.Nested(CommonAreaSchema())
     work_types = fields.List(fields.Nested(WorkTypeSchema()))
     requester_id = auto_field(required=False)
+    required_action = auto_field(required=True)
     code_name = fields.String(dump_only=True)
     accommodations_length = fields.Integer(dump_only=True)
     sections_permissions = fields.Nested(SectionsPermissionsSchema, dump_only=True)
@@ -54,6 +55,7 @@ class ProjectCreationSchema(SQLAlchemyAutoSchema):
     referrers = fields.List(fields.Nested(UserSchema()))
     requester = fields.Nested(RequesterSchema())
     requester_id = auto_field(required=False)
+    required_action = auto_field(required=True)
     work_types = fields.List(fields.Nested(WorkTypeSchema()))
 
     class Meta:
@@ -66,6 +68,7 @@ class ProjectCreationSchema(SQLAlchemyAutoSchema):
 class ProjectUpdateSchema(SQLAlchemyAutoSchema):
     referrers = fields.List(fields.Nested(UserSchema()))
     requester_id = auto_field(required=False)
+    required_action = auto_field(required=True)
     requester = fields.Nested(RequesterSchema())
     work_types = fields.List(fields.Nested(WorkTypeSchema()))
 

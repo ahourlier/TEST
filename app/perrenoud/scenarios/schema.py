@@ -1,12 +1,12 @@
 from flask_marshmallow.sqla import SQLAlchemyAutoSchema
 from marshmallow import EXCLUDE, fields, Schema
-
+from app.perrenoud.scenarios import Scenario
+from app.project.simulations.schema import SimulationSchema
 from app.perrenoud.ceilings.schema import CeilingSchema
 from app.perrenoud.floors.schema import FloorSchema
 from app.perrenoud.heatings.schema import HeatingSchema
 from app.perrenoud.hot_waters.schema import HotWaterSchema
 from app.perrenoud.recommendations.schema import RecommendationSchema
-from app.perrenoud.scenarios import Scenario
 from app.perrenoud.thermal_bridges.schema import ThermalBridgeSchema
 from app.perrenoud.walls.schema import WallSchema
 from app.perrenoud.woodworks.schema import WoodworkSchema
@@ -27,6 +27,7 @@ class ScenarioSchema(SQLAlchemyAutoSchema):
     accommodation_id = fields.Integer(required=True)
     recommendations_list = fields.List(fields.Nested(RecommendationSchema()))
     is_new = fields.Boolean(dump_only=True)
+    simulations = fields.List(fields.Nested(SimulationSchema()), dump_only=True)
 
     class Meta:
         model = Scenario

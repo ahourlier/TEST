@@ -6,6 +6,7 @@ def register_routes(api, app, root="api"):
     from app.admin import register_routes as attach_admin
     from app.mission import register_routes as attach_mission
     from app.dam import register_routes as attach_upload
+    from app.perrenoud import register_routes as attach_perrenoud
     from app.project import register_routes as attach_project
     from app.referential import register_routes as attach_referential
     from app.funder import register_routes as attach_funder
@@ -20,6 +21,7 @@ def register_routes(api, app, root="api"):
     from app.thematique import register_routes as attach_thematiques
     from app.task import register_routes as attach_tasks
     from app.combined_structure import register_routes as attach_combined_structures
+
 
     attach_auth(api, app, root)
     attach_admin(api, app, root)
