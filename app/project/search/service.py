@@ -124,7 +124,7 @@ class ProjectSearchService:
             q = ProjectSearchService.filter_on_accommodation(q, accommodation_filters)
 
         # Filter on phone numbers
-        if len(phone_number_filter.keys()) > 0:
+        if phone_number_filter:
             q = ProjectSearchService.filter_on_phone_numbers(q, phone_number_filter["values"][0])
 
         # Filter on common area condominium
