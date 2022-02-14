@@ -220,9 +220,11 @@ class ProjectSearchService:
     def filter_on_phone_numbers(q, number):
         q = q.join(PhoneNumber, Project.requester_id==PhoneNumber.resource_id)
         q = q.filter(
-            (PhoneNumber.international == number or PhoneNumber.national == number)
-            and
-            PhoneNumber.resource_type == 'requester'
+            or_(
+                PhoneNumber.international == number,
+                PhoneNumber.national == number
+            ),
+            and_(PhoneNumber.resource_type == 'requester')
         )
         return q
 
