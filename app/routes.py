@@ -22,7 +22,6 @@ def register_routes(api, app, root="api"):
     from app.task import register_routes as attach_tasks
     from app.combined_structure import register_routes as attach_combined_structures
 
-
     attach_auth(api, app, root)
     attach_admin(api, app, root)
     attach_mission(api, app, root)
