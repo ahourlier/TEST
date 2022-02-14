@@ -87,6 +87,7 @@ class ProjectService:
         direction=PROJECTS_DEFAULT_SORT_DIRECTION,
         mission_id=None,
         requester_id=None,
+        required_action=False,
         user=None,
         requester_type=None,
         unique_page=False,
@@ -118,6 +119,7 @@ class ProjectService:
             q=q,
             missions_id=mission_id,
             requester_id=requester_id,
+            required_action=required_action,
             requester_type=requester_type,
             filter_on_visit_status=filter_on_visit_status,
             filter_on_referrer=filter_on_referrer,
@@ -138,6 +140,7 @@ class ProjectService:
         q=None,
         missions_id=None,
         requester_id=None,
+        required_action=False,
         requester_type=None,
         project_status: List = None,
         project_status_to_skip: List = None,
@@ -166,6 +169,10 @@ class ProjectService:
                     ]
                 )
             )
+
+        # Filter by required_action
+        if required_action is not None:
+            q = q.filter(Project.required_action == required_action)
 
         # Filter by requester_id
         if requester_id is not None:
@@ -276,9 +283,9 @@ class ProjectService:
         if work_types:
             work_type_service.WorkTypeService.create_list(work_types, project.id)
         if project.requester.type in [
-            "PO",
-            "TENANT",
-            "SDC",
+            RequesterTypes.PO.value,
+            RequesterTypes.TENANT.value,
+            RequesterTypes.SDC.value,
         ]:
             logging.info(f"Creating accommodation for project {project.id}")
             accommodations_service.AccommodationService.create({}, project.id)

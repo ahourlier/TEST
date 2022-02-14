@@ -49,6 +49,7 @@ class Scenario(BaseMixin, db.Model):
     inertia = db.Column(String(255), nullable=True)
     altitude = db.Column(String(255), nullable=True)
     commentary = Column(String(800), nullable=True)
+    simulations = relationship("Simulation")
 
     @hybrid_property
     def is_new(self):

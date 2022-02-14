@@ -1,6 +1,11 @@
 from flask_marshmallow.sqla import SQLAlchemyAutoSchema
 from marshmallow import fields, Schema, EXCLUDE
-
+from app.project.simulations.model import (
+    SimulationUseCase,
+    SimulationAccommodation,
+    SimulationSubResult,
+    Simulation,
+)
 from app.common.schemas import PaginatedSchema
 from app.funder.funders import FunderSchema
 from app.funder.funders.schema import FunderLightSchema
@@ -11,12 +16,6 @@ from app.project.accommodations.schema import (
 )
 from app.project.quotes.model import Quote
 from app.project.quotes.model import QuoteWorkType
-from app.project.simulations import Simulation
-from app.project.simulations.model import (
-    SimulationUseCase,
-    SimulationAccommodation,
-    SimulationSubResult,
-)
 
 
 # SIMULATIONS_USE_CASES_SCHEMAS
@@ -223,6 +222,7 @@ class SimulationSchema(SQLAlchemyAutoSchema):
     sub_results = fields.List(
         fields.Nested(SimulationSubResultSchema()), required=False
     )
+    scenario_id = fields.Integer(required=False, allow_none=True)
 
     class Meta:
         model = Simulation
