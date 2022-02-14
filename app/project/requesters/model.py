@@ -9,7 +9,7 @@ from app.common.phone_number.model import HasPhones, PhoneNumber
 class RequesterTypes(Enum):
     PO = "PO"
     PB = "PB"
-    TENANT = "Locataire"
+    TENANT = "LOCATAIRE"
     SDC = "SDC (Syndicat des Copropriétaires)"
 
 
