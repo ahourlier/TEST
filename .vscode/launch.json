@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python : Update calculation",
+            "type": "python",
+            "request": "launch",
+            "program": "update_simulation_calculations.py",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "Python : Flask",
             "type": "python",
             "request": "launch",
