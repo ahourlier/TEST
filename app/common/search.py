@@ -50,12 +50,10 @@ class SearchService:
         """Apply search on input texts. Here filters are applied with an "OR" operator."""
         model = next(q._mapper_entities).type
         term_filters = []
-        terms = term.split(" ")
-        for t in terms:
-            for field in search_fields:
-                query_filter = SearchService.build_query(model, field, "in", [t])
-                if query_filter is not None:
-                    term_filters.append(query_filter)
+        for field in search_fields:
+            query_filter = SearchService.build_query(model, field, "in", [term])
+            if query_filter is not None:
+                term_filters.append(query_filter)
         q = q.filter(or_(*term_filters))
         return q
 
