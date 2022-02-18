@@ -37,6 +37,7 @@ def calculate_subvention(simulation_funder):
 def handle_pb(project):
     from app.project.simulations.model import SimulationSubResult
     from app.project.accommodations import Accommodation
+    from app.project.quotes.model import QuoteAccommodation
 
     simulations = project.simulations
     if len(simulations) == 0:
@@ -44,7 +45,56 @@ def handle_pb(project):
     
     for s in simulations:
         if needs_calculation(s):
+            sub_results = {}
+            for sa in s.simulations_accommodations:
+                sub_results[sa.accommodation_id] = {
+                    "price_incl_tax": 0,
+                    "total_subvention": 0,
+                    "remaining_cost": 0,
+                    "subvention_on_ttc": 0
+                }
+            sub_results[None] = {
+                    "price_incl_tax": 0,
+                    "total_subvention": 0,
+                    "remaining_cost": 0,
+                    "subvention_on_ttc": 0
+                }
+            for quote in s.quotes:
+                for quote_accommodation in quote.accommodations:
+                    sub_results[quote_accommodation["accommodation"].id]["price_incl_tax"] += quote_accommodation["price_incl_tax"]
+            for sf in s.simulation_funders:
+                if len(sf.funder_accommodations) > 0:
+                    for fa in sf.funder_accommodations:
+                        if subvention_needs_calculation(fa):
+                            fa.subvention = calculate_subvention(fa)
+                        sub_results[fa.accommodation_id]["total_subvention"] += fa.subvention
+                else:
+                    pass
             pass
+
+            
+            # for sf in s.simulation_funders:
+            #     funder_accommodations = sf.funder_accommodations
+            #     for fa in funder_accommodations:
+            #         sub_result_query = SimulationSubResult.query.filter(
+            #             SimulationSubResult.simulation_id == s.id
+            #         )
+            #         if fa.is_common_area:
+            #             sub_result_query = SimulationSubResult.query.filter(
+            #                 SimulationSubResult.is_common_area == True
+            #             )
+            #         else:
+            #             sub_result_query = SimulationSubResult.query.filter(
+            #                 SimulationSubResult.accommodation_id == fa.accommodation_id
+            #             )
+            #         sub_result = sub_result_query.first()
+            #         price_incl_tax = 0
+            #         total_subvention = 0
+            #         remaining_cost = 0
+            #         subvention_on_ttc = 0
+            #         if subvention_needs_calculation(fa):
+            #             fa.subvention = calculate_subvention(fa)
+                    
 
     # for s in simulations:
     #     if needs_calculation(s):
