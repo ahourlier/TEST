@@ -12,7 +12,7 @@ from app.task.error_handlers import (
     TaskNotFoundException,
     BadFormatAssigneeException,
     EnumException as TaskEnumException,
-    InvalidTaskType
+    InvalidTaskType,
 )
 from app.task.interface import TaskInterface
 from app.thematique.exceptions import VersionNotFoundException, StepNotFoundException
@@ -29,8 +29,12 @@ ENUM_MAPPING = {
 
 class TaskService:
     @staticmethod
-    def get(task_id: int) -> Task:
-        task = Task.query.get(task_id)
+    def get(task_id: int, task_type: str) -> Task:
+        task = (
+            Task.query.filter(Task.id == task_id)
+            .filter(Task.task_type == task_type)
+            .first()
+        )
         if not task or task.is_deleted:
             raise TaskNotFoundException
         return task
@@ -48,7 +52,7 @@ class TaskService:
                 allowed_values=e.details.get("allowed_values"),
                 enum=e.details.get("enum"),
             )
-        
+
         TaskService.task_type_is_valid(new_attrs.get("task_type"))
 
         firestore_service = FirestoreUtils()
@@ -82,7 +86,7 @@ class TaskService:
         assignee=None,
         step=None,
         version=None,
-        task_type=None
+        task_type=None,
     ):
         q = sort_query(
             Task.query.filter(or_(Task.is_deleted == False, Task.is_deleted == None)),
@@ -97,7 +101,7 @@ class TaskService:
                     Task.description.ilike(search_term),
                 )
             )
-        
+
         if task_type and TaskService.task_type_is_valid(task_type):
             q = q.filter(Task.task_type == task_type)
 
