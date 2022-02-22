@@ -1,10 +1,14 @@
-from sqlalchemy import Column, Integer, Text, String, select, ForeignKey, Table, Boolean
-from sqlalchemy.ext.hybrid import hybrid_property
+import imp
+from sqlalchemy import Column, Integer, Text, String, select, ForeignKey
 from sqlalchemy.orm import relationship, backref
-
-from app import db, metadata
+import enum
+from app import db
 from app.common.base_model import BaseMixin, SoftDeletableMixin
-from app.common.phone_number.model import HasPhones, PhoneNumber
+
+
+class TaskType(enum.Enum):
+    TASK = "TASK"
+    EVENT = "EVENT"
 
 
 class Task(SoftDeletableMixin, BaseMixin, db.Model):
@@ -34,3 +38,4 @@ class Task(SoftDeletableMixin, BaseMixin, db.Model):
     date = db.Column(db.Date, nullable=True)
     mission_id = Column(Integer, ForeignKey("mission.id"), nullable=True)
     mission = relationship("Mission", backref=backref("tasks", cascade="all, delete"))
+    task_type = Column(String(5), nullable=False, default=TaskType.TASK.value)

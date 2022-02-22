@@ -1,19 +1,18 @@
-import imp
-from sqlalchemy import or_, desc
+from sqlalchemy import or_
 from flask import g
 from datetime import date
 
 from app import db
-from app import task
 from app.common.exceptions import EnumException
 from app.common.firestore_utils import FirestoreUtils
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
-from app.task import Task
+from app.task import Task, TaskType
 from app.task.error_handlers import (
     TaskNotFoundException,
     BadFormatAssigneeException,
     EnumException as TaskEnumException,
+    InvalidTaskType
 )
 from app.task.interface import TaskInterface
 from app.thematique.exceptions import VersionNotFoundException, StepNotFoundException
@@ -49,6 +48,8 @@ class TaskService:
                 allowed_values=e.details.get("allowed_values"),
                 enum=e.details.get("enum"),
             )
+        
+        TaskService.task_type_is_valid(new_attrs.get("task_type"))
 
         firestore_service = FirestoreUtils()
         document = firestore_service.get_version_by_id(
@@ -81,6 +82,7 @@ class TaskService:
         assignee=None,
         step=None,
         version=None,
+        task_type=None
     ):
         q = sort_query(
             Task.query.filter(or_(Task.is_deleted == False, Task.is_deleted == None)),
@@ -95,6 +97,9 @@ class TaskService:
                     Task.description.ilike(search_term),
                 )
             )
+        
+        if task_type and TaskService.task_type_is_valid(task_type):
+            q = q.filter(Task.task_type == task_type)
 
         if mission_id:
             q = q.filter(Task.mission_id == mission_id)
@@ -150,6 +155,8 @@ class TaskService:
                 enum=e.details.get("enum"),
             )
 
+        TaskService.task_type_is_valid(changes.get("task_type"))
+
         for forbidden_key in ["version_id", "step_id", "id", "author", "author_id"]:
             if forbidden_key in changes:
                 del changes[forbidden_key]
@@ -163,3 +170,9 @@ class TaskService:
         db_task.soft_delete()
         db.session.commit()
         return task_id
+
+    @staticmethod
+    def task_type_is_valid(value):
+        if value in [v.value for v in TaskType]:
+            return True
+        raise InvalidTaskType
