@@ -313,4 +313,4 @@ class ProjectRegisterSearchService:
             raise ForbiddenException()
         db.session.delete(search)
         db.session.commit()
-        return ProjectRegisterSearchService.get_all()
+        return ProjectRegisterSearchService.get_all_raw()
