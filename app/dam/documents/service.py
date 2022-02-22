@@ -32,7 +32,7 @@ from app.dam.documents.error_handlers import (
     DocumentNotFoundException,
     InvalidSourceException,
     SharedDriveException,
-    shared_drive_exception
+    shared_drive_exception,
 )
 from app.dam.documents.interface import DocumentInterface
 
