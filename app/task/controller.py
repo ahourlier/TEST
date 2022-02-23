@@ -2,8 +2,9 @@ from flask_accepts import accepts, responds
 from flask import request, Response, jsonify
 from flask_allows import requires
 from flask_sqlalchemy import Pagination
+from .model import TaskType
 
-from . import api, Task
+from . import task_api as api, event_api, Task
 from .schema import TaskSchema, TaskPaginatedSchema, TaskUpdateSchema
 from .service import (
     TaskService,
@@ -25,10 +26,24 @@ SEARCH_PARAMS = [
     dict(name="assignee", type=str),
     dict(name="step", type=str),
     dict(name="version", type=str),
+    dict(name="taskType", type=str),
 ]
 
 
+def get_task_type_from_url(path):
+    if "task" in path:
+        return TaskType.TASK.value
+    if "event" in path:
+        return TaskType.EVENT.value
+    return None
+
+
+# A Task is linked to a thematic, an event is only linked to a mission (tab called "Conduite de mission")
+# They both have the exact same fields and expected behaviour
+
+
 @api.route("")
+@event_api.route("")
 class TaskResource(AuthenticatedApi):
     """Task"""
 
@@ -54,6 +69,7 @@ class TaskResource(AuthenticatedApi):
             version=request.args.get("version")
             if request.args.get("version") not in [None, ""]
             else None,
+            task_type=get_task_type_from_url(request.path),
         )
 
     @accepts(schema=TaskSchema, api=api)
@@ -61,25 +77,30 @@ class TaskResource(AuthenticatedApi):
     @requires(has_mission_permission)
     def post(self) -> Task:
         """Create a client"""
+        request.parsed_obj["task_type"] = get_task_type_from_url(request.path)
         return TaskService.create(request.parsed_obj)
 
 
 @api.route("/<int:task_id>")
 @api.param("TaskId", "Task unique id")
+@event_api.route("/<int:task_id>")
+@event_api.param("eventId", "Event unique id")
 class TaskIdResource(AuthenticatedApi):
     """Task id resource"""
 
     @responds(schema=TaskSchema())
     def get(self, task_id: int):
         """Get one task"""
-        return TaskService.get(task_id)
+        task_type = get_task_type_from_url(request.path)
+        return TaskService.get(task_id, task_type)
 
     @accepts(schema=TaskUpdateSchema, api=api)
     @responds(schema=TaskSchema)
     @requires(has_mission_permission)
     def put(self, task_id: int) -> Task:
         """Update a task"""
-        db_task = TaskService.get(task_id)
+        request.parsed_obj["task_type"] = get_task_type_from_url(request.path)
+        db_task = TaskService.get(task_id, request.parsed_obj["task_type"])
         return TaskService.update(db_task, request.parsed_obj)
 
     @requires(has_mission_permission)

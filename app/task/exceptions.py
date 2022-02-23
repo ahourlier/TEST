@@ -4,6 +4,8 @@ from app.common.config_error_messages import (
     KEY_TASK_NOT_FOUND_EXCEPTION,
     BAD_FORMAT_ASSIGNEE_EXCEPTION,
     KEY_BAD_FORMAT_ASSIGNEE_EXCEPTION,
+    INVALID_TASK_TYPE_EXCEPTION,
+    KEY_INVALID_TASK_TYPE_EXCEPTION,
 )
 
 
@@ -21,5 +23,14 @@ class BadFormatAssigneeException(HTTPException):
         super().__init__(description=message)
         self.code = 400
         self.key = KEY_BAD_FORMAT_ASSIGNEE_EXCEPTION
+        self.message = message
+        self.status = "BAD REQUEST"
+
+
+class InvalidTaskType(HTTPException):
+    def __init__(self, message=INVALID_TASK_TYPE_EXCEPTION):
+        super().__init__(description=message)
+        self.code = 400
+        self.key = KEY_INVALID_TASK_TYPE_EXCEPTION
         self.message = message
         self.status = "BAD REQUEST"
