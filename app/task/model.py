@@ -1,4 +1,3 @@
-import imp
 from sqlalchemy import Column, Integer, Text, String, select, ForeignKey
 from sqlalchemy.orm import relationship, backref
 import enum
