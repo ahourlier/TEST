@@ -2,6 +2,8 @@ from sqlalchemy import or_
 from flask import g
 
 from app import db
+from app.common.address.model import Address
+from app.common.address.service import AddressService
 from app.common.exceptions import EnumException
 from app.common.phone_number.model import PhoneNumber
 from app.common.phone_number.service import PhoneNumberService
@@ -34,10 +36,10 @@ class PersonService:
         return person
 
     @staticmethod
-    def create(new_attrs: PersonInterface):
+    def create(changes: PersonInterface):
 
         try:
-            ServicesUtils.check_enums(new_attrs, ENUM_MAPPING)
+            ServicesUtils.check_enums(changes, ENUM_MAPPING)
         except EnumException as e:
             raise PersonEnumException(
                 details=e.details,
@@ -47,12 +49,21 @@ class PersonService:
                 enum=e.details.get("enum"),
             )
 
-        if "phone_number" in new_attrs:
-            if new_attrs.get("phone_number", None):
-                new_attrs["phones"] = [PhoneNumber(**new_attrs.get("phone_number"))]
-            del new_attrs["phone_number"]
+        if "phone_number" in changes:
+            if changes.get("phone_number", None):
+                changes["phones"] = [PhoneNumber(**changes.get("phone_number"))]
+            del changes["phone_number"]
+        
+        address_id = None
+        if "address" in changes and changes.get("address") is not None:
+            address_id = AddressService.create_address(changes.get("address"))
+            del changes["address"]
 
-        new_person = Person(**new_attrs)
+        new_person = Person(**changes)
+
+        if address_id:
+            new_person.address_id = address_id
+        
         if g.user.groups and len(g.user.groups) > 0:
             antenna_id = None
             for group in g.user.groups:
@@ -114,6 +125,23 @@ class PersonService:
                     db_person, [changes.get("phone_number")]
                 )
             del changes["phone_number"]
+        
+        if "address" in changes:
+            if changes.get("address") is not None:
+                if not db_person.address_id:
+                    db_person.address_id = AddressService.create_address(
+                        changes.get("address")
+                    )
+                else:
+                    db_address = Address.query.get(db_person.address_id)
+                    db_address.update(changes.get("address"))
+            else:
+                address = Address.query.filter(
+                    Address.id == db_person.address_id
+                )
+                db_person.address_id = None
+                address.delete()
+            del changes["address"]
 
         db_person.update(changes)
         db.session.commit()
