@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Text, String, select, ForeignKey
+from sqlalchemy import Column, Integer, Text, String, null, select, ForeignKey
 from sqlalchemy.orm import relationship, backref
 import enum
 from app import db
@@ -31,8 +31,8 @@ class Task(SoftDeletableMixin, BaseMixin, db.Model):
         backref=backref("assigned_tasks", cascade="all, delete"),
     )
     status = Column(String(255))
-    step_id = Column(String(255))
-    version_id = Column(String(255))
+    step_id = Column(String(255), nullable=True)
+    version_id = Column(String(255), nullable=True)
     reminder_date = db.Column(db.Date, nullable=True)
     date = db.Column(db.Date, nullable=True)
     mission_id = Column(Integer, ForeignKey("mission.id"), nullable=True)

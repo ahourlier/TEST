@@ -1,3 +1,4 @@
+from os import stat
 from sqlalchemy import or_
 from flask import g
 from datetime import date
@@ -12,7 +13,8 @@ from app.task.error_handlers import (
     TaskNotFoundException,
     BadFormatAssigneeException,
     EnumException as TaskEnumException,
-    InvalidTaskType,
+    InvalidTaskTypeException,
+    StepOrVersionMissingException
 )
 from app.task.interface import TaskInterface
 from app.thematique.exceptions import VersionNotFoundException, StepNotFoundException
@@ -54,6 +56,8 @@ class TaskService:
             )
 
         TaskService.task_type_is_valid(new_attrs.get("task_type"))
+
+        TaskService.check_task_payload_valid(new_attrs)
 
         firestore_service = FirestoreUtils()
         document = firestore_service.get_version_by_id(
@@ -161,6 +165,11 @@ class TaskService:
 
         TaskService.task_type_is_valid(changes.get("task_type"))
 
+        changes["step_id"] = db_task.step_id
+        changes["version_id"] = db_task.version_id
+
+        TaskService.check_task_payload_valid(changes)
+
         for forbidden_key in ["version_id", "step_id", "id", "author", "author_id"]:
             if forbidden_key in changes:
                 del changes[forbidden_key]
@@ -179,4 +188,12 @@ class TaskService:
     def task_type_is_valid(value):
         if value in [v.value for v in TaskType]:
             return True
-        raise InvalidTaskType
+        raise InvalidTaskTypeException
+
+    @staticmethod
+    def check_task_payload_valid(payload):
+        if payload.get("task_type") == TaskType.TASK.value and (
+            payload.get("version_id") is None or payload.get("step_id") is None
+        ):
+            raise StepOrVersionMissingException
+        return True

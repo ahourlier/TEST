@@ -13,8 +13,8 @@ class TaskSchema(SQLAlchemyAutoSchema):
     author_id = fields.Integer(dump_only=True)
     assignee_id = fields.Integer(allow_none=True, required=False)
     status = fields.String(allow_none=False, required=True)
-    step_id = fields.String(allow_none=False, required=True)
-    version_id = fields.String(allow_none=False, required=True)
+    step_id = fields.String(allow_none=True, required=False)
+    version_id = fields.String(allow_none=True, required=False)
     task_type = fields.String(allow_none=True, required=False)
 
     class Meta:
