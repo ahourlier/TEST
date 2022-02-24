@@ -31,11 +31,11 @@ ENUM_MAPPING = {
 class TaskService:
     @staticmethod
     def get(task_id: int, task_type: str = None) -> Task:
-        task_query = Task.query.filter(Task.id == task_id)
-        if task_type:
-            task_query = task_query.filter(Task.task_type == task_type)
-        
-        task = task_query.first()
+        task = (
+            Task.query.filter(Task.id == task_id)
+            .filter(Task.task_type == task_type)
+            .first()
+        )
         if not task or task.is_deleted:
             raise TaskNotFoundException
         return task
@@ -178,7 +178,7 @@ class TaskService:
 
     @staticmethod
     def delete(task_id: int):
-        db_task = TaskService.get(task_id)
+        db_task = TaskService.get(task_id, task_id)
         db_task.soft_delete()
         db.session.commit()
         return task_id
