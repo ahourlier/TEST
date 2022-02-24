@@ -106,5 +106,6 @@ class TaskIdResource(AuthenticatedApi):
     @requires(has_mission_permission)
     def delete(self, task_id: int) -> Response:
         """Update a task"""
-        id = TaskService.delete(task_id)
+        task_type = get_task_type_from_url(request.path)
+        id = TaskService.delete(task_id, task_type)
         return jsonify(dict(status="Success", id=id))

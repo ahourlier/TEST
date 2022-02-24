@@ -30,7 +30,7 @@ ENUM_MAPPING = {
 
 class TaskService:
     @staticmethod
-    def get(task_id: int, task_type: str) -> Task:
+    def get(task_id: int, task_type: str = None) -> Task:
         task = (
             Task.query.filter(Task.id == task_id)
             .filter(Task.task_type == task_type)
@@ -177,8 +177,8 @@ class TaskService:
         return db_task
 
     @staticmethod
-    def delete(task_id: int):
-        db_task = TaskService.get(task_id)
+    def delete(task_id: int, task_type: str):
+        db_task = TaskService.get(task_id, task_type)
         db_task.soft_delete()
         db.session.commit()
         return task_id
