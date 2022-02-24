@@ -28,6 +28,7 @@ def invalid_task_type(error):  # pragma: no cover
 def enum_exception(error):  # pragma: no cover
     return parse_exception(error)
 
+
 @api.errorhandler(StepOrVersionMissingException)
 def step_version_missing(error):  # pragma: no cover
     return parse_exception(error)

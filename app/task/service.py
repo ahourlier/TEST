@@ -1,4 +1,3 @@
-from os import stat
 from sqlalchemy import or_
 from flask import g
 from datetime import date
@@ -14,7 +13,7 @@ from app.task.error_handlers import (
     BadFormatAssigneeException,
     EnumException as TaskEnumException,
     InvalidTaskTypeException,
-    StepOrVersionMissingException
+    StepOrVersionMissingException,
 )
 from app.task.interface import TaskInterface
 from app.thematique.exceptions import VersionNotFoundException, StepNotFoundException

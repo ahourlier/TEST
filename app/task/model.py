@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Text, String, null, select, ForeignKey
+from sqlalchemy import Column, Integer, Text, String, ForeignKey
 from sqlalchemy.orm import relationship, backref
 import enum
 from app import db
