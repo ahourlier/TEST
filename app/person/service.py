@@ -53,7 +53,7 @@ class PersonService:
             if changes.get("phone_number", None):
                 changes["phones"] = [PhoneNumber(**changes.get("phone_number"))]
             del changes["phone_number"]
-        
+
         address_id = None
         if "address" in changes and changes.get("address") is not None:
             address_id = AddressService.create_address(changes.get("address"))
@@ -63,7 +63,7 @@ class PersonService:
 
         if address_id:
             new_person.address_id = address_id
-        
+
         if g.user.groups and len(g.user.groups) > 0:
             antenna_id = None
             for group in g.user.groups:
@@ -125,7 +125,7 @@ class PersonService:
                     db_person, [changes.get("phone_number")]
                 )
             del changes["phone_number"]
-        
+
         if "address" in changes:
             if changes.get("address") is not None:
                 if not db_person.address_id:
@@ -136,9 +136,7 @@ class PersonService:
                     db_address = Address.query.get(db_person.address_id)
                     db_address.update(changes.get("address"))
             else:
-                address = Address.query.filter(
-                    Address.id == db_person.address_id
-                )
+                address = Address.query.filter(Address.id == db_person.address_id)
                 db_person.address_id = None
                 address.delete()
             del changes["address"]

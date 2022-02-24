@@ -15,7 +15,7 @@ class PersonSchema(SQLAlchemyAutoSchema):
 
     class Meta:
         model = Person
-    
+
 
 class PersonUpdateSchema(SQLAlchemyAutoSchema):
     phone_number = fields.Nested(PhoneNumberSchema(), allow_none=True)
