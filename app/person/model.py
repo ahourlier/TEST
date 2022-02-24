@@ -31,7 +31,7 @@ class Person(SoftDeletableMixin, HasPhones, BaseMixin, db.Model):
     is_physical_person = Column(Boolean())
     antenna_id = Column(Integer, ForeignKey("antenna.id"), nullable=True)
     antenna = relationship("Antenna", backref=backref("people", cascade="all, delete"))
-    address_id = Column(Integer(), ForeignKey("address.id"), nullable=True)
+    address_id = Column(Integer(), ForeignKey("address.id"), nullable=False)
     address = relationship("Address", cascade="all, delete", backref="people")
 
     @hybrid_property
