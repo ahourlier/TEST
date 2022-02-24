@@ -90,7 +90,7 @@ class PersonService:
             sort_by,
             direction,
         )
-        if term is not None:
+        if term not in [None, ""]:
             search_term = f"%{term}%"
             q = q.filter(
                 or_(
