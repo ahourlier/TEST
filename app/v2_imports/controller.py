@@ -15,8 +15,9 @@ SEARCH_PARAMS = [
     dict(name="size", type=int),
     dict(name="term", type=str),
     dict(name="sortBy", type=str),
-    dict(name="sortDirection", type=str)
+    dict(name="sortDirection", type=str),
 ]
+
 
 @api.route("/<int:mission_id>")
 @api.param("MissionId", "Mission unique id")
@@ -36,6 +37,7 @@ class ImportsForMissionResource(AuthenticatedApi):
     def post(self) -> Imports:
         """Create import"""
         pass
+
 
 @api.route("/<int:mission_id>/<int:import_id>")
 @api.param("MissionId", "Mission unique id")

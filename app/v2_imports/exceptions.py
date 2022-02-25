@@ -3,7 +3,7 @@ from app.common.config_error_messages import (
     MISSION_NOT_FOUND_EXCEPTION,
     KEY_MISSION_NOT_FOUND_EXCEPTION,
     IMPORT_NOT_FOUND_EXCEPTION,
-    KEY_IMPORT_NOT_FOUND_EXCEPTION
+    KEY_IMPORT_NOT_FOUND_EXCEPTION,
 )
 
 
@@ -13,6 +13,7 @@ class MissionNotFoundException(HTTPException):
         self.key = KEY_MISSION_NOT_FOUND_EXCEPTION
         self.message = message
         self.status = "NOT FOUND"
+
 
 class ImportNotFoundException(HTTPException):
     def __init__(self, message=IMPORT_NOT_FOUND_EXCEPTION):
