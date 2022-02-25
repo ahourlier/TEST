@@ -21,6 +21,7 @@ def register_routes(api, app, root="api"):
     from app.thematique import register_routes as attach_thematiques
     from app.task import register_routes as attach_tasks
     from app.combined_structure import register_routes as attach_combined_structures
+    from app.v2_imports import register_routes as attach_v2_imports
 
     attach_auth(api, app, root)
     attach_admin(api, app, root)
@@ -40,3 +41,4 @@ def register_routes(api, app, root="api"):
     attach_thematiques(api, app, root)
     attach_tasks(api, app, root)
     attach_combined_structures(api, app, root)
+    attach_v2_imports(api, app, root)

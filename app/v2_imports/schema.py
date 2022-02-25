@@ -10,6 +10,7 @@ class ImportsSchema(SQLAlchemyAutoSchema):
     log_sheet_id = fields.String(dump_only=True)
     status = fields.String(dump_only=True)
     type = fields.String(dump_only=True)
+    mission_id = fields.Integer(dump_only=True)
 
     class Meta:
         model = Imports
