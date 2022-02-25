@@ -7,7 +7,10 @@ import app.project.accommodations.service as accommodations_service
 import app.perrenoud.rooms.service as rooms_service
 import app.perrenoud.scenarios.service as scenarios_service
 from werkzeug.utils import secure_filename
-from app.common.config_error_messages import KEY_SHARED_DRIVE_COPY_EXCEPTION
+from app.common.config_error_messages import (
+    KEY_SHARED_DRIVE_COPY_EXCEPTION,
+    KEY_SHARED_DRIVE_FETCH_EXCEPTION,
+)
 from app.common.drive_utils import DriveUtils, DRIVE_DEFAULT_FIELDS
 from app.common.exceptions import SharedDriveException, InvalidFileException
 from app.common.tasks import create_task
@@ -109,6 +112,14 @@ class PhotoService:
             user_email=g.user.email,
             fields=DRIVE_DEFAULT_FIELDS,
         )
+
+        # On photoUpload, importing local files, we must delete the original file
+        # to avoid a copy with wrong name
+        source_file = DriveUtils.get_file(file_id=photo_id, fields="parents")
+        if source_file:
+            if dest_folder in source_file.get("parents", []):
+                DriveUtils.delete_file(file_id=photo_id, user_email=g.user.email)
+
         if not resp:
             raise SharedDriveException(KEY_SHARED_DRIVE_COPY_EXCEPTION)
 

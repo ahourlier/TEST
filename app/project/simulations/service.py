@@ -27,7 +27,7 @@ from .error_handlers import (
     CloneFunderException,
     SimulationQuoteNotFoundException,
     SimulationFunderNotFoundException,
-    InconsistentScenarioException
+    InconsistentScenarioException,
 )
 from app.project.simulations.interface import (
     SimulationInterface,
@@ -129,7 +129,6 @@ class SimulationService:
                 "simulations_accommodations",
             ],
         )
-        
 
         # Create new simulation
         simulation = Simulation(**new_attrs)
@@ -227,7 +226,9 @@ class SimulationService:
 
             # If scenario_id, check if scenario is in the same project
             if changes.get("scenario_id"):
-                existing_scenario = ScenarioService.get_by_id(changes.get("scenario_id"))
+                existing_scenario = ScenarioService.get_by_id(
+                    changes.get("scenario_id")
+                )
                 if existing_scenario.accommodation.project_id != simulation.project_id:
                     raise InconsistentScenarioException
 

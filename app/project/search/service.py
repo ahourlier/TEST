@@ -125,7 +125,9 @@ class ProjectSearchService:
 
         # Filter on phone numbers
         if phone_number_filter:
-            q = ProjectSearchService.filter_on_phone_numbers(q, phone_number_filter["values"][0])
+            q = ProjectSearchService.filter_on_phone_numbers(
+                q, phone_number_filter["values"][0]
+            )
 
         # Filter on common area condominium
         if len(condominium_common_areas) > 0:
@@ -218,13 +220,10 @@ class ProjectSearchService:
 
     @staticmethod
     def filter_on_phone_numbers(q, number):
-        q = q.join(PhoneNumber, Project.requester_id==PhoneNumber.resource_id)
+        q = q.join(PhoneNumber, Project.requester_id == PhoneNumber.resource_id)
         q = q.filter(
-            or_(
-                PhoneNumber.international == number,
-                PhoneNumber.national == number
-            ),
-            and_(PhoneNumber.resource_type == 'requester')
+            or_(PhoneNumber.international == number, PhoneNumber.national == number),
+            and_(PhoneNumber.resource_type == "requester"),
         )
         return q
 
@@ -314,4 +313,4 @@ class ProjectRegisterSearchService:
             raise ForbiddenException()
         db.session.delete(search)
         db.session.commit()
-        return ProjectRegisterSearchService.get_all()
+        return ProjectRegisterSearchService.get_all_raw()
