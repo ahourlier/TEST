@@ -5,7 +5,6 @@ from app.common.tasks import create_task
 from app.v2_imports.model import ImportType, ImportStatus
 from app.v2_imports import Imports
 from app.v2_imports.interface import ImportInterface
-from app.mission.missions.service import MissionService
 
 IMPORT_DEFAULT_PAGE = 1
 IMPORT_DEFAULT_PAGE_SIZE = 100

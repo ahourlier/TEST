@@ -1,8 +1,7 @@
 from flask_restx import Namespace
-
+from .model import Imports
 from app.v2_imports.internal_controller import ImportRunView
 
-from .model import Imports
 
 BASE_ROUTE = "imports"
 

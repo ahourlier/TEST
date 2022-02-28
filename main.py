@@ -25,4 +25,4 @@ load_dotenv()
 
 app = create_app(os.getenv("FLASK_ENV") or "test")
 if __name__ == "__main__":
-    app.run(debug=os.getenv("DEV_SERVER"))
+    app.run(debug=os.getenv("DEV_SERVER"), use_reloader=False)
