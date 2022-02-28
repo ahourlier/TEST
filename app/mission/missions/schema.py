@@ -12,6 +12,7 @@ from ...admin.clients.referents.schema import (
 from ...admin.clients.schema import ClientSchema
 from ...common.schemas import PaginatedSchema, DocumentSchema
 from ...thematique.schema import ThematiqueMissionSchema
+from ...v2_imports import Imports, ImportStatus
 
 
 class MissionSchema(SQLAlchemyAutoSchema):
@@ -23,6 +24,12 @@ class MissionSchema(SQLAlchemyAutoSchema):
     thematiques = fields.Nested(
         ThematiqueMissionSchema(), many=True, allow_none=True, required=False
     )
+    import_running = fields.Method("is_import_running")
+
+    def is_import_running(self, obj):
+        imports = Imports.query.filter(Imports.mission_id == obj.id).filter(Imports.status == ImportStatus.RUNNING.value).all()
+        return len(imports) > 0
+
 
     class Meta:
         model = Mission
