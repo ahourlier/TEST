@@ -173,21 +173,25 @@ class DataImportService:
                 import_id, sheet_id + 1, 0, entities_keys_map, mission_id
             )
 
+        label_fields_map = SPREADSHEET_STRUCTURE.get(sheet_name).get("labels_fields_map")
+
+        if sheet_name == SheetsList.PROJECTS.value:
+            date_status_fields_map = SPREADSHEET_STRUCTURE.get(sheet_name).get("date_status_fields_map")
+            label_fields_map = DataImportService.add_date_status_to_label_fields(sheet_data[row_id],
+                                                                                 json.loads(db_data_import.labels).get(sheet_name)[0],
+                                                                                 label_fields_map,
+                                                                                 date_status_fields_map)
         # Fetch new entity fields/values correspondances
         new_entity_fields = DataImportService.build_entity_labels_fields_list(
             row_fields=sheet_data[row_id],
-            labels_fields_map=SPREADSHEET_STRUCTURE.get(sheet_name).get(
-                "labels_fields_map"
-            ),
+            labels_fields_map=label_fields_map,
             labels_lists=json.loads(db_data_import.labels).get(sheet_name)[0],
         )
 
         # To be removed in v2. Not enough generic
         # Insert specific projects values
         if sheet_name == SheetsList.PROJECTS.value:
-            projects_labels_fields_map = SPREADSHEET_STRUCTURE.get(sheet_name).get(
-                "labels_fields_map"
-            )
+            projects_labels_fields_map = label_fields_map
             new_entity_fields[
                 "identifiant de la mission associée"
             ] = projects_labels_fields_map.get("identifiant de la mission associée")
@@ -250,6 +254,27 @@ class DataImportService:
             new_entity, primary_key_field.get("field")
         )
         return entities_keys_map
+
+    def add_date_status_to_label_fields(fields_values,
+                                        fields_label,
+                                        labels_fields_map,
+                                        date_status_fields_map):
+        imported_status_name = None
+        for index, label in enumerate(fields_label):
+            if label == "status":
+                imported_status_name = fields_values[index]
+                break
+
+        if imported_status_name:
+            for status_name in date_status_fields_map:
+                if status_name == imported_status_name:
+                    found_db_field_name = date_status_fields_map[status_name]
+                    labels_fields_map['date du status'] = {}
+                    labels_fields_map['date du status']['field'] = found_db_field_name
+                    labels_fields_map['date du status']['type'] = SheetFieldsTypes.DATE_DAY.value
+                    labels_fields_map['date du status']['model'] = BaseEntities.PROJECT.value
+                    break
+        return labels_fields_map
 
     # V2 : phone_number could be refactored as "generic extra fields"
     @staticmethod
