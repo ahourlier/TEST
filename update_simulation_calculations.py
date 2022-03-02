@@ -162,13 +162,13 @@ def handle_po_tenant_sdc(project):
                     total_advances,
                 ]
             )
-            # if not DRY_RUN:
-            #     s.total_work_price = total_price_incl_tax
-            #     s.total_subventions = total_subventions
-            #     s.remaining_costs = remaining_cost
-            #     s.subvention_on_TTC = subvention_on_ttc
-            #     s.total_advances = total_advances
-            #     db.session.commit()
+            if not DRY_RUN:
+                s.total_work_price = total_price_incl_tax
+                s.total_subventions = total_subventions
+                s.remaining_costs = remaining_cost
+                s.subvention_on_TTC = subvention_on_ttc
+                s.total_advances = total_advances
+                db.session.commit()
         else:
             continue
     pass
