@@ -1,17 +1,16 @@
 """empty message
 
 Revision ID: b16e2c5183aa
-Revises: 03d418287dd0
+Revises: bd4b3a1e3625
 Create Date: 2022-03-03 13:53:02.589845
 
 """
 from alembic import op
 import sqlalchemy as sa
-from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
 revision = 'b16e2c5183aa'
-down_revision = '03d418287dd0'
+down_revision = 'bd4b3a1e3625'
 branch_labels = None
 depends_on = None
 
