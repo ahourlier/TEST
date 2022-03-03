@@ -51,7 +51,7 @@ def create_app(env=None):
     allows.init_app(app)
     allows.identity_loader(lambda: g.user)
     babel.init_app(app)
-    if env != "test":
+    if env != "test" and not firebase_admin._apps:
         creds = credentials.Certificate(
             app.config.get("FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY_PATH")
         )
