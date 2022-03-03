@@ -27,7 +27,7 @@ SEARCH_PARAMS = [
 ]
 
 
-@api.route("/<int:mission_id>")
+@api.route("/mission/<int:mission_id>")
 @api.param("MissionId", "Mission unique id")
 class ImportsForMissionResource(AuthenticatedApi):
     """Imports by mission id"""
@@ -56,14 +56,14 @@ class ImportsForMissionResource(AuthenticatedApi):
         return ImportsService.launch_import(payload)
 
 
-@api.route("/<int:mission_id>/<int:import_id>")
-@api.param("MissionId", "Mission unique id")
+@api.route("/<int:import_id>/start")
 @api.param("ImportId", "Import unique id")
 class ImportsByIdResource(AuthenticatedApi):
     """Imports by mission and import id"""
 
     @responds(schema=ImportsSchema())
     @requires(has_mission_permission)
-    def put(self) -> Imports:
+    def put(self, import_id) -> Imports:
         """Launch import task"""
-        pass
+        current_import = ImportsService.get(import_id)
+        return ImportsService.run_import(current_import)

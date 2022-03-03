@@ -4,6 +4,7 @@ from app.common.search import sort_query
 from app.common.tasks import create_task
 from app.v2_imports.model import ImportType, ImportStatus
 from app.v2_imports import Imports
+from app.v2_imports.error_handlers import ImportNotFoundException
 from app.v2_imports.interface import ImportInterface
 
 IMPORT_DEFAULT_PAGE = 1
@@ -15,6 +16,14 @@ IMPORT_TASK_QUEUE = "v2-import-queue"
 
 
 class ImportsService:
+
+    def get(import_id):
+        current_import = Imports.query.get(import_id)
+        if not current_import:
+            raise ImportNotFoundException
+        return current_import
+
+
     def list(
         page=IMPORT_DEFAULT_PAGE,
         size=IMPORT_DEFAULT_PAGE_SIZE,
@@ -49,3 +58,18 @@ class ImportsService:
             payload={"import_id": new_import.id},
         )
         return new_import
+
+    
+    def run_import(current_import: Imports):
+        current_import.status = ImportStatus.RUNNING.value
+        current_import.type = ImportType.IMPORT.value
+        db.session.commit()
+        create_task(
+            project=os.getenv("GOOGLE_CLOUD_PROJECT"),
+            location=os.getenv("QUEUES_LOCATION"),
+            queue=IMPORT_TASK_QUEUE,
+            uri=f"{os.getenv('API_URL')}/_internal/imports/run",
+            method="PUT",
+            payload={"import_id": current_import.id},
+        )
+        return current_import
