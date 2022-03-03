@@ -27,9 +27,12 @@ class MissionSchema(SQLAlchemyAutoSchema):
     import_running = fields.Method("is_import_running")
 
     def is_import_running(self, obj):
-        imports = Imports.query.filter(Imports.mission_id == obj.id).filter(Imports.status == ImportStatus.RUNNING.value).all()
+        imports = (
+            Imports.query.filter(Imports.mission_id == obj.id)
+            .filter(Imports.status == ImportStatus.RUNNING.value)
+            .all()
+        )
         return len(imports) > 0
-
 
     class Meta:
         model = Mission

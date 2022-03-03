@@ -16,13 +16,11 @@ IMPORT_TASK_QUEUE = "v2-import-queue"
 
 
 class ImportsService:
-
     def get(import_id):
         current_import = Imports.query.get(import_id)
         if not current_import:
             raise ImportNotFoundException
         return current_import
-
 
     def list(
         page=IMPORT_DEFAULT_PAGE,
@@ -59,7 +57,6 @@ class ImportsService:
         )
         return new_import
 
-    
     def run_import(current_import: Imports):
         current_import.status = ImportStatus.RUNNING.value
         current_import.type = ImportType.IMPORT.value
