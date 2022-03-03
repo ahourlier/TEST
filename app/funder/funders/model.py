@@ -22,6 +22,7 @@ class Funder(SoftDeletableMixin, BaseMixin, db.Model):
     mission_id = Column(Integer, ForeignKey("mission.id"), nullable=True)
     mission = relationship("Mission", backref="funders")
     requester_type = Column(String(255), nullable=True)
+    position = Column(Integer, nullable=True)
 
     @hybrid_property
     def is_national(self):

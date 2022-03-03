@@ -8,3 +8,4 @@ class FunderInterface(TypedDict, total=False):
     type: int
     is_national: bool
     mission_id: int
+    position: int
