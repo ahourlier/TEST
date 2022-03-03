@@ -1,4 +1,3 @@
-import imp
 from sqlalchemy import Column, Integer, Text, ForeignKey, String, Boolean, Float
 from sqlalchemy.orm import relationship
 

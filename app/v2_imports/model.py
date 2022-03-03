@@ -24,6 +24,7 @@ class Imports(BaseMixin, db.Model):
     mission = relationship("Mission", backref=backref("imports", cascade="all, delete"))
     import_sheet_id = Column(String(50), nullable=False)
     name = Column(String(255), nullable=False)
+    label = Column(String(255), nullable=True)
     log_sheet_id = Column(String(50))
     status = Column(String(50))
     type = Column(String(50))

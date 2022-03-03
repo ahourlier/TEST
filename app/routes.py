@@ -1,6 +1,3 @@
-import imp
-
-
 def register_routes(api, app, root="api"):
     from app.auth import register_routes as attach_auth
     from app.admin import register_routes as attach_admin
