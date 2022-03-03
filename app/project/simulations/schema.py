@@ -143,6 +143,7 @@ class SimulationSubResultSchema(SQLAlchemyAutoSchema):
 
 class SimulationAccommodationSchema(SQLAlchemyAutoSchema):
     accommodation = fields.Nested(AccommodationLightSchema)
+    scenario_id = fields.Integer(required=False, allow_none=True) # For PB requester, can select scenario for each accommodation
 
     class Meta:
         model = SimulationAccommodation
