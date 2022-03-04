@@ -4,7 +4,7 @@ from flask_allows import requires
 from flask_sqlalchemy import Pagination
 
 from . import api, Person
-from .schema import PersonSchema, PersonPaginatedSchema
+from .schema import PersonSchema, PersonPaginatedSchema, PersonUpdateSchema
 from .service import (
     PersonService,
     PERSON_DEFAULT_PAGE,
@@ -62,7 +62,7 @@ class PersonIdResource(AuthenticatedApi):
         """Get one person"""
         return PersonService.get(person_id)
 
-    @accepts(schema=PersonSchema, api=api)
+    @accepts(schema=PersonUpdateSchema, api=api)
     @responds(schema=PersonSchema)
     # @requires(is_manager)
     def put(self, person_id: int) -> Person:

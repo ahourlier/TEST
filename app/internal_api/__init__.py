@@ -12,6 +12,9 @@ def register_internal_routes(bp):
     from app.perrenoud import (
         register_internal_routes as register_internal_photos_routes,
     )
+    from app.v2_imports import (
+        register_internal_routes as register_internal_imports_routes,
+    )
 
     register_internal_mission_routes(bp)
     register_internal_project_routes(bp)
@@ -19,6 +22,7 @@ def register_internal_routes(bp):
     register_internal_docs_routes(bp)
     register_internal_import_routes(bp)
     register_internal_photos_routes(bp)
+    register_internal_imports_routes(bp)
 
 
 __all__ = ["internal_api_blueprint"]

@@ -8,7 +8,7 @@ from app.referential.enums.service import AppEnumService
 
 class ServicesUtils:
     @staticmethod
-    def clean_attrs(attrs: dict, excluded_fields: []):
+    def clean_attrs(attrs: dict, excluded_fields: List):
         """Remove excluded fields from entring attrs and return them"""
 
         extracted_fields = {}
