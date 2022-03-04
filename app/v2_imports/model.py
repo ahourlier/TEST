@@ -28,3 +28,5 @@ class Imports(BaseMixin, db.Model):
     log_sheet_id = Column(String(50))
     status = Column(String(50))
     type = Column(String(50))
+    author_id = Column(Integer, ForeignKey("user.id"), nullable=False)
+    author = relationship("User", backref="imports")

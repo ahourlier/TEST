@@ -1,5 +1,6 @@
 from app import db
 import os
+from flask import g
 from app.common.search import sort_query
 from app.common.tasks import create_task
 from app.v2_imports.model import ImportType, ImportStatus
@@ -44,6 +45,7 @@ class ImportsService:
     def launch_import(payload: ImportInterface):
         payload["type"] = ImportType.SCAN.value
         payload["status"] = ImportStatus.RUNNING.value
+        payload["author_id"] = g.user.id
         new_import = Imports(**payload)
         db.session.add(new_import)
         db.session.commit()
