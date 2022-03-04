@@ -1,4 +1,3 @@
-import imp
 from app import db
 from app.common.app_name import App
 from app.mission.missions import Mission

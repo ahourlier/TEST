@@ -15,3 +15,4 @@ class TaskInterface(TypedDict):
     step_id: Optional[str]
     reminder_date: Optional[date]
     date: Optional[date]
+    task_type: str
