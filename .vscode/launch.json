@@ -8,7 +8,7 @@
             "name": "Python : Update calculation",
             "type": "python",
             "request": "launch",
-            "program": "update_simulation_calculations.py",
+            "program": "simulation_calculations/update_simulation_calculations.py",
             "console": "integratedTerminal"
         },
         {

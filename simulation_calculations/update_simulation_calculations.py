@@ -1,40 +1,16 @@
-import csv
+# Allow import from siblings directory
+import sys
+import os
+sys.path.append( os.path.dirname( os.path.dirname( os.path.abspath(__file__) ) ) )
+
 import functools
 from app import create_app, db
+from simulation_calculations.csv_utils import *
+from simulation_calculations.calcul import *
 
 app = create_app("dev")
 
 DRY_RUN = True
-
-
-def get_total_price_incl_tax(simulation):
-    total_price_incl_tax = 0
-    for quote in simulation.quotes:
-        total_price_incl_tax += quote.price_incl_tax
-    return total_price_incl_tax
-
-
-def needs_calculation(s):
-    return (
-        s.remaining_costs is None
-        and s.subvention_on_TTC is None
-        and s.total_advances is None
-        and s.total_subventions is None
-        and s.total_work_price is None
-    )
-
-
-def subvention_needs_calculation(simulation_funder):
-    return (
-        simulation_funder.subvention is None
-        and simulation_funder.subventioned_expense is not None
-        and simulation_funder.rate is not None
-    )
-
-
-def calculate_subvention(simulation_funder):
-    return (simulation_funder.subventioned_expense * simulation_funder.rate) / 100
-
 
 def handle_pb(project):
     from app.project.simulations.model import SimulationSubResult
@@ -141,8 +117,7 @@ def handle_po_tenant_sdc(project):
             total_price_incl_tax = get_total_price_incl_tax(s)
             for sf in s.simulation_funders:
 
-                if subvention_needs_calculation(sf):
-                    sf.subvention = calculate_subvention(sf)
+                sf.subvention = calculate_subvention(sf)
 
                 total_subventions += sf.subvention if sf.subvention else 0
                 total_advances += sf.advance if sf.advance else 0
@@ -174,29 +149,9 @@ def handle_po_tenant_sdc(project):
     pass
 
 
-def write_log_in_csv(row, append=True):
-    with open("log_calculation.csv", "a" if append else "w+") as f:
-        writer = csv.writer(f)
-        writer.writerow(row)
-
-
-with app.app_context():
-    from app.project.projects import Project
-
-    write_log_in_csv(
-        [
-            "ID de projet",
-            "Nom de simulation",
-            "Total travaux TTC",
-            "Total subventions",
-            "Reste à charge",
-            "% \subvention sur le TTC",
-            "Total avances",
-        ],
-        append=False
-    )
-    projects = Project.query.all()
+def parse_projects_and_write(projects):
     projects_treated = 0
+    # Check requester type and handle accordingly
     for p in projects:
         if p.requester.type in ["PO", "SDC", "LOCATAIRE", "TENANT"]:
             handle_po_tenant_sdc(p)
@@ -205,15 +160,54 @@ with app.app_context():
         else:
             print(f"project {p.id} has an unknown requester type ({p.requester.type})")
         print(f"Treated project {p.id}")
+        projects_treated += 1
+    return projects_treated
+
+
+if __name__ == '__main__':
+    with app.app_context():
+        from app.project.projects import Project
+        # Write headers
+        write_csv_headers()
+        # Get all projects
+        projects = Project.query.all()
+        # Write Body
+        projects_treated = parse_projects_and_write(projects)
+        print(f"Total numbers of project treated: {projects_treated}")
+        
 
 
 # algo
+
+"""
+Objectif:
+recalculer :
+- subvention_on_TTC
+- total_advances
+- total_subventions
+- total_work_price 
+- remaining_cost
+quand les champs sont vides
+
+Pour chaque projet
+    Pour chaque simulation
+        - lister les devis et faire la somme des price_incl_tax (champs unique)
+        - total_subventions => somme montants_subventions
+            => Recalculer systématiquement chaque montant_subventions (dépense subventionnée x taux)
+        - total_advances => somme des avances
+        - subventions_on_TTC (((total_work_price - remaining_cost) / total_work_price) * 100 arrondi au int au dessus)
+        - remaining_cost = total_price_incl_tax - total_subventions
+"""
+
+
+
 """
 pour chaque projet, check le type
 lister les simulations
 
 si po/sdc/locataire
-pour chaque simulation, lister les devis et faire la somme des price_incl_tax
+pour chaque simulation, 
+
 faire la somme des simulation_funder.subvention
 total_advances = somme simulation_funder.advance
 remaining_cost = total_work_price - total_subventions
@@ -225,8 +219,4 @@ faire les mêmes sommes qu'au dessus
 mettre résultats des sommes dans les simulation_sub_result correspondants (même simulation_id et accommodation_id)
 faire la somme des sub_results dans simulation
 
-
-
-si pb
-pour chaque simulation
 """
