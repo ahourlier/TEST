@@ -122,7 +122,7 @@ class PersonService:
         if "phone_number" in changes:
             PhoneNumberService.update_phone_numbers(
                 db_person,
-                [changes.get("phone_number") if changes.get("phone_number") else []],
+                [changes.get("phone_number")],
             )
             del changes["phone_number"]
 

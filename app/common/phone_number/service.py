@@ -14,6 +14,8 @@ class PhoneNumberService:
             existing_phones_dict[existing_phone.id] = existing_phone
 
         for phone in updated_phones:
+            if not phone:
+                continue
             if "id" in phone:
                 existing_phone = existing_phones_dict[phone.get("id")]
                 if PhoneNumberService.has_changed(existing_phone, phone):
