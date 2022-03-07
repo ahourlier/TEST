@@ -20,7 +20,8 @@ class WorkTypeService:
 
     @staticmethod
     def create_list(
-        work_types_values: List[WorkTypeInterface], project_id: int,
+        work_types_values: List[WorkTypeInterface],
+        project_id: int,
     ) -> List[WorkType]:
 
         work_types = []

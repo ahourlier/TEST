@@ -6,7 +6,7 @@ from app.common.base_model import BaseMixin
 
 
 class Room(BaseMixin, db.Model):
-    """ Room  """
+    """Room"""
 
     __tablename__ = "room"
     id = Column(Integer(), primary_key=True, autoincrement=True)

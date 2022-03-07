@@ -4,7 +4,7 @@ from app.project.simulations.model import (
     SimulationUseCase,
     SimulationAccommodation,
     SimulationSubResult,
-    Simulation
+    Simulation,
 )
 from app.common.schemas import PaginatedSchema
 from app.funder.funders import FunderSchema
@@ -16,7 +16,6 @@ from app.project.accommodations.schema import (
 )
 from app.project.quotes.model import Quote
 from app.project.quotes.model import QuoteWorkType
-
 
 
 # SIMULATIONS_USE_CASES_SCHEMAS
@@ -144,6 +143,9 @@ class SimulationSubResultSchema(SQLAlchemyAutoSchema):
 
 class SimulationAccommodationSchema(SQLAlchemyAutoSchema):
     accommodation = fields.Nested(AccommodationLightSchema)
+    scenario_id = fields.Integer(
+        required=False, allow_none=True
+    )  # For PB requester, can select scenario for each accommodation
 
     class Meta:
         model = SimulationAccommodation

@@ -10,7 +10,7 @@ from app.mission.missions.model import Mission
 
 
 class Funder(SoftDeletableMixin, BaseMixin, db.Model):
-    """ Represents a funder """
+    """Represents a funder"""
 
     __tablename__ = "funder"
 
@@ -22,6 +22,7 @@ class Funder(SoftDeletableMixin, BaseMixin, db.Model):
     mission_id = Column(Integer, ForeignKey("mission.id"), nullable=True)
     mission = relationship("Mission", backref="funders")
     requester_type = Column(String(255), nullable=True)
+    position = Column(Integer, nullable=True)
 
     @hybrid_property
     def is_national(self):

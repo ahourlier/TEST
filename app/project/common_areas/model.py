@@ -6,7 +6,7 @@ from app.common.base_model import BaseMixin
 
 
 class CommonArea(BaseMixin, db.Model):
-    """ Common Area  """
+    """Common Area"""
 
     __tablename__ = "common_area"
 

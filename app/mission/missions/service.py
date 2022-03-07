@@ -11,6 +11,9 @@ from app import db
 from app.admin.agencies.exceptions import AgencyNotFoundException
 from app.admin.antennas.exceptions import AntennaNotFoundException
 from app.admin.clients.exceptions import ClientNotFoundException
+from app.admin.clients.referents.schema import ReferentSchema
+from app.admin.clients.schema import ClientSchema
+from app.common.app_name import App
 from app.common.config_error_messages import (
     KEY_SHARED_DRIVE_CREATION_EXCEPTION,
     KEY_SHARED_DRIVE_FOLDER_CREATION_EXCEPTION,
@@ -29,9 +32,19 @@ from app.common.google_apis import DriveService, DirectoryService, GroupsSetting
 from app.common.group_utils import GroupUtils
 from app.common.tasks import create_task
 from app.common.search import sort_query
-from app.mission.missions import Mission
+from app.mission.missions import Mission, MissionSchema
 from app.mission.missions.error_handlers import MissionNotFoundException
+from app.mission.missions.exceptions import UnknownMissionTypeException
 from app.mission.missions.interface import MissionInterface
+
+from app.admin.clients.referents.service import ReferentService
+from app.mission.missions.mission_details.exceptions import (
+    MissionDetailNotFoundException,
+)
+from app.mission.missions.mission_details.model import MissionDetail
+from app.mission.missions.mission_details.schema import MissionDetailSchema
+from app.mission.missions.schema import MissionLightSchema
+
 from app.mission.teams import Team
 
 import app.auth.users.service as users_service
@@ -62,6 +75,7 @@ class MissionService:
         antenna_id=None,
         client_id=None,
         user=None,
+        mission_type=None,
     ) -> Pagination:
         import app.mission.permissions as mission_permissions
 
@@ -83,6 +97,11 @@ class MissionService:
             q = q.filter(Mission.antenna_id == antenna_id)
         if client_id is not None:
             q = q.filter(Mission.client_id == client_id)
+        if mission_type is not None:
+            if mission_type not in [App.INDIVIDUAL, App.COPRO]:
+                raise UnknownMissionTypeException
+            else:
+                q = q.filter(Mission.mission_type == mission_type)
 
         if user is not None:
             q = mission_permissions.MissionPermission.filter_query_mission_by_user_permissions(
@@ -100,7 +119,7 @@ class MissionService:
 
     @staticmethod
     def create(new_attrs: MissionInterface) -> Mission:
-        """ Create a new mission with linked agency, antenna, and client """
+        """Create a new mission with linked agency, antenna, and client"""
         try:
             agency_service.AgencyService.get_by_id(new_attrs.get("agency_id"))
         except AgencyNotFoundException as e:
@@ -115,23 +134,46 @@ class MissionService:
         except ClientNotFoundException as e:
             raise e
         else:
+            referents = None
+            if new_attrs.get("referents"):
+                referents = new_attrs.get("referents")
+                del new_attrs["referents"]
+
             mission = Mission(**new_attrs, creator=g.user.email)
             db.session.add(mission)
             db.session.commit()
-            create_task(
-                project=os.getenv("GOOGLE_CLOUD_PROJECT"),
-                location=os.getenv("QUEUES_LOCATION"),
-                queue=MISSION_INIT_QUEUE_NAME,
-                uri=f"{os.getenv('API_URL')}/_internal/missions/init-drive",
-                method="POST",
-                payload={"mission_id": mission.id,},
-            )
+
+            if mission.mission_type == App.COPRO:
+                mission_details = MissionDetail()
+                mission_details.mission_id = mission.id
+                db.session.add(mission_details)
+                db.session.commit()
+
+            if referents:
+                for r in referents:
+                    r["mission_id"] = mission.id
+                    ReferentService.create(r)
+
+            if mission.mission_type == App.INDIVIDUAL:
+                create_task(
+                    project=os.getenv("GOOGLE_CLOUD_PROJECT"),
+                    location=os.getenv("QUEUES_LOCATION"),
+                    queue=MISSION_INIT_QUEUE_NAME,
+                    uri=f"{os.getenv('API_URL')}/_internal/missions/init-drive",
+                    method="POST",
+                    payload={
+                        "mission_id": mission.id,
+                    },
+                )
             return mission
 
     @staticmethod
     def update(
         mission: Mission, changes: MissionInterface, force_update: bool = False
     ) -> Mission:
+        # if we find referents, remove them (supposed to used the referent WS)
+        if changes.get("referents"):
+            del changes["referents"]
         if force_update or MissionService.has_changed(mission, changes):
             # If one tries to update entity id, a error must be raised
             if changes.get("id") and changes.get("id") != mission.id:
@@ -166,7 +208,7 @@ class MissionService:
 
     @staticmethod
     def create_drive_structure(mission: Mission) -> Mission:
-        """ Creates the drive structure for a mission
+        """Creates the drive structure for a mission
         Root
         |-> Modèle de documents
         |-> Documents d'information
@@ -274,3 +316,35 @@ class MissionService:
                     response.append(resp)
 
         return response
+
+    @staticmethod
+    def get_details_by_mission_id(mission_id):
+        mission_detail = MissionDetail.query.filter(
+            MissionDetail.mission_id == mission_id
+        ).first()
+
+        if not mission_detail:
+            raise MissionDetailNotFoundException
+
+        mission_detail_dump = MissionDetailSchema().dump(mission_detail)
+
+        mission = MissionService.get_by_id(mission_id)
+
+        if not mission:
+            raise MissionNotFoundException
+
+        dumped_mission = MissionLightSchema().dump(mission)
+
+        mission_detail_dump["referents"] = (
+            [ReferentSchema().dump(r) for r in mission.referents]
+            if mission.referents
+            else None
+        )
+        mission_detail_dump["name"] = mission.name
+        mission_detail_dump["client"] = (
+            ClientSchema().dump(mission.client) if mission.client else None
+        )
+        mission_detail_dump["mission_start_date"] = dumped_mission["mission_start_date"]
+        mission_detail_dump["mission_end_date"] = dumped_mission["mission_end_date"]
+
+        return jsonify(mission_detail_dump)

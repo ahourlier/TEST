@@ -1,29 +1,31 @@
 import os
-import random
-import string
 from typing import List
 from urllib.parse import urlencode
 
-import requests
-from firebase_admin import auth
 from flask_sqlalchemy import Pagination
 from googleapiclient.errors import HttpError
-from sqlalchemy import or_
-
+from sqlalchemy import or_, and_
+from flask import g, jsonify
 import logging
 
 from .error_handlers import UserNotFoundException, UnknownConnexionEmail, InactiveUser
 from .interface import UserInterface
 from .model import User, UserKind, UserRole, UserGroup
 from app import db
+from .schema import UserLightSchema
+from ..preferred_app import PreferredApp
 from ...admin.agencies import Agency
 from ...admin.antennas import Antenna
 from ...common import Permission, Role
 from app.auth.error_handlers import InvalidSearchFieldException
+from ...common.app_name import App
 from ...common.google_apis import DirectoryService, CloudIdentityService
 from ...common.group_utils import GroupUtils
 from ...common.identity_utils import IdentityUtils
 from ...common.search import sort_query
+from ...mission.missions import Mission
+from ...mission.missions.error_handlers import MissionNotFoundException
+from ...mission.teams import Team
 
 USERS_DEFAULT_PAGE = 1
 USERS_DEFAULT_PAGE_SIZE = 20
@@ -83,8 +85,18 @@ class UserService:
     def create(new_attrs: UserInterface) -> User:
         if new_attrs.get("kind") == UserKind.OTHER:
             new_attrs = UserService.signup_new_user(new_attrs)
+
+        preferred_app = PreferredApp(
+            **{"preferred_app": App.INDIVIDUAL, "first_connection": True}
+        )
+
+        db.session.add(preferred_app)
+        db.session.commit()
+
         new_user = User(**new_attrs)
+        new_user.preferred_app_id = preferred_app.id
         db.session.add(new_user)
+
         db.session.commit()
 
         if new_user.role in [UserRole.ADMIN, UserRole.MANAGER, UserRole.CONTRIBUTOR]:
@@ -200,6 +212,7 @@ class UserService:
         if user.uid is not None:
             IdentityUtils.delete_user(user.uid)
         db.session.delete(user)
+        PreferredApp.query.filter_by(id=user.preferred_app_id).delete()
         db.session.commit()
         return user_id
 
@@ -218,7 +231,7 @@ class UserService:
         return None
 
     @staticmethod
-    def get_user_groups_from_gsuite(email: str) -> [str] or None:
+    def get_user_groups_from_gsuite(email: str) -> List[str] or None:
         client = CloudIdentityService(os.getenv("TECHNICAL_ACCOUNT_EMAIL")).get()
         groups = []
         error = False
@@ -252,15 +265,18 @@ class UserService:
                 error = True
                 break
         if error:
-            dclient = DirectoryService(os.getenv("TECHNICAL_ACCOUNT_EMAIL")).get()
+            print("has error")
+            client = DirectoryService(os.getenv("TECHNICAL_ACCOUNT_EMAIL")).get()
+            print("client created")
             groups = []
             params = dict(userKey=email, fields="nextPageToken,groups(email)")
             while True:
                 try:
-                    response = dclient.groups().list(**params).execute(num_retries=3)
+                    response = client.groups().list(**params).execute(num_retries=3)
                     groups.extend(
                         [group.get("email") for group in response.get("groups", [])]
                     )
+                    print(f"fetched {len(response.get('groups', []))} groups")
                     if response.get("nextPageToken"):
                         params["pageToken"] = response.get("nextPageToken")
                     else:
@@ -277,31 +293,46 @@ class UserService:
     def update_user_groups(user: User):
         source_groups = UserService.get_user_groups_from_gsuite(user.email)
         if source_groups is not None:
-            agencies = Agency.query.filter(
-                Agency.email_address.in_(source_groups)
-            ).all()
-            antennas = Antenna.query.filter(
-                Antenna.email_address.in_(source_groups)
-            ).all()
+            agencies = (
+                Agency.query.with_entities(Agency.id, Agency.email_address)
+                .filter(Agency.email_address.in_(source_groups))
+                .all()
+            )
+            print(f"fetched {len(agencies)} agencies")
+            antennas = (
+                Antenna.query.with_entities(
+                    Antenna.id, Antenna.email_address, Antenna.agency
+                )
+                .filter(Antenna.email_address.in_(source_groups))
+                .all()
+            )
+            print(f"fetched {len(antennas)} antennas")
 
             agencies_data = {}
             for agency in agencies:
-                agencies_data[agency.email_address] = agency
+                agencies_data[agency.email_address] = agency.id
+            print("agencies_data loaded")
+            del agencies
             antennas_data = {}
             for antenna in antennas:
-                antennas_data[antenna.email_address] = antenna
+                antennas_data[antenna.email_address] = antenna.id
                 if (
                     antenna.agency
                     and antenna.agency.email_address
                     and antenna.agency.email_address not in agencies_data
                 ):
-                    agencies_data[antenna.agency.email_address] = antenna.agency
-
+                    agencies_data[antenna.agency.email_address] = antenna.agency.id
+            print("antennas_data fetched")
+            del antennas
             if agencies_data or antennas_data:
-                existing_groups = UserGroup.query.filter(UserGroup.user == user).all()
+                existing_groups = UserGroup.query.filter(
+                    UserGroup.user_id == user.id
+                ).all()
+                print(f"fetched {len(existing_groups)} existing_groups")
                 existing_groups_emails = [
                     group.group_email for group in existing_groups
                 ]
+                print("loaded existing_groups_emails")
                 groups_to_delete = []
                 for existing_group in existing_groups:
                     if (
@@ -309,41 +340,47 @@ class UserService:
                         and existing_group.group_email not in antennas_data.keys()
                     ):
                         groups_to_delete.append(existing_group)
-
+                print(f"fetched {len(groups_to_delete)} groups_to_delete")
                 groups_to_add = []
-                for email, agency in agencies_data.items():
+                for email, agency_id in agencies_data.items():
                     if email not in existing_groups_emails:
                         groups_to_add.append(
-                            UserGroup(user=user, group_email=email, agency=agency)
+                            UserGroup(
+                                user_id=user.id, group_email=email, agency_id=agency_id
+                            )
                         )
-
-                for email, antenna in antennas_data.items():
+                print(f"fetched {len(groups_to_add)} groups_to_add")
+                for email, antenna_id in antennas_data.items():
                     if email not in existing_groups_emails:
                         groups_to_add.append(
-                            UserGroup(user=user, group_email=email, antenna=antenna)
+                            UserGroup(
+                                user_id=user.id,
+                                group_email=email,
+                                antenna_id=antenna_id,
+                            )
                         )
-
+                print(f"fetched {len(groups_to_add)} groups_to_add")
                 for group_to_delete in groups_to_delete:
                     db.session.delete(group_to_delete)
                 for group_to_add in groups_to_add:
                     db.session.add(group_to_add)
             else:
-                db.session.query(UserGroup).filter(UserGroup.user == user).delete()
+                print("now deleting")
+                db.session.query(UserGroup).filter(
+                    UserGroup.user_id == user.id
+                ).delete()
+                print("deleted")
 
             db.session.commit()
-
-    def get_users_list(id_list: List[int]) -> List[User]:
-        # Retrieve a list of user objects from a list of ids
-        users = User.query.filter(User.id.in_(id_list)).all()
-        if len(users) != len(id_list):
-            raise UserNotFoundException
-        return users
+            print("committed")
 
     @staticmethod
     def get_permissions_for_role(role: Role) -> List:
-        permissions = Permission.query.filter(
-            Permission.role.has(Role.value >= role.value)
-        ).all()
+        permissions = (
+            Permission.query.with_entities(Permission.entity, Permission.action)
+            .filter(Permission.role.has(Role.value >= role.value))
+            .all()
+        )
         output = {}
         for p in permissions:
             if p.entity not in output:
@@ -351,3 +388,25 @@ class UserService:
             output[p.entity].append(p.action)
 
         return [dict(subject=k, actions=v) for k, v in output.items()]
+
+    @staticmethod
+    def list_users_by_mission_id(mission_id: int, term: str):
+        mission = Mission.query.get(mission_id)
+        if not mission:
+            raise MissionNotFoundException
+        users_query = (
+            User.query.join(Team)
+            .join(UserGroup, isouter=True)
+            .filter(
+                or_(
+                    Team.mission_id == mission_id,
+                    UserGroup.agency_id == mission.agency_id,
+                    UserGroup.antenna_id == mission.antenna_id,
+                )
+            )
+        )
+        if term:
+            term = f"%{term}%"
+            users_query = users_query.filter(User.email.ilike(term))
+        user_schema = UserLightSchema()
+        return jsonify({"items": user_schema.dump(users_query.all(), many=True)})

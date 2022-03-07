@@ -1,5 +1,6 @@
 from app.referential.enums import AppEnum
 from app.referential.enums.admin import (
+    CombinedStructureType,
     ProjectStatusAdminView,
     MissionStatusAdminView,
     ProjectContactSource,
@@ -22,6 +23,30 @@ from app.referential.enums.admin import (
     ProjectAdaptationRecommendation,
     ProjectTechnicalRecommendation,
     QuoteCompanyOrigin,
+    MissionOperationalPlan,
+    MissionJob,
+    MissionSubjob,
+    CoproConstructionTime,
+    CoproType,
+    SyndicType,
+    BuildingConstructionTime,
+    BuildingERPCategory,
+    BuildingAccessType,
+    BuildingCollectiveHeater,
+    BuildingAsbestosDiagnosisResult,
+    LotType,
+    LotHabitationType,
+    LotOccupantStatus,
+    LotLeaseType,
+    LotConventionRentType,
+    PersonStatus,
+    TaskStatus,
+    TypePretCollectif,
+    NatureTravauxInteretCollectifsPP,
+    TypePretIndividuel,
+    Prefinanceurs,
+    NatureTravauxPartieCommune,
+    NatureAide,
 )
 
 
@@ -222,5 +247,230 @@ def register_admin_views(admin, db):
             "Origine de l'entreprise",
             url="company-origin",
             endpoint="manage_company_origin",
+        )
+    )
+    admin.add_view(
+        MissionOperationalPlan(
+            AppEnum,
+            db.session,
+            "Dispositif opérationel",
+            url="operational-plan-mission",
+            endpoint="manage_operational_plans",
+        )
+    )
+    admin.add_view(
+        MissionJob(
+            AppEnum,
+            db.session,
+            "Type de métier",
+            url="job-mission",
+            endpoint="manage_jobs",
+        )
+    )
+    admin.add_view(
+        MissionSubjob(
+            AppEnum,
+            db.session,
+            "Sous métier",
+            url="subjob-mission",
+            endpoint="manage_subjobs",
+        )
+    )
+    admin.add_view(
+        CoproConstructionTime(
+            AppEnum,
+            db.session,
+            "Période de construction",
+            url="construction-time-copro",
+            endpoint="manage_construction_times",
+        )
+    )
+    admin.add_view(
+        CoproType(
+            AppEnum,
+            db.session,
+            "Type de copropriété (mono, copro, ...)",
+            url="copro-type-copro",
+            endpoint="manage_copro_types",
+        )
+    )
+    admin.add_view(
+        SyndicType(
+            AppEnum,
+            db.session,
+            "Type de syndic",
+            url="synduc-type-copro",
+            endpoint="manage_syndic_types",
+        )
+    )
+    admin.add_view(
+        BuildingConstructionTime(
+            AppEnum,
+            db.session,
+            "Période de construction (bâtiment)",
+            url="construction-time-building",
+            endpoint="manage_construction_times_buildings",
+        )
+    )
+    admin.add_view(
+        BuildingERPCategory(
+            AppEnum,
+            db.session,
+            "Catégorie d'ERP",
+            url="erp-category-building",
+            endpoint="manage_erp_categories",
+        )
+    )
+    admin.add_view(
+        BuildingAccessType(
+            AppEnum,
+            db.session,
+            "Modalités d'accès au batiment",
+            url="access-type-building",
+            endpoint="manage_access_types",
+        )
+    )
+    admin.add_view(
+        BuildingCollectiveHeater(
+            AppEnum,
+            db.session,
+            "Chauffage collectif",
+            url="collective-heater-building",
+            endpoint="manage_collective_heaters",
+        )
+    )
+    admin.add_view(
+        BuildingAsbestosDiagnosisResult(
+            AppEnum,
+            db.session,
+            "Résultat diagnostic amiante",
+            url="asbestos-result-building",
+            endpoint="manage_asbestos_results",
+        )
+    )
+    admin.add_view(
+        LotType(
+            AppEnum,
+            db.session,
+            "Type de lot",
+            url="type-lot",
+            endpoint="manage_lot_type",
+        )
+    )
+    admin.add_view(
+        LotHabitationType(
+            AppEnum,
+            db.session,
+            "Type de logement",
+            url="habitation-type-lot",
+            endpoint="manage_habitation_type",
+        )
+    )
+    admin.add_view(
+        LotOccupantStatus(
+            AppEnum,
+            db.session,
+            "Statut de l'occupant du lot",
+            url="occupant-status-lot",
+            endpoint="manage_occupant_status",
+        )
+    )
+    admin.add_view(
+        LotLeaseType(
+            AppEnum,
+            db.session,
+            "Si logement loué, nature du bail",
+            url="lease-type-lot",
+            endpoint="manage_lease_types",
+        )
+    ),
+    admin.add_view(
+        LotConventionRentType(
+            AppEnum,
+            db.session,
+            "Si loyer conventionné, type de loyer conventionné",
+            url="convention-rent-type-lot",
+            endpoint="manage_convention_rent_types",
+        )
+    )
+    admin.add_view(
+        PersonStatus(
+            AppEnum,
+            db.session,
+            "Statut personne physique",
+            url="status-person",
+            endpoint="manage_person_status",
+        )
+    )
+    admin.add_view(
+        TaskStatus(
+            AppEnum,
+            db.session,
+            "Statut tâche",
+            url="status-task",
+            endpoint="manage_task_status",
+        )
+    )
+    admin.add_view(
+        TypePretCollectif(
+            AppEnum,
+            db.session,
+            "Type de prêt collectif",
+            url="collective-loan-type",
+            endpoint="manage_collective_loan_type",
+        )
+    )
+    admin.add_view(
+        NatureTravauxInteretCollectifsPP(
+            AppEnum,
+            db.session,
+            "Nature des travaux intérêt collectif parties privatives",
+            url="nticpp",
+            endpoint="manage_nticpp",
+        )
+    )
+    admin.add_view(
+        TypePretIndividuel(
+            AppEnum,
+            db.session,
+            "Type de prêt individuel",
+            url="type-pret-indiv",
+            endpoint="manage_type_pret_indiv",
+        )
+    )
+    admin.add_view(
+        Prefinanceurs(
+            AppEnum,
+            db.session,
+            "Prefinanceurs",
+            url="prefinanceurs",
+            endpoint="manage_prefinanceurs",
+        )
+    )
+    admin.add_view(
+        NatureTravauxPartieCommune(
+            AppEnum,
+            db.session,
+            "Nature travaux partie commune",
+            url="ntpc",
+            endpoint="manage_ntpc",
+        )
+    )
+    admin.add_view(
+        NatureAide(
+            AppEnum,
+            db.session,
+            "Nature aide",
+            url="nature-aide",
+            endpoint="manage_nature_aide",
+        )
+    )
+    admin.add_view(
+        CombinedStructureType(
+            AppEnum,
+            db.session,
+            "Type de Structure Combinée",
+            url="combined-structure-type",
+            endpoint="manage_combined_structure_type",
         )
     )

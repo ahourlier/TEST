@@ -6,7 +6,7 @@ from app.common.base_model import BaseMixin
 
 
 class Agency(BaseMixin, db.Model):
-    """ Agency  """
+    """Agency"""
 
     __tablename__ = "agency"
 

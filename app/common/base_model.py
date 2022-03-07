@@ -15,6 +15,8 @@ class BaseMixin(object):
 
     def update(self, changes: TypedDict):
         for key, val in changes.items():
+            if key == "id":
+                continue
             setattr(self, key, val)
 
         return self
@@ -26,7 +28,7 @@ def before_update_function(mapper, connection, target):
 
 
 class SoftDeletableMixin:
-    """ Add this mixin to make an entity soft deletable """
+    """Add this mixin to make an entity soft deletable"""
 
     is_deleted = db.Column(db.Boolean, default=False)
 

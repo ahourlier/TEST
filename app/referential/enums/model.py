@@ -6,7 +6,7 @@ from app.common.base_model import BaseMixin
 
 
 class AppEnum(BaseMixin, db.Model):
-    """ Table for all enums """
+    """Table for all enums"""
 
     __tablename__ = "enum"
 
@@ -18,7 +18,7 @@ class AppEnum(BaseMixin, db.Model):
 
 
 class PerrenoudEnum(BaseMixin, db.Model):
-    """ Table for all Perrenoud enums """
+    """Table for all Perrenoud enums"""
 
     __tablename__ = "perrenoud_enum"
     id = Column(Integer(), primary_key=True, autoincrement=True)
@@ -28,7 +28,7 @@ class PerrenoudEnum(BaseMixin, db.Model):
 
 
 class PerrenoudEnumKind(BaseMixin, db.Model):
-    """ Map index/labels for Perrenoud enums"""
+    """Map index/labels for Perrenoud enums"""
 
     __tablename__ = "perrenoud_enum_kind"
     id = Column(Integer(), primary_key=True, autoincrement=True)

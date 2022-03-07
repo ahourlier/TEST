@@ -38,7 +38,11 @@ class SearchService:
         q = model.query
         # filter by term
         if "term" in search:
-            q = SearchService.filter_by_input_text(q, search_fields, search["term"],)
+            q = SearchService.filter_by_input_text(
+                q,
+                search_fields,
+                search["term"],
+            )
             del search["term"]
         # apply filters
 
@@ -50,12 +54,10 @@ class SearchService:
         """Apply search on input texts. Here filters are applied with an "OR" operator."""
         model = next(q._mapper_entities).type
         term_filters = []
-        terms = term.split(" ")
-        for t in terms:
-            for field in search_fields:
-                query_filter = SearchService.build_query(model, field, "in", [t])
-                if query_filter is not None:
-                    term_filters.append(query_filter)
+        for field in search_fields:
+            query_filter = SearchService.build_query(model, field, "in", [term])
+            if query_filter is not None:
+                term_filters.append(query_filter)
         q = q.filter(or_(*term_filters))
         return q
 
@@ -73,7 +75,7 @@ class SearchService:
 
     @staticmethod
     def build_query(model, search, op, values):
-        """Build a query recursively to dive into the "search" field hierarchy """
+        """Build a query recursively to dive into the "search" field hierarchy"""
         splitted_search = search.split(".")
         property = getattr(model, splitted_search[0], None)
         if not property:
@@ -119,7 +121,7 @@ class SearchService:
 
     @staticmethod
     def apply_filter(field, op, values):
-        """Apply a filter on a specific field, looking for a correspondance within the values list """
+        """Apply a filter on a specific field, looking for a correspondance within the values list"""
 
         # As targetted values, we may receive a list of IDs OR plain dicts from the front-app.
         # If plain dicts, we need here to flatten values by extracting their ids

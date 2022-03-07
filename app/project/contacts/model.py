@@ -8,7 +8,7 @@ from app.common.phone_number.model import PhoneNumber, HasPhones
 
 
 class Contact(HasPhones, BaseMixin, db.Model):
-    """ Contact  """
+    """Contact"""
 
     __tablename__ = "contact"
 

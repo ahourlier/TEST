@@ -23,7 +23,7 @@ class UserRole:
 
 
 class User(BaseMixin, db.Model):
-    """ Application User """
+    """Application User"""
 
     __tablename__ = "user"
 
@@ -35,6 +35,8 @@ class User(BaseMixin, db.Model):
     title = Column(String(10), nullable=True)
     comment = Column(String(2083), nullable=True)
     role = Column(String(255), ForeignKey("role.name"), unique=False)
+    preferred_app_id = Column(Integer(), ForeignKey("preferred_app.id"))
+    preferred_app = relationship("PreferredApp", cascade="all, delete")
     role_data = relationship("Role", backref="user")
     active = Column(Boolean(create_constraint=False), default=True, nullable=False)
     kind = Column(String(20), default=UserKind.EMPLOYEE, nullable=False)
@@ -52,7 +54,7 @@ class User(BaseMixin, db.Model):
 
 
 class UserGroup(BaseMixin, db.Model):
-    """ Groups associated to a user """
+    """Groups associated to a user"""
 
     __tablename__ = "user_group"
 
