@@ -12,6 +12,13 @@
             "console": "integratedTerminal"
         },
         {
+            "name": "Python : Preferred App Filler",
+            "type": "python",
+            "request": "launch",
+            "program": "scripts/preferred_app_filler.py",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "Python : Flask",
             "type": "python",
             "request": "launch",
