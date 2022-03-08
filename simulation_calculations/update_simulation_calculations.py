@@ -17,7 +17,15 @@ def handle_pb(project):
     PB
     Pour chaque projet
         Pour chaque simulation
-            - lister les devis
+            - Parcourir les simulations_funders
+                - Parcourir les funder_accommodation associés
+                    - Calcul de la subvention pour le logement (si le calcul est possible )
+                    - Ajout d'un objet common_area OU l'id du logement contenu dans l'objet
+                     et ajout de la subvention à la somme (si il existe un logement pour le funder accommodation)
+            - Parcourir les devis
+                - Parcourir devis de logement associés (si ils existent)
+                    - Somme des work price pour common area et chaque logement
+            - Calcul des remaining cost + subvention_on_ttc pour chaque logement inséré dans l'objet jusqu'a présent (si calcul possible)
     """
     from app.project.simulations.model import SimulationSubResult
     from app.project.simulations.model import Simulation
@@ -303,25 +311,3 @@ if __name__ == '__main__':
         print(f"Total numbers of project treated: {projects_treated}")
         print(f"Projects with unknown requester types: {unknown}")
         
-
-
-# algo
-"""
-pour chaque projet, check le type
-lister les simulations
-
-si po/sdc/locataire
-pour chaque simulation, 
-
-faire la somme des simulation_funder.subvention
-total_advances = somme simulation_funder.advance
-remaining_cost = total_work_price - total_subventions
-subvention_on_ttc = ((total_work_price - remaining_cost) / total_work_price) * 100 arrondi au int au dessus
-
-si pb
-lister les funder_accommodations
-faire les mêmes sommes qu'au dessus
-mettre résultats des sommes dans les simulation_sub_result correspondants (même simulation_id et accommodation_id)
-faire la somme des sub_results dans simulation
-
-"""
