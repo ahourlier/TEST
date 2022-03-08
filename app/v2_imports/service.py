@@ -1,11 +1,15 @@
 from app import db
 import os
+from datetime import datetime
 from flask import g
 from app.common.search import sort_query
+from app.common.sheets_util import SheetsUtils
 from app.common.tasks import create_task
-from app.v2_imports.model import ImportType, ImportStatus
-from app.v2_imports import Imports
-from app.v2_imports.error_handlers import ImportNotFoundException
+from app.v2_imports.model import ImportType, ImportStatus, Imports
+from app.v2_imports.error_handlers import (
+    ImportNotFoundException,
+    LogSheetNotCreatedException,
+)
 from app.v2_imports.interface import ImportInterface
 
 IMPORT_DEFAULT_PAGE = 1
@@ -46,6 +50,8 @@ class ImportsService:
         payload["type"] = ImportType.SCAN.value
         payload["status"] = ImportStatus.RUNNING.value
         payload["author_id"] = g.user.id
+        created_log_sheet = ImportsService.create_log_spreadsheet(payload)
+        payload["log_sheet_id"] = created_log_sheet.get("id")
         new_import = Imports(**payload)
         db.session.add(new_import)
         db.session.commit()
@@ -58,6 +64,22 @@ class ImportsService:
             payload={"import_id": new_import.id},
         )
         return new_import
+
+    def create_log_spreadsheet(created_import: ImportInterface):
+        today = datetime.now().strftime("%Y-%m-%d")
+        created_sheet = SheetsUtils.create_sheet(
+            payload={
+                "properties": {
+                    "title": f"Mission {created_import.get('mission_id')} - {created_import.get('name')} - {created_import.get('import_type')} - {today}"
+                }
+            },
+            user_email=g.user.email,
+        )
+        if not created_sheet:
+            raise LogSheetNotCreatedException
+        return {
+            "id": created_sheet.get("spreadsheetId"),
+        }
 
     def run_import(current_import: Imports):
         current_import.status = ImportStatus.RUNNING.value
@@ -72,3 +94,9 @@ class ImportsService:
             payload={"import_id": current_import.id},
         )
         return current_import
+
+    def run_copro_import(running_import: Imports):
+        pass
+
+    def run_lot_import(running_import: Imports):
+        pass

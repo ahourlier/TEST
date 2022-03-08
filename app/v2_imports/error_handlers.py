@@ -1,5 +1,9 @@
 from . import api
-from .exceptions import MissionNotFoundException, ImportNotFoundException
+from .exceptions import (
+    MissionNotFoundException,
+    ImportNotFoundException,
+    LogSheetNotCreatedException,
+)
 from ..common.error_handlers import parse_exception
 from ..common.exceptions import EnumException
 
@@ -11,4 +15,9 @@ def mission_not_found(error):  # pragma: no cover
 
 @api.errorhandler(ImportNotFoundException)
 def import_not_found(error):  # pragma: no cover
+    return parse_exception(error)
+
+
+@api.errorhandler(LogSheetNotCreatedException)
+def log_sheet_not_created(error):  # pragma: no cover
     return parse_exception(error)

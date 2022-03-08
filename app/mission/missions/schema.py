@@ -12,7 +12,6 @@ from ...admin.clients.referents.schema import (
 from ...admin.clients.schema import ClientSchema
 from ...common.schemas import PaginatedSchema, DocumentSchema
 from ...thematique.schema import ThematiqueMissionSchema
-from ...v2_imports import Imports, ImportStatus
 
 
 class MissionSchema(SQLAlchemyAutoSchema):
@@ -27,6 +26,7 @@ class MissionSchema(SQLAlchemyAutoSchema):
     import_running = fields.Method("is_import_running")
 
     def is_import_running(self, obj):
+        from app.v2_imports.model import Imports, ImportStatus
         imports = (
             Imports.query.filter(Imports.mission_id == obj.id)
             .filter(Imports.status == ImportStatus.RUNNING.value)
