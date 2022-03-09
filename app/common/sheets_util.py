@@ -135,3 +135,16 @@ class SheetsUtils:
         except HttpError as e:
             logging.error(f"Unable to update file {spreadsheet_id}: {e}")
             return None
+
+    @staticmethod
+    def create_sheet(payload, user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL")):
+        """Create a spreadsheet"""
+        client = SheetsService(user_email).get()
+
+        try:
+            resp = client.spreadsheets().create(body=payload).execute(num_retries=3)
+            return resp
+        except HttpError as e:
+            logging.error(f"Unable to create spreadsheet with payload {payload}")
+            logging.error(f"{e}")
+            return None

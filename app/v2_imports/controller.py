@@ -14,7 +14,7 @@ from app.v2_imports.service import (
     IMPORT_DEFAULT_SORT_FIELD,
 )
 from ..common.api import AuthenticatedApi
-from ..common.permissions import has_mission_permission
+from ..common.permissions import has_import_permissions, has_mission_permission
 from . import api
 
 
@@ -62,7 +62,7 @@ class ImportsByIdResource(AuthenticatedApi):
     """Imports by mission and import id"""
 
     @responds(schema=ImportsSchema())
-    @requires(has_mission_permission)
+    @requires(has_import_permissions)
     def put(self, import_id) -> Imports:
         """Launch import task"""
         current_import = ImportsService.get(import_id)
