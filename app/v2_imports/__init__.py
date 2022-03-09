@@ -1,5 +1,4 @@
 from flask_restx import Namespace
-from .model import Imports, ImportStatus
 from app.v2_imports.internal_controller import ImportRunView
 
 
