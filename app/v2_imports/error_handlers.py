@@ -4,7 +4,7 @@ from .exceptions import (
     ImportNotFoundException,
     LogSheetNotCreatedException,
     ImportStillRunningException,
-    WrongImportTypeException
+    WrongImportTypeException,
 )
 from ..common.error_handlers import parse_exception
 from ..common.exceptions import EnumException

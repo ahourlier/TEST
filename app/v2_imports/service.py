@@ -10,7 +10,7 @@ from app.v2_imports.error_handlers import (
     ImportNotFoundException,
     LogSheetNotCreatedException,
     ImportStillRunningException,
-    WrongImportTypeException
+    WrongImportTypeException,
 )
 from app.v2_imports.interface import ImportInterface
 
