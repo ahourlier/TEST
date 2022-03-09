@@ -76,11 +76,12 @@ class EnumBaseAdminView(ModelView):
         # )
 
     def get_count_query(self):
-        return (
-            self.session.query(func.count())
-            .select_from(AppEnum)
-            .filter(AppEnum.kind == self.ENUM_KIND)
-        )
+        return self.session.query(func.count(AppEnum.name)).filter(AppEnum.kind == self.ENUM_KIND)
+        # return (
+        #     self.session.query(func.count(AppEnum.id))
+        #     .select_from(AppEnum)
+        #     .filter(AppEnum.kind == self.ENUM_KIND)
+        # )
 
     def delete_model(self, model):
         if model.private:
