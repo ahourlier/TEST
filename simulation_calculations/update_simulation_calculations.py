@@ -72,6 +72,11 @@ def handle_pb(project):
 
             # Total work price (from quotes_accommodation)
             for quote in s.quotes:
+
+                # TODO 
+                # Check in simulation_quote => recup uniquement devis associées a la simulation
+
+
                 if len(quote.accommodations) == 0:
                     # Quote with no quotes_accommodations (old useless quote)
                     continue
@@ -86,6 +91,7 @@ def handle_pb(project):
                         print(sub_results)
                         continue
                     
+                    # TOCHECK
                     if 'total_work_price' not in sub_results[qa['accommodation'].id]:
                         sub_results[qa['accommodation'].id]["total_work_price"] = 0
 
@@ -303,9 +309,9 @@ if __name__ == '__main__':
         # Write headers
         write_csv_headers()
         # Get all projects
-        projects = Project.query.all()
+        # projects = Project.query.all()
         # Test
-        # projects = [Project.query.filter(Project.id == 2007).first()]
+        projects = [Project.query.filter(Project.id == 1).first()]
         # Write Body
         projects_treated, unknown = parse_projects_and_write(projects)
         print(f"Total numbers of project treated: {projects_treated}")
