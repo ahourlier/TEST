@@ -27,6 +27,7 @@ class MissionSchema(SQLAlchemyAutoSchema):
 
     def is_import_running(self, obj):
         from app.v2_imports.model import Imports, ImportStatus
+
         imports = (
             Imports.query.filter(Imports.mission_id == obj.id)
             .filter(Imports.status == ImportStatus.RUNNING.value)

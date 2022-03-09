@@ -2,7 +2,7 @@ from flask import request
 from app import db
 from time import sleep
 import logging
-from app.v2_imports.model import Imports, ImportStatus
+from app.v2_imports.model import Imports, ImportStatus, ImportType
 from app.internal_api.base import InternalAPIView
 
 
@@ -18,9 +18,18 @@ class ImportRunView(InternalAPIView):
 
         try:
             if running_import.import_type == "liste d'adresses d'immeubles":
-                ImportsService.run_copro_import(running_import)
-            elif running_import.import_type == "équivalent d'une feuille de présence par adresse":
-                ImportsService.run_lot_import(running_import)
+                ImportsService.run_copro_import(
+                    running_import,
+                    dry_run=running_import.type == ImportType.SCAN.value,
+                )
+            elif (
+                running_import.import_type
+                == "équivalent d'une feuille de présence par adresse"
+            ):
+                ImportsService.run_lot_import(
+                    running_import,
+                    dry_run=running_import.type == ImportType.SCAN.value,
+                )
         except Exception as e:
             logging.error(f"an error occurred when running import {running_import.id}")
             logging.error(e)

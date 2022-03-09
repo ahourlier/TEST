@@ -9,6 +9,8 @@ from app.v2_imports.model import ImportType, ImportStatus, Imports
 from app.v2_imports.error_handlers import (
     ImportNotFoundException,
     LogSheetNotCreatedException,
+    ImportStillRunningException,
+    WrongImportTypeException
 )
 from app.v2_imports.interface import ImportInterface
 
@@ -82,6 +84,13 @@ class ImportsService:
         }
 
     def run_import(current_import: Imports):
+
+        if current_import.status == ImportStatus.RUNNING.value:
+            raise ImportStillRunningException
+
+        if current_import.type != ImportType.SCAN.value:
+            raise WrongImportTypeException
+
         current_import.status = ImportStatus.RUNNING.value
         current_import.type = ImportType.IMPORT.value
         db.session.commit()
@@ -95,8 +104,10 @@ class ImportsService:
         )
         return current_import
 
-    def run_copro_import(running_import: Imports):
-        pass
+    def run_copro_import(running_import: Imports, dry_run):
+        print("Running copro import")
+        print(f"Dry run? : {dry_run}")
 
-    def run_lot_import(running_import: Imports):
-        pass
+    def run_lot_import(running_import: Imports, dry_run):
+        print("Running lot import")
+        print(f"Dry run? : {dry_run}")

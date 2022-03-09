@@ -68,6 +68,7 @@ class EnumBaseAdminView(ModelView):
         model.kind = self.ENUM_KIND
 
     def get_query(self):
+        print("HERE GET_QUERY")
         return (
             super(EnumBaseAdminView, self)
             .get_query()
@@ -75,6 +76,7 @@ class EnumBaseAdminView(ModelView):
         )
 
     def get_count_query(self):
+        print("HERE GET_COUNT_QUERY")
         return (
             self.session.query(func.count(AppEnum.name))
             .select_from(AppEnum)

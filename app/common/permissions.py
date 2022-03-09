@@ -14,6 +14,7 @@ import app.copro.copros.service as copro_service
 import app.building.service as building_service
 import app.lot.service as lot_service
 import app.thematique.service as thematic_service
+import app.v2_imports.service as import_service
 
 
 class PermissionsUtils:
@@ -210,6 +211,20 @@ def has_mission_permission(user):
     )
     return PermissionsUtils.bypass_admins(permission, user)
 
+
+def has_import_permissions(user):
+    import_id = PermissionsUtils.get_entity_id("import_id")
+    if not import_id:
+        import_id = PermissionsUtils.get_entity_id("importId")
+
+    if not import_id:
+        return user.role == UserRole.ADMIN
+
+    current_import = import_service.ImportsService.get(import_id)
+    permission = mission_permissions.MissionPermission.check_mission_permission(
+        current_import.mission_id, user
+    )
+    return PermissionsUtils.bypass_admins(permission, user)
 
 # check permissions for list
 
