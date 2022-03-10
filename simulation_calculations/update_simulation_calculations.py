@@ -189,9 +189,6 @@ def handle_pb(project):
                         print(sub_results_item.remaining_cost)
                         print(sub_results_item.subvention_on_TTC)
 
-            print(f"Sub_result from simulation {s.id}", sub_results)
-
-
         if not DRY_RUN:
             db.session.commit()
         
@@ -225,6 +222,7 @@ def handle_po_tenant_sdc(project):
             for sf in s.simulation_funders:
                 # Total subventions
                 sf.subvention = calculate_subvention(s, sf, 'PO')
+                if sf.subvention != 0: print(f"Subvention calculated: {sf.subvention} for sf {sf.id}")
                 total_subventions += sf.subvention
 
                 # Total advances
@@ -292,7 +290,7 @@ def parse_projects_and_write(projects):
     # Check requester type and handle accordingly
     for p in projects:
         if p.requester.type in ["PO", "SDC", "LOCATAIRE", "TENANT"]:
-            # handle_po_tenant_sdc(p)
+            handle_po_tenant_sdc(p)
             pass
         elif p.requester.type == "PB":
             handle_pb(p)

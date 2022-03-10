@@ -64,7 +64,7 @@ def subvention_for_po_sdc_loc(simulation, sf):
             print(f'Can\'t calculate subventions: No rate AND no matching funding scenario from sf n°{sf.id}, simulation n°{simulation.id}')
             return 0
     if not sf.subventioned_expense and sf.rate:
-        print(f'Can\'t calculate subventions: No subventioned_expense from sf n°{sf.id}, simulation n°{simulation.id}')
+        print(f'Never happens')
         fa = sf.funder_accommodations
         if len(fa) > 0:
             print(fa)
@@ -156,7 +156,7 @@ def subvention_for_pb(simulation, sf, fa):
             fs = FundingScenario.query.filter(FundingScenario.id == sf.match_scenario_id).first()
             return (fs.rate / 100) * fa.subventioned_expense
         else:
-            print(f'Can\'t calculate subventions: No rate AND no matching funding scenario from sf n°{sf.id}, simulation n°{simulation.id}')
+            print(f'Can\'t calculate subventions: No rate from fa n°{fa.id} AND no matching funding scenario from sf n°{sf.id}, simulation n°{simulation.id}')
             return 0
     if not fa.subventioned_expense and fa.rate:
         # Get total eligible amount from quotes_accommodations
@@ -166,17 +166,25 @@ def subvention_for_pb(simulation, sf, fa):
             fs = FundingScenario.query.filter(FundingScenario.id == sf.match_scenario_id).first()
             # Get Accommodation from FunderAccommodation
             acc = fa.accommodation
-            return (
-                fa.rate / 100) * \
-                min(
-                    total_quotes_accommodations_eligible_amount,
-                    fs.upper_price_surface_limit * min(
-                        acc.living_area + min(acc.additional_area / 2 if acc.additional_area else 0, 8),
-                        fs.upper_surface_limit
-                    )
-                )
+            if acc:
+                if acc.living_area and acc.additional_area:
+                    return (
+                        fa.rate / 100) * \
+                        min(
+                            total_quotes_accommodations_eligible_amount,
+                            fs.upper_price_surface_limit * min(
+                                acc.living_area + min(acc.additional_area / 2 if acc.additional_area else 0, 8),
+                                fs.upper_surface_limit
+                            )
+                        )
+                else:
+                    print(f'Can\'t calculate subventions: No subventioned_expense AND missing value in accommodation n°{acc.id} from fa n°{fa.id}, simulation n°{simulation.id}')
+                    return 0
+            else:
+                print(f'Can\'t calculate subventions: No subventioned_expense AND no accommodation from fa n°{fa.id}, simulation n°{simulation.id}')
+                return 0
         else:
-            print(f'Can\'t calculate subventions: No subventioned_expense AND no matching funding scenario from sf n°{sf.id}, simulation n°{simulation.id}')
+            print(f'Can\'t calculate subventions: No subventioned_expense from fa n°{fa.id} AND no matching funding scenario from sf n°{sf.id}, simulation n°{simulation.id}')
             return 0
 
     if not fa.subventioned_expense and not fa.rate:
@@ -199,13 +207,13 @@ def subvention_for_pb(simulation, sf, fa):
                             )
                         )
                 else:
-                    print(f'Missing value in accommodation n°{acc.id} from fa n°{fa.id}, simulation n°{simulation.id}')
+                    print(f'Can\'t calculate subventions: No rate, no subventioned_expense from fa n°{fa.id} AND missing value in accommodation n°{acc.id} from fa n°{fa.id}, simulation n°{simulation.id}')
                     return 0
             else:
-                print(f'Can\'t calculate subventions: No accommodation from fa n°{fa.id}, simulation n°{simulation.id}')
+                print(f'Can\'t calculate subventions: No rate, no subventioned_expense from fa n°{fa.id} AND no accommodation from fa n°{fa.id}, simulation n°{simulation.id}')
                 return 0
         else:
-            print(f'Can\'t calculate subventions: No rate, no subventioned_expense AND no matching funding scenario from sf n°{sf.id}, simulation n°{simulation.id}')
+            print(f'Can\'t calculate subventions: No rate, no subventioned_expense from fa n°{fa.id} AND no matching funding scenario from sf n°{sf.id}, simulation n°{simulation.id}')
             return 0
 
 
