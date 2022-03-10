@@ -28,7 +28,7 @@ def handle_pb(project):
             - Calcul des remaining cost + subvention_on_ttc pour chaque logement inséré dans l'objet jusqu'a présent (si calcul possible)
     """
     from app.project.simulations.model import SimulationSubResult
-    from app.project.simulations.model import Simulation
+    from app.project.simulations.model import SimulationQuote
 
     simulations = project.simulations
     if len(simulations) == 0:
@@ -36,6 +36,7 @@ def handle_pb(project):
 
     for s in simulations:
         if needs_calculation(s):
+            print(f"\n\n========== PB: Simulation {s.id}: recalculating...\n")
             sub_results = {}
             sub_results["common_area"] = {}
             sub_results["common_area"]["total_subvention"] = 0
@@ -46,52 +47,42 @@ def handle_pb(project):
             for sf in s.simulation_funders:
                 if len(sf.funder_accommodations) > 0:
                     for fa in sf.funder_accommodations:
-                        print(f"NEW FA {fa.id}")
-                        
-                        if no_missing_values(fa):
-                            fa.subvention = calculate_subvention(fa)
-                            if fa.is_common_area:
-                                sub_results["common_area"]["total_subvention"] += (
-                                    fa.subvention if fa.subvention is not None else 0
-                                )
-                            else:
-                                if fa.accommodation_id not in sub_results:
-                                    sub_results[fa.accommodation_id] = {}
-                                    sub_results[fa.accommodation_id]["total_subvention"] = 0
-
-                                sub_results[fa.accommodation_id]["total_subvention"] += (
-                                    round(fa.subvention, 2) if fa.subvention is not None else 0
-                                )
-                        elif fa.accommodation_id:
+                        fa.subvention = calculate_subvention(s, sf, 'PB', fa)
+                        if fa.subvention != 0: print(f"Subvention calculated: {fa.subvention} for sf {sf.id}, fa {fa.id}")
+                        if fa.is_common_area:
+                            sub_results["common_area"]["total_subvention"] += fa.subvention
+                        else:
                             if fa.accommodation_id not in sub_results:
                                 sub_results[fa.accommodation_id] = {}
                                 sub_results[fa.accommodation_id]["total_subvention"] = 0
+
+                            sub_results[fa.accommodation_id]["total_subvention"] += (
+                                round(fa.subvention, 2) if fa.subvention is not None else 0
+                            )
+                        
                 else:
                     pass
-
+            
+            # Find quote associated to simulation
+            associated_quotes = []
+            for quote in s.quotes:
+                associated_quote = SimulationQuote.query \
+                    .filter(SimulationQuote.base_quote_id == quote.id) \
+                    .filter(SimulationQuote.simulation_id == s.id)
+                if associated_quote is not None:
+                    associated_quotes.append(quote)
 
             # Total work price (from quotes_accommodation)
-            for quote in s.quotes:
-
-                # TODO 
-                # Check in simulation_quote => recup uniquement devis associées a la simulation
-
-
-                if len(quote.accommodations) == 0:
+            for associated_quote in associated_quotes:
+                if len(associated_quote.accommodations) == 0:
                     # Quote with no quotes_accommodations (old useless quote)
                     continue
-                for qa in quote.accommodations:
+                print("Found quotes_acc", associated_quote.accommodations)
+                for qa in associated_quote.accommodations:
                     sub_results["common_area"]["total_work_price"] += (
-                        quote.common_price_incl_tax if quote.common_price_incl_tax else 0
+                        associated_quote.common_price_incl_tax if associated_quote.common_price_incl_tax else 0
                     )
-
-                    # Specific case: accommodation_id doesn't exist in funder_accommodation parsed
-                    if qa['accommodation'].id not in sub_results:
-                        print(qa['accommodation'].id)
-                        print(sub_results)
-                        continue
                     
-                    # TOCHECK
                     if 'total_work_price' not in sub_results[qa['accommodation'].id]:
                         sub_results[qa['accommodation'].id]["total_work_price"] = 0
 
@@ -101,8 +92,7 @@ def handle_pb(project):
             for accommodation in sub_results:
                 # Here quotes_accommodations have been found previously
                 # And values to calculate subventions exists
-                if 'total_work_price' in sub_results[accommodation] and \
-                   sub_results[accommodation]['total_subvention'] is not None :
+                if 'total_work_price' in sub_results[accommodation]:
                     # Build remaining cost
                     if sub_results[accommodation]["total_subvention"] > sub_results[accommodation]["total_work_price"]:
                         sub_results[accommodation]['remaining_cost'] = 0
@@ -130,7 +120,7 @@ def handle_pb(project):
                             0,
                         )
                 else:
-                    print(f"Missing data for accommodation n°{accommodation}")
+                    print(f"No total_work_price calculated: can't calculate other fields for accommodation n°{accommodation}: ")
             
             total_subventions = [res.get("total_subvention") for res in sub_results.values()]
             total_work_prices = [res.get("total_work_price", 0) for res in sub_results.values()]
@@ -162,21 +152,16 @@ def handle_pb(project):
 
 
             # Update Global Simulation
-            simulation = Simulation.query.filter(Simulation.id == s.id).first()
-            print(f"- - - - - OLD SIMULATION : {simulation.id} - - - - ")
-            print(simulation.total_subventions)
-            print(simulation.total_work_price)
-            print(simulation.remaining_costs)
-            print(simulation.subvention_on_TTC)
-            simulation.total_subventions = sum(total_subventions)
-            simulation.total_work_price = sum(total_work_prices)
-            simulation.remaining_costs = sum(remaining_costs)
-            simulation.subvention_on_TTC = sum(subventions_on_ttc)
-            print(f"- - - - - NEW SIMULATION : {simulation.id} - - - - - - ")
-            print(simulation.total_subventions)
-            print(simulation.total_work_price)
-            print(simulation.remaining_costs)
-            print(simulation.subvention_on_TTC)
+            s.total_subventions = sum(total_subventions)
+            s.total_work_price = sum(total_work_prices)
+            s.remaining_costs = sum(remaining_costs)
+            s.subvention_on_TTC = sum(subventions_on_ttc)
+            print(f"- - - - - NEW SIMULATION : {s.id} - - - - - - ")
+            print(s.total_subventions)
+            print(s.total_work_price)
+            print(s.remaining_costs)
+            print(s.subvention_on_TTC)
+            print("- - - - - - - - - - - - - - - - - - - -")
 
             # Update each Sub Result
             sub_results_query = SimulationSubResult.query.filter(SimulationSubResult.simulation_id == s.id)
@@ -204,8 +189,13 @@ def handle_pb(project):
                         print(sub_results_item.remaining_cost)
                         print(sub_results_item.subvention_on_TTC)
 
+            print(f"Sub_result from simulation {s.id}", sub_results)
+
+
         if not DRY_RUN:
             db.session.commit()
+        
+        
 
 def handle_po_tenant_sdc(project):
     """
@@ -225,6 +215,7 @@ def handle_po_tenant_sdc(project):
 
     for s in simulations:
         if needs_calculation(s):
+            print(f"\n\n========== PO: Simulation {s.id}: recalculating...\n")
             total_subventions = 0
             total_advances = 0
             total_work_price = 0
@@ -233,9 +224,9 @@ def handle_po_tenant_sdc(project):
 
             for sf in s.simulation_funders:
                 # Total subventions
-                if no_missing_values(sf):
-                    sf.subvention = calculate_subvention(sf)
-                    total_subventions += sf.subvention
+                sf.subvention = calculate_subvention(s, sf, 'PO')
+                total_subventions += sf.subvention
+
                 # Total advances
                 total_advances += sf.advance if sf.advance else 0
 
@@ -263,12 +254,21 @@ def handle_po_tenant_sdc(project):
                     total_advances,
                 ]
             )
+
+            # Update Global Simulation
+            s.total_work_price = total_work_price
+            s.total_subventions = total_subventions
+            s.remaining_costs = remaining_cost
+            s.subvention_on_TTC = subvention_on_ttc
+            s.total_advances = total_advances
+            print(f"- - - - - NEW SIMULATION : {s.id} - - - - - - ")
+            print(s.total_subventions)
+            print(s.total_work_price)
+            print(s.remaining_costs)
+            print(s.subvention_on_TTC)
+            print("- - - - - - - - - - - - - - - - - - - -")
+
             if not DRY_RUN:
-                s.total_work_price = total_work_price
-                s.total_subventions = total_subventions
-                s.remaining_costs = remaining_cost
-                s.subvention_on_TTC = subvention_on_ttc
-                s.total_advances = total_advances
                 db.session.commit()
         else:
             continue
@@ -292,12 +292,14 @@ def parse_projects_and_write(projects):
     # Check requester type and handle accordingly
     for p in projects:
         if p.requester.type in ["PO", "SDC", "LOCATAIRE", "TENANT"]:
-            handle_po_tenant_sdc(p)
+            # handle_po_tenant_sdc(p)
+            pass
         elif p.requester.type == "PB":
             handle_pb(p)
+            pass
         else:
             unknown.append(p.id)
-            print(f"project {p.id} has an unknown requester type ({p.requester.type})")
+            # print(f"project {p.id} has an unknown requester type ({p.requester.type})")
         # print(f"Project treated: n°{p.id}")
         projects_treated += 1
     return projects_treated, unknown
@@ -309,9 +311,9 @@ if __name__ == '__main__':
         # Write headers
         write_csv_headers()
         # Get all projects
-        # projects = Project.query.all()
+        projects = Project.query.all()
         # Test
-        projects = [Project.query.filter(Project.id == 1).first()]
+        # projects = [Project.query.filter(Project.id == 514).first()]
         # Write Body
         projects_treated, unknown = parse_projects_and_write(projects)
         print(f"Total numbers of project treated: {projects_treated}")

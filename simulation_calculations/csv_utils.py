@@ -6,8 +6,8 @@ def write_csv_headers():
         [
             "ID de projet",
             "Nom de simulation",
-            "Total travaux TTC",
             "Total subventions",
+            "Total travaux TTC",
             "Reste à charge",
             "% \subvention sur le TTC",
             "Total avances",
