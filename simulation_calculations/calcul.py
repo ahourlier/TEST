@@ -1,10 +1,10 @@
 def needs_calculation(s):
     return (
         s.remaining_costs is None
-        and s.subvention_on_TTC is None
-        and s.total_advances is None
-        and s.total_subventions is None
-        and s.total_work_price is None
+        or s.subvention_on_TTC is None
+        or s.total_advances is None
+        or s.total_subventions is None
+        or s.total_work_price is None
     )
 
 

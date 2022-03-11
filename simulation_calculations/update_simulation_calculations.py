@@ -12,7 +12,7 @@ app = create_app("dev")
 
 DRY_RUN = True
 
-def handle_pb(project):
+def handle_pb(project, failing_accommodations):
     """
     PB
     Pour chaque projet
@@ -83,6 +83,10 @@ def handle_pb(project):
                         associated_quote.common_price_incl_tax if associated_quote.common_price_incl_tax else 0
                     )
                     
+                    if qa['accommodation'].id not in sub_results:
+                        failing_accommodations.append(qa['accommodation'].id)
+                        continue
+                    
                     if 'total_work_price' not in sub_results[qa['accommodation'].id]:
                         sub_results[qa['accommodation'].id]["total_work_price"] = 0
 
@@ -132,11 +136,11 @@ def handle_pb(project):
                     s.name,
                     functools.reduce(
                         lambda a, b: a + b,
-                        total_subventions
+                        total_work_prices
                     ),
                     functools.reduce(
                         lambda a, b: a + b,
-                        total_work_prices
+                        total_subventions
                     ),
                     functools.reduce(
                         lambda a, b: a + b,
@@ -166,28 +170,32 @@ def handle_pb(project):
             # Update each Sub Result
             sub_results_query = SimulationSubResult.query.filter(SimulationSubResult.simulation_id == s.id)
             for accommodation in sub_results:
+                sub_results_item = None
                 if accommodation != "common_area":
                     sub_results_item = sub_results_query.filter(SimulationSubResult.accommodation_id == accommodation).first()
-                    if sub_results_item:
-                        print(f"- - - - - OLD SUB ITEM : {sub_results_item.id} - - - - ")
-                        print(sub_results_item.total_subvention)
-                        print(sub_results_item.work_price)
-                        print(sub_results_item.remaining_cost)
-                        print(sub_results_item.subvention_on_TTC)
+                else:
+                    sub_results_item = sub_results_query.filter(SimulationSubResult.is_common_area == True).first()
 
-                        sub_results_item.total_subvention = sub_results[accommodation]['total_subvention']
-                        if "total_work_price" in sub_results[accommodation]:
-                            sub_results_item.work_price = sub_results[accommodation]['total_work_price']
-                        if "remaining_cost" in sub_results[accommodation]:
-                            sub_results_item.remaining_cost = sub_results[accommodation]['remaining_cost']
-                        if "subvention_on_ttc" in sub_results[accommodation]:
-                            sub_results_item.subvention_on_TTC = sub_results[accommodation]['subvention_on_ttc']
+                if sub_results_item:
+                    print(f"- - - - - OLD SUB ITEM : {sub_results_item.id} - - - - ")
+                    print(sub_results_item.total_subvention)
+                    print(sub_results_item.work_price)
+                    print(sub_results_item.remaining_cost)
+                    print(sub_results_item.subvention_on_TTC)
 
-                        print(f"- - - - - NEW SUB ITEM : {sub_results_item.id} - - - - ")
-                        print(sub_results_item.total_subvention)
-                        print(sub_results_item.work_price)
-                        print(sub_results_item.remaining_cost)
-                        print(sub_results_item.subvention_on_TTC)
+                    sub_results_item.total_subvention = round(sub_results[accommodation]['total_subvention'], 2)
+                    if "total_work_price" in sub_results[accommodation]:
+                        sub_results_item.work_price = round(sub_results[accommodation]['total_work_price'], 2)
+                    if "remaining_cost" in sub_results[accommodation]:
+                        sub_results_item.remaining_cost = round(sub_results[accommodation]['remaining_cost'], 2)
+                    if "subvention_on_ttc" in sub_results[accommodation]:
+                        sub_results_item.subvention_on_TTC = sub_results[accommodation]['subvention_on_ttc']
+
+                    print(f"- - - - - NEW SUB ITEM : {sub_results_item.id} - - - - ")
+                    print(sub_results_item.total_subvention)
+                    print(sub_results_item.work_price)
+                    print(sub_results_item.remaining_cost)
+                    print(sub_results_item.subvention_on_TTC)
 
         if not DRY_RUN:
             db.session.commit()
@@ -232,7 +240,10 @@ def handle_po_tenant_sdc(project):
             total_work_price = get_total_price_incl_tax(s)
 
             # Remaining cost
-            remaining_cost = total_work_price - total_subventions
+            if total_work_price - total_subventions < 0:
+                remaining_cost = 0
+            else:
+                remaining_cost = total_work_price - total_subventions
 
             # Subvention on ttc
             if total_work_price != 0:
@@ -287,19 +298,21 @@ def parse_projects_and_write(projects):
     """
     projects_treated = 0
     unknown = []
+    failing_accommodations = []
     # Check requester type and handle accordingly
     for p in projects:
         if p.requester.type in ["PO", "SDC", "LOCATAIRE", "TENANT"]:
             handle_po_tenant_sdc(p)
             pass
         elif p.requester.type == "PB":
-            handle_pb(p)
+            handle_pb(p, failing_accommodations)
             pass
         else:
             unknown.append(p.id)
             # print(f"project {p.id} has an unknown requester type ({p.requester.type})")
         # print(f"Project treated: n°{p.id}")
         projects_treated += 1
+    print("Failing accommodations", failing_accommodations)
     return projects_treated, unknown
 
 
