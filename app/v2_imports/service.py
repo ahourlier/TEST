@@ -2,6 +2,7 @@ from app import db
 import os
 from datetime import datetime
 from flask import g
+from app.common.drive_utils import DriveUtils
 from app.common.search import sort_query
 from app.common.sheets_util import SheetsUtils
 from app.common.tasks import create_task
@@ -69,6 +70,7 @@ class ImportsService:
 
     def create_log_spreadsheet(created_import: ImportInterface):
         today = datetime.now().strftime("%Y-%m-%d")
+        # todo create sheet only with service account
         created_sheet = SheetsUtils.create_sheet(
             payload={
                 "properties": {
@@ -82,6 +84,21 @@ class ImportsService:
         return {
             "id": created_sheet.get("spreadsheetId"),
         }
+
+    def delete_import(current_import: Imports, import_id: int):
+
+        if current_import.log_sheet_id:
+            # todo create with service account as sheet will be created in shared drive with service account
+            res = DriveUtils.delete_file(
+                current_import.log_sheet_id, user_email=g.user.email
+            )
+            if not res:
+                print(f"cannot delete log sheet for import {current_import.id}")
+
+        db.session.delete(current_import)
+        db.session.commit()
+
+        return import_id
 
     def run_import(current_import: Imports):
 
