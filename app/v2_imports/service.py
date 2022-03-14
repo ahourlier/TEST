@@ -125,6 +125,9 @@ class ImportsService:
         return current_import
 
     def run_copro_import(running_import: Imports, dry_run, data):
+        # TODO put syndic as field of copro (syndic_name, syndic_address, etc)
+        # TODO add admin fields (same as syndic fields) in copro
+        # TODO handle syndic fields to fill only fields from copro syndic (syndic_name, etc)
         """
         Import copro from data in spreadsheet
         @param: running_import: db object of running import
@@ -188,9 +191,13 @@ class ImportsService:
                 copro.get("address"), mission_id
             )
             if copro_exists:
-                logs.extend(ImportsService.process_existing_copro(copro_exists, copro, dry_run))
+                logs.extend(
+                    ImportsService.process_existing_copro(copro_exists, copro, dry_run)
+                )
                 continue
-            logs.extend(ImportsService.process_non_existing_copro(copro, mission_id, dry_run))
+            logs.extend(
+                ImportsService.process_non_existing_copro(copro, mission_id, dry_run)
+            )
         return logs
 
     def process_existing_copro(existing_copro, import_copro, dry_run):
@@ -209,14 +216,14 @@ class ImportsService:
                         "COPRO",
                         "CREATION",
                         f"Adresse: {copro_object.get('address_1').get('full_address')}\nNom: {new_copro.get('name')}",
-                        ""
+                        "",
                     ],
                     [
                         "SUCCES",
                         "SYNDIC",
                         "CREATION",
                         f"Adresse: {copro_object.get('syndics')[0].get('manager_address').get('full_address')}\nNom: {copro_object.get('syndics')[0].get('name')}",
-                        ""
+                        "",
                     ],
                 ]
             )
@@ -228,14 +235,14 @@ class ImportsService:
                         "COPRO",
                         "CREATION",
                         f"Adresse: {copro_object.get('address_1').get('full_address')}\nNom: {new_copro.get('name')}",
-                        f"{e}"
+                        f"{e}",
                     ],
                     [
                         "ECHEC",
                         "SYNDIC",
                         "CREATION",
                         f"Adresse: {copro_object.get('syndics')[0].get('manager_address').get('full_address')}\nNom: {copro_object.get('syndics')[0].get('name')}",
-                        f"{e}"
+                        f"{e}",
                     ],
                 ]
             )
