@@ -265,3 +265,19 @@ class CoproService:
     def get_thematiques(copro_id: int):
         copro = CoproService.get(copro_id)
         return ThematiqueService.get_thematiques_from_mission(copro.mission_id)
+
+    @staticmethod
+    def search_by_address(address_obj, mission_id):
+        return (
+            Copro.query.join(Address, Copro.address_1_id == Address.id)
+            .filter(
+                and_(
+                    Address.number == address_obj.get("number"),
+                    Address.street == address_obj.get("street"),
+                    Address.postal_code == address_obj.get("postal_code"),
+                    Address.city == address_obj.get("city"),
+                    Copro.mission_id == mission_id,
+                )
+            )
+            .first()
+        )

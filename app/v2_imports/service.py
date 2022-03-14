@@ -1,5 +1,6 @@
 from app import db
 import os
+import copy
 from datetime import datetime
 from flask import g
 from app.common.drive_utils import DriveUtils
@@ -14,6 +15,8 @@ from app.v2_imports.error_handlers import (
     WrongImportTypeException,
 )
 from app.v2_imports.interface import ImportInterface
+from app.copro.copros.service import CoproService
+from app.copro.syndic.service import SyndicService
 
 IMPORT_DEFAULT_PAGE = 1
 IMPORT_DEFAULT_PAGE_SIZE = 100
@@ -64,7 +67,7 @@ class ImportsService:
             queue=IMPORT_TASK_QUEUE,
             uri=f"{os.getenv('API_URL')}/_internal/imports/run",
             method="PUT",
-            payload={"import_id": new_import.id},
+            payload={"import_id": new_import.id, "email": g.user.email},
         )
         return new_import
 
@@ -117,14 +120,142 @@ class ImportsService:
             queue=IMPORT_TASK_QUEUE,
             uri=f"{os.getenv('API_URL')}/_internal/imports/run",
             method="PUT",
-            payload={"import_id": current_import.id},
+            payload={"import_id": current_import.id, "email": g.user.email},
         )
         return current_import
 
-    def run_copro_import(running_import: Imports, dry_run):
-        print("Running copro import")
-        print(f"Dry run? : {dry_run}")
+    def run_copro_import(running_import: Imports, dry_run, data):
+        """
+        Import copro from data in spreadsheet
+        @param: running_import: db object of running import
+        @param: dry_run: boolean if we need to create/update objects in db or not
+        @param: data: data from spreadsheet with this format
+        [
+            [header1, header2, ....]
+            [data1, data2, ....]
+        ]
+        """
+        # init address fields' position in a row for copro
+        address_copro_indexes = {
+            "number": 0,
+            "street": 1,
+            "postal_code": 2,
+            "city": 3,
+            "full_address": "",
+        }
+        # init address fields' position in a row for syndic
+        address_syndic_indexes = {
+            "number": 6,
+            "street": 7,
+            "postal_code": 8,
+            "city": 9,
+            "full_address": "",
+        }
 
-    def run_lot_import(running_import: Imports, dry_run):
+        json_data = []
+        for idx, row in enumerate(data):
+
+            if idx == 0:
+                # if headers, skip
+                continue
+            # init copro dict
+            tmp_copro = {
+                "name": row[4],
+                "address_1": ImportsService.format_address(
+                    row, copy.deepcopy(address_copro_indexes)
+                ),
+                "syndics": [],
+            }
+            if row[5] not in ["", None]:
+                # if has syndic, process
+                tmp_syndic = {
+                    "name": row[5],
+                    "manager_address": ImportsService.format_address(
+                        row, copy.deepcopy(address_syndic_indexes)
+                    ),
+                }
+                # and add to copro object
+                tmp_copro["syndics"].append(tmp_syndic)
+            json_data.append(tmp_copro)
+        logs = ImportsService.process_copros(
+            json_data, running_import.mission_id, dry_run
+        )
+
+    def process_copros(copro_objects, mission_id, dry_run):
+        logs = []
+        for copro in copro_objects:
+            copro_exists = CoproService.search_by_address(
+                copro.get("address"), mission_id
+            )
+            if copro_exists:
+                logs.extend(ImportsService.process_existing_copro(copro_exists, copro, dry_run))
+                continue
+            logs.extend(ImportsService.process_non_existing_copro(copro, mission_id, dry_run))
+        return logs
+
+    def process_existing_copro(existing_copro, import_copro, dry_run):
+        pass
+
+    def process_non_existing_copro(copro_object, mission_id, dry_run):
+        copro_object["mission_id"] = mission_id
+        logs = []
+        try:
+            if not dry_run:
+                new_copro = CoproService.create(copro_object)
+            logs.extend(
+                [
+                    [
+                        "SUCCES",
+                        "COPRO",
+                        "CREATION",
+                        f"Adresse: {copro_object.get('address_1').get('full_address')}\nNom: {new_copro.get('name')}",
+                        ""
+                    ],
+                    [
+                        "SUCCES",
+                        "SYNDIC",
+                        "CREATION",
+                        f"Adresse: {copro_object.get('syndics')[0].get('manager_address').get('full_address')}\nNom: {copro_object.get('syndics')[0].get('name')}",
+                        ""
+                    ],
+                ]
+            )
+        except Exception as e:
+            logs.extend(
+                [
+                    [
+                        "ECHEC",
+                        "COPRO",
+                        "CREATION",
+                        f"Adresse: {copro_object.get('address_1').get('full_address')}\nNom: {new_copro.get('name')}",
+                        f"{e}"
+                    ],
+                    [
+                        "ECHEC",
+                        "SYNDIC",
+                        "CREATION",
+                        f"Adresse: {copro_object.get('syndics')[0].get('manager_address').get('full_address')}\nNom: {copro_object.get('syndics')[0].get('name')}",
+                        f"{e}"
+                    ],
+                ]
+            )
+        return logs
+
+    def run_lot_import(running_import: Imports, dry_run, data):
         print("Running lot import")
         print(f"Dry run? : {dry_run}")
+
+    def format_address(row, indexes):
+        """
+        Create an address object to fit with db
+        @param: row: array of values from spreadsheet
+        @param: indexes: dict object with each attributes of address object and its position in spreadsheet
+        """
+        for key, value in indexes.items():
+            if key == "full_address":
+                indexes[
+                    key
+                ] = f"{indexes['number']} {indexes['street']}, {indexes['postal_code']} {indexes['city']}, France"
+            else:
+                indexes[key] = row[value]
+        return indexes
