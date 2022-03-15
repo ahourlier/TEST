@@ -272,10 +272,10 @@ class CoproService:
             Copro.query.join(Address, Copro.address_1_id == Address.id)
             .filter(
                 and_(
-                    Address.number == address_obj.get("number"),
-                    Address.street == address_obj.get("street"),
-                    Address.postal_code == address_obj.get("postal_code"),
-                    Address.city == address_obj.get("city"),
+                    Address.number == str(address_obj.get("number")),
+                    Address.street == str(address_obj.get("street")),
+                    Address.postal_code == str(address_obj.get("postal_code")),
+                    Address.city == str(address_obj.get("city")),
                     Copro.mission_id == mission_id,
                 )
             )

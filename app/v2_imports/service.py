@@ -180,42 +180,65 @@ class ImportsService:
                 # and add to copro object
                 tmp_copro["syndics"].append(tmp_syndic)
             json_data.append(tmp_copro)
-        logs = ImportsService.process_copros(
+        # init logs with headers
+        logs = [
+            ["Statut", "Entité", "Action", "Détails", "Si erreurs, détails"]
+        ]
+        # process copros and add logs to array
+        logs.extend(ImportsService.process_copros(
             json_data, running_import.mission_id, dry_run
+        ))
+        # send logs to log sheet
+        SheetsUtils.add_values(
+            sheet_id=running_import.log_sheet_id,
+            range="A:J",
+            array_values=logs
         )
 
     def process_copros(copro_objects, mission_id, dry_run):
+        """Process import of list of copros"""
         logs = []
+        # for each copro in import sheet
         for copro in copro_objects:
+            # check if copro with same address in same mission exists
             copro_exists = CoproService.search_by_address(
-                copro.get("address"), mission_id
+                copro.get("address_1"), mission_id
             )
             if copro_exists:
+                # if exists, treat differently
                 logs.extend(
                     ImportsService.process_existing_copro(copro_exists, copro, dry_run)
                 )
                 continue
+            # else create
             logs.extend(
                 ImportsService.process_non_existing_copro(copro, mission_id, dry_run)
             )
         return logs
 
     def process_existing_copro(existing_copro, import_copro, dry_run):
-        pass
+        """Process a copro that already exists"""
+        # TODO update copro name, update syndic
+        return [["NOT IMPLEMENTED YET", "", "", "", ""]]
 
     def process_non_existing_copro(copro_object, mission_id, dry_run):
+        """Process a copro that does not exist in db (to create)"""
+        # add mission id
         copro_object["mission_id"] = mission_id
         logs = []
         try:
             if not dry_run:
+                # if importing and not scanning, create copro in db
                 new_copro = CoproService.create(copro_object)
+            # add logs for copro and syndic creation
+            # TODO change log of syndic creation to fit with new model (syndic migrated in copro)
             logs.extend(
                 [
                     [
                         "SUCCES",
                         "COPRO",
                         "CREATION",
-                        f"Adresse: {copro_object.get('address_1').get('full_address')}\nNom: {new_copro.get('name')}",
+                        f"Adresse: {copro_object.get('address_1').get('full_address')}\nNom: {copro_object.get('name')}",
                         "",
                     ],
                     [
@@ -228,13 +251,16 @@ class ImportsService:
                 ]
             )
         except Exception as e:
+            # if an error occurred, add error log
+            # TODO potential better error management for copro and syndic, more understandable error details
+            # TODO handle model change of syndic (migrated to copro model)
             logs.extend(
                 [
                     [
                         "ECHEC",
                         "COPRO",
                         "CREATION",
-                        f"Adresse: {copro_object.get('address_1').get('full_address')}\nNom: {new_copro.get('name')}",
+                        f"Adresse: {copro_object.get('address_1').get('full_address')}\nNom: {copro_object.get('name')}",
                         f"{e}",
                     ],
                     [
@@ -257,6 +283,8 @@ class ImportsService:
         Create an address object to fit with db
         @param: row: array of values from spreadsheet
         @param: indexes: dict object with each attributes of address object and its position in spreadsheet
+        should be in this format = {"number": 0, "street": 1, "postal_code": 2, "city": 3, "full_address": 4}
+        @returns: address to format known by table Address in db
         """
         for key, value in indexes.items():
             if key == "full_address":

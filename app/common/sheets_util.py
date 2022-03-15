@@ -148,3 +148,31 @@ class SheetsUtils:
             logging.error(f"Unable to create spreadsheet with payload {payload}")
             logging.error(f"{e}")
             return None
+
+    @staticmethod
+    def add_values(
+        sheet_id,
+        range,
+        array_values,
+        client=None,
+        user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL"),
+    ):
+        """Concat values to a spreadsheet"""
+        if not client:
+            client = SheetsService(user_email).get()
+
+        try:
+            resp = (
+                client.spreadsheets()
+                .values()
+                .append(
+                    spreadsheetId=sheet_id, range=range, body={"values": array_values}, valueInputOption="RAW"
+                )
+                .execute(num_retries=3)
+            )
+            return resp
+        except HttpError as e:
+            logging.error(f"Unable to add values to spreadsheet {sheet_id}")
+            logging.error(array_values)
+            logging.error(f"{e}")
+            return None
