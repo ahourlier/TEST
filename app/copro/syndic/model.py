@@ -13,8 +13,7 @@ class Syndic(HasPhones, BaseMixin, db.Model):
     __tablename__ = "syndic"
 
     id = Column(Integer(), primary_key=True, autoincrement=True)
-    copro_id = Column(Integer, ForeignKey("copro.id"), nullable=True)
-    copro = relationship("Copro", backref="syndics")
+    
     cs_id = Column(Integer, ForeignKey("combined_structure.id"), nullable=True)
     cs = relationship("CombinedStructure", backref="syndics")
     name = Column(String(255))

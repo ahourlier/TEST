@@ -167,7 +167,21 @@ class ImportsService:
                 "address_1": ImportsService.format_address(
                     row, copy.deepcopy(address_copro_indexes)
                 ),
-                "syndics": [],
+                "syndic_name": "",
+                "syndic_type": "",
+                "syndic_contract_date": "",
+                "syndic_manager_name": "",
+                "syndic_manager_email": "",
+                "syndic_comment": "",
+                "syndic_manager_address": "",
+                
+                "admin_name": "",
+                "admin_type": "",
+                "admin_contract_date": "",
+                "admin_manager_name": "",
+                "admin_manager_email": "",
+                "admin_comment": "",
+                "admin_manager_adress": ""
             }
             if row[5] not in ["", None]:
                 # if has syndic, process

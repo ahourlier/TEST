@@ -110,10 +110,23 @@ class CoproService:
             )
             del new_attrs["address_2"]
 
-        syndics = None
-        if new_attrs.get("syndics"):
-            syndics = new_attrs.get("syndics")
-            del new_attrs["syndics"]
+        # TODO: Mettre a jour la création et l'update en fonction des nouveaux champs
+
+        # syndics = None
+        # if new_attrs.get("syndics"):
+        #     syndics = new_attrs.get("syndics")
+        #     del new_attrs["syndics"]
+
+        # phones = []
+        # if "phone_number_1" in requester_fields:
+        #     if requester_fields.get("phone_number_1", None):
+        #         phones.append(PhoneNumber(**requester_fields.get("phone_number_1")))
+        #     del requester_fields["phone_number_1"]
+        # if "phone_number_2" in requester_fields:
+        #     if requester_fields.get("phone_number_2", None):
+        #         phones.append(PhoneNumber(**requester_fields.get("phone_number_2")))
+        #     del requester_fields["phone_number_2"]
+        # requester_fields["phones"] = phones
 
         cadastres = None
         if new_attrs.get("cadastres"):
