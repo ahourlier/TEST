@@ -27,7 +27,6 @@ class ImportRunView(InternalAPIView):
             first_sheet = list(data.keys())[0]
             data = data[first_sheet]
         except Exception as e:
-            print(f"An error occurred reading import spreadsheet")
             print(e)
             return f"An error occurred reading import spreadsheet"
 
@@ -37,6 +36,7 @@ class ImportRunView(InternalAPIView):
                     running_import,
                     dry_run=running_import.type == ImportType.SCAN.value,
                     data=data,
+                    user_email=payload.get("email")
                 )
             elif (
                 running_import.import_type

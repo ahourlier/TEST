@@ -23,12 +23,12 @@ class Copro(HasPhones, SoftDeletableMixin, BaseMixin, db.Model):
     moe = relationship("Moe", backref="copro")
 
     # syndic
-    syndic_name = Column(String(255))
-    syndic_type = Column(String(255))
-    syndic_contract_date = Column(Date)
-    syndic_manager_name = Column(String(255))
-    syndic_manager_email = Column(String(255))
-    syndic_comment = Column(Text())
+    syndic_name = Column(String(255), nullable=True)
+    syndic_type = Column(String(255), nullable=True)
+    syndic_contract_date = Column(Date, nullable=True)
+    syndic_manager_name = Column(String(255), nullable=True)
+    syndic_manager_email = Column(String(255), nullable=True)
+    syndic_comment = Column(Text(), nullable=True)
     syndic_manager_address_id = Column(Integer(), ForeignKey("address.id"), nullable=True)
     syndic_manager_address = relationship(
         "Address",
@@ -37,12 +37,12 @@ class Copro(HasPhones, SoftDeletableMixin, BaseMixin, db.Model):
         primaryjoin=syndic_manager_address_id == Address.id,
     )
 
-    admin_name = Column(String(255))
-    admin_type = Column(String(255))
-    admin_contract_date = Column(Date)
-    admin_manager_name = Column(String(255))
-    admin_manager_email = Column(String(255))
-    admin_comment = Column(Text())
+    admin_name = Column(String(255), nullable=True)
+    admin_type = Column(String(255), nullable=True)
+    admin_contract_date = Column(Date, nullable=True)
+    admin_manager_name = Column(String(255), nullable=True)
+    admin_manager_email = Column(String(255), nullable=True)
+    admin_comment = Column(Text(), nullable=True)
     admin_manager_address_id = Column(Integer(), ForeignKey("address.id"), nullable=True)
     admin_manager_address = relationship(
         "Address",

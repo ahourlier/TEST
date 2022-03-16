@@ -124,10 +124,7 @@ class ImportsService:
         )
         return current_import
 
-    def run_copro_import(running_import: Imports, dry_run, data):
-        # TODO put syndic as field of copro (syndic_name, syndic_address, etc)
-        # TODO add admin fields (same as syndic fields) in copro
-        # TODO handle syndic fields to fill only fields from copro syndic (syndic_name, etc)
+    def run_copro_import(running_import: Imports, dry_run, data, user_email):
         """
         Import copro from data in spreadsheet
         @param: running_import: db object of running import
@@ -157,56 +154,41 @@ class ImportsService:
 
         json_data = []
         for idx, row in enumerate(data):
-
             if idx == 0:
                 # if headers, skip
                 continue
             # init copro dict
-            tmp_copro = {
+            current_copro = {
                 "name": row[4],
                 "address_1": ImportsService.format_address(
                     row, copy.deepcopy(address_copro_indexes)
-                ),
-                "syndic_name": "",
-                "syndic_type": "",
-                "syndic_contract_date": "",
-                "syndic_manager_name": "",
-                "syndic_manager_email": "",
-                "syndic_comment": "",
-                "syndic_manager_address": "",
-                
-                "admin_name": "",
-                "admin_type": "",
-                "admin_contract_date": "",
-                "admin_manager_name": "",
-                "admin_manager_email": "",
-                "admin_comment": "",
-                "admin_manager_adress": ""
+                )
             }
             if row[5] not in ["", None]:
-                # if has syndic, process
-                tmp_syndic = {
-                    "name": row[5],
-                    "manager_address": ImportsService.format_address(
-                        row, copy.deepcopy(address_syndic_indexes)
-                    ),
-                }
-                # and add to copro object
-                tmp_copro["syndics"].append(tmp_syndic)
-            json_data.append(tmp_copro)
+                # if has syndic, add info to copro
+               current_copro['syndic_name'] = row[5]
+               current_copro['syndic_manager_address'] = ImportsService.format_address(row, copy.deepcopy(address_syndic_indexes))
+
+            json_data.append(current_copro)
+
         # init logs with headers
         logs = [
             ["Statut", "Entité", "Action", "Détails", "Si erreurs, détails"]
         ]
-        # process copros and add logs to array
-        logs.extend(ImportsService.process_copros(
-            json_data, running_import.mission_id, dry_run
-        ))
+        try:
+            # process copros and add logs to array
+            logs.extend(ImportsService.process_copros(
+                json_data, running_import.mission_id, dry_run
+            ))
+        except Exception as e:
+            print("An error occured while processing parsed copros")
+            raise(e)
         # send logs to log sheet
         SheetsUtils.add_values(
             sheet_id=running_import.log_sheet_id,
             range="A:J",
-            array_values=logs
+            array_values=logs,
+            user_email=user_email
         )
 
     def process_copros(copro_objects, mission_id, dry_run):
@@ -219,7 +201,7 @@ class ImportsService:
                 copro.get("address_1"), mission_id
             )
             if copro_exists:
-                # if exists, treat differently
+                # if exists, update
                 logs.extend(
                     ImportsService.process_existing_copro(copro_exists, copro, dry_run)
                 )
@@ -232,8 +214,55 @@ class ImportsService:
 
     def process_existing_copro(existing_copro, import_copro, dry_run):
         """Process a copro that already exists"""
-        # TODO update copro name, update syndic
-        return [["NOT IMPLEMENTED YET", "", "", "", ""]]
+        print(import_copro)
+        logs = []
+        try:
+            if not dry_run:
+                # if importing and not scanning, update copro in db
+                CoproService.update(existing_copro, copy.deepcopy(import_copro), existing_copro.id)
+
+            # add logs for copro and syndic update
+            logs.extend(
+                [
+                    [
+                        "SUCCES",
+                        "COPRO",
+                        "UPDATE",
+                        f"Adresse: {import_copro.get('address_1').get('full_address')}\nNom: {import_copro.get('name')}",
+                        "",
+                    ],
+                    [
+                        "SUCCES",
+                        "SYNDIC",
+                        "UPDATE",
+                        f"Adresse: {import_copro.get('syndic_manager_address').get('full_address')}\nNom: {import_copro.get('syndic_name')}",
+                        "",
+                    ],
+                ]
+            )
+        except Exception as e:
+            # if an error occurred, add error log
+            # TODO potential better error management for copro and syndic, more understandable error details
+            # TODO handle model change of syndic (migrated to copro model)
+            logs.extend(
+                [
+                    [
+                        "ECHEC",
+                        "COPRO",
+                        "UPDATE",
+                        f"Adresse: {import_copro.get('address_1').get('full_address')}\nNom: {import_copro.get('name')}",
+                        f"{e}",
+                    ],
+                    [
+                        "ECHEC",
+                        "SYNDIC",
+                        "UPDATE",
+                        f"Adresse: {import_copro.get('syndic_manager_address').get('full_address')}\nNom: {import_copro.get('syndic_name')}",
+                        f"{e}",
+                    ],
+                ]
+            )
+        return logs
 
     def process_non_existing_copro(copro_object, mission_id, dry_run):
         """Process a copro that does not exist in db (to create)"""
@@ -243,9 +272,9 @@ class ImportsService:
         try:
             if not dry_run:
                 # if importing and not scanning, create copro in db
-                new_copro = CoproService.create(copro_object)
+                CoproService.create(copy.deepcopy(copro_object))
+
             # add logs for copro and syndic creation
-            # TODO change log of syndic creation to fit with new model (syndic migrated in copro)
             logs.extend(
                 [
                     [
@@ -259,7 +288,7 @@ class ImportsService:
                         "SUCCES",
                         "SYNDIC",
                         "CREATION",
-                        f"Adresse: {copro_object.get('syndics')[0].get('manager_address').get('full_address')}\nNom: {copro_object.get('syndics')[0].get('name')}",
+                        f"Adresse: {copro_object.get('syndic_manager_address').get('full_address')}\nNom: {copro_object.get('syndic_name')}",
                         "",
                     ],
                 ]
@@ -281,7 +310,7 @@ class ImportsService:
                         "ECHEC",
                         "SYNDIC",
                         "CREATION",
-                        f"Adresse: {copro_object.get('syndics')[0].get('manager_address').get('full_address')}\nNom: {copro_object.get('syndics')[0].get('name')}",
+                        f"Adresse: {copro_object.get('syndic_manager_address').get('full_address')}\nNom: {copro_object.get('syndic_name')}",
                         f"{e}",
                     ],
                 ]

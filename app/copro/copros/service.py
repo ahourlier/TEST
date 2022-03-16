@@ -10,6 +10,8 @@ from app.common.app_name import App
 from app.common.exceptions import EnumException
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
+from app.common.phone_number.model import PhoneNumber
+from app.common.phone_number.service import PhoneNumberService
 from app.copro.cadastre import Cadastre
 from app.copro.copros.error_handlers import (
     CoproNotFoundException,
@@ -109,24 +111,29 @@ class CoproService:
                 new_attrs.get("address_2")
             )
             del new_attrs["address_2"]
+        
+        if new_attrs.get("syndic_manager_address"):
+            new_attrs["syndic_manager_address_id"] = AddressService.create_address(
+                new_attrs.get("syndic_manager_address")
+            )
+            del new_attrs["syndic_manager_address"]
 
-        # TODO: Mettre a jour la création et l'update en fonction des nouveaux champs
+        if new_attrs.get("admin_manager_address"):
+            new_attrs["admin_manager_address_id"] = AddressService.create_address(
+                new_attrs.get("admin_manager_address")
+            )
+            del new_attrs["admin_manager_address"]
 
-        # syndics = None
-        # if new_attrs.get("syndics"):
-        #     syndics = new_attrs.get("syndics")
-        #     del new_attrs["syndics"]
-
-        # phones = []
-        # if "phone_number_1" in requester_fields:
-        #     if requester_fields.get("phone_number_1", None):
-        #         phones.append(PhoneNumber(**requester_fields.get("phone_number_1")))
-        #     del requester_fields["phone_number_1"]
-        # if "phone_number_2" in requester_fields:
-        #     if requester_fields.get("phone_number_2", None):
-        #         phones.append(PhoneNumber(**requester_fields.get("phone_number_2")))
-        #     del requester_fields["phone_number_2"]
-        # requester_fields["phones"] = phones
+        phones = []
+        if "syndic_manager_phone_number" in new_attrs:
+            if new_attrs.get("syndic_manager_phone_number", None):
+                phones.append(PhoneNumber(**new_attrs.get("syndic_manager_phone_number")))
+            del new_attrs["syndic_manager_phone_number"]
+        if "admin_manager_phone_number" in new_attrs:
+            if new_attrs.get("admin_manager_phone_number", None):
+                phones.append(PhoneNumber(**new_attrs.get("admin_manager_phone_number")))
+            del new_attrs["admin_manager_phone_number"]
+        new_attrs["phones"] = phones
 
         cadastres = None
         if new_attrs.get("cadastres"):
@@ -148,9 +155,14 @@ class CoproService:
             cles_repartition = new_attrs.get("cles_repartition")
             del new_attrs["cles_repartition"]
 
-        new_copro = Copro(**new_attrs)
-        db.session.add(new_copro)
-        db.session.commit()
+        try:
+            new_copro = Copro(**new_attrs)
+            db.session.add(new_copro)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+            raise(e)
 
         if cadastres:
             for c in cadastres:
@@ -158,11 +170,6 @@ class CoproService:
                 new_cadastre = Cadastre(**c)
                 db.session.add(new_cadastre)
                 db.session.commit()
-
-        if syndics:
-            for s in syndics:
-                s["copro_id"] = new_copro.id
-                SyndicService.create(s)
 
         if cles_repartition:
             CleRepartitionService.handle_keys(new_copro.id, cles_repartition)
@@ -239,6 +246,42 @@ class CoproService:
                         db_copro.address_2_id, changes.get("address_2")
                     )
             del changes["address_2"]
+
+        if "syndic_manager_address" in changes:
+            if changes.get("syndic_manager_address"):
+                if not db_copro.syndic_manager_address:
+                    changes["syndic_manager_address"] = AddressService.create_address(
+                        changes.get("syndic_manager_address")
+                    )
+                else:
+                    AddressService.update_address(
+                        db_copro.syndic_manager_address_id, changes.get("syndic_manager_address")
+                    )
+            del changes["syndic_manager_address"]
+
+        if "admin_manager_address" in changes:
+            if changes.get("admin_manager_address"):
+                if not db_copro.admin_manager_address:
+                    changes["admin_manager_address"] = AddressService.create_address(
+                        changes.get("admin_manager_address")
+                    )
+                else:
+                    AddressService.update_address(
+                        db_copro.admin_manager_address_id, changes.get("admin_manager_address")
+                    )
+            del changes["admin_manager_address"]
+
+        # Update phones numbers
+        phones = []
+        if "syndic_manager_phone_number" in changes:
+            if changes["syndic_manager_phone_number"] is not None:
+                phones.append(changes.get("syndic_manager_phone_number"))
+            del changes["syndic_manager_phone_number"]
+        if "admin_manager_phone_number" in changes:
+            if changes["admin_manager_phone_number"] is not None:
+                phones.append(changes.get("admin_manager_phone_number"))
+            del changes["admin_manager_phone_number"]
+        PhoneNumberService.update_phone_numbers(db_copro, phones)
 
         if "user_in_charge" in changes:
             if changes.get("user_in_charge"):
