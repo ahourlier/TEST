@@ -1,15 +1,27 @@
-from sqlalchemy import Boolean, String, Column, Integer, ForeignKey, Float
+from sqlalchemy import (
+    select,
+    Boolean,
+    String,
+    Column,
+    Integer,
+    ForeignKey,
+    Float,
+    Date,
+    Text,
+)
 from sqlalchemy.orm import relationship, backref
+from sqlalchemy.ext.hybrid import hybrid_property
 
 from app import db
 from app.common.address.model import Address
 from app.common.base_model import SoftDeletableMixin, BaseMixin
+from app.common.phone_number.model import PhoneNumber, HasPhones
 from app.copro.cadastre import Cadastre
 from app.copro.president import President
 from app.copro.moe import Moe
 
 
-class Copro(SoftDeletableMixin, BaseMixin, db.Model):
+class Copro(HasPhones, SoftDeletableMixin, BaseMixin, db.Model):
     __tablename__ = "copro"
 
     id = Column(Integer(), primary_key=True, autoincrement=True)
@@ -19,6 +31,40 @@ class Copro(SoftDeletableMixin, BaseMixin, db.Model):
     president = relationship("President", backref="copro")
     moe_id = Column(Integer, ForeignKey("moe.id"), nullable=True)
     moe = relationship("Moe", backref="copro")
+
+    # syndic
+    syndic_name = Column(String(255), nullable=True)
+    syndic_type = Column(String(255), nullable=True)
+    syndic_contract_date = Column(Date, nullable=True)
+    syndic_manager_name = Column(String(255), nullable=True)
+    syndic_manager_email = Column(String(255), nullable=True)
+    syndic_comment = Column(Text(), nullable=True)
+    syndic_manager_address_id = Column(
+        Integer(), ForeignKey("address.id"), nullable=True
+    )
+    syndic_manager_address = relationship(
+        "Address",
+        cascade="all, delete",
+        foreign_keys=[syndic_manager_address_id],
+        primaryjoin=syndic_manager_address_id == Address.id,
+    )
+
+    admin_name = Column(String(255), nullable=True)
+    admin_type = Column(String(255), nullable=True)
+    admin_contract_date = Column(Date, nullable=True)
+    admin_manager_name = Column(String(255), nullable=True)
+    admin_manager_email = Column(String(255), nullable=True)
+    admin_comment = Column(Text(), nullable=True)
+    admin_manager_address_id = Column(
+        Integer(), ForeignKey("address.id"), nullable=True
+    )
+    admin_manager_address = relationship(
+        "Address",
+        cascade="all, delete",
+        foreign_keys=[admin_manager_address_id],
+        primaryjoin=admin_manager_address_id == Address.id,
+    )
+
     # copropriété
     name = Column(String(255), nullable=True)
     copro_type = Column(String(255), nullable=True)
@@ -71,3 +117,24 @@ class Copro(SoftDeletableMixin, BaseMixin, db.Model):
     external_spaces = Column(Boolean, nullable=True, default=False)
     underground_parking = Column(Boolean, nullable=True, default=False)
     aerial_parking = Column(Boolean, nullable=True, default=False)
+
+    @hybrid_property
+    def syndic_manager_phone_number(self):
+        return self.phones[0] if self.phones else None
+
+    @syndic_manager_phone_number.expression
+    def syndic_manager_phone_number(cls):
+        return select([PhoneNumber]).where(PhoneNumber.resource_id == cls.id).first()
+
+    @hybrid_property
+    def admin_manager_phone_number(self):
+        return self.phones[1] if self.phones else None
+
+    @admin_manager_phone_number.expression
+    def admin_manager_phone_number(cls):
+        return (
+            select([PhoneNumber])
+            .where(PhoneNumber.resource_id == cls.id)
+            .order_by(PhoneNumber.id.desc())
+            .first()
+        )
