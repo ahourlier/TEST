@@ -32,7 +32,8 @@ class DocumentResource(AuthenticatedApi):
     """Documents"""
 
     @accepts(
-        *SEARCH_PARAMS, api=api,
+        *SEARCH_PARAMS,
+        api=api,
     )
     @responds(schema=DocumentPaginatedSchema())
     @requires(is_admin)

@@ -142,7 +142,10 @@ class FundingScenarioService:
 
     @staticmethod
     def check_scenario_compliance(
-        funding_scenario, project_id, quotes_id=[], accommodation_id: str = None,
+        funding_scenario,
+        project_id,
+        quotes_id=[],
+        accommodation_id: str = None,
     ) -> bool:
         # Return true if the provided project (and the optional accommodation) fit all scenario criterium
         requester_type = projects_service.ProjectService.get_by_id(

@@ -77,7 +77,11 @@ class SimulationService:
         q = sort_query(Simulation.query, sort_by, direction)
         if term is not None:
             search_term = f"%{term}%"
-            q = q.filter(or_(Simulation.name.ilike(search_term),))
+            q = q.filter(
+                or_(
+                    Simulation.name.ilike(search_term),
+                )
+            )
 
         if quote_id is not None:
             q = q.filter(
@@ -318,7 +322,8 @@ class SimulationUseCaseService:
 
     @staticmethod
     def create_list(
-        use_cases_values: List[SimulationUseCaseInterface], simulation_id: int,
+        use_cases_values: List[SimulationUseCaseInterface],
+        simulation_id: int,
     ) -> List[SimulationUseCase]:
 
         use_cases = []
@@ -397,7 +402,8 @@ class SimulationQuoteService:
 
     @staticmethod
     def update_list(
-        simulation: SimulationInterface, quotes_values: List[QuoteInterface],
+        simulation: SimulationInterface,
+        quotes_values: List[QuoteInterface],
     ) -> List[SimulationQuote]:
         original_quotes_id = [
             simulation_quote.base_quote_id
@@ -486,10 +492,12 @@ class SimulationFunderService:
             simulation_quote.base_quote_id
             for simulation_quote in simulation.simulation_quotes
         ]
-        simulation_funder.match_scenario = funding_scenario_service.FundingScenarioService.get_match_scenarios(
-            simulation_funder.duplicate_funder,
-            simulation_funder.simulation.project_id,
-            quotes_id=quotes_id,
+        simulation_funder.match_scenario = (
+            funding_scenario_service.FundingScenarioService.get_match_scenarios(
+                simulation_funder.duplicate_funder,
+                simulation_funder.simulation.project_id,
+                quotes_id=quotes_id,
+            )
         )
 
         if "funder_accommodations" in extracted_fields:
@@ -545,10 +553,12 @@ class SimulationFunderService:
             for simulation_quote in simulation_funder.simulation.simulation_quotes
         ]
         # Set the adequate scenario for the parent project/requester situation
-        simulation_funder.match_scenario = funding_scenario_service.FundingScenarioService.get_match_scenarios(
-            simulation_funder.duplicate_funder,
-            simulation_funder.simulation.project_id,
-            quotes_id=quotes_id,
+        simulation_funder.match_scenario = (
+            funding_scenario_service.FundingScenarioService.get_match_scenarios(
+                simulation_funder.duplicate_funder,
+                simulation_funder.simulation.project_id,
+                quotes_id=quotes_id,
+            )
         )
         db.session.commit()
         return simulation_funder
@@ -587,8 +597,10 @@ class SimulationFunderService:
                     .first()
                     .base_funder
                 )
-            match_scenario = funding_scenario_service.FundingScenarioService.get_match_scenarios(
-                base_funder, project_id, quotes_id=quotes_id
+            match_scenario = (
+                funding_scenario_service.FundingScenarioService.get_match_scenarios(
+                    base_funder, project_id, quotes_id=quotes_id
+                )
             )
 
             new_simulation_funder = {
@@ -615,7 +627,8 @@ class SimulationFunderService:
 
     @staticmethod
     def update(
-        simulation_funder: SimulationFunder, changes: SimulationFunderInterface,
+        simulation_funder: SimulationFunder,
+        changes: SimulationFunderInterface,
     ) -> Simulation:
         extracted_fields = ServicesUtils.clean_attrs(
             changes,
@@ -649,7 +662,8 @@ class SimulationFunderService:
 
     @staticmethod
     def update_list(
-        simulation: Simulation, simulation_funders_values,
+        simulation: Simulation,
+        simulation_funders_values,
     ) -> List[SimulationFunder]:
 
         original_funders_id = [

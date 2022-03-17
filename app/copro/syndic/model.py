@@ -21,7 +21,10 @@ class Syndic(HasPhones, BaseMixin, db.Model):
     contract_date = Column(Date)
     manager_name = Column(String(255))
     manager_address_id = Column(Integer(), ForeignKey("address.id"), nullable=True)
-    manager_address = relationship("Address", cascade="all, delete",)
+    manager_address = relationship(
+        "Address",
+        cascade="all, delete",
+    )
     manager_email = Column(String(255))
     comment = Column(Text())
 

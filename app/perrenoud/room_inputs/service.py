@@ -36,7 +36,10 @@ class RoomInputService:
         inputs_kind = [input_kind.value for input_kind in RoomInputKinds]
         fields_to_remove = inputs_kind.copy()
         fields_to_remove.extend(["heating", "areas"])
-        extracted_fields = ServicesUtils.clean_attrs(new_attrs, fields_to_remove,)
+        extracted_fields = ServicesUtils.clean_attrs(
+            new_attrs,
+            fields_to_remove,
+        )
         if room_id is not None:
             new_attrs["room_id"] = room_id
         rooms_service.RoomService.get_by_id(new_attrs.get("room_id"))
@@ -66,7 +69,10 @@ class RoomInputService:
             inputs_kind = [input_kind.value for input_kind in RoomInputKinds]
             fields_to_remove = inputs_kind.copy()
             fields_to_remove.extend(["heating", "areas"])
-            extracted_fields = ServicesUtils.clean_attrs(changes, fields_to_remove,)
+            extracted_fields = ServicesUtils.clean_attrs(
+                changes,
+                fields_to_remove,
+            )
             if RoomInputService.is_type_forbidden(changes, room_input):
                 raise TypeRoomInputInUseException()
             room_input.update(changes)

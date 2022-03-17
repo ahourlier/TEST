@@ -126,7 +126,9 @@ class GroupUtils:
 
     @staticmethod
     def list_members(
-        group, user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL"), client=None,
+        group,
+        user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL"),
+        client=None,
     ):
         """
         List direct members of a group

@@ -305,7 +305,10 @@ class DataImportService:
             if field_infos.get("type") == SheetFieldsTypes.PRIMARY_ID.value:
                 # Store primary keys for future relational mapping
                 primary_key_field = DataImportService.validate_primary_key(
-                    sheet_name, field_infos, entities_keys_map, model_name,
+                    sheet_name,
+                    field_infos,
+                    entities_keys_map,
+                    model_name,
                 )
                 continue
             elif field_infos.get("type") == SheetFieldsTypes.FOREIGN_ID.value:
@@ -360,7 +363,9 @@ class DataImportService:
         ):
 
             DataImportService.rollback_import(
-                entities_keys_map, sheet_name, message="Incorrect or absent entity ID",
+                entities_keys_map,
+                sheet_name,
+                message="Incorrect or absent entity ID",
             )
         if primary_key_field:
             DataImportService.rollback_import(
@@ -407,7 +412,9 @@ class DataImportService:
 
     @staticmethod
     def build_entity_labels_fields_list(
-        row_fields, labels_fields_map, labels_lists,
+        row_fields,
+        labels_fields_map,
+        labels_lists,
     ):
         """For each element of a given sheet row, map the sheet value
         with field infos provided by the SPREADSHEET_STRUCTURE main object"""
@@ -552,7 +559,9 @@ class DataImportService:
             queue=ACTIVATE_PROJECTS_QUEUE_NAME,
             uri=f"{os.getenv('API_URL')}/_internal/data_import/activate",
             method="POST",
-            payload={"projects_id_list": projects_id_list,},
+            payload={
+                "projects_id_list": projects_id_list,
+            },
         )
 
         return "Success"
@@ -566,7 +575,9 @@ class DataImportService:
             queue=CLOSE_IMPORT_QUEUE_NAME,
             uri=f"{os.getenv('API_URL')}/_internal/data_import/close",
             method="POST",
-            payload={"import_id": import_id,},
+            payload={
+                "import_id": import_id,
+            },
         )
 
         return "Success"
@@ -582,7 +593,9 @@ class DataImportService:
                 queue=PROJECT_INIT_QUEUE_NAME,
                 uri=f"{os.getenv('API_URL')}/_internal/projects/init-drive",
                 method="POST",
-                payload={"project_id": project_id,},
+                payload={
+                    "project_id": project_id,
+                },
             )
 
     @staticmethod
@@ -594,7 +607,9 @@ class DataImportService:
             queue=DELETE_PROJECT_QUEUE_NAME,
             uri=f"{os.getenv('API_URL')}/_internal/data_import/rollback",
             method="POST",
-            payload={"projects_id_list": projects_id_list,},
+            payload={
+                "projects_id_list": projects_id_list,
+            },
         )
 
     @staticmethod

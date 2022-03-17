@@ -22,7 +22,9 @@ class TeamResource(AuthenticatedApi):
     """Teams"""
 
     @accepts(
-        *SEARCH_PARAMS, dict(name="mission_id", type=int), api=api,
+        *SEARCH_PARAMS,
+        dict(name="mission_id", type=int),
+        api=api,
     )
     @responds(schema=TeamMultipleSchema())
     def get(self):

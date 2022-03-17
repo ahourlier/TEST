@@ -37,7 +37,11 @@ class AccommodationService:
         q = sort_query(Accommodation.query, sort_by, direction)
         if term is not None:
             search_term = f"%{term}%"
-            q = q.filter(or_(Accommodation.name.ilike(search_term),))
+            q = q.filter(
+                or_(
+                    Accommodation.name.ilike(search_term),
+                )
+            )
 
         if project_id is None and g.user.role not in [UserRole.ADMIN, UserRole.MANAGER]:
             raise ForbiddenException()

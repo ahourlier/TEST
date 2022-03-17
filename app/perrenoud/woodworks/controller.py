@@ -12,7 +12,10 @@ from .. import Woodwork
 class WoodworkScenarioIdResource(AuthenticatedApi):
     @accepts(schema=WoodworkSchema, api=api)
     @responds(schema=WoodworkSchema)
-    def post(self, scenario_id: int,) -> Woodwork:
+    def post(
+        self,
+        scenario_id: int,
+    ) -> Woodwork:
         """Create single woodwork"""
 
         return WoodworkService.create(request.parsed_obj, scenario_id)

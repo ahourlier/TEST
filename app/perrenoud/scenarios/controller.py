@@ -73,7 +73,10 @@ class ScenarioIdResource(AuthenticatedApi):
 
     @accepts(dict(name="section", type=str), schema=ScenarioSchema, api=api)
     @responds(schema=ScenarioSchema)
-    def put(self, scenario_id: int,) -> Scenario:
+    def put(
+        self,
+        scenario_id: int,
+    ) -> Scenario:
         """Update single scenario"""
 
         changes: ScenarioInterface = request.parsed_obj
@@ -101,7 +104,10 @@ class ScenarioByAccommodationIdResource(AuthenticatedApi):
 @api.param("scenarioId", "Scenario unique ID")
 class ScenarioDuplicationResource(AuthenticatedApi):
     @responds(schema=ScenarioSchema)
-    def put(self, scenario_id: int,) -> Scenario:
+    def put(
+        self,
+        scenario_id: int,
+    ) -> Scenario:
         """Duplicate a scenario and return the clone"""
         return ScenarioService.duplicate(scenario_id)
 
@@ -112,7 +118,9 @@ class LaunchAnalysisResource(AuthenticatedApi):
     @responds(schema=ScenarioSchema)
     def get(self, scenario_id: int) -> Scenario:
         """Update analysis values for one scenario"""
-        return ScenarioService.launch_perrenoud_analysis(scenario_id,)
+        return ScenarioService.launch_perrenoud_analysis(
+            scenario_id,
+        )
 
 
 @api.route("/<int:scenario_id>/analysis_test")
@@ -127,6 +135,9 @@ class TestXMLResource(AuthenticatedApi):
 @api.param("accommodationId", "Accommodation unique ID")
 class InitialStateCreationAndDuplicationResource(AuthenticatedApi):
     @responds(schema=ScenarioSchema)
-    def put(self, accommodation_id: int,) -> Scenario:
+    def put(
+        self,
+        accommodation_id: int,
+    ) -> Scenario:
         """Create a scenario and return the clone"""
         return ScenarioService.create_and_duplicate(accommodation_id)

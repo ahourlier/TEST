@@ -130,7 +130,9 @@ class MissionIdResource(AuthenticatedApi):
                         queue=MISSION_INIT_QUEUE_NAME,
                         uri=f"{os.getenv('API_URL')}/_internal/missions/init-drive",
                         method="POST",
-                        payload={"mission_id": db_mission.id,},
+                        payload={
+                            "mission_id": db_mission.id,
+                        },
                     )
         return db_mission
 

@@ -41,7 +41,10 @@ class QuoteService:
         if term is not None:
             search_term = f"%{term}%"
             q = q.filter(
-                or_(Quote.name.ilike(search_term), Quote.company.ilike(search_term),)
+                or_(
+                    Quote.name.ilike(search_term),
+                    Quote.company.ilike(search_term),
+                )
             )
 
         if project_id is not None:
@@ -195,7 +198,8 @@ class QuoteWorkTypeService:
 
     @staticmethod
     def create_list(
-        work_types_values: List[QuoteWorkTypeInterface], quote_id: int,
+        work_types_values: List[QuoteWorkTypeInterface],
+        quote_id: int,
     ) -> List[QuoteWorkType]:
 
         work_types = []

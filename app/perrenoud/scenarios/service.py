@@ -70,7 +70,11 @@ class ScenarioService:
         q = q.filter(Scenario.accommodation_id == accommodation_id)
         if term is not None:
             search_term = f"%{term}%"
-            q = q.filter(or_(Scenario.name.ilike(search_term),))
+            q = q.filter(
+                or_(
+                    Scenario.name.ilike(search_term),
+                )
+            )
         if not include_initial_state:
             q = q.filter(Scenario.is_initial_state == False)
         return q.paginate(page=page, per_page=size)

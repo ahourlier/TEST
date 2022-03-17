@@ -35,5 +35,6 @@ class CleRepartition(BaseMixin, db.Model):
     label = Column(String(255), nullable=False)
     copro_id = Column(Integer, ForeignKey("copro.id"), nullable=False)
     copro = relationship(
-        "Copro", backref=backref("cles_repartition", cascade="all, delete"),
+        "Copro",
+        backref=backref("cles_repartition", cascade="all, delete"),
     )

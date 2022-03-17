@@ -1,8 +1,16 @@
 from app.common.xml_utils import StructureTypes, IdentityRoles
 
 XML_PERRENOUD_CONFIGURATION = [
-    {"id": 1, "is_root": True, "tag": "Projet",},
-    {"id": 2, "tag": "Donnees_Techniques", "parent": "root",},
+    {
+        "id": 1,
+        "is_root": True,
+        "tag": "Projet",
+    },
+    {
+        "id": 2,
+        "tag": "Donnees_Techniques",
+        "parent": "root",
+    },
     {
         "id": 3,
         "tag": "Numero_Departement",
@@ -43,8 +51,18 @@ XML_PERRENOUD_CONFIGURATION = [
         "fields": ["id"],
         "rule": "get_initial_state_status",
     },
-    {"id": 9, "tag": "Batiment", "parent": "root",},
-    {"id": 10, "tag": "Designation", "parent": 9, "has_value": True, "constant": " ",},
+    {
+        "id": 9,
+        "tag": "Batiment",
+        "parent": "root",
+    },
+    {
+        "id": 10,
+        "tag": "Designation",
+        "parent": 9,
+        "has_value": True,
+        "constant": " ",
+    },
     {
         "id": 11,
         "tag": "Shab",
@@ -68,12 +86,18 @@ XML_PERRENOUD_CONFIGURATION = [
         "has_value": True,
         "fields": ["average_height_ceiling"],
     },
-    {"id": 17, "tag": "Enveloppe", "parent": 9,},
+    {
+        "id": 17,
+        "tag": "Enveloppe",
+        "parent": 9,
+    },
     {
         "id": 18,
         "tag": "Murs_Collection",
         "parent": 17,
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 19,
@@ -81,7 +105,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 18,
         "structure_type": StructureTypes.ITERATION.value,
         "fields": ["walls"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 20,
@@ -95,7 +121,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 19,
         "has_value": True,
         "fields": ["name"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 22,
@@ -221,7 +249,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "constant": 100,
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 22, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 22, "operator": "==", "value": 1},
+            ],
         },
     },
     {
@@ -232,7 +263,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "constant": 10,
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 22, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 22, "operator": "==", "value": 1},
+            ],
         },
     },
     {
@@ -243,7 +277,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "fields": ["insulated_non_heated_exterior_wall"],
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 22, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 22, "operator": "==", "value": 1},
+            ],
         },
     },
     {
@@ -254,7 +291,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "fields": ["insulated_heated_non_heated_wall"],
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 22, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 22, "operator": "==", "value": 1},
+            ],
         },
     },
     {
@@ -266,7 +306,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "enum_index": 15,
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 22, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 22, "operator": "==", "value": 1},
+            ],
         },
     },
     {
@@ -277,14 +320,19 @@ XML_PERRENOUD_CONFIGURATION = [
         "fields": ["known_U"],
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 22, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 22, "operator": "==", "value": 1},
+            ],
         },
     },
     {
         "id": 41,
         "tag": "Planchers_Collection",
         "parent": 17,
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 42,
@@ -292,7 +340,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 41,
         "structure_type": StructureTypes.ITERATION.value,
         "fields": ["floors"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 43,
@@ -306,7 +356,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 42,
         "has_value": True,
         "fields": ["name"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 45,
@@ -332,7 +384,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "enum_index": 17,
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 46, "operator": "==", "value": 0},],
+            "conditions": [
+                "and",
+                {"id": 46, "operator": "==", "value": 0},
+            ],
         },
     },
     {
@@ -351,7 +406,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "enum_index": 18,
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 48, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 48, "operator": "==", "value": 1},
+            ],
         },
     },
     {
@@ -410,7 +468,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "constant": 100,
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 45, "operator": "==", "value": 2},],
+            "conditions": [
+                "and",
+                {"id": 45, "operator": "==", "value": 2},
+            ],
         },
     },
     {
@@ -421,7 +482,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "constant": 10,
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 45, "operator": "==", "value": 2},],
+            "conditions": [
+                "and",
+                {"id": 45, "operator": "==", "value": 2},
+            ],
         },
     },
     {
@@ -432,7 +496,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "fields": ["insulated_non_heated_exterior_wall"],
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 45, "operator": "==", "value": 2},],
+            "conditions": [
+                "and",
+                {"id": 45, "operator": "==", "value": 2},
+            ],
         },
     },
     {
@@ -443,7 +510,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "fields": ["insulated_heated_non_heated_wall"],
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 45, "operator": "==", "value": 2},],
+            "conditions": [
+                "and",
+                {"id": 45, "operator": "==", "value": 2},
+            ],
         },
     },
     {
@@ -455,7 +525,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "enum_index": 15,
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 45, "operator": "==", "value": 2},],
+            "conditions": [
+                "and",
+                {"id": 45, "operator": "==", "value": 2},
+            ],
         },
     },
     {
@@ -473,14 +546,19 @@ XML_PERRENOUD_CONFIGURATION = [
         "fields": ["U_value"],
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 46, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 46, "operator": "==", "value": 1},
+            ],
         },
     },
     {
         "id": 62,
         "tag": "Plafonds_Collection",
         "parent": 17,
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 63,
@@ -488,7 +566,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 62,
         "structure_type": StructureTypes.ITERATION.value,
         "fields": ["ceilings"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 64,
@@ -502,7 +582,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 63,
         "has_value": True,
         "fields": ["name"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 66,
@@ -528,7 +610,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "enum_index": 20,
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 67, "operator": "==", "value": 0},],
+            "conditions": [
+                "and",
+                {"id": 67, "operator": "==", "value": 0},
+            ],
         },
     },
     {
@@ -547,7 +632,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "enum_index": 21,
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 67, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 67, "operator": "==", "value": 1},
+            ],
         },
     },
     {
@@ -613,7 +701,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "constant": 100,
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 66, "operator": "==", "value": 2},],
+            "conditions": [
+                "and",
+                {"id": 66, "operator": "==", "value": 2},
+            ],
         },
     },
     {
@@ -624,7 +715,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "constant": 10,
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 66, "operator": "==", "value": 2},],
+            "conditions": [
+                "and",
+                {"id": 66, "operator": "==", "value": 2},
+            ],
         },
     },
     {
@@ -635,7 +729,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "fields": ["insulated_non_heated_exterior_wall"],
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 66, "operator": "==", "value": 2},],
+            "conditions": [
+                "and",
+                {"id": 66, "operator": "==", "value": 2},
+            ],
         },
     },
     {
@@ -646,7 +743,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "fields": ["insulated_heated_non_heated_wall"],
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 66, "operator": "==", "value": 2},],
+            "conditions": [
+                "and",
+                {"id": 66, "operator": "==", "value": 2},
+            ],
         },
     },
     {
@@ -658,7 +758,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "enum_index": 15,
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 66, "operator": "==", "value": 2},],
+            "conditions": [
+                "and",
+                {"id": 66, "operator": "==", "value": 2},
+            ],
         },
     },
     {
@@ -669,14 +772,19 @@ XML_PERRENOUD_CONFIGURATION = [
         "fields": ["U_value"],
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 67, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 67, "operator": "==", "value": 1},
+            ],
         },
     },
     {
         "id": 83,
         "tag": "Fenetres_Collection",
         "parent": 17,
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 84,
@@ -684,7 +792,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 83,
         "structure_type": StructureTypes.ITERATION.value,
         "fields": ["windows"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 85,
@@ -698,7 +808,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 84,
         "has_value": True,
         "fields": ["windows_name"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 87,
@@ -897,7 +1009,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "fields": ["woodwork_U_value"],
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 88, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 88, "operator": "==", "value": 1},
+            ],
         },
     },
     {
@@ -908,14 +1023,19 @@ XML_PERRENOUD_CONFIGURATION = [
         "fields": ["Ujn_value"],
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 88, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 88, "operator": "==", "value": 1},
+            ],
         },
     },
     {
         "id": 112,
         "tag": "Portes_Collection",
         "parent": 17,
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 113,
@@ -923,7 +1043,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 112,
         "structure_type": StructureTypes.ITERATION.value,
         "fields": ["doors"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 114,
@@ -937,7 +1059,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 113,
         "has_value": True,
         "fields": ["door_name"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 116,
@@ -955,7 +1079,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "enum_index": 32,
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 116, "operator": "==", "value": 0},],
+            "conditions": [
+                "and",
+                {"id": 116, "operator": "==", "value": 0},
+            ],
         },
     },
     {
@@ -996,15 +1123,24 @@ XML_PERRENOUD_CONFIGURATION = [
         "fields": ["door_U_value"],
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 116, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 116, "operator": "==", "value": 1},
+            ],
         },
     },
-    {"id": 122, "tag": "Metre", "parent": 9,},
+    {
+        "id": 122,
+        "tag": "Metre",
+        "parent": 9,
+    },
     {
         "id": 123,
         "tag": "Metre_Murs_Collection",
         "parent": 122,
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 124,
@@ -1012,7 +1148,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 123,
         "structure_type": StructureTypes.ITERATION.value,
         "fields": ["wall_inputs"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 125,
@@ -1035,7 +1173,13 @@ XML_PERRENOUD_CONFIGURATION = [
         "has_value": True,
         "fields": ["surface"],
     },
-    {"id": 129, "tag": "Largeur", "parent": 124, "has_value": True, "constant": "0",},
+    {
+        "id": 129,
+        "tag": "Largeur",
+        "parent": 124,
+        "has_value": True,
+        "constant": "0",
+    },
     {
         "id": 131,
         "tag": "Nombre_Vitrages",
@@ -1054,7 +1198,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "id": 133,
         "tag": "Metre_Vitrages_Portes_Collection",
         "parent": 124,
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 134,
@@ -1062,7 +1208,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 133,
         "structure_type": StructureTypes.ITERATION.value,
         "fields": ["linked_areas_woodworks"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 135,
@@ -1100,7 +1248,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "constant": "0",
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 138, "operator": "!=", "value": 0},],
+            "conditions": [
+                "and",
+                {"id": 138, "operator": "!=", "value": 0},
+            ],
         },
     },
     {
@@ -1111,7 +1262,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "fields": ["perimeter"],
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 139, "operator": "==", "value": 0},],
+            "conditions": [
+                "and",
+                {"id": 139, "operator": "==", "value": 0},
+            ],
         },
     },
     {"id": 141, "tag": "Lst011_Presence_Masques", "parent": 134, "constant": "0"},
@@ -1119,7 +1273,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "id": 156,
         "tag": "Metre_Plafonds_Collection",
         "parent": 122,
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 157,
@@ -1127,7 +1283,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 156,
         "structure_type": StructureTypes.ITERATION.value,
         "fields": ["ceiling_inputs"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 158,
@@ -1150,7 +1308,13 @@ XML_PERRENOUD_CONFIGURATION = [
         "has_value": True,
         "fields": ["surface"],
     },
-    {"id": 162, "tag": "Largeur", "parent": 157, "has_value": True, "constant": "0",},
+    {
+        "id": 162,
+        "tag": "Largeur",
+        "parent": 157,
+        "has_value": True,
+        "constant": "0",
+    },
     {
         "id": 164,
         "tag": "Nombre_Vitrages",
@@ -1169,7 +1333,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "id": 166,
         "tag": "Metre_Vitrages_Portes_Collection",
         "parent": 157,
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 167,
@@ -1177,7 +1343,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 166,
         "structure_type": StructureTypes.ITERATION.value,
         "fields": ["linked_areas_woodworks"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 168,
@@ -1207,7 +1375,13 @@ XML_PERRENOUD_CONFIGURATION = [
         "has_value": True,
         "fields": ["total"],
     },
-    {"id": 172, "tag": "Hauteur", "parent": 167, "has_value": True, "constant": "0",},
+    {
+        "id": 172,
+        "tag": "Hauteur",
+        "parent": 167,
+        "has_value": True,
+        "constant": "0",
+    },
     {
         "id": 173,
         "tag": "Perimetre",
@@ -1216,7 +1390,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "fields": ["perimeter"],
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 172, "operator": "==", "value": 0},],
+            "conditions": [
+                "and",
+                {"id": 172, "operator": "==", "value": 0},
+            ],
         },
     },
     {"id": 174, "tag": "Lst011_Presence_Masques", "parent": 167, "constant": "0"},
@@ -1224,7 +1401,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "id": 189,
         "tag": "Metre_Planchers_Collection",
         "parent": 122,
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 190,
@@ -1232,7 +1411,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 189,
         "structure_type": StructureTypes.ITERATION.value,
         "fields": ["floor_inputs"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 191,
@@ -1260,7 +1441,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "id": 196,
         "tag": "Pth_ME_Plancher_Bas_Collection",
         "parent": 190,
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 197,
@@ -1268,7 +1451,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 196,
         "structure_type": StructureTypes.ITERATION.value,
         "fields": ["low_thermal_bridges"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 198,
@@ -1305,7 +1490,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "id": 202,
         "tag": "Pth_ME_Plancher_Haut_Collection",
         "parent": 190,
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 203,
@@ -1313,7 +1500,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 202,
         "structure_type": StructureTypes.ITERATION.value,
         "fields": ["high_thermal_bridges"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 204,
@@ -1350,7 +1539,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "id": 208,
         "tag": "Pth_ME_Plancher_Inter_Collection",
         "parent": 190,
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 209,
@@ -1358,7 +1549,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 208,
         "structure_type": StructureTypes.ITERATION.value,
         "fields": ["middle_thermal_bridges"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 210,
@@ -1397,7 +1590,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 214,
         "structure_type": StructureTypes.ITERATION.value,
         "fields": ["refend_thermal_bridges"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 216,
@@ -1433,15 +1628,25 @@ XML_PERRENOUD_CONFIGURATION = [
         "id": 220,
         "tag": "Generations_Collection",
         "parent": 9,
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 221,
         "tag": "Generation",
         "parent": 220,
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
-    {"id": 222, "tag": "Id", "parent": 221, "has_value": True, "constant": "1",},
+    {
+        "id": 222,
+        "tag": "Id",
+        "parent": 221,
+        "has_value": True,
+        "constant": "1",
+    },
     {
         "id": 224,
         "tag": "Nombre_Generateur",
@@ -1474,7 +1679,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "id": 230,
         "tag": "Generateurs_Collection",
         "parent": 221,
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 231,
@@ -1482,7 +1689,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 230,
         "structure_type": StructureTypes.ITERATION.value,
         "fields": ["heatings"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 232,
@@ -1690,7 +1899,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "id": 250,
         "tag": "Emissions_Collection",
         "parent": 9,
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 251,
@@ -1698,7 +1909,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 250,
         "structure_type": StructureTypes.ITERATION.value,
         "fields": ["heatings"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 252,
@@ -1712,7 +1925,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 251,
         "has_value": True,
         "fields": ["heating_name"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 254,
@@ -1754,7 +1969,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "rule": "get_regulation_by_room",
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 255, "operator": ">", "value": 0},],
+            "conditions": [
+                "and",
+                {"id": 255, "operator": ">", "value": 0},
+            ],
         },
     },
     {
@@ -1796,7 +2014,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "constant": "1",
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 255, "operator": ">", "value": 0},],
+            "conditions": [
+                "and",
+                {"id": 255, "operator": ">", "value": 0},
+            ],
         },
     },
     {
@@ -1831,7 +2052,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "enum_index": 46,
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 264, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 264, "operator": "==", "value": 1},
+            ],
         },
     },
     {
@@ -1879,7 +2103,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "id": 269,
         "tag": "Ecs_Collection",
         "parent": 9,
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 270,
@@ -1887,7 +2113,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 269,
         "structure_type": StructureTypes.ITERATION.value,
         "fields": ["hot_waters"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 271,
@@ -1901,7 +2129,9 @@ XML_PERRENOUD_CONFIGURATION = [
         "parent": 270,
         "has_value": True,
         "fields": ["name"],
-        "validation": {"mandatory": False,},
+        "validation": {
+            "mandatory": False,
+        },
     },
     {
         "id": 273,
@@ -1950,7 +2180,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "enum_index": 52,
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 273, "operator": "==", "value": 101},],
+            "conditions": [
+                "and",
+                {"id": 273, "operator": "==", "value": 101},
+            ],
         },
     },
     {
@@ -1961,7 +2194,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "constant": "0",
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 273, "operator": "==", "value": 102},],
+            "conditions": [
+                "and",
+                {"id": 273, "operator": "==", "value": 102},
+            ],
         },
     },
     {
@@ -1972,7 +2208,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "constant": "0",
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 273, "operator": "==", "value": 102},],
+            "conditions": [
+                "and",
+                {"id": 273, "operator": "==", "value": 102},
+            ],
         },
     },
     {
@@ -1983,7 +2222,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "constant": "1",
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 273, "operator": "==", "value": 102},],
+            "conditions": [
+                "and",
+                {"id": 273, "operator": "==", "value": 102},
+            ],
         },
     },
     {
@@ -1994,7 +2236,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "constant": "1",
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 273, "operator": "==", "value": 201},],
+            "conditions": [
+                "and",
+                {"id": 273, "operator": "==", "value": 201},
+            ],
         },
     },
     {
@@ -2005,7 +2250,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "constant": "1",
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 273, "operator": "==", "value": 201},],
+            "conditions": [
+                "and",
+                {"id": 273, "operator": "==", "value": 201},
+            ],
         },
     },
     {
@@ -2016,7 +2264,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "fields": ["renovated_production"],
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 8, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 8, "operator": "==", "value": 1},
+            ],
         },
     },
     {
@@ -2042,7 +2293,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "constant": "0",
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 273, "operator": "==", "value": 203},],
+            "conditions": [
+                "and",
+                {"id": 273, "operator": "==", "value": 203},
+            ],
         },
     },
     {
@@ -2077,7 +2331,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "enum_index": 60,
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 294, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 294, "operator": "==", "value": 1},
+            ],
         },
     },
     {
@@ -2087,7 +2344,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "constant": "1",
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 294, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 294, "operator": "==", "value": 1},
+            ],
         },
     },
     {
@@ -2097,7 +2357,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "constant": "1",
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 294, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 294, "operator": "==", "value": 1},
+            ],
         },
     },
     {
@@ -2108,7 +2371,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "fields": ["water_tank_volume"],
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 277, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 277, "operator": "==", "value": 1},
+            ],
         },
     },
     {
@@ -2118,10 +2384,20 @@ XML_PERRENOUD_CONFIGURATION = [
         "constant": "1",
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 277, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 277, "operator": "==", "value": 1},
+            ],
         },
     },
-    {"id": 303, "tag": "Divers", "parent": 9, "validation": {"mandatory": False,},},
+    {
+        "id": 303,
+        "tag": "Divers",
+        "parent": 9,
+        "validation": {
+            "mandatory": False,
+        },
+    },
     {
         "id": 304,
         "tag": "Lst062_Type_Ventilation",
@@ -2214,7 +2490,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "rule": "has_gaz_heating",
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 6, "operator": ">", "value": 3},],
+            "conditions": [
+                "and",
+                {"id": 6, "operator": ">", "value": 3},
+            ],
         },
     },
     {
@@ -2232,7 +2511,10 @@ XML_PERRENOUD_CONFIGURATION = [
         "constant": "0",
         "validation": {
             "mandatory": True,
-            "conditions": ["and", {"id": 315, "operator": "==", "value": 1},],
+            "conditions": [
+                "and",
+                {"id": 315, "operator": "==", "value": 1},
+            ],
         },
     },
     {

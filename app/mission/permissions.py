@@ -122,11 +122,15 @@ class MissionPermission:
         mission_id = extract_mission_id_func(response)
         mission = missions_service.MissionService.get_by_id(mission_id)
         if not authorized_fields:
-            authorized_fields = permissions_utils.PermissionsUtils.determine_authorized_fields(
-                mission, fields_access_map
+            authorized_fields = (
+                permissions_utils.PermissionsUtils.determine_authorized_fields(
+                    mission, fields_access_map
+                )
             )
-        filtered_response = permissions_utils.PermissionsUtils.remove_fields_from_response(
-            response, authorized_fields
+        filtered_response = (
+            permissions_utils.PermissionsUtils.remove_fields_from_response(
+                response, authorized_fields
+            )
         )
         return filtered_response
 
@@ -154,11 +158,15 @@ class MissionPermission:
                 missions_reference[mission_id] = mission
             mission = missions_reference.get(mission_id)
             if not authorized_fields:
-                authorized_fields = permissions_utils.PermissionsUtils.determine_authorized_fields(
-                    mission, fields_access_map
+                authorized_fields = (
+                    permissions_utils.PermissionsUtils.determine_authorized_fields(
+                        mission, fields_access_map
+                    )
                 )
-            filtered_item = permissions_utils.PermissionsUtils.remove_fields_from_response(
-                item, authorized_fields
+            filtered_item = (
+                permissions_utils.PermissionsUtils.remove_fields_from_response(
+                    item, authorized_fields
+                )
             )
             filtered_response.append(filtered_item)
 

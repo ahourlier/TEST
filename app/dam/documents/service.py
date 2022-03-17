@@ -129,7 +129,8 @@ class DocumentGenerationService:
     @staticmethod
     def replace_doc_placeholders(document: Document, user_email=None):
         g_docs = DocsUtils.get_document(
-            doc_id=document.document_id, user_email=user_email,
+            doc_id=document.document_id,
+            user_email=user_email,
         )
 
         if not g_docs:

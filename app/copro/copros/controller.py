@@ -44,7 +44,8 @@ class CoprosResource(AuthenticatedApi):
     """Coproprietes"""
 
     @accepts(
-        *SEARCH_COPRO_PARAMS, api=api,
+        *SEARCH_COPRO_PARAMS,
+        api=api,
     )
     @responds(schema=CoproPaginatedSchema(), api=api)
     @requires(has_copro_list_permissions)

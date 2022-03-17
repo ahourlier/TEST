@@ -41,7 +41,11 @@ class ImportsService:
         term=None,
         mission_id=None,
     ):
-        q = sort_query(Imports.query, sort_by, direction,)
+        q = sort_query(
+            Imports.query,
+            sort_by,
+            direction,
+        )
 
         if mission_id:
             q = q.filter(Imports.mission_id == mission_id)

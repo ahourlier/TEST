@@ -38,7 +38,11 @@ class SearchService:
         q = model.query
         # filter by term
         if "term" in search:
-            q = SearchService.filter_by_input_text(q, search_fields, search["term"],)
+            q = SearchService.filter_by_input_text(
+                q,
+                search_fields,
+                search["term"],
+            )
             del search["term"]
         # apply filters
 

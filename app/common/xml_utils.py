@@ -246,7 +246,9 @@ class XMLBuilder:
         self.last_id_incremented = new_primary_key
         self.set_raw_value(element, entity, item, value=new_primary_key)
         ServicesUtils.set_nested_dict(
-            self.foreign_keys_map, [entity_model, entity_id], new_primary_key,
+            self.foreign_keys_map,
+            [entity_model, entity_id],
+            new_primary_key,
         )
 
     def set_foreign_key(self, new_element, item, entity):
@@ -280,7 +282,11 @@ class XMLBuilder:
             )
         if isinstance(parent_entity, list):
             return parent_entity
-        return self.fetch_data(parent_entity, item.get("fields"), item.get("rule"),)
+        return self.fetch_data(
+            parent_entity,
+            item.get("fields"),
+            item.get("rule"),
+        )
 
     def fetch_parent_iterations(self, parent_id):
         """Given a parent_id, fetch all elements instanciated from it."""
@@ -963,7 +969,10 @@ class PerrenoudParser:
         for element in elements:
             if element.get(sorting_field):
                 ServicesUtils.set_nested_dict(
-                    result, [element.get(sorting_field)], [element], append=True,
+                    result,
+                    [element.get(sorting_field)],
+                    [element],
+                    append=True,
                 )
         return result
 

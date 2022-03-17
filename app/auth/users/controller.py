@@ -104,9 +104,11 @@ class UserIdResource(AuthenticatedApi):
 class UserByMissionResource(AuthenticatedApi):
     @responds(schema=UsersInItemsSchema())
     @accepts(
-        dict(name="term", type=str), api=api,
+        dict(name="term", type=str),
+        api=api,
     )
     def get(self, mission_id: int):
         return UserService.list_users_by_mission_id(
-            mission_id, term=request.args.get("term"),
+            mission_id,
+            term=request.args.get("term"),
         )
