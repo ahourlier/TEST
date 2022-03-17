@@ -12,10 +12,7 @@ from .. import Heating
 class HeatingScenarioIdResource(AuthenticatedApi):
     @accepts(schema=HeatingSchema, api=api)
     @responds(schema=HeatingSchema)
-    def post(
-        self,
-        scenario_id: int,
-    ) -> Heating:
+    def post(self, scenario_id: int,) -> Heating:
         """Create single heating"""
 
         return HeatingService.create(request.parsed_obj, scenario_id)

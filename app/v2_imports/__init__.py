@@ -16,7 +16,5 @@ def register_routes(api, app, root="api"):
 def register_internal_routes(bp):
     prefix = "/imports"
     bp.add_url_rule(
-        f"{prefix}/run",
-        view_func=ImportRunView.as_view("import-run"),
-        methods=["PUT"],
+        f"{prefix}/run", view_func=ImportRunView.as_view("import-run"), methods=["PUT"],
     )

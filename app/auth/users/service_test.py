@@ -150,18 +150,9 @@ def test_update_auth_informations(db: SQLAlchemy):
     db.session.add(u2)
     db.session.commit()
 
-    auth_u1 = UserInterface(
-        uid=USER_ONE_UID,
-        email=USER_ONE_EMAIL,
-    )
-    auth_u2 = UserInterface(
-        uid=USER_TWO_UID,
-        email=USER_TWO_EMAIL,
-    )
-    bad_auth = UserInterface(
-        uid="djksh",
-        email="unknonw.email@gmail.com",
-    )
+    auth_u1 = UserInterface(uid=USER_ONE_UID, email=USER_ONE_EMAIL,)
+    auth_u2 = UserInterface(uid=USER_TWO_UID, email=USER_TWO_EMAIL,)
+    bad_auth = UserInterface(uid="djksh", email="unknonw.email@gmail.com",)
 
     current_u1 = UserService.check_auth_informations(auth_u1["email"], auth_u1)
     assert current_u1.uid == auth_u1["uid"]

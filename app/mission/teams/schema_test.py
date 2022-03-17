@@ -16,11 +16,7 @@ def test_team_schema_create(schema: TeamSchema):
 
 def test_team_schema_ok(schema: TeamSchema):
     params = schema.load(
-        {
-            "user_position": TEAM_ONE_USER_POSITION,
-            "mission_id": 1,
-            "user_id": 1,
-        }
+        {"user_position": TEAM_ONE_USER_POSITION, "mission_id": 1, "user_id": 1,}
     )
 
     team = Team(**params)

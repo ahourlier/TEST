@@ -45,11 +45,7 @@ class ProjectCustomFieldService:
         q = sort_query(ProjectCustomField.query, sort_by, direction)
         if term is not None:
             search_term = f"%{term}%"
-            q = q.filter(
-                or_(
-                    ProjectCustomField.value.ilike(search_term),
-                )
-            )
+            q = q.filter(or_(ProjectCustomField.value.ilike(search_term),))
 
         if project_id is not None:
             q = q.filter(ProjectCustomField.project_id == project_id)

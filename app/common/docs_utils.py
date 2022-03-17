@@ -8,9 +8,7 @@ from googleapiclient.errors import HttpError
 class DocsUtils:
     @staticmethod
     def get_document(
-        doc_id,
-        user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL"),
-        client=None,
+        doc_id, user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL"), client=None,
     ):
         """Get a document"""
         if not client:

@@ -97,9 +97,7 @@ class DisorderService:
 
     @staticmethod
     def update_list(
-        list_changes,
-        accommodation_id: int = None,
-        common_area_id: int = None,
+        list_changes, accommodation_id: int = None, common_area_id: int = None,
     ):
         # We deal with cases where parent is an accommodation OR common_area
         if accommodation_id is not None and common_area_id is None:
@@ -132,9 +130,7 @@ class DisorderService:
                     recommendation_types = disorder_changes["recommendation_types"]
                     del disorder_changes["recommendation_types"]
                 DisorderTypeService.update_list(
-                    analysis_types,
-                    recommendation_types,
-                    disorder.id,
+                    analysis_types, recommendation_types, disorder.id,
                 )
 
                 DisorderService.update(disorder, disorder_changes)

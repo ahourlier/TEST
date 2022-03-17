@@ -19,17 +19,13 @@ TEAM_TWO_USER_POSITION = UserTeamPositions.MISSION_MANAGER
 
 def create_team_one(mission_id, user_id) -> Team:
     return Team(
-        user_position=TEAM_ONE_USER_POSITION,
-        mission_id=mission_id,
-        user_id=user_id,
+        user_position=TEAM_ONE_USER_POSITION, mission_id=mission_id, user_id=user_id,
     )
 
 
 def create_team_two(mission_id, user_id) -> Team:
     return Team(
-        user_position=TEAM_TWO_USER_POSITION,
-        mission_id=mission_id,
-        user_id=user_id,
+        user_position=TEAM_TWO_USER_POSITION, mission_id=mission_id, user_id=user_id,
     )
 
 

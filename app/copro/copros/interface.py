@@ -40,7 +40,7 @@ class CoproInterface(TypedDict, total=False):
     admin_comment = Optional[str]
     admin_manager_address_id = Optional[dict]
     admin_manager_address = Optional[dict]
-    admin_manager_phone_number = Optional[dict]     
+    admin_manager_phone_number = Optional[dict]
     # Fonctionnement
     nb_lots: Optional[int]
     nb_co_owners: Optional[int]

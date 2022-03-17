@@ -4,9 +4,7 @@ from .model import AppEnum, PerrenoudEnumKind
 
 class AppEnumService:
     @staticmethod
-    def get_enums(
-        enum_list,
-    ):
+    def get_enums(enum_list,):
         output = dict()
         if enum_list:
             items = (

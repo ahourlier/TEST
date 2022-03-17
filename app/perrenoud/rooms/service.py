@@ -49,9 +49,7 @@ class RoomService:
         for input_kind in inputs_kind:
             if input_kind in extracted_fields and extracted_fields.get(input_kind):
                 rooms_input_service.RoomInputService.create_update_list(
-                    room.id,
-                    input_kind,
-                    extracted_fields.get(input_kind),
+                    room.id, input_kind, extracted_fields.get(input_kind),
                 )
 
         return room
@@ -86,9 +84,7 @@ class RoomService:
             for input_kind in inputs_kind:
                 if input_kind in extracted_fields and extracted_fields.get(input_kind):
                     rooms_input_service.RoomInputService.create_update_list(
-                        room.id,
-                        input_kind,
-                        extracted_fields.get(input_kind),
+                        room.id, input_kind, extracted_fields.get(input_kind),
                     )
             db.session.commit()
         return room

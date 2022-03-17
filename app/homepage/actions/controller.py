@@ -28,9 +28,7 @@ class ActionsCountResource(AuthenticatedApi):
 @api.route("/projects/")
 class ActionsFetchProjectsResources(AuthenticatedApi):
     @accepts(
-        *SEARCH_PARAMS,
-        dict(name="alert_type", type=str),
-        api=api,
+        *SEARCH_PARAMS, dict(name="alert_type", type=str), api=api,
     )
     @responds(schema=ProjectPaginatedSchema(), api=api)
     def get(self) -> Pagination:

@@ -166,7 +166,10 @@ class SheetsUtils:
                 client.spreadsheets()
                 .values()
                 .append(
-                    spreadsheetId=sheet_id, range=range, body={"values": array_values}, valueInputOption="RAW"
+                    spreadsheetId=sheet_id,
+                    range=range,
+                    body={"values": array_values},
+                    valueInputOption="RAW",
                 )
                 .execute(num_retries=3)
             )

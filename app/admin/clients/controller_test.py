@@ -76,18 +76,13 @@ def get_all_fake_data(**kwargs):
         items = [c2, c1]
 
     return make_pagination(
-        items=items,
-        page=kwargs.get("page"),
-        per_page=kwargs.get("size"),
-        total=total,
+        items=items, page=kwargs.get("page"), per_page=kwargs.get("size"), total=total,
     )
 
 
 class TestClientResource:
     @patch.object(
-        ClientService,
-        "get_all",
-        get_all_fake_data,
+        ClientService, "get_all", get_all_fake_data,
     )
     def test_get(self, test_client: FlaskClient):
         with test_client:
@@ -213,8 +208,7 @@ class TestClientIdResource:
     def test_put(self, test_client: FlaskClient):
         with test_client:
             result = test_client.put(
-                f"/api/{BASE_ROUTE}/clients/1",
-                json={"name": CLIENT_TWO_NAME},
+                f"/api/{BASE_ROUTE}/clients/1", json={"name": CLIENT_TWO_NAME},
             ).get_json()
 
             initial_client = create_client_one()

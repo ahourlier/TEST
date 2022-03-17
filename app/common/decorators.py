@@ -27,10 +27,7 @@ def auth_required(func):
             db_user = UserService.check_auth_informations(
                 claims.get("email"),
                 UserInterface(
-                    **{
-                        "uid": claims.get("sub"),
-                        "email": claims.get("email"),
-                    }
+                    **{"uid": claims.get("sub"), "email": claims.get("email"),}
                 ),
             )
         else:

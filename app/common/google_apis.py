@@ -8,11 +8,7 @@ class GoogleRestService:
     """Wrapper for Google Services"""
 
     def __init__(
-        self,
-        service_name,
-        service_version,
-        scopes,
-        user_email=None,
+        self, service_name, service_version, scopes, user_email=None,
     ):
         self.user_email = user_email
         self.service_name = service_name

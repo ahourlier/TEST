@@ -33,16 +33,10 @@ class SimulationSubResultService:
 
     @staticmethod
     def update(
-        simulation_sub_result: SimulationSubResult,
-        changes,
-        force_update: bool = False,
+        simulation_sub_result: SimulationSubResult, changes, force_update: bool = False,
     ) -> SimulationSubResult:
         ServicesUtils.clean_attrs(
-            changes,
-            [
-                "accommodation",
-                "simulation",
-            ],
+            changes, ["accommodation", "simulation",],
         )
         if force_update or SimulationSubResultService.has_changed(
             simulation_sub_result, changes
@@ -58,8 +52,7 @@ class SimulationSubResultService:
 
     @staticmethod
     def create_update_list(
-        simulations_sub_results_fields,
-        simulation_id,
+        simulations_sub_results_fields, simulation_id,
     ):
         simulation = simulations_service.SimulationService.get_by_id(simulation_id)
         original_simulation_sub_results_id = [
@@ -83,8 +76,7 @@ class SimulationSubResultService:
                     simulation_sub_result_field["id"]
                 )
                 SimulationSubResultService.update(
-                    sub_result,
-                    simulation_sub_result_field.copy(),
+                    sub_result, simulation_sub_result_field.copy(),
                 )
 
         # Delete obsolete simulations associations
@@ -119,8 +111,7 @@ class SimulationSubResultService:
 
     @staticmethod
     def duplicate_sub_results(
-        source_simulation_id: int,
-        new_simulation_id: int,
+        source_simulation_id: int, new_simulation_id: int,
     ):
         """
         Duplicate all sub_results from a simulation to another

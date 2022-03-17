@@ -50,8 +50,7 @@ class InitialStateAlreadyCreatedException(HTTPException):
 
 class PerrenoudWebserviceException(HTTPException):
     def __init__(
-        self,
-        message=PERRENOUD_WEBSERVICE_EXCEPTION,
+        self, message=PERRENOUD_WEBSERVICE_EXCEPTION,
     ):
         self.code = 500
         self.key = KEY_PERRENOUD_WEBSERVICE_EXCEPTION

@@ -296,9 +296,7 @@ class ProjectService:
             queue=PROJECT_INIT_QUEUE_NAME,
             uri=f"{os.getenv('API_URL')}/_internal/projects/init-drive",
             method="POST",
-            payload={
-                "project_id": project.id,
-            },
+            payload={"project_id": project.id,},
         )
 
         return project

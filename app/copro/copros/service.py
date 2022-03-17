@@ -111,7 +111,7 @@ class CoproService:
                 new_attrs.get("address_2")
             )
             del new_attrs["address_2"]
-        
+
         if new_attrs.get("syndic_manager_address"):
             new_attrs["syndic_manager_address_id"] = AddressService.create_address(
                 new_attrs.get("syndic_manager_address")
@@ -127,11 +127,15 @@ class CoproService:
         phones = []
         if "syndic_manager_phone_number" in new_attrs:
             if new_attrs.get("syndic_manager_phone_number", None):
-                phones.append(PhoneNumber(**new_attrs.get("syndic_manager_phone_number")))
+                phones.append(
+                    PhoneNumber(**new_attrs.get("syndic_manager_phone_number"))
+                )
             del new_attrs["syndic_manager_phone_number"]
         if "admin_manager_phone_number" in new_attrs:
             if new_attrs.get("admin_manager_phone_number", None):
-                phones.append(PhoneNumber(**new_attrs.get("admin_manager_phone_number")))
+                phones.append(
+                    PhoneNumber(**new_attrs.get("admin_manager_phone_number"))
+                )
             del new_attrs["admin_manager_phone_number"]
         new_attrs["phones"] = phones
 
@@ -162,7 +166,7 @@ class CoproService:
         except Exception as e:
             print(e)
             db.session.rollback()
-            raise(e)
+            raise (e)
 
         if cadastres:
             for c in cadastres:
@@ -255,7 +259,8 @@ class CoproService:
                     )
                 else:
                     AddressService.update_address(
-                        db_copro.syndic_manager_address_id, changes.get("syndic_manager_address")
+                        db_copro.syndic_manager_address_id,
+                        changes.get("syndic_manager_address"),
                     )
             del changes["syndic_manager_address"]
 
@@ -267,7 +272,8 @@ class CoproService:
                     )
                 else:
                     AddressService.update_address(
-                        db_copro.admin_manager_address_id, changes.get("admin_manager_address")
+                        db_copro.admin_manager_address_id,
+                        changes.get("admin_manager_address"),
                     )
             del changes["admin_manager_address"]
 

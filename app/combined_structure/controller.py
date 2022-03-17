@@ -32,8 +32,7 @@ class CombinedStructuresResource(AuthenticatedApi):
     """CombinedStructures"""
 
     @accepts(
-        *SEARCH_COMBINED_STRUCTURES_PARAMS,
-        api=api,
+        *SEARCH_COMBINED_STRUCTURES_PARAMS, api=api,
     )
     @responds(schema=CombinedStructurePaginatedSchema(), api=api)
     @requires(has_mission_permission)

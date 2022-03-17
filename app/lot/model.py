@@ -23,9 +23,7 @@ class Lot(SoftDeletableMixin, BaseMixin, db.Model):
     owner_id = Column(Integer, ForeignKey("person.id"), nullable=True)
     owner = relationship("Person", backref="lots")
     occupants = relationship(
-        "Person",
-        secondary=LotPerson,
-        backref=db.backref("lot", lazy="joined"),
+        "Person", secondary=LotPerson, backref=db.backref("lot", lazy="joined"),
     )
     # tantieme et surface
     habitation_type = Column(String(255))

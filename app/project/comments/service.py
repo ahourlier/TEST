@@ -83,11 +83,7 @@ class CommentService:
 
         if term is not None:
             search_term = f"%{term}%"
-            q = q.filter(
-                or_(
-                    Comment.content.ilike(search_term),
-                )
-            )
+            q = q.filter(or_(Comment.content.ilike(search_term),))
 
         if project_id is not None:
             q = q.filter(Comment.project_id == project_id)

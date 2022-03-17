@@ -12,10 +12,7 @@ from .. import ThermalBridge
 class ThermalBridgeScenarioIdResource(AuthenticatedApi):
     @accepts(schema=ThermalBridgeSchema, api=api)
     @responds(schema=ThermalBridgeSchema)
-    def post(
-        self,
-        scenario_id: int,
-    ) -> ThermalBridge:
+    def post(self, scenario_id: int,) -> ThermalBridge:
         """Create single thermal_bridge"""
 
         return ThermalBridgeService.create(request.parsed_obj, scenario_id)

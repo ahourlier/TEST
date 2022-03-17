@@ -90,19 +90,15 @@ class ProjectPermission:
         if not project_id:
             # Project_id is not provided. Only admin has access to the road.
             return user.role == UserRole.ADMIN
-        has_mission_permission = (
-            missions_permissions.MissionPermission.check_mission_permission(
-                project.mission_id, user
-            )
+        has_mission_permission = missions_permissions.MissionPermission.check_mission_permission(
+            project.mission_id, user
         )
         has_permission = permissions_utils.PermissionsUtils.bypass_admins(
             has_mission_permission, user
         )
         if include_client_access:
-            client_permission = (
-                missions_permissions.MissionPermission.has_client_mission_access(
-                    project.mission_id, user, app_section
-                )
+            client_permission = missions_permissions.MissionPermission.has_client_mission_access(
+                project.mission_id, user, app_section
             )
             return has_permission or client_permission
         else:

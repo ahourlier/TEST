@@ -36,7 +36,7 @@ class ImportRunView(InternalAPIView):
                     running_import,
                     dry_run=running_import.type == ImportType.SCAN.value,
                     data=data,
-                    user_email=payload.get("email")
+                    user_email=payload.get("email"),
                 )
             elif (
                 running_import.import_type

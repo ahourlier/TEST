@@ -65,18 +65,13 @@ def get_all_fake_data(**kwargs):
         items = [a2, a1]
 
     return make_pagination(
-        items=items,
-        page=kwargs.get("page"),
-        per_page=kwargs.get("size"),
-        total=total,
+        items=items, page=kwargs.get("page"), per_page=kwargs.get("size"), total=total,
     )
 
 
 class TestAgencyResource:
     @patch.object(
-        AgencyService,
-        "get_all",
-        get_all_fake_data,
+        AgencyService, "get_all", get_all_fake_data,
     )
     def test_get(self, client: FlaskClient):
         with client:

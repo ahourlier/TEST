@@ -66,8 +66,7 @@ class TaskService:
             raise VersionNotFoundException
 
         document = firestore_service.get_step_by_id(
-            version_id=new_attrs.get("version_id"),
-            step_id=new_attrs.get("step_id"),
+            version_id=new_attrs.get("version_id"), step_id=new_attrs.get("step_id"),
         )
         if document.exists is None:
             raise StepNotFoundException
@@ -99,10 +98,7 @@ class TaskService:
         if term is not None:
             search_term = f"%{term}%"
             q = q.filter(
-                or_(
-                    Task.title.ilike(search_term),
-                    Task.description.ilike(search_term),
-                )
+                or_(Task.title.ilike(search_term), Task.description.ilike(search_term),)
             )
 
         if task_type and TaskService.task_type_is_valid(task_type):

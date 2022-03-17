@@ -72,10 +72,7 @@ def get_all_fake_data(**kwargs):
         items = [a2, a1]
 
     return make_pagination(
-        items=items,
-        page=kwargs.get("page"),
-        per_page=kwargs.get("size"),
-        total=total,
+        items=items, page=kwargs.get("page"), per_page=kwargs.get("size"), total=total,
     )
 
 

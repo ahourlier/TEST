@@ -41,11 +41,7 @@ class ImportsService:
         term=None,
         mission_id=None,
     ):
-        q = sort_query(
-            Imports.query,
-            sort_by,
-            direction,
-        )
+        q = sort_query(Imports.query, sort_by, direction,)
 
         if mission_id:
             q = q.filter(Imports.mission_id == mission_id)
@@ -162,33 +158,35 @@ class ImportsService:
                 "name": row[4],
                 "address_1": ImportsService.format_address(
                     row, copy.deepcopy(address_copro_indexes)
-                )
+                ),
             }
             if row[5] not in ["", None]:
                 # if has syndic, add info to copro
-               current_copro['syndic_name'] = row[5]
-               current_copro['syndic_manager_address'] = ImportsService.format_address(row, copy.deepcopy(address_syndic_indexes))
+                current_copro["syndic_name"] = row[5]
+                current_copro["syndic_manager_address"] = ImportsService.format_address(
+                    row, copy.deepcopy(address_syndic_indexes)
+                )
 
             json_data.append(current_copro)
 
         # init logs with headers
-        logs = [
-            ["Statut", "Entité", "Action", "Détails", "Si erreurs, détails"]
-        ]
+        logs = [["Statut", "Entité", "Action", "Détails", "Si erreurs, détails"]]
         try:
             # process copros and add logs to array
-            logs.extend(ImportsService.process_copros(
-                json_data, running_import.mission_id, dry_run
-            ))
+            logs.extend(
+                ImportsService.process_copros(
+                    json_data, running_import.mission_id, dry_run
+                )
+            )
         except Exception as e:
             print("An error occured while processing parsed copros")
-            raise(e)
+            raise (e)
         # send logs to log sheet
         SheetsUtils.add_values(
             sheet_id=running_import.log_sheet_id,
             range="A:J",
             array_values=logs,
-            user_email=user_email
+            user_email=user_email,
         )
 
     def process_copros(copro_objects, mission_id, dry_run):
@@ -219,7 +217,9 @@ class ImportsService:
         try:
             if not dry_run:
                 # if importing and not scanning, update copro in db
-                CoproService.update(existing_copro, copy.deepcopy(import_copro), existing_copro.id)
+                CoproService.update(
+                    existing_copro, copy.deepcopy(import_copro), existing_copro.id
+                )
 
             # add logs for copro and syndic update
             logs.extend(

@@ -104,9 +104,7 @@ class RequiredActionsService:
         date_2_months = today - dateutil.relativedelta.relativedelta(months=2)
 
         return projects_service.ProjectService.filter_query_project(
-            user=g.user,
-            q=base_q,
-            project_status=ProjectStatus.CONTACT.value,
+            user=g.user, q=base_q, project_status=ProjectStatus.CONTACT.value,
         ).filter(Project.updated_at < date_2_months)
 
     @staticmethod
@@ -252,8 +250,7 @@ class RequiredActionsService:
     @staticmethod
     def create_base_actions_query(sort_by=None, direction=None):
         q = projects_service.ProjectService.filter_query_project(
-            user=g.user,
-            q=Project.query,
+            user=g.user, q=Project.query,
         )
         return (
             sort_query(q, sort_by, direction)

@@ -837,9 +837,7 @@ class DataImportUtils:
     def fetch_data_from_sheet(sheet_id, user_email, A1_location):
         """From a given data sheet, fetch fields at the given A1 location"""
         sheet_file = SheetsUtils.get_spreadsheet_by_datafilter(
-            sheet_id,
-            A1_notation_filters=A1_location,
-            user_email=user_email,
+            sheet_id, A1_notation_filters=A1_location, user_email=user_email,
         )
         return SheetsUtils.format_sheet(sheet_file)
 
@@ -934,9 +932,7 @@ class DataImportUtils:
         work_types_attrs_list = []
         for value in work_values:
             work_types_attrs_list.append(
-                {
-                    "type_name": value.strip(),
-                }
+                {"type_name": value.strip(),}
             )
         return work_types_attrs_list
 

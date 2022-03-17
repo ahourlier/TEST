@@ -1,4 +1,14 @@
-from sqlalchemy import select, Boolean, String, Column, Integer, ForeignKey, Float, Date, Text
+from sqlalchemy import (
+    select,
+    Boolean,
+    String,
+    Column,
+    Integer,
+    ForeignKey,
+    Float,
+    Date,
+    Text,
+)
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.hybrid import hybrid_property
 
@@ -29,7 +39,9 @@ class Copro(HasPhones, SoftDeletableMixin, BaseMixin, db.Model):
     syndic_manager_name = Column(String(255), nullable=True)
     syndic_manager_email = Column(String(255), nullable=True)
     syndic_comment = Column(Text(), nullable=True)
-    syndic_manager_address_id = Column(Integer(), ForeignKey("address.id"), nullable=True)
+    syndic_manager_address_id = Column(
+        Integer(), ForeignKey("address.id"), nullable=True
+    )
     syndic_manager_address = relationship(
         "Address",
         cascade="all, delete",
@@ -43,7 +55,9 @@ class Copro(HasPhones, SoftDeletableMixin, BaseMixin, db.Model):
     admin_manager_name = Column(String(255), nullable=True)
     admin_manager_email = Column(String(255), nullable=True)
     admin_comment = Column(Text(), nullable=True)
-    admin_manager_address_id = Column(Integer(), ForeignKey("address.id"), nullable=True)
+    admin_manager_address_id = Column(
+        Integer(), ForeignKey("address.id"), nullable=True
+    )
     admin_manager_address = relationship(
         "Address",
         cascade="all, delete",
@@ -118,8 +132,9 @@ class Copro(HasPhones, SoftDeletableMixin, BaseMixin, db.Model):
 
     @admin_manager_phone_number.expression
     def admin_manager_phone_number(cls):
-        return select([PhoneNumber]).where(
-            PhoneNumber.resource_id == cls.id
-        ).order_by(
-            PhoneNumber.id.desc()
-        ).first()
+        return (
+            select([PhoneNumber])
+            .where(PhoneNumber.resource_id == cls.id)
+            .order_by(PhoneNumber.id.desc())
+            .first()
+        )

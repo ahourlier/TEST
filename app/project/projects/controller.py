@@ -154,9 +154,7 @@ class ProjectIdResource(AuthenticatedApi):
                     queue=PROJECT_INIT_QUEUE_NAME,
                     uri=f"{os.getenv('API_URL')}/_internal/projects/init-drive",
                     method="POST",
-                    payload={
-                        "project_id": db_project.id,
-                    },
+                    payload={"project_id": db_project.id,},
                 )
 
         return db_project
@@ -184,15 +182,12 @@ class ProjectDeleteAllResource(AuthenticatedApi):
     """Projects"""
 
     @accepts(
-        schema=ProjectDeleteMultipleSchema(),
-        api=api,
+        schema=ProjectDeleteMultipleSchema(), api=api,
     )
     @requires(has_multiple_projects_permission)
     def put(self) -> Response:
         """Delete multiple project"""
-        projects_id = ProjectService.delete_list(
-            request.parsed_obj.get("projects_id"),
-        )
+        projects_id = ProjectService.delete_list(request.parsed_obj.get("projects_id"),)
         return jsonify(dict(status="Success", projects_id=projects_id))
 
 
@@ -249,15 +244,12 @@ class ProjectLocation(AuthenticatedApi):
     """Projects locations"""
 
     @accepts(
-        *SEARCH_PARAMS,
-        api=api,
+        *SEARCH_PARAMS, api=api,
     )
     # @requires(has_multiple_projects_permission)
     def get(self) -> Response:
         """Search possible project locations"""
-        locations = ProjectService.get_project_locations(
-            term=request.args.get("term"),
-        )
+        locations = ProjectService.get_project_locations(term=request.args.get("term"),)
         return jsonify(dict(status="Success", items=locations))
 
 
@@ -266,13 +258,10 @@ class ProjectFields(AuthenticatedApi):
     """Projects fields"""
 
     @accepts(
-        *SEARCH_PARAMS,
-        api=api,
+        *SEARCH_PARAMS, api=api,
     )
     # @requires(has_multiple_projects_permission)
     def get(self) -> Response:
         """Search possible project fields for filter"""
-        fields = ProjectService.get_project_fields(
-            term=request.args.get("term"),
-        )
+        fields = ProjectService.get_project_fields(term=request.args.get("term"),)
         return jsonify(dict(status="Success", items=fields))

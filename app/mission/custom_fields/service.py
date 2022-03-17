@@ -41,11 +41,7 @@ class CustomFieldService:
         q = sort_query(CustomField.query, sort_by, direction)
         if term is not None:
             search_term = f"%{term}%"
-            q = q.filter(
-                or_(
-                    CustomField.name.ilike(search_term),
-                )
-            )
+            q = q.filter(or_(CustomField.name.ilike(search_term),))
 
         if mission_id is not None:
             q = q.filter(CustomField.mission_id == mission_id)
