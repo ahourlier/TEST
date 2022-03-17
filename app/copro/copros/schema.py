@@ -7,6 +7,7 @@ from ..moe.schema import MoeSchema, MoeUpdateSchema, MoeCreateSchema
 from ..president.schema import PresidentSchema, PresidentCreateSchema
 from ..syndic.schema import SyndicSchema, SyndicCreateSchema
 from ...auth.users.schema import UserInChargeSchema
+from ...common.phone_number.schema import PhoneNumberSchema
 from ...cle_repartition.schema import CleRepartitionSchema, CleRepartitionCreateSchema
 from ...common.address.schema import AddressSchema
 from ...common.schemas import PaginatedSchema
@@ -18,6 +19,10 @@ class CoproSchema(SQLAlchemyAutoSchema):
     syndics = fields.List(fields.Nested(SyndicSchema()), dump_only=True)
     address_1 = fields.Nested(AddressSchema(), dump_only=True)
     address_2 = fields.Nested(AddressSchema(), dump_only=True)
+    syndic_manager_address = fields.Nested(AddressSchema(), dump_only=True)
+    syndic_manager_phone_number = fields.Nested(PhoneNumberSchema(), dump_only=True)
+    admin_manager_address = fields.Nested(AddressSchema(), dump_only=True)
+    admin_manager_phone_number = fields.Nested(PhoneNumberSchema(), dump_only=True)
     user_in_charge = fields.Nested(UserInChargeSchema(), dump_only=True)
     moe = fields.Nested(MoeSchema(), dump_only=True)
     cles_repartition = fields.List(fields.Nested(CleRepartitionSchema()))
@@ -34,6 +39,10 @@ class CoproUpdateSchema(SQLAlchemyAutoSchema):
     )
     address_1 = fields.Nested(AddressSchema(), allow_none=True, required=False)
     address_2 = fields.Nested(AddressSchema(), allow_none=True, required=False)
+    syndic_manager_address = fields.Nested(AddressSchema(), allow_none=None, required=False)
+    syndic_manager_phone_number = fields.Nested(PhoneNumberSchema(), allow_none=True)
+    admin_manager_address = fields.Nested(AddressSchema(), allow_none=None, required=False)
+    admin_manager_phone_number = fields.Nested(PhoneNumberSchema(), allow_none=True)
     mission_id = fields.Integer(allow_none=True, required=False)
     president = fields.Nested(PresidentCreateSchema(), allow_none=True, required=False)
     moe = fields.Nested(MoeUpdateSchema(), required=False, allow_none=True)
@@ -50,6 +59,10 @@ class CoproCreateSchema(SQLAlchemyAutoSchema):
     syndics = fields.List(fields.Nested(SyndicCreateSchema()))
     address_1 = fields.Nested(AddressSchema())
     address_2 = fields.Nested(AddressSchema(), required=False, allow_none=True)
+    syndic_manager_address = fields.Nested(AddressSchema(), allow_none=None, required=False)
+    syndic_manager_phone_number = fields.Nested(PhoneNumberSchema(), allow_none=True)
+    admin_manager_address = fields.Nested(AddressSchema(), allow_none=None, required=False)
+    admin_manager_phone_number = fields.Nested(PhoneNumberSchema(), allow_none=True)
     president = fields.Nested(PresidentCreateSchema())
     copro_type = fields.String(required=True, allow_none=False)
     moe = fields.Nested(MoeCreateSchema(), required=False, allow_none=True)
