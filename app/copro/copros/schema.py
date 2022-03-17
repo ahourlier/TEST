@@ -16,7 +16,6 @@ from ...common.schemas import PaginatedSchema
 class CoproSchema(SQLAlchemyAutoSchema):
     president = fields.Nested(PresidentSchema(), dump_only=True)
     cadastres = fields.List(fields.Nested(CadastreSchema()), dump_only=True)
-    syndics = fields.List(fields.Nested(SyndicSchema()), dump_only=True)
     address_1 = fields.Nested(AddressSchema(), dump_only=True)
     address_2 = fields.Nested(AddressSchema(), dump_only=True)
     syndic_manager_address = fields.Nested(AddressSchema(), dump_only=True)
@@ -40,11 +39,11 @@ class CoproUpdateSchema(SQLAlchemyAutoSchema):
     address_1 = fields.Nested(AddressSchema(), allow_none=True, required=False)
     address_2 = fields.Nested(AddressSchema(), allow_none=True, required=False)
     syndic_manager_address = fields.Nested(
-        AddressSchema(), allow_none=None, required=False
+        AddressSchema(), allow_none=True, required=False
     )
     syndic_manager_phone_number = fields.Nested(PhoneNumberSchema(), allow_none=True)
     admin_manager_address = fields.Nested(
-        AddressSchema(), allow_none=None, required=False
+        AddressSchema(), allow_none=True, required=False
     )
     admin_manager_phone_number = fields.Nested(PhoneNumberSchema(), allow_none=True)
     mission_id = fields.Integer(allow_none=True, required=False)
@@ -60,15 +59,14 @@ class CoproUpdateSchema(SQLAlchemyAutoSchema):
 
 class CoproCreateSchema(SQLAlchemyAutoSchema):
     cadastres = fields.List(fields.Nested(CadastreSchema()))
-    syndics = fields.List(fields.Nested(SyndicCreateSchema()))
     address_1 = fields.Nested(AddressSchema())
     address_2 = fields.Nested(AddressSchema(), required=False, allow_none=True)
     syndic_manager_address = fields.Nested(
-        AddressSchema(), allow_none=None, required=False
+        AddressSchema(), allow_none=True, required=False
     )
     syndic_manager_phone_number = fields.Nested(PhoneNumberSchema(), allow_none=True)
     admin_manager_address = fields.Nested(
-        AddressSchema(), allow_none=None, required=False
+        AddressSchema(), allow_none=True, required=False
     )
     admin_manager_phone_number = fields.Nested(PhoneNumberSchema(), allow_none=True)
     president = fields.Nested(PresidentCreateSchema())

@@ -50,7 +50,6 @@ class Copro(HasPhones, SoftDeletableMixin, BaseMixin, db.Model):
     )
 
     admin_name = Column(String(255), nullable=True)
-    admin_type = Column(String(255), nullable=True)
     admin_contract_date = Column(Date, nullable=True)
     admin_manager_name = Column(String(255), nullable=True)
     admin_manager_email = Column(String(255), nullable=True)
