@@ -85,7 +85,7 @@ class ImportsService:
         if not created_sheet:
             raise LogSheetNotCreatedException
         return {
-            "id": created_sheet.get("spreadsheetId"),
+            "id": created_sheet.get("spreadsheetId")
         }
 
     def delete_import(current_import: Imports, import_id: int):
@@ -185,13 +185,29 @@ class ImportsService:
         except Exception as e:
             print("An error occured while processing parsed copros")
             raise (e)
-        # send logs to log sheet
-        SheetsUtils.add_values(
-            sheet_id=running_import.log_sheet_id,
-            range="A:J",
-            array_values=logs,
-            user_email=user_email,
-        )
+
+        now = datetime.today().strftime('%Y-%m-%d-%H.%M.%S')
+        if dry_run:
+            created_tab = SheetsUtils.create_tab_on_existing_sheet(running_import.log_sheet_id, 'SCAN-' + now, user_email)
+            sheet_id = created_tab.get("spreadsheetId")
+            SheetsUtils.add_values(
+                sheet_id=sheet_id,
+                range=f"{'SCAN-' + now}!A:J",
+                array_values=logs,
+                user_email=user_email,
+            )
+            # Delete default Sheet1 tab after another tab exists
+            resp = SheetsUtils.get_spreadsheet_by_datafilter(running_import.log_sheet_id, user_email=user_email)
+            sheet_id_to_delete = resp.get('sheets')[0].get('properties').get('sheetId')
+            SheetsUtils.delete_sheet(running_import.log_sheet_id, sheet_id_to_delete, user_email)
+        else:
+            created_tab = SheetsUtils.create_tab_on_existing_sheet(running_import.log_sheet_id, 'IMPORT-' + now, user_email)
+            SheetsUtils.add_values(
+                sheet_id=created_tab.get("spreadsheetId"),
+                range=f"{'IMPORT-'+ now}!A:J",
+                array_values=logs,
+                user_email=user_email,
+            )
 
     def process_copros(copro_objects, mission_id, dry_run):
         """Process import of list of copros"""
@@ -216,7 +232,6 @@ class ImportsService:
 
     def process_existing_copro(existing_copro, import_copro, dry_run):
         """Process a copro that already exists"""
-        print(import_copro)
         logs = []
         try:
             if not dry_run:
