@@ -339,6 +339,7 @@ class CoproService:
                     Address.postal_code == str(address_obj.get("postal_code")),
                     Address.city == str(address_obj.get("city")),
                     Copro.mission_id == mission_id,
+                    Copro.is_deleted == False
                 )
             )
             .first()
