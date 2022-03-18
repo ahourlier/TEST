@@ -164,8 +164,8 @@ class ImportsService:
                     row, copy.deepcopy(address_copro_indexes)
                 ),
             }
-            if row[5] not in ["", None]:
-                # if has syndic, add info to copro
+            # Syndic has been specified in spreadsheet
+            if len(row) > 5:
                 current_copro["syndic_name"] = row[5]
                 current_copro["syndic_manager_address"] = ImportsService.format_address(
                     row, copy.deepcopy(address_syndic_indexes)
@@ -198,7 +198,7 @@ class ImportsService:
         logs = []
         # for each copro in import sheet
         for copro in copro_objects:
-            # check if copro with same address in same mission exists
+            # check if copro with same address in same mission exists and has not been deleted
             copro_exists = CoproService.search_by_address(
                 copro.get("address_1"), mission_id
             )
@@ -225,46 +225,46 @@ class ImportsService:
                     existing_copro, copy.deepcopy(import_copro), existing_copro.id
                 )
 
-            # add logs for copro and syndic update
+            content = []
+            content.append([
+                "SUCCES",
+                "COPRO",
+                "UPDATE",
+                f"Adresse: {import_copro.get('address_1').get('full_address')}\nNom: {import_copro.get('name')}",
+                "",
+            ])
+            if "syndic_name" in import_copro:
+                content.append([
+                    "SUCCES",
+                    "SYNDIC",
+                    "UPDATE",
+                    f"Adresse: {import_copro.get('syndic_manager_address').get('full_address')}\nNom: {import_copro.get('syndic_name')}",
+                    "",
+                ])
             logs.extend(
-                [
-                    [
-                        "SUCCES",
-                        "COPRO",
-                        "UPDATE",
-                        f"Adresse: {import_copro.get('address_1').get('full_address')}\nNom: {import_copro.get('name')}",
-                        "",
-                    ],
-                    [
-                        "SUCCES",
-                        "SYNDIC",
-                        "UPDATE",
-                        f"Adresse: {import_copro.get('syndic_manager_address').get('full_address')}\nNom: {import_copro.get('syndic_name')}",
-                        "",
-                    ],
-                ]
+                content
             )
         except Exception as e:
             # if an error occurred, add error log
             # TODO potential better error management for copro and syndic, more understandable error details
-            # TODO handle model change of syndic (migrated to copro model)
+            content = []
+            content.append([
+                "ECHEC",
+                "COPRO",
+                "UPDATE",
+                f"Adresse: {import_copro.get('address_1').get('full_address')}\nNom: {import_copro.get('name')}",
+                f"{e}",
+            ])
+            if "syndic_name" in import_copro:
+                content.append([
+                    "ECHEC",
+                    "COPRO",
+                    "UPDATE",
+                    f"Adresse: {import_copro.get('address_1').get('full_address')}\nNom: {import_copro.get('name')}",
+                    f"{e}",
+                ])
             logs.extend(
-                [
-                    [
-                        "ECHEC",
-                        "COPRO",
-                        "UPDATE",
-                        f"Adresse: {import_copro.get('address_1').get('full_address')}\nNom: {import_copro.get('name')}",
-                        f"{e}",
-                    ],
-                    [
-                        "ECHEC",
-                        "SYNDIC",
-                        "UPDATE",
-                        f"Adresse: {import_copro.get('syndic_manager_address').get('full_address')}\nNom: {import_copro.get('syndic_name')}",
-                        f"{e}",
-                    ],
-                ]
+                content
             )
         return logs
 
@@ -278,46 +278,47 @@ class ImportsService:
                 # if importing and not scanning, create copro in db
                 CoproService.create(copy.deepcopy(copro_object))
 
-            # add logs for copro and syndic creation
+            content = []
+            content.append([
+                "SUCCES",
+                "COPRO",
+                "CREATION",
+                f"Adresse: {copro_object.get('address_1').get('full_address')}\nNom: {copro_object.get('name')}",
+                "",
+            ])
+            if "syndic_name" in copro_object:
+                content.append([
+                    "SUCCES",
+                    "SYNDIC",
+                    "CREATION",
+                    f"Adresse: {copro_object.get('syndic_manager_address').get('full_address')}\nNom: {copro_object.get('syndic_name')}",
+                    "",
+                ])
             logs.extend(
-                [
-                    [
-                        "SUCCES",
-                        "COPRO",
-                        "CREATION",
-                        f"Adresse: {copro_object.get('address_1').get('full_address')}\nNom: {copro_object.get('name')}",
-                        "",
-                    ],
-                    [
-                        "SUCCES",
-                        "SYNDIC",
-                        "CREATION",
-                        f"Adresse: {copro_object.get('syndic_manager_address').get('full_address')}\nNom: {copro_object.get('syndic_name')}",
-                        "",
-                    ],
-                ]
+                content
             )
+
         except Exception as e:
             # if an error occurred, add error log
             # TODO potential better error management for copro and syndic, more understandable error details
-            # TODO handle model change of syndic (migrated to copro model)
+            content = []
+            content.append([
+                "ECHEC",
+                "COPRO",
+                "CREATION",
+                f"Adresse: {copro_object.get('address_1').get('full_address')}\nNom: {copro_object.get('name')}",
+                f"{e}",
+            ])
+            if "syndic_name" in copro_object:
+                content.append([
+                    "ECHEC",
+                    "SYNDIC",
+                    "CREATION",
+                    f"Adresse: {copro_object.get('syndic_manager_address').get('full_address')}\nNom: {copro_object.get('syndic_name')}",
+                    f"{e}",
+                ])
             logs.extend(
-                [
-                    [
-                        "ECHEC",
-                        "COPRO",
-                        "CREATION",
-                        f"Adresse: {copro_object.get('address_1').get('full_address')}\nNom: {copro_object.get('name')}",
-                        f"{e}",
-                    ],
-                    [
-                        "ECHEC",
-                        "SYNDIC",
-                        "CREATION",
-                        f"Adresse: {copro_object.get('syndic_manager_address').get('full_address')}\nNom: {copro_object.get('syndic_name')}",
-                        f"{e}",
-                    ],
-                ]
+                content
             )
         return logs
 
