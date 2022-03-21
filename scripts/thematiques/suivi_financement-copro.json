@@ -3,6 +3,7 @@
 	"scope": "copro",
 	"thematique_name": "SUIVI_FINANCEMENT",
 	"versionnable": true,
+	"heritable": true,
 	"steps": [
 		{
 			"metadata": {

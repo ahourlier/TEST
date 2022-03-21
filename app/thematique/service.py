@@ -100,16 +100,19 @@ class ThematiqueService:
             doc_dict["steps"] = ThematiqueService.handle_steps(doc, copy_ids=True)
             list_docs.append(doc_dict)
 
+         # Why copro not in mapping model (see model form)
         mapping_model = {"lot": Lot, "building": Building}
+       
         if scope in mapping_model.keys():
-            list_docs = ThematiqueService.handle_child(
-                scope=scope,
-                child_model=mapping_model[scope],
-                child_id=resource_id,
-                thematique_name=thematique_name,
-                firestore_utils=firestore_service,
-                list_docs=list_docs,
-            )
+            if ThematiqueService.check_inheritance_authorization(scope, thematique_name, firestore_service):
+                list_docs = ThematiqueService.handle_child(
+                    scope=scope,
+                    child_model=mapping_model[scope],
+                    child_id=resource_id,
+                    thematique_name=thematique_name,
+                    firestore_utils=firestore_service,
+                    list_docs=list_docs,
+                )
         return sorted(list_docs, key=lambda d: d["version_date"], reverse=True)
 
     @staticmethod
@@ -137,17 +140,26 @@ class ThematiqueService:
     @staticmethod
     def check_duplication_authorization(version, firestore_service):
         # Get templates collection
-        templates = firestore_service.client.collection(
+        template = firestore_service.client.collection(
             current_app.config.get("FIRESTORE_THEMATIQUE_TEMPLATE_COLLECTION")
-        ).stream()
-        # For version to duplicate, check if versionnable attribute is to True in template
-        for doc in templates:
-            obj = doc.to_dict()
-            if version.get('label') == obj.get('label') and version.get('scope') == obj.get('scope'):
-                can_duplicate = obj.get("versionnable", False)
-                if not can_duplicate:
-                    raise UnauthorizedDuplicationException
-                break
+        ).where("label", "==", version.get('label')
+        ).where("scope", "==", version.get('scope')
+        ).where("versionnable", "==", True).get()
+        
+        # Found template with correct label, scope and versionnable attr
+        if len(template) == 0:
+            raise UnauthorizedDuplicationException
+
+    @staticmethod
+    def check_inheritance_authorization(scope, thematic_name, firestore_service):
+        # Get templates collection
+        template = firestore_service.client.collection(
+            current_app.config.get("FIRESTORE_THEMATIQUE_TEMPLATE_COLLECTION")
+        ).where("thematique_name", "==", thematic_name
+        ).where("scope", "==", scope
+        ).where("heritable", "==", True).get()
+        # Found template with correct thematic_name, scope and heritable attr
+        return len(template) > 0
 
     @staticmethod
     def update_step(version_id: str, step_id: str, payload: StepSchema):
@@ -177,31 +189,6 @@ class ThematiqueService:
                 "authorized": True,
             }
         ]
-
-    @staticmethod
-    def handle_parent(version, model_object, firestore_service: FirestoreUtils):
-        if not model_object:
-            raise
-        copro_id = model_object.copro_id
-        copro_version = firestore_service.query_version(
-            thematique_name=version.get("thematique_name"),
-            scope="copro",
-            resource_id=copro_id,
-            version_date=version.get("version_date"),
-            version_name=version.get("version_name"),
-        )
-        if len(copro_version) == 0:
-            template = ThematiqueService.list_templates(
-                "copro", version.get("thematique_name")
-            )
-            if len(template) == 0:
-                raise
-            template = template[0]
-            template["version_name"] = version.get("version_name")
-            template["version_date"] = version.get("version_date")
-            template["resource_id"] = copro_id
-            ThematiqueService.duplicate_thematique(template)
-        return
 
     @staticmethod
     def handle_child(
