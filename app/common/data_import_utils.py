@@ -52,6 +52,7 @@ class SheetsList(Enum):
     COMMON_AREA = "Parties_Communes"
     PROJECTS_LEADS = "Referents"
 
+
 date_status_fields_map = {
     "Visite conseil à programmer": "date_meet_advices_to_plan",
     "Visite contrôle à programmer": "date_meet_control_to_plan",
@@ -67,7 +68,7 @@ date_status_fields_map = {
     "Visite à traiter": "date_meet_to_process",
     "Non éligible": "date_non_eligible",
     "Demande paiement à faire": "date_payment_request_to_do",
-    "À Contacter": "date_to_contact"
+    "À Contacter": "date_to_contact",
 }
 
 projects_fields_map = {

@@ -109,7 +109,7 @@ class ThematiqueService:
                 firestore_utils=firestore_service,
                 list_docs=list_docs,
             )
-        return list_docs
+        return sorted(list_docs, key=lambda d: d["version_date"], reverse=True)
 
     @staticmethod
     def duplicate_thematique(version):

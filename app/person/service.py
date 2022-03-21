@@ -120,10 +120,10 @@ class PersonService:
             )
 
         if "phone_number" in changes:
-            if changes.get("phone_number", None):
-                PhoneNumberService.update_phone_numbers(
-                    db_person, [changes.get("phone_number")]
-                )
+            PhoneNumberService.update_phone_numbers(
+                db_person,
+                [changes.get("phone_number")],
+            )
             del changes["phone_number"]
 
         if "address" in changes:

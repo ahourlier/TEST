@@ -53,7 +53,7 @@ class SimulationAccommodation(BaseMixin, db.Model):
     accommodation = relationship("Accommodation", backref="accommodations_simulations")
 
     scenario_id = Column(Integer, ForeignKey("scenario.id"), nullable=True)
-    
+
     rent_type = Column(String(255), nullable=True)
     rent_per_msq = Column(Float(), nullable=True)
     rent = Column(Float(), nullable=True)
