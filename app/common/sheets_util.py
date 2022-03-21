@@ -154,16 +154,18 @@ class SheetsUtils:
         spreadsheet_id, sheet_id, user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL")
     ):
         client = SheetsService(user_email).get()
-        delete_request = {
-            "requests": {"deleteSheet": {"sheetId": sheet_id}}
-        }
+        delete_request = {"requests": {"deleteSheet": {"sheetId": sheet_id}}}
         try:
-            resp = client.spreadsheets().batchUpdate(
-                spreadsheetId=spreadsheet_id, body=delete_request
-            ).execute(num_retries=3)
+            resp = (
+                client.spreadsheets()
+                .batchUpdate(spreadsheetId=spreadsheet_id, body=delete_request)
+                .execute(num_retries=3)
+            )
             return resp
         except HttpError as e:
-            logging.error(f"Unable to delete sheet with ID {sheet_id} within speadsheet {spreadsheet_id}")
+            logging.error(
+                f"Unable to delete sheet with ID {sheet_id} within speadsheet {spreadsheet_id}"
+            )
             logging.error(f"{e}")
             return None
 
@@ -207,9 +209,11 @@ class SheetsUtils:
             "requests": {"addSheet": {"properties": {"title": tab_name}}}
         }
         try:
-            resp = client.spreadsheets().batchUpdate(
-                spreadsheetId=sheet_id, body=add_tab_request
-            ).execute(num_retries=3)
+            resp = (
+                client.spreadsheets()
+                .batchUpdate(spreadsheetId=sheet_id, body=add_tab_request)
+                .execute(num_retries=3)
+            )
             return resp
         except HttpError as e:
             logging.error(f"Unable to add tab {tab_name} to spreadsheet {sheet_id}")
