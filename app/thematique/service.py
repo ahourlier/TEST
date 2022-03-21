@@ -11,6 +11,7 @@ from app.thematique.error_handlers import (
     MissingVersionIdException,
     MissingStepIdException,
     UnauthorizedToDeleteException,
+    UnauthorizedDuplicationException,
 )
 from app.thematique.model import ThematiqueMission
 from app.thematique.schema import StepSchema
@@ -114,6 +115,8 @@ class ThematiqueService:
     @staticmethod
     def duplicate_thematique(version):
         firestore_service = FirestoreUtils()
+        ThematiqueService.check_duplication_authorization(version, firestore_service)
+            
         steps = version.get("steps", [])
         del version["steps"]
         if "id" in version:
@@ -129,18 +132,22 @@ class ThematiqueService:
             ).document()
             step_doc.set(s)
 
-        mapping_model = {"lot": Lot, "building": Building}
-
-        if version.get("scope") in mapping_model.keys():
-            ThematiqueService.handle_parent(
-                version=version,
-                model_object=mapping_model[version.get("scope")].query.get(
-                    version.get("resource_id")
-                ),
-                firestore_service=firestore_service,
-            )
-
         return ThematiqueService.get_version(document.id)
+
+    @staticmethod
+    def check_duplication_authorization(version, firestore_service):
+        # Get templates collection
+        templates = firestore_service.client.collection(
+            current_app.config.get("FIRESTORE_THEMATIQUE_TEMPLATE_COLLECTION")
+        ).stream()
+        # For version to duplicate, check if versionnable attribute is to True in template
+        for doc in templates:
+            obj = doc.to_dict()
+            if version.get('label') == obj.get('label') and version.get('scope') == obj.get('scope'):
+                can_duplicate = obj.get("versionnable", False)
+                if not can_duplicate:
+                    raise UnauthorizedDuplicationException
+                break
 
     @staticmethod
     def update_step(version_id: str, step_id: str, payload: StepSchema):
