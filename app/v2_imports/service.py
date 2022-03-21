@@ -284,9 +284,9 @@ class ImportsService:
                 content.append(
                     [
                         "ECHEC",
-                        "COPRO",
+                        "SYNDIC",
                         "UPDATE",
-                        f"Adresse: {import_copro.get('address_1').get('full_address')}\nNom: {import_copro.get('name')}",
+                        f"Adresse: {import_copro.get('syndic_manager_address').get('full_address')}\nNom: {import_copro.get('syndic_name')}",
                         f"{e}",
                     ]
                 )
