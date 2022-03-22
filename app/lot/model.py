@@ -14,7 +14,7 @@ class Lot(SoftDeletableMixin, BaseMixin, db.Model):
     copro_id = Column(Integer, ForeignKey("copro.id"), nullable=False)
     copro = relationship("Copro", backref="lots")
 
-    building_id = Column(Integer, ForeignKey("building.id"), nullable=True)
+    building_id = Column(Integer, ForeignKey("building.id"), nullable=False)
     building = relationship("Building", backref="lots")
     # informations
     lot_number = Column(Integer)
