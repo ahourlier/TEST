@@ -46,10 +46,14 @@ def process_subitems(
     parent_field,
     sql_engine,
     firestore_client,
-    thematique,
-    step,
+    thematique_dict,
+    step_dict,
 ):
     # get all subitems (lot for building, building for copro) to fetch columns to add and update parent
+    
+    # 'Building for copro' alors qu'on return si le scope est copro en amont?
+
+    # Il est écrit update le parent dans le com précédent, et on parse les enfants
     subitem_ids = sql_helper.get_children_ids(
         sql_engine,
         {
@@ -63,8 +67,8 @@ def process_subitems(
         print(f"no {child_scope} to process")
         return
 
-    thematique_dict = thematique.to_dict()
-    step_dict = step.to_dict()
+    # - - - TODO - - - - 
+
     # fetching all children thematics for children of the parent
     # children (subitem_ids) are list of children from SQL
     children_thematiques = firestore_helper.search_thematic(
