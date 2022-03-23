@@ -1,6 +1,16 @@
+from distutils.version import Version
 from app import db
 from app.thematique.historic.historics import Historic
+from app.thematique.historic.historics.exceptions import HistoricNotFoundException
 from app.thematique.historic.historics.interface import HistoricInterface
+from app.thematique.error_handlers import (
+    VersionNotFoundException
+)
+from app.thematique.historic.historics.error_handlers import (
+    CreateHistoricException,
+    HistoricNotFoundException
+)
+from app.thematique.service import ThematiqueService
 
 HISTORICS_DEFAULT_PAGE = 1
 HISTORICS_DEFAULT_PAGE_SIZE = 5
@@ -21,10 +31,24 @@ class HistoricService:
 
     @staticmethod
     def create(new_attrs: HistoricInterface, commit: bool = False) -> Historic:
-        #TODO: Check that template ID exists
-        #TODO: Add associated exceptions
+        try:
+            # Check thematique exists in Firestore
+            ThematiqueService.get_version(new_attrs['thematique_id'])
+        except VersionNotFoundException as ve:
+            print(f"{ve.message}")
+            raise CreateHistoricException
         new_historic = Historic(**new_attrs)
         db.session.add(new_historic)
         if commit:
             db.session.commit()
         return new_historic
+
+    @staticmethod
+    def delete_by_id(historic_id: int, commit: bool = False) -> int:
+        db_historic = Historic.query.get(historic_id)
+        if not db_historic:
+            raise HistoricNotFoundException
+        db_historic.soft_delete()
+        if commit:
+            db.session.commit()
+        return historic_id

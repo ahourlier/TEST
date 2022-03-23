@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, jsonify
 from flask_accepts import accepts, responds
 from flask_sqlalchemy import Pagination
 
@@ -24,5 +24,11 @@ class HistoricResource(AuthenticatedApi):
     @responds(schema=HistoricSchema, api=api)
     def post(self) -> Historic:
         """Create an historic"""
-
         return HistoricService.create(request.parsed_obj, commit=True)
+
+@api.route("/<string:historic_id>")
+class HistoricIdResource(AuthenticatedApi):
+    @responds(api=api)
+    def delete(self, historic_id):
+        HistoricService.delete_by_id(historic_id=historic_id, commit=True)
+        return jsonify(dict(status="Success", id=historic_id))
