@@ -7,14 +7,21 @@ from app.common.base_model import BaseMixin, SoftDeletableMixin
 from app.common.phone_number.model import HasPhones, PhoneNumber
 
 
-LotPerson = Table(
-    "lot_person",
+LotOccupant = Table(
+    "lot_occupants",
     metadata,
     Column("id", Integer, primary_key=True),
     Column("person_id", Integer, ForeignKey("person.id")),
     Column("lot_id", Integer, ForeignKey("lot.id")),
 )
 
+LotOwner = Table(
+    "lot_owners",
+    metadata,
+    Column("id", Integer, primary_key=True),
+    Column("owner_id", Integer, ForeignKey("person.id")),
+    Column("lot_id", Integer, ForeignKey("lot.id")),
+)
 
 class Person(SoftDeletableMixin, HasPhones, BaseMixin, db.Model):
     """Represents a person"""
