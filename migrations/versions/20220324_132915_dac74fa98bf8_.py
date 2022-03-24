@@ -6,8 +6,8 @@ Create Date: 2022-03-24 13:29:15.229119
 
 """
 from alembic import op
+from sqlalchemy.orm import Session
 import sqlalchemy as sa
-
 
 # revision identifiers, used by Alembic.
 revision = 'dac74fa98bf8'
@@ -37,6 +37,34 @@ def upgrade():
     schema='core'
     )
     op.drop_table('lot_person', schema='core')
+
+# Migrate existing owner_id to lots_owers table
+    bind = op.get_bind()
+    session = Session(bind=bind)
+    rows = session.execute(
+        "select id, owner_id "
+        "from core.lot "
+        "where owner_id is not null"
+    )
+    # Keep trace of concerned IDS
+    lots_id = []
+    owners_id = []
+    for row in rows:
+        lots_id.append(row[0])
+        owners_id.append(row[1])
+    # Remove link
+    session.execute(
+        "UPDATE core.lot "
+        "SET owner_id = null  "
+        "WHERE owner_id is not null"
+    )
+    # Add to lots_owners
+    for count in range(len(owners_id)):
+        session.execute(
+            "INSERT INTO core.lot_owners (owner_id, lot_id)"
+            "VALUES (" + str(owners_id[count]) + ', ' + str(lots_id[count]) + ')'
+        )
+
     op.drop_constraint('fk_lot_owner_id_person', 'lot', schema='core', type_='foreignkey')
     op.drop_column('lot', 'owner_id', schema='core')
     # ### end Alembic commands ###
