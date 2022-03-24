@@ -18,6 +18,7 @@ class Lot(SoftDeletableMixin, BaseMixin, db.Model):
     building = relationship("Building", backref="lots")
     # informations
     lot_number = Column(Integer)
+    client_number = Column(String(255))
     type = Column(String(255))
     owner_status = Column(String(255))
     # Allow mutiple occupants/owners to a lot
