@@ -15,6 +15,7 @@ from app.lot import Lot
 class LotCreateSchema(SQLAlchemyAutoSchema):
     copro_id = fields.Integer(required=True, allow_none=False)
     building_id = fields.Integer(required=True, allow_none=False)
+    owners = fields.List(fields.Nested(PersonSchema()), allow_none=True)
     occupants = fields.List(fields.Nested(PersonSchema()), allow_none=True)
     cles_repartition = fields.List(fields.Nested(LotCleRepartitionCreateSchema()))
 
