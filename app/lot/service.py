@@ -138,8 +138,9 @@ class LotService:
             db_lot.occupants = LotService.handle_persons(changes.get("occupants", []))
             del changes["occupants"]
 
-        if "owner" in changes:
-            del changes["owner"]
+        if changes.get("owners") is not None:
+            db_lot.owners = LotService.handle_persons(changes.get("owners", []))
+            del changes["owners"]
 
         if "cles_repartition" in changes:
             CleRepartitionService.handle_links(
