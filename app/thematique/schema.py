@@ -31,6 +31,8 @@ class ThematiqueSchema(SQLAlchemyAutoSchema):
     label = fields.String()
     thematique_name = fields.String()
     steps = fields.Nested(StepSchema, many=True)
+    versionnable = fields.Boolean()
+    heritable = fields.Boolean()
 
 
 class VersionSchema(ThematiqueSchema):

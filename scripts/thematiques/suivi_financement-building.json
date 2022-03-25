@@ -2,6 +2,8 @@
   "resource_id": 0,
   "scope": "building",
   "thematique_name": "SUIVI_FINANCEMENT",
+  "versionnable": true,
+  "heritable": true,
   "steps": [
     {
 			"metadata": {

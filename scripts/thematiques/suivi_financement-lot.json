@@ -2,6 +2,8 @@
   "resource_id": 0,
   "scope": "lot",
   "thematique_name": "SUIVI_FINANCEMENT",
+  "versionnable": false,
+  "heritable": false,
   "steps": [
     {
       "metadata": {
