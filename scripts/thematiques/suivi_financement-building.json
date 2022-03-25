@@ -15,7 +15,7 @@
 					"frais_pc_ht",
 					"frais_pc_ttc",
 					"depense_subventionnable_pc_ht",
-					"depense_totale_pc_ttc",
+					"depense_totale_pc_ttc"
 				]
 			},
 			"fields": {
