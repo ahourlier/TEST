@@ -19,6 +19,12 @@
                 "--no-debugger"
             ],
             "jinja": true
+        },
+        {
+            "name": "Python : On Update",
+            "type": "python",
+            "program": "trigger_functions/main.py",
+            "request": "launch"
         }
     ]
 }
