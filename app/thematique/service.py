@@ -100,9 +100,9 @@ class ThematiqueService:
             doc_dict["steps"] = ThematiqueService.handle_steps(doc, copy_ids=True)
             list_docs.append(doc_dict)
 
-         # Why copro not in mapping model (see model form)
+        # If scope is one of specified child in mapping_model
+        # then inherit parent's version into child
         mapping_model = {"lot": Lot, "building": Building}
-       
         if scope in mapping_model.keys():
             if ThematiqueService.check_inheritance_authorization(scope, thematique_name, firestore_service):
                 list_docs = ThematiqueService.handle_child(
