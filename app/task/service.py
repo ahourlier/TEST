@@ -130,41 +130,49 @@ class TaskService:
         tasks = q.all()
 
         expired_tasks_active = []
-        expired_tasks_inactive = []
         future_tasks_active = []
-        future_tasks_inactive = []
-        now = date.today()
+        no_remind_task_active = []
+        no_remind_tasks_inactive = []
+        remind_tasks_inactive = []
 
-        # Sort:
-        # Expired from farthest to nearest with 'En cours' or 'A faire' 
-        # Not expired yet from nearest to farthest with 'En cours' or 'A faire' 
-        # Not expired yet from nearest to farthest with 'Terminée' or 'Non concerné' 
-        # Expired from nearest to farthest with 'Terminée' or 'Non concerné' 
+        now = date.today()
+        # Sort 
+            # - tasks with expired reminder_date in status "In progress" or "To do"
+            # - tasks closest to unexpired_date reminder in "In progress" or "To do" status
+            # - tasks without date_reminder in "In progress" or "To do" status
+            # - tasks without date_reminder with "Completed" status
+            # - tasks with reminder_date in "Completed" status
         for t in tasks:
-            if t.reminder_date and t.reminder_date < now:
-                if t.status == 'A faire' or t.status == 'En cours':
-                    expired_tasks_active.insert(0, t)
+            if t.reminder_date:
                 if t.status == 'Terminée' or t.status == 'Non concerné':
-                    expired_tasks_inactive.insert(0, t)
-            if t.reminder_date and t.reminder_date > now:
+                    remind_tasks_inactive.insert(0, t)
+
+                if t.reminder_date < now:
+                    if t.status == 'A faire' or t.status == 'En cours':
+                        expired_tasks_active.insert(0, t)
+                    
+                if t.reminder_date >= now:
+                    if t.status == 'A faire' or t.status == 'En cours':
+                        future_tasks_active.insert(0, t)
+
+            else:
                 if t.status == 'A faire' or t.status == 'En cours':
-                    future_tasks_active.insert(0, t)
+                    no_remind_task_active.insert(0, t)
                 if t.status == 'Terminée' or t.status == 'Non concerné':
-                    future_tasks_inactive.insert(0, t)
+                    no_remind_tasks_inactive.insert(0, t)
 
         expired_tasks_active = sorted(expired_tasks_active, key=lambda t: t.reminder_date)
-
         future_tasks_active = sorted(future_tasks_active, key=lambda t: t.reminder_date)
-
-        future_tasks_inactive = sorted(future_tasks_inactive, key=lambda t: t.reminder_date)
-        
-        expired_tasks_inactive = sorted(expired_tasks_inactive, key=lambda t: t.reminder_date)
+        no_remind_task_active = sorted(no_remind_task_active, key=lambda t: t.reminder_date)
+        no_remind_tasks_inactive = sorted(no_remind_tasks_inactive, key=lambda t: t.reminder_date)
+        remind_tasks_inactive = sorted(remind_tasks_inactive, key=lambda t: t.reminder_date)
 
         tasks = expired_tasks_active
         tasks.extend(future_tasks_active)
-        tasks.extend(future_tasks_inactive)
-        tasks.extend(expired_tasks_inactive)
-        
+        tasks.extend(no_remind_task_active)
+        tasks.extend(no_remind_tasks_inactive)
+        tasks.extend(remind_tasks_inactive)
+
         # manually paginate
         tasks = tasks[(page - 1) * size : (page * size)]
         response = {"items": tasks, "page": page, "per_page": size, "total": count}
