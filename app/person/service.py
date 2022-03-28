@@ -1,15 +1,19 @@
-from sqlalchemy import or_
+from sqlalchemy import or_, and_
 from flask import g
+
 
 from app import db
 from app.common.address.model import Address
 from app.common.address.service import AddressService
+from app.auth.users.service import UserService
 from app.common.exceptions import EnumException
 from app.common.phone_number.model import PhoneNumber
 from app.common.phone_number.service import PhoneNumberService
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.person import Person
+from app.lot import Lot
+from app.person.model import LotOwner
 from app.person.error_handlers import (
     PersonNotFoundException,
     EnumException as PersonEnumException,
@@ -36,7 +40,7 @@ class PersonService:
         return person
 
     @staticmethod
-    def create(changes: PersonInterface):
+    def create(changes: PersonInterface, user_email=None):
 
         try:
             ServicesUtils.check_enums(changes, ENUM_MAPPING)
@@ -64,12 +68,24 @@ class PersonService:
         if address_id:
             new_person.address_id = address_id
 
-        if g.user.groups and len(g.user.groups) > 0:
-            antenna_id = None
-            for group in g.user.groups:
-                antenna_id = group.antenna.id
-            if antenna_id is not None:
-                new_person.antenna_id = antenna_id
+        db_user = None
+        # Defined when running Cloud task calling this method
+        if user_email is not None:
+            db_user = UserService.get_by_email(user_email)
+        else:
+            db_user = g.user
+
+        if db_user is not None:
+            if db_user.groups and len(db_user.groups) > 0:
+                antenna_id = None
+                for group in db_user.groups:
+                    antenna_id = group.antenna.id
+                if antenna_id is not None:
+                    new_person.antenna_id = antenna_id
+        else:
+            print(
+                "Creating a person: no user found with this email: Skipping antenna_id setup"
+            )
         db.session.add(new_person)
         db.session.commit()
         return new_person
@@ -151,3 +167,36 @@ class PersonService:
         db_person.soft_delete()
         db.session.commit()
         return person_id
+
+    @staticmethod
+    def search_person_by_address_and_name(address_obj, lastname, firstname):
+        try:
+            found_person = (
+                Person.query.join(Address, Person.address_id == Address.id)
+                .filter(
+                    and_(
+                        Address.number == str(address_obj.get("number")),
+                        Address.street == str(address_obj.get("street")),
+                        Address.postal_code == str(address_obj.get("postal_code")),
+                        Address.city == str(address_obj.get("city")),
+                        Person.first_name == firstname,
+                        Person.last_name == lastname,
+                        Person.is_deleted == False,
+                    )
+                )
+                .first()
+            )
+            return found_person
+        except Exception as e:
+            print(e)
+
+    def search_person_by_is_owner_in_lot(lot_id, existing_owners):
+        for owner in existing_owners:
+            person = (
+                Person.query.join(LotOwner)
+                .filter(
+                    and_(LotOwner.c.owner_id == owner.id, LotOwner.c.lot_id == lot_id)
+                )
+                .first()
+            )
+            return person

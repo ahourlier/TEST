@@ -3,12 +3,10 @@ from app import db
 from app.thematique.historic.historics import Historic
 from app.thematique.historic.historics.exceptions import HistoricNotFoundException
 from app.thematique.historic.historics.interface import HistoricInterface
-from app.thematique.error_handlers import (
-    VersionNotFoundException
-)
+from app.thematique.error_handlers import VersionNotFoundException
 from app.thematique.historic.historics.error_handlers import (
     CreateHistoricException,
-    HistoricNotFoundException
+    HistoricNotFoundException,
 )
 from app.thematique.service import ThematiqueService
 
@@ -16,6 +14,7 @@ HISTORICS_DEFAULT_PAGE = 1
 HISTORICS_DEFAULT_PAGE_SIZE = 5
 HISTORICS_DEFAULT_SORT_FIELD = "updated_at"
 HISTORICS_DEFAULT_SORT_DIRECTION = "desc"
+
 
 class HistoricService:
     @staticmethod
@@ -33,7 +32,7 @@ class HistoricService:
     def create(new_attrs: HistoricInterface, commit: bool = False) -> Historic:
         try:
             # Check thematique exists in Firestore
-            ThematiqueService.get_version(new_attrs['thematique_id'])
+            ThematiqueService.get_version(new_attrs["thematique_id"])
         except VersionNotFoundException as ve:
             print(f"{ve.message}")
             raise CreateHistoricException

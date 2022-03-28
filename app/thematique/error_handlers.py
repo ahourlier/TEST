@@ -52,6 +52,7 @@ def step_not_found(error):  # pragma: no cover
 def deletion_unauthorized(error):  # pragma: no cover
     return parse_exception(error)
 
+
 @api.errorhandler(UnauthorizedDuplicationException)
 def duplication_unauthorized(error):  # pragma: no cover
     return parse_exception(error)
