@@ -86,10 +86,12 @@ class TaskService:
         sort_by=TASK_DEFAULT_SORT_FIELD,
         direction=TASK_DEFAULT_SORT_DIRECTION,
         mission_id=None,
+        author=None,
         assignee=None,
         step=None,
         version=None,
         task_type=None,
+        merge=None,
     ):
         q = sort_query(
             Task.query.filter(or_(Task.is_deleted == False, Task.is_deleted == None)),
@@ -104,8 +106,10 @@ class TaskService:
                     Task.description.ilike(search_term),
                 )
             )
-
-        if task_type and TaskService.task_type_is_valid(task_type):
+        # Merge overrides task type: get both types
+        if merge is not None and merge == "true":
+            pass
+        elif task_type and TaskService.task_type_is_valid(task_type):
             q = q.filter(Task.task_type == task_type)
 
         if mission_id:
@@ -117,6 +121,13 @@ class TaskService:
             except ValueError:
                 raise BadFormatAssigneeException
             q = q.filter(Task.assignee_id.in_(assignee))
+        
+        if author:
+            try:
+                author = [int(a) for a in author.split(",") if len(a)]
+            except ValueError:
+                raise BadFormatAssigneeException
+            q = q.filter(Task.author_id.in_(author))
 
         if step:
             step = step.split(",")
@@ -129,49 +140,8 @@ class TaskService:
         count = q.count()
         tasks = q.all()
 
-        expired_tasks_active = []
-        future_tasks_active = []
-        no_remind_task_active = []
-        no_remind_tasks_inactive = []
-        remind_tasks_inactive = []
-
-        now = date.today()
-        # Sort 
-            # - tasks with expired reminder_date in status "In progress" or "To do"
-            # - tasks closest to unexpired_date reminder in "In progress" or "To do" status
-            # - tasks without date_reminder in "In progress" or "To do" status
-            # - tasks without date_reminder with "Completed" status
-            # - tasks with reminder_date in "Completed" status
-        for t in tasks:
-            if t.reminder_date:
-                if t.status == 'Terminée' or t.status == 'Non concerné':
-                    remind_tasks_inactive.insert(0, t)
-
-                if t.reminder_date < now:
-                    if t.status == 'A faire' or t.status == 'En cours':
-                        expired_tasks_active.insert(0, t)
-                    
-                if t.reminder_date >= now:
-                    if t.status == 'A faire' or t.status == 'En cours':
-                        future_tasks_active.insert(0, t)
-
-            else:
-                if t.status == 'A faire' or t.status == 'En cours':
-                    no_remind_task_active.insert(0, t)
-                if t.status == 'Terminée' or t.status == 'Non concerné':
-                    no_remind_tasks_inactive.insert(0, t)
-
-        expired_tasks_active = sorted(expired_tasks_active, key=lambda t: t.reminder_date)
-        future_tasks_active = sorted(future_tasks_active, key=lambda t: t.reminder_date)
-        no_remind_task_active = sorted(no_remind_task_active, key=lambda t: t.reminder_date)
-        no_remind_tasks_inactive = sorted(no_remind_tasks_inactive, key=lambda t: t.reminder_date)
-        remind_tasks_inactive = sorted(remind_tasks_inactive, key=lambda t: t.reminder_date)
-
-        tasks = expired_tasks_active
-        tasks.extend(future_tasks_active)
-        tasks.extend(no_remind_task_active)
-        tasks.extend(no_remind_tasks_inactive)
-        tasks.extend(remind_tasks_inactive)
+        if sort_by == "custom":
+            tasks = TaskService.custom_tasks_sort(tasks)
 
         # manually paginate
         tasks = tasks[(page - 1) * size : (page * size)]
@@ -227,3 +197,52 @@ class TaskService:
         ):
             raise StepOrVersionMissingException
         return True
+
+    @staticmethod
+    def custom_tasks_sort(tasks):
+        """
+        - tasks with expired reminder_date in status "In progress" or "To do"
+        - tasks closest to unexpired_date reminder in "In progress" or "To do" status
+        - tasks without date_reminder in "In progress" or "To do" status
+        - tasks without date_reminder with "Completed" status
+        - tasks with reminder_date in "Completed" status
+        """
+        expired_tasks_active = []
+        future_tasks_active = []
+        no_remind_task_active = []
+        no_remind_tasks_inactive = []
+        remind_tasks_inactive = []
+
+        now = date.today()
+        for t in tasks:
+            if t.reminder_date:
+                if t.status == 'Terminée' or t.status == 'Non concerné':
+                    remind_tasks_inactive.insert(0, t)
+
+                if t.reminder_date < now:
+                    if t.status == 'A faire' or t.status == 'En cours':
+                        expired_tasks_active.insert(0, t)
+                    
+                if t.reminder_date >= now:
+                    if t.status == 'A faire' or t.status == 'En cours':
+                        future_tasks_active.insert(0, t)
+
+            else:
+                if t.status == 'A faire' or t.status == 'En cours':
+                    no_remind_task_active.insert(0, t)
+                if t.status == 'Terminée' or t.status == 'Non concerné':
+                    no_remind_tasks_inactive.insert(0, t)
+
+        expired_tasks_active = sorted(expired_tasks_active, key=lambda t: t.reminder_date)
+        future_tasks_active = sorted(future_tasks_active, key=lambda t: t.reminder_date)
+        no_remind_task_active = sorted(no_remind_task_active, key=lambda t: t.reminder_date)
+        no_remind_tasks_inactive = sorted(no_remind_tasks_inactive, key=lambda t: t.reminder_date)
+        remind_tasks_inactive = sorted(remind_tasks_inactive, key=lambda t: t.reminder_date)
+
+        tasks = expired_tasks_active
+        tasks.extend(future_tasks_active)
+        tasks.extend(no_remind_task_active)
+        tasks.extend(no_remind_tasks_inactive)
+        tasks.extend(remind_tasks_inactive)
+
+        return tasks
