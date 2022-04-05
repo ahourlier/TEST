@@ -13,6 +13,7 @@ from app.lot import Lot
 from app.lot.error_handlers import (
     LotNotFoundException,
     EnumException as LotEnumException,
+    lot_not_found,
 )
 from app.lot.interface import LotInterface
 from app.person.service import PersonService
@@ -95,10 +96,7 @@ class LotService:
             )
 
         if new_attrs.get("owners") is not None:
-            new_attrs["owners"] = LotService.handle_persons(
-                new_attrs.get("owners", [])
-            )
-
+            new_attrs["owners"] = LotService.handle_persons(new_attrs.get("owners", []))
 
         links_cles = None
         if "cles_repartition" in new_attrs:
@@ -170,3 +168,13 @@ class LotService:
     def get_thematiques(lot_id: int):
         lot = LotService.get(lot_id)
         return ThematiqueService.get_thematiques_from_mission(lot.copro.mission_id)
+
+    @staticmethod
+    def search_by_unique_lot_number_in_copro(lot_number: str, copro: Copro):
+        # Lot number is unique across copro
+        return (
+            Lot.query.filter(Lot.lot_number == lot_number)
+            .filter(Lot.copro_id == copro.id)
+            .filter(Lot.is_deleted == False)
+            .first()
+        )

@@ -104,7 +104,9 @@ class ThematiqueService:
         # then inherit parent's version into child
         mapping_model = {"lot": Lot, "building": Building}
         if scope in mapping_model.keys():
-            if ThematiqueService.check_inheritance_authorization(scope, thematique_name, firestore_service):
+            if ThematiqueService.check_inheritance_authorization(
+                scope, thematique_name, firestore_service
+            ):
                 list_docs = ThematiqueService.handle_child(
                     scope=scope,
                     child_model=mapping_model[scope],
@@ -119,7 +121,7 @@ class ThematiqueService:
     def duplicate_thematique(version):
         firestore_service = FirestoreUtils()
         ThematiqueService.check_duplication_authorization(version, firestore_service)
-            
+
         steps = version.get("steps", [])
         del version["steps"]
         if "id" in version:
@@ -140,12 +142,16 @@ class ThematiqueService:
     @staticmethod
     def check_duplication_authorization(version, firestore_service):
         # Get templates collection
-        template = firestore_service.client.collection(
-            current_app.config.get("FIRESTORE_THEMATIQUE_TEMPLATE_COLLECTION")
-        ).where("label", "==", version.get('label')
-        ).where("scope", "==", version.get('scope')
-        ).where("versionnable", "==", True).get()
-        
+        template = (
+            firestore_service.client.collection(
+                current_app.config.get("FIRESTORE_THEMATIQUE_TEMPLATE_COLLECTION")
+            )
+            .where("label", "==", version.get("label"))
+            .where("scope", "==", version.get("scope"))
+            .where("versionnable", "==", True)
+            .get()
+        )
+
         # Found template with correct label, scope and versionnable attr
         if len(template) == 0:
             raise UnauthorizedDuplicationException
@@ -153,11 +159,15 @@ class ThematiqueService:
     @staticmethod
     def check_inheritance_authorization(scope, thematic_name, firestore_service):
         # Get templates collection
-        template = firestore_service.client.collection(
-            current_app.config.get("FIRESTORE_THEMATIQUE_TEMPLATE_COLLECTION")
-        ).where("thematique_name", "==", thematic_name
-        ).where("scope", "==", scope
-        ).where("heritable", "==", True).get()
+        template = (
+            firestore_service.client.collection(
+                current_app.config.get("FIRESTORE_THEMATIQUE_TEMPLATE_COLLECTION")
+            )
+            .where("thematique_name", "==", thematic_name)
+            .where("scope", "==", scope)
+            .where("heritable", "==", True)
+            .get()
+        )
         # Found template with correct thematic_name, scope and heritable attr
         return len(template) > 0
 

@@ -5,6 +5,7 @@ from app.cle_repartition.interface import (
     CleRepartitionInterface,
     CleRepartitionLotLinkInterface,
 )
+from app.copro.copros.model import Copro
 from app.cle_repartition.model import CleRepartition, LotCleRepartition
 from app.common.config_error_messages import REPARTITION_KEY_LINKED_EXCEPTION
 from app.copro.copros.error_handlers import RepartitionKeyLinkedException
@@ -13,6 +14,13 @@ from app.lot.error_handlers import LotNotFoundException, IncorrectKeyException
 
 
 class CleRepartitionService:
+    def get(cle_label: str, copro_id: int) -> CleRepartition:
+        return (
+            CleRepartition.query.filter(CleRepartition.label == cle_label)
+            .filter(Copro.id == copro_id)
+            .first()
+        )
+
     @staticmethod
     def create(new_attrs: CleRepartitionInterface):
         db_cle = CleRepartition(**new_attrs)

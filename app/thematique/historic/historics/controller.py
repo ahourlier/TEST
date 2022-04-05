@@ -4,9 +4,7 @@ from flask_sqlalchemy import Pagination
 
 from . import api, Historic, HistoricSchema
 from .schema import HistoricPaginatedSchema
-from .service import (
-    HistoricService
-)
+from .service import HistoricService
 from app.common.api import AuthenticatedApi
 
 
@@ -25,6 +23,7 @@ class HistoricResource(AuthenticatedApi):
     def post(self) -> Historic:
         """Create an historic"""
         return HistoricService.create(request.parsed_obj, commit=True)
+
 
 @api.route("/<string:historic_id>")
 class HistoricIdResource(AuthenticatedApi):

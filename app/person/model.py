@@ -23,6 +23,7 @@ LotOwner = Table(
     Column("lot_id", Integer, ForeignKey("lot.id")),
 )
 
+
 class Person(SoftDeletableMixin, HasPhones, BaseMixin, db.Model):
     """Represents a person"""
 

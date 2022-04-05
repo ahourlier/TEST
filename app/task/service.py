@@ -121,7 +121,7 @@ class TaskService:
             except ValueError:
                 raise BadFormatAssigneeException
             q = q.filter(Task.assignee_id.in_(assignee))
-        
+
         if author:
             try:
                 author = [int(a) for a in author.split(",") if len(a)]
@@ -216,28 +216,36 @@ class TaskService:
         now = date.today()
         for t in tasks:
             if t.reminder_date:
-                if t.status == 'Terminée' or t.status == 'Non concerné':
+                if t.status == "Terminée" or t.status == "Non concerné":
                     remind_tasks_inactive.insert(0, t)
 
                 if t.reminder_date < now:
-                    if t.status == 'A faire' or t.status == 'En cours':
+                    if t.status == "A faire" or t.status == "En cours":
                         expired_tasks_active.insert(0, t)
-                    
+
                 if t.reminder_date >= now:
-                    if t.status == 'A faire' or t.status == 'En cours':
+                    if t.status == "A faire" or t.status == "En cours":
                         future_tasks_active.insert(0, t)
 
             else:
-                if t.status == 'A faire' or t.status == 'En cours':
+                if t.status == "A faire" or t.status == "En cours":
                     no_remind_task_active.insert(0, t)
-                if t.status == 'Terminée' or t.status == 'Non concerné':
+                if t.status == "Terminée" or t.status == "Non concerné":
                     no_remind_tasks_inactive.insert(0, t)
 
-        expired_tasks_active = sorted(expired_tasks_active, key=lambda t: t.reminder_date)
+        expired_tasks_active = sorted(
+            expired_tasks_active, key=lambda t: t.reminder_date
+        )
         future_tasks_active = sorted(future_tasks_active, key=lambda t: t.reminder_date)
-        no_remind_task_active = sorted(no_remind_task_active, key=lambda t: t.reminder_date)
-        no_remind_tasks_inactive = sorted(no_remind_tasks_inactive, key=lambda t: t.reminder_date)
-        remind_tasks_inactive = sorted(remind_tasks_inactive, key=lambda t: t.reminder_date)
+        no_remind_task_active = sorted(
+            no_remind_task_active, key=lambda t: t.reminder_date
+        )
+        no_remind_tasks_inactive = sorted(
+            no_remind_tasks_inactive, key=lambda t: t.reminder_date
+        )
+        remind_tasks_inactive = sorted(
+            remind_tasks_inactive, key=lambda t: t.reminder_date
+        )
 
         tasks = expired_tasks_active
         tasks.extend(future_tasks_active)
