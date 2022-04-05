@@ -63,7 +63,7 @@ def process_subitems(
         print(f"no {child_scope} to process")
         return
 
-    # - - - TODO - - - - 
+    # - - - TODO - - - -
 
     # fetching all children thematics for children of the parent
     # children (subitem_ids) are list of children from SQL

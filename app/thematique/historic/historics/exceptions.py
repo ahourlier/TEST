@@ -6,12 +6,14 @@ from app.common.config_error_messages import (
     KEY_HISTORIC_NOT_FOUND_EXCEPTION,
 )
 
+
 class CreateHistoricException(HTTPException):
     def __init__(self, message=CREATE_HISTORIC_EXCEPTION):
         self.code = 400
         self.key = KEY_CREATE_HISTORIC_EXCEPTION
         self.message = message
         self.status = "CREATE FAILED"
+
 
 class HistoricNotFoundException(HTTPException):
     def __init__(self, message=HISTORIC_NOT_FOUND_EXCEPTION):

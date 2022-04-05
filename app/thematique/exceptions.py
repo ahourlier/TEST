@@ -82,6 +82,7 @@ class UnauthorizedToDeleteException(HTTPException):
         self.message = message
         self.status = "UNAUTHORIZED"
 
+
 class UnauthorizedDuplicationException(HTTPException):
     def __init__(self, message=VERSION_DUPLICATION_UNAUTHORIZED):
         self.code = 401

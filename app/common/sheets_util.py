@@ -1,5 +1,7 @@
+from inspect import trace
 import logging
 import os
+import traceback
 from typing import List
 
 from googleapiclient.errors import HttpError
@@ -27,6 +29,7 @@ class SheetsUtils:
             return resp
         except HttpError as e:
             logging.error(f"Unable to get file {spreasheet_id}: {e}")
+            print(traceback.format_exc())
             return None
 
     @staticmethod
@@ -55,6 +58,7 @@ class SheetsUtils:
             return resp
         except HttpError as e:
             logging.error(f"Unable to get file {spreasheet_id}: {e}")
+            print(traceback.format_exc())
             return None
 
     @staticmethod
@@ -134,6 +138,7 @@ class SheetsUtils:
             return resp
         except HttpError as e:
             logging.error(f"Unable to update file {spreadsheet_id}: {e}")
+            print(traceback.format_exc())
             return None
 
     @staticmethod
@@ -145,8 +150,8 @@ class SheetsUtils:
             resp = client.spreadsheets().create(body=payload).execute(num_retries=3)
             return resp
         except HttpError as e:
-            logging.error(f"Unable to create spreadsheet with payload {payload}")
-            logging.error(f"{e}")
+            logging.error(f"Unable to create spreadsheet with payload {payload}: {e}")
+            print(traceback.format_exc())
             return None
 
     @staticmethod
@@ -164,9 +169,9 @@ class SheetsUtils:
             return resp
         except HttpError as e:
             logging.error(
-                f"Unable to delete sheet with ID {sheet_id} within speadsheet {spreadsheet_id}"
+                f"Unable to delete sheet with ID {sheet_id} within speadsheet {spreadsheet_id}: {e}"
             )
-            logging.error(f"{e}")
+            print(traceback.format_exc())
             return None
 
     @staticmethod
@@ -195,9 +200,9 @@ class SheetsUtils:
             )
             return resp
         except HttpError as e:
-            logging.error(f"Unable to add values to spreadsheet {sheet_id}")
+            logging.error(f"Unable to add values to spreadsheet {sheet_id} : {e}")
             logging.error(array_values)
-            logging.error(f"{e}")
+            print(traceback.format_exc())
             return None
 
     @staticmethod
@@ -216,6 +221,8 @@ class SheetsUtils:
             )
             return resp
         except HttpError as e:
-            logging.error(f"Unable to add tab {tab_name} to spreadsheet {sheet_id}")
-            logging.error(f"{e}")
+            logging.error(
+                f"Unable to add tab {tab_name} to spreadsheet {sheet_id}: {e}"
+            )
+            print(traceback.format_exc())
             return None
