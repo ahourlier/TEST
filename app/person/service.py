@@ -1,6 +1,6 @@
 from sqlalchemy import or_, and_
-from flask import g
 
+from flask import g
 
 from app import db
 from app.common.address.model import Address
@@ -190,13 +190,26 @@ class PersonService:
         except Exception as e:
             print(e)
 
-    def search_person_by_is_owner_in_lot(lot_id, existing_owners):
-        for owner in existing_owners:
-            person = (
-                Person.query.join(LotOwner)
-                .filter(
-                    and_(LotOwner.c.owner_id == owner.id, LotOwner.c.lot_id == lot_id)
-                )
-                .first()
+
+    def search_person_by_name_and_is_owner_in_lot(existing_lot, lastname, firstname, company_name):
+        # Get all person with specified lastname / firstname or lastname / company_name
+        persons = Person.query.filter(
+            or_(
+                and_(Person.last_name == lastname, Person.first_name == firstname),
+                and_(Person.last_name == lastname, Person.company_name == company_name)
             )
-            return person
+        )
+        # Check for each found person if it is an owner in current lot
+        for person in persons:
+            for existing_owner in existing_lot.owners:
+                if person.id == existing_owner.id:
+                    # When found a match, return the existing owner
+                    return person
+
+
+    def remove_owners_from_lot(existing_lot):
+        for owner in existing_lot.owners:
+            # Remove all existing owners from existing lot
+            stmt = LotOwner.delete().where((LotOwner.c.owner_id == owner.id and LotOwner.c.lot_id == existing_lot.id))
+            db.session.execute(stmt)
+        db.session.commit()

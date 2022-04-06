@@ -85,8 +85,10 @@ class LotImport:
                     running_import, logs, dry_run, user_email, A1_notation_filters
                 )
                 # Ensure import error status
-                if len(logs) > 0:
-                    if logs[1][0] == "ECHEC":
+                if len(logs) == 0:
+                    raise Exception
+                for i in range(len(logs)):
+                    if logs[i][0] == "ECHEC":
                         raise Exception
             except Exception as e:
                 print("An error occured while inserting logs in tabs")
@@ -119,7 +121,7 @@ class LotImport:
             else:
                 logs.extend(
                     LotImport.process_existing_lot(
-                        lot_exists, lot, associated_copro, dry_run
+                        lot_exists, lot, associated_copro, dry_run, user_email
                     )
                 )
         return logs
@@ -171,6 +173,7 @@ class LotImport:
                 # Create person if not exists
                 if not dry_run:
                     associated_person = PersonService.create(person_object, user_email)
+                    
             # Keep for dry run logs
             person_log = {
                 "last_name": lot_object["co_owner_last_name"],
@@ -223,7 +226,7 @@ class LotImport:
         finally:
             return logs
 
-    def process_existing_lot(existing_lot, import_lot, copro, dry_run):
+    def process_existing_lot(existing_lot, import_lot, copro, dry_run, user_email):
         try:
             # Manage building
             building = BuildingService.get_building_from_unique_name(
@@ -238,17 +241,15 @@ class LotImport:
             building_name = import_lot.get("building_name")  # Keep for dry run logs
             del import_lot["building_name"]
 
+
             # Manage co-owner
-            associated_person = PersonService.search_person_by_is_owner_in_lot(
-                existing_lot.id, existing_lot.owners
-            )
-            if not associated_person:
-                # Associated owner should exists
-                raise PersonNotFoundException
             person_object = {}
             lastname = import_lot.get("co_owner_last_name")
             firstname = import_lot.get("co_owner_first_name")
             company_name = import_lot.get("company_name")
+            associated_person = PersonService.search_person_by_name_and_is_owner_in_lot(
+                existing_lot, lastname, firstname, company_name
+            )
             civility = import_lot.get("civility")
             person_object["last_name"] = lastname
             person_object["civility"] = civility
@@ -260,11 +261,18 @@ class LotImport:
             else:
                 person_object["is_physical_person"] = True
             person_object["address"] = import_lot.get("co_owner_address")
-            # Create person if not exists
+            
             if not dry_run:
-                associated_person = PersonService.update(
-                    associated_person, person_object
-                )
+                if not associated_person:
+                    PersonService.remove_owners_from_lot(existing_lot)
+                    # Replace all previous owners with a new one from import sheet
+                    associated_person = PersonService.create(person_object, user_email)
+                else:
+                    # Update person if exists and is owner of current lot
+                    associated_person = PersonService.update(
+                        associated_person, person_object
+                    )
+
             # Keep for dry run logs
             person_log = {
                 "last_name": import_lot["co_owner_last_name"],
