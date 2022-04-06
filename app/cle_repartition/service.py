@@ -17,7 +17,7 @@ class CleRepartitionService:
     def get(cle_label: str, copro_id: int) -> CleRepartition:
         return (
             CleRepartition.query.filter(CleRepartition.label == cle_label)
-            .filter(Copro.id == copro_id)
+            .filter(CleRepartition.copro_id == copro_id)
             .first()
         )
 
