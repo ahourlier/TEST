@@ -15,6 +15,7 @@ class LotInterface(TypedDict):
     building: Optional[dict]
     # informations
     lot_number: Optional[int]
+    client_number: Optional[str]
     type: Optional[str]
     owner_status: Optional[str]
     # tantieme et surface

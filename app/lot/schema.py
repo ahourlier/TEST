@@ -14,6 +14,8 @@ from app.lot import Lot
 
 class LotCreateSchema(SQLAlchemyAutoSchema):
     copro_id = fields.Integer(required=True, allow_none=False)
+    building_id = fields.Integer(required=True, allow_none=False)
+    owners = fields.List(fields.Nested(PersonSchema()), allow_none=True)
     occupants = fields.List(fields.Nested(PersonSchema()), allow_none=True)
     cles_repartition = fields.List(fields.Nested(LotCleRepartitionCreateSchema()))
 
@@ -24,6 +26,8 @@ class LotCreateSchema(SQLAlchemyAutoSchema):
 
 class LotUpdateSchema(SQLAlchemyAutoSchema):
     copro_id = fields.Integer(required=False)
+    building_id = fields.Integer(required=False)
+    owners = fields.List(fields.Nested(PersonSchema()), allow_none=True)
     occupants = fields.List(fields.Nested(PersonSchema()), allow_none=True)
     cles_repartition = fields.List(fields.Nested(LotCleRepartitionCreateSchema()))
 
@@ -33,7 +37,7 @@ class LotUpdateSchema(SQLAlchemyAutoSchema):
 
 
 class LotSchema(SQLAlchemyAutoSchema):
-    owner = fields.Nested(PersonSchema(), dump_only=True)
+    owners = fields.List(fields.Nested(PersonSchema()), allow_none=True)
     occupants = fields.List(fields.Nested(PersonSchema()), allow_none=True)
     cles_repartition = fields.List(
         fields.Nested(LotCleRepartitionSchema()), dump_only=True
@@ -47,7 +51,7 @@ class LotSchema(SQLAlchemyAutoSchema):
 class LotListSchema(SQLAlchemyAutoSchema):
     copro = fields.Nested(CoproForLotsSchema(), dump_only=True)
     building = fields.Nested(BuildingForLotSchema(), dump_only=True)
-    owner = fields.Nested(PersonSchema(), dump_only=True)
+    owners = fields.List(fields.Nested(PersonSchema()), allow_none=True)
     cles_repartition = fields.List(
         fields.Nested(LotCleRepartitionSchema()), dump_only=True
     )
