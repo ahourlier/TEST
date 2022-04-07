@@ -237,12 +237,6 @@ class TaskService:
             expired_tasks_active, key=lambda t: t.reminder_date
         )
         future_tasks_active = sorted(future_tasks_active, key=lambda t: t.reminder_date)
-        no_remind_task_active = sorted(
-            no_remind_task_active, key=lambda t: t.reminder_date
-        )
-        no_remind_tasks_inactive = sorted(
-            no_remind_tasks_inactive, key=lambda t: t.reminder_date
-        )
         remind_tasks_inactive = sorted(
             remind_tasks_inactive, key=lambda t: t.reminder_date
         )
