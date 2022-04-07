@@ -100,13 +100,30 @@ class LotImport:
         # for each lot in import sheet
         logs = []
         for lot in lot_objects:
-            # Search for unique copro from its address
-            associated_copro = CoproService.search_by_address(
-                lot.get("copro_address"), mission_id
-            )
-            del lot["copro_address"]
-            if not associated_copro:
-                raise CoproNotFoundException
+            try:
+                # Search for unique copro from its address
+                associated_copro = CoproService.search_by_address(
+                    lot.get("copro_address"), mission_id
+                )
+                del lot["copro_address"]
+                if not associated_copro:
+                    raise CoproNotFoundException
+            
+            except Exception as e:
+                print(traceback.format_exc())
+                logs = []
+                logs.extend(
+                    [
+                        [
+                            "ECHEC",
+                            "LOT",
+                            "Can't define action before getting copro",
+                            f"",
+                            f"{traceback.format_exc()}",
+                        ]
+                    ]
+                )
+                return logs
 
             # Check existence of current lot to import
             lot_exists = LotService.search_by_unique_lot_number_in_copro(
@@ -216,7 +233,7 @@ class LotImport:
                 [
                     [
                         "ECHEC",
-                        "COPRO",
+                        "LOT",
                         "CREATION",
                         f"",
                         f"{traceback.format_exc()}",
@@ -309,7 +326,7 @@ class LotImport:
                 [
                     [
                         "ECHEC",
-                        "COPRO",
+                        "LOT",
                         "CREATION",
                         f"",
                         f"{traceback.format_exc()}",
