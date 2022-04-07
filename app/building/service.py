@@ -141,7 +141,7 @@ class BuildingService:
         return building
 
     @staticmethod
-    def update(db_building: Building, building_id: int, changes: BuildingInterface):
+    def update(db_building: Building, changes: BuildingInterface):
 
         try:
             ServicesUtils.check_enums(changes, ENUM_MAPPING)
@@ -187,3 +187,12 @@ class BuildingService:
     def get_thematiques(copro_id: int):
         building = BuildingService.get(copro_id)
         return ThematiqueService.get_thematiques_from_mission(building.copro.mission_id)
+
+    @staticmethod
+    def get_building_from_unique_name(building_name: str, copro: Copro):
+        # Building name is unique across copro
+        return Building.query.filter(Building.copro_id == copro.id) \
+                             .filter(Building.name == building_name) \
+                             .filter(Building.is_deleted == False) \
+                             .first()
+                            

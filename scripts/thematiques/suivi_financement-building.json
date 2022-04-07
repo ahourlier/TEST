@@ -2,13 +2,23 @@
   "resource_id": 0,
   "scope": "building",
   "thematique_name": "SUIVI_FINANCEMENT",
+  "versionnable": true,
+  "heritable": true,
   "steps": [
     {
 			"metadata": {
 				"legendes": [],
 				"name": "TRAVAUX_VOTES_AG_DECOMPOSITION_DEPENSE",
 				"order": 1,
-				"status": ""
+				"status": "",
+				"vertical_dependencies": [
+					"travaux_pc_ht",
+					"travaux_pc_ttc",
+					"frais_pc_ht",
+					"frais_pc_ttc",
+					"depense_subventionnable_pc_ht",
+					"depense_totale_pc_ttc"
+				]
 			},
 			"fields": {
 				"nom_campagne_travaux": {

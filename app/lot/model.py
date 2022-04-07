@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 
 from app import db
 from app.common.base_model import SoftDeletableMixin, BaseMixin
-from app.person.model import LotPerson
+from app.person.model import LotOwner, LotOccupant
 
 
 class Lot(SoftDeletableMixin, BaseMixin, db.Model):
@@ -14,18 +14,23 @@ class Lot(SoftDeletableMixin, BaseMixin, db.Model):
     copro_id = Column(Integer, ForeignKey("copro.id"), nullable=False)
     copro = relationship("Copro", backref="lots")
 
-    building_id = Column(Integer, ForeignKey("building.id"), nullable=True)
+    building_id = Column(Integer, ForeignKey("building.id"), nullable=False)
     building = relationship("Building", backref="lots")
     # informations
     lot_number = Column(Integer)
+    client_number = Column(String(255))
     type = Column(String(255))
     owner_status = Column(String(255))
-    owner_id = Column(Integer, ForeignKey("person.id"), nullable=True)
-    owner = relationship("Person", backref="lots")
+    # Allow mutiple occupants/owners to a lot
     occupants = relationship(
         "Person",
-        secondary=LotPerson,
-        backref=db.backref("lot", lazy="joined"),
+        secondary=LotOccupant,
+        backref=db.backref("occupant_lot", lazy="joined"),
+    )
+    owners = relationship(
+        "Person",
+        secondary=LotOwner,
+        backref=db.backref("owner_lot", lazy="joined"),
     )
     # tantieme et surface
     habitation_type = Column(String(255))

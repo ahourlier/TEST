@@ -330,17 +330,20 @@ class CoproService:
 
     @staticmethod
     def search_by_address(address_obj, mission_id):
-        return (
-            Copro.query.join(Address, Copro.address_1_id == Address.id)
-            .filter(
-                and_(
-                    Address.number == str(address_obj.get("number")),
-                    Address.street == str(address_obj.get("street")),
-                    Address.postal_code == str(address_obj.get("postal_code")),
-                    Address.city == str(address_obj.get("city")),
-                    Copro.mission_id == mission_id,
-                    Copro.is_deleted == False,
+        try:
+            return (
+                Copro.query.join(Address, Copro.address_1_id == Address.id)
+                .filter(
+                    and_(
+                        Address.number == str(address_obj.get("number")),
+                        Address.street == str(address_obj.get("street")),
+                        Address.postal_code == str(address_obj.get("postal_code")),
+                        Address.city == str(address_obj.get("city")),
+                        Copro.mission_id == mission_id,
+                        Copro.is_deleted == False,
+                    )
                 )
+                .first()
             )
-            .first()
-        )
+        except Exception as e:
+            print(e)

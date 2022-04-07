@@ -46,8 +46,8 @@ def process_subitems(
     parent_field,
     sql_engine,
     firestore_client,
-    thematique,
-    step,
+    thematique_dict,
+    step_dict,
 ):
     # get all subitems (lot for building, building for copro) to fetch columns to add and update parent
     subitem_ids = sql_helper.get_children_ids(
@@ -63,8 +63,8 @@ def process_subitems(
         print(f"no {child_scope} to process")
         return
 
-    thematique_dict = thematique.to_dict()
-    step_dict = step.to_dict()
+    # - - - TODO - - - -
+
     # fetching all children thematics for children of the parent
     # children (subitem_ids) are list of children from SQL
     children_thematiques = firestore_helper.search_thematic(
@@ -78,10 +78,13 @@ def process_subitems(
         firestore_client,
     )
     # init of the count of the fields to add and update
-    if child_scope == "building":
-        count = building_fields[step_dict.get("metadata").get("name")]
-    else:
-        count = lot_fields[step_dict.get("metadata").get("name")]
+    count = {}
+    if "vertical_dependencies" not in step_dict.get("metadata", {}):
+        print("No vertical dependencies found... exit")
+        exit(0)
+
+    for d in step_dict.get("metadata", {}).get("vertical_dependencies"):
+        count[d] = 0
 
     update_payload = {"fields": {}}
     for child_thematique in children_thematiques:

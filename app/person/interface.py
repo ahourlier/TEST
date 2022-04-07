@@ -14,3 +14,4 @@ class PersonInterface(TypedDict):
     antenna_id: Optional[int]
     antenna: Optional[dict]
     phone_number: Optional[dict]
+    is_physical_person: Optional[bool]

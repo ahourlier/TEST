@@ -63,6 +63,9 @@ class TaskResource(AuthenticatedApi):
             assignee=request.args.get("assignee")
             if request.args.get("assignee") not in [None, ""]
             else None,
+            author=request.args.get("author")
+            if request.args.get("author") not in [None, ""]
+            else None,
             step=request.args.get("step")
             if request.args.get("step") not in [None, ""]
             else None,
@@ -70,6 +73,7 @@ class TaskResource(AuthenticatedApi):
             if request.args.get("version") not in [None, ""]
             else None,
             task_type=get_task_type_from_url(request.path),
+            merge=request.args.get("merge"),
         )
 
     @accepts(schema=TaskSchema, api=api)
