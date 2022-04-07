@@ -1,3 +1,10 @@
+# [1.3.0-rc.1](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.2.4-rc.1...v1.3.0-rc.1) (2022-04-07)
+
+
+### Features
+
+* **IMPORTS:** Added Lot import from spreadsheet: timesheet ([a6ff197](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/a6ff1978f8b4d43b054e5239cba32492b68af34c))
+
 ## [1.2.4-rc.1](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.2.3...v1.2.4-rc.1) (2021-12-06)
 
 ## [1.2.2](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.1...v1.2.2) (2021-09-20)
