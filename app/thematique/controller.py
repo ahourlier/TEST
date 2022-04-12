@@ -72,8 +72,15 @@ class ThematiqueIdResource(AuthenticatedApi):
 
 @api.route("/<string:version_id>")
 class ThematiqueIdResource(AuthenticatedApi):
-    @responds(api=api)
+    @accepts(schema=VersionSchema, api=api)
     @requires(has_version_permissions)
+    def put(self, version_id):
+        ThematiqueService.update_version(
+            version_id=version_id,
+            payload=request.json,
+        )
+        return jsonify(dict(status="Success", id=version_id))
+
     def delete(self, version_id):
         ThematiqueService.delete_copro_version(
             version_id=version_id,

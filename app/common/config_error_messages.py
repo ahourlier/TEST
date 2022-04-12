@@ -548,10 +548,21 @@ VERSION_DELETION_UNAUTHORIZED = (
 )
 KEY_VERSION_DELETION_UNAUTHORIZED = "VERSION_DELETION_UNAUTHORIZED"
 
+VERSION_UPDATE_UNAUTHORIZED = (
+    "Unauthorized to update this version. Hint: versionnable and heritable thematiques update must be in copro scope. Not versionnable versions thematiques can't be updated"
+)
+KEY_VERSION_UPDATE_UNAUTHORIZED = "VERSION_UPDATE_UNAUTHORIZED"
+
 VERSION_DUPLICATION_UNAUTHORIZED = (
     "Unauthorized to duplicate this version (cf. 'versionnable' key in JSON)"
 )
 KEY_VERSION_DUPLICATION_UNAUTHORIZED = "VERSION_DUPLICATION_UNAUTHORIZED"
+
+NOT_UNIQUE_DATA_AND_NAME_VERSION_UNAUTHORIZED = (
+    "Found an existing version with this name and date. Version name and date must be unique within a template for a scope."
+)
+
+KEY_NOT_UNIQUE_DATA_AND_NAME_VERSION_UNAUTHORIZED = "NOT_UNIQUE_DATA_AND_NAME_VERSION_UNAUTHORIZED"
 
 COMBINED_STRUTURE_NOT_FOUND_EXCEPTION = (
     "Could not find a combined struture with this id"
