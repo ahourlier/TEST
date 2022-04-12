@@ -19,6 +19,8 @@ yarn.lock
 .pre-commit-config.yaml
 .releaserc
 pyproject.toml
+venv
+
 
 # Tests
 .pytest_cache
