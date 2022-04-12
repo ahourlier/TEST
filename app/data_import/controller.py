@@ -15,7 +15,7 @@ class DocumentResource(AuthenticatedApi):
     @accepts(schema=DataImportSchema, api=data_import_api)
     @requires(is_contributor)
     def post(self):
-        """ Import projects data from a sheet and instantiate it into db """
+        """Import projects data from a sheet and instantiate it into db"""
         data = request.parsed_obj
         db_mission = missions_service.MissionService.get_by_id(data.get("mission_id"))
         return data_import_service.DataImportService.import_projects(

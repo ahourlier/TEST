@@ -23,7 +23,7 @@ class UserRole:
 
 
 class User(BaseMixin, db.Model):
-    """ Application User """
+    """Application User"""
 
     __tablename__ = "user"
 
@@ -52,7 +52,7 @@ class User(BaseMixin, db.Model):
 
 
 class UserGroup(BaseMixin, db.Model):
-    """ Groups associated to a user """
+    """Groups associated to a user"""
 
     __tablename__ = "user_group"
 

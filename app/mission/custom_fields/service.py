@@ -41,7 +41,11 @@ class CustomFieldService:
         q = sort_query(CustomField.query, sort_by, direction)
         if term is not None:
             search_term = f"%{term}%"
-            q = q.filter(or_(CustomField.name.ilike(search_term),))
+            q = q.filter(
+                or_(
+                    CustomField.name.ilike(search_term),
+                )
+            )
 
         if mission_id is not None:
             q = q.filter(CustomField.mission_id == mission_id)
@@ -68,7 +72,7 @@ class CustomFieldService:
 
     @staticmethod
     def create(new_attrs: CustomFieldInterface) -> CustomField:
-        """ Create a new custom_field associated to a mission"""
+        """Create a new custom_field associated to a mission"""
         if "mission_id" in new_attrs:
             missions_service.MissionService.get_by_id(new_attrs.get("mission_id"))
 
@@ -150,7 +154,7 @@ class AvailableFieldValueService:
     def create(
         new_attrs: AvailableFieldValueInterface, custom_field_id: None
     ) -> AvailableFieldValue:
-        """ Create a new available_field_value associated to a custom_field"""
+        """Create a new available_field_value associated to a custom_field"""
         if custom_field_id is not None:
             new_attrs["custom_field_id"] = custom_field_id
         CustomFieldService.get_by_id(new_attrs.get("custom_field_id"))

@@ -88,6 +88,7 @@ class ProjectService:
         direction=PROJECTS_DEFAULT_SORT_DIRECTION,
         mission_id=None,
         requester_id=None,
+        required_action=False,
         user=None,
         requester_type=None,
         unique_page=False,
@@ -119,6 +120,7 @@ class ProjectService:
             q=q,
             missions_id=mission_id,
             requester_id=requester_id,
+            required_action=required_action,
             requester_type=requester_type,
             filter_on_visit_status=filter_on_visit_status,
             filter_on_referrer=filter_on_referrer,
@@ -139,6 +141,7 @@ class ProjectService:
         q=None,
         missions_id=None,
         requester_id=None,
+        required_action=False,
         requester_type=None,
         project_status: List = None,
         project_status_to_skip: List = None,
@@ -167,6 +170,10 @@ class ProjectService:
                     ]
                 )
             )
+
+        # Filter by required_action
+        if required_action is not None:
+            q = q.filter(Project.required_action == required_action)
 
         # Filter by requester_id
         if requester_id is not None:
@@ -242,7 +249,7 @@ class ProjectService:
 
     @staticmethod
     def create(new_attrs: dict) -> Project:
-        """ Create a new project with linked mission, referrers, and requester """
+        """Create a new project with linked mission, referrers, and requester"""
         project_leads = None
         work_types = None
         # Check if project_leads exist and save them :
@@ -277,9 +284,9 @@ class ProjectService:
         if work_types:
             work_type_service.WorkTypeService.create_list(work_types, project.id)
         if project.requester.type in [
-            "PO",
-            "TENANT",
-            "SDC",
+            RequesterTypes.PO.value,
+            RequesterTypes.TENANT.value,
+            RequesterTypes.SDC.value,
         ]:
             logging.info(f"Creating accommodation for project {project.id}")
             accommodations_service.AccommodationService.create({}, project.id)
@@ -290,7 +297,9 @@ class ProjectService:
             queue=PROJECT_INIT_QUEUE_NAME,
             uri=f"{os.getenv('API_URL')}/_internal/projects/init-drive",
             method="POST",
-            payload={"project_id": project.id,},
+            payload={
+                "project_id": project.id,
+            },
         )
 
         return project
@@ -386,7 +395,7 @@ class ProjectService:
 
     @staticmethod
     def anonymize_list(projects_id: List[int], delete_documents: bool = False):
-        """Anonymize multiple projects """
+        """Anonymize multiple projects"""
         for id in projects_id:
             ProjectService.anonymize_by_id(id, delete_documents=delete_documents)
         return projects_id
@@ -450,7 +459,7 @@ class ProjectService:
 
     @staticmethod
     def create_drive_structure(project: Project) -> Project:
-        """ Creates the drive structure for a project
+        """Creates the drive structure for a project
         Root
         |-> Devis et Factures
         |-> Logement

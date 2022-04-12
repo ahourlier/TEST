@@ -17,7 +17,7 @@ class IndicatorResource(AuthenticatedApi):
     )
     @responds(schema=IndicatorSchema(), api=api)
     def get(self):
-        """ Get indicator data"""
+        """Get indicator data"""
 
         return IndicatorService.get(
             missions_id=int(request.args.get("mission_id"))
@@ -31,5 +31,5 @@ class IndicatorResource(AuthenticatedApi):
     @accepts(schema=IndicatorFilterSchema, api=api)
     @responds(schema=IndicatorSchema)
     def post(self):
-        """ Get indicator data with filter on multiple missions_id"""
+        """Get indicator data with filter on multiple missions_id"""
         return IndicatorService.get(missions_id=request.parsed_obj.get("missions_id"))

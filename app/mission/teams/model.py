@@ -14,7 +14,7 @@ class UserTeamPositions:
 
 
 class Team(BaseMixin, db.Model):
-    """ Team """
+    """Team"""
 
     __tablename__ = "team"
 

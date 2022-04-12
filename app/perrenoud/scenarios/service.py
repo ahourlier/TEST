@@ -70,7 +70,11 @@ class ScenarioService:
         q = q.filter(Scenario.accommodation_id == accommodation_id)
         if term is not None:
             search_term = f"%{term}%"
-            q = q.filter(or_(Scenario.name.ilike(search_term),))
+            q = q.filter(
+                or_(
+                    Scenario.name.ilike(search_term),
+                )
+            )
         if not include_initial_state:
             q = q.filter(Scenario.is_initial_state == False)
         return q.paginate(page=page, per_page=size)
@@ -97,7 +101,7 @@ class ScenarioService:
 
     @staticmethod
     def create(new_attrs: ScenarioInterface, commit=True) -> Scenario:
-        """ Create a new scenario """
+        """Create a new scenario"""
         if not new_attrs.get("is_initial_state"):
             new_attrs["is_initial_state"] = False
         if new_attrs.get("is_initial_state") is True:
@@ -220,7 +224,7 @@ class ScenarioService:
 
     @staticmethod
     def duplicate(scenario_id: int) -> Scenario:
-        """ Duplicate a scenario, all his children and sub-children"""
+        """Duplicate a scenario, all his children and sub-children"""
         base_scenario = ScenarioService.get_by_id(scenario_id)
         fields_to_treat_separately = ["is_initial_state"]
         base_fields = ServicesUtils.fetch_dict_fields_from_object(
@@ -278,7 +282,7 @@ class ScenarioService:
 
     @staticmethod
     def launch_perrenoud_analysis(scenario_id: str, test_XML=False):
-        """ Launch Perrenoud calculs and return results"""
+        """Launch Perrenoud calculs and return results"""
         db_scenario = Scenario.query.get(scenario_id)
         if db_scenario is None:
             raise ScenarioNotFoundException
@@ -313,7 +317,7 @@ class ScenarioService:
 
     @staticmethod
     def send_perrenoud_request(xml):
-        """ Send Perrenoud request and return the response"""
+        """Send Perrenoud request and return the response"""
         declaration = '<?xml version="1.0" encoding="UTF-8"?>'
         data = f"{declaration}{xml}"
         url = AppConfigService.get_by_key("perrenoud_url").value

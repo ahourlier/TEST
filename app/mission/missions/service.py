@@ -100,7 +100,7 @@ class MissionService:
 
     @staticmethod
     def create(new_attrs: MissionInterface) -> Mission:
-        """ Create a new mission with linked agency, antenna, and client """
+        """Create a new mission with linked agency, antenna, and client"""
         try:
             agency_service.AgencyService.get_by_id(new_attrs.get("agency_id"))
         except AgencyNotFoundException as e:
@@ -124,7 +124,9 @@ class MissionService:
                 queue=MISSION_INIT_QUEUE_NAME,
                 uri=f"{os.getenv('API_URL')}/_internal/missions/init-drive",
                 method="POST",
-                payload={"mission_id": mission.id,},
+                payload={
+                    "mission_id": mission.id,
+                },
             )
             return mission
 
@@ -166,7 +168,7 @@ class MissionService:
 
     @staticmethod
     def create_drive_structure(mission: Mission) -> Mission:
-        """ Creates the drive structure for a mission
+        """Creates the drive structure for a mission
         Root
         |-> Modèle de documents
         |-> Documents d'information

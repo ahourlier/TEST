@@ -9,6 +9,7 @@ from app.common.base_model import BaseMixin
 FORBIDDEN_FIELDS = [
     "_sa_instance_state",
     "status",
+    "required_action",
     "address_location",
     "type",
     "work_type",
@@ -20,7 +21,7 @@ FORBIDDEN_FIELDS = [
 
 
 class Search(BaseMixin, db.Model):
-    """ Search  """
+    """Search"""
 
     __tablename__ = "search"
 

@@ -7,7 +7,7 @@ from app.mission.custom_fields import CustomField  # To keep.
 
 
 class ProjectCustomField(SoftDeletableMixin, BaseMixin, db.Model):
-    """ ProjectCustomField  """
+    """ProjectCustomField"""
 
     __tablename__ = "project_custom_field"
 
@@ -20,7 +20,7 @@ class ProjectCustomField(SoftDeletableMixin, BaseMixin, db.Model):
 
 
 class CustomFieldValue(SoftDeletableMixin, BaseMixin, db.Model):
-    """ CustomFieldValue  """
+    """CustomFieldValue"""
 
     __tablename__ = "custom_field_value"
 

@@ -9,7 +9,7 @@ DEFAULT_FIELDS = '[{"type":"date", "name":"Dépôt", "default": true, "automatic
 
 
 class Monitor(BaseMixin, db.Model):
-    """ Monitors  """
+    """Monitors"""
 
     __tablename__ = "monitor"
 
@@ -22,7 +22,7 @@ class Monitor(BaseMixin, db.Model):
 
 
 class MonitorField(BaseMixin, db.Model):
-    """ MonitorsFields  """
+    """MonitorsFields"""
 
     __tablename__ = "monitor_field"
 

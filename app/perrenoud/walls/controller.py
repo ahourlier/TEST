@@ -12,7 +12,10 @@ from .. import Wall
 class WallScenarioIdResource(AuthenticatedApi):
     @accepts(schema=WallSchema, api=api)
     @responds(schema=WallSchema)
-    def post(self, scenario_id: int,) -> Wall:
+    def post(
+        self,
+        scenario_id: int,
+    ) -> Wall:
         """Create single wall"""
 
         return WallService.create(request.parsed_obj, scenario_id)

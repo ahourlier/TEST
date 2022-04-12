@@ -20,7 +20,7 @@ from ...project.projects.service import (
 class ActionsCountResource(AuthenticatedApi):
     @responds(schema=HomepageActionsSchema(), api=api)
     def get(self):
-        """ Get required actions data"""
+        """Get required actions data"""
 
         return RequiredActionsService.get_counts()
 
@@ -28,11 +28,13 @@ class ActionsCountResource(AuthenticatedApi):
 @api.route("/projects/")
 class ActionsFetchProjectsResources(AuthenticatedApi):
     @accepts(
-        *SEARCH_PARAMS, dict(name="alert_type", type=str), api=api,
+        *SEARCH_PARAMS,
+        dict(name="alert_type", type=str),
+        api=api,
     )
     @responds(schema=ProjectPaginatedSchema(), api=api)
     def get(self) -> Pagination:
-        """ Get projects corresponding to an alert type """
+        """Get projects corresponding to an alert type"""
         return RequiredActionsService.fetch_reported_projects(
             page=int(request.args.get("page", PROJECTS_DEFAULT_PAGE)),
             size=int(request.args.get("size", PROJECTS_DEFAULT_PAGE_SIZE)),

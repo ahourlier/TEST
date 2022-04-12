@@ -23,7 +23,7 @@ class RoomService:
 
     @staticmethod
     def create(new_attrs: RoomInterface, scenario_id=None, commit=True) -> Room:
-        """ Create a new room"""
+        """Create a new room"""
         inputs_kind = [input_kind.value for input_kind in RoomInputKinds]
         fields_to_remove = inputs_kind.copy()
         fields_to_remove.extend(["heating", "areas"])
@@ -49,7 +49,9 @@ class RoomService:
         for input_kind in inputs_kind:
             if input_kind in extracted_fields and extracted_fields.get(input_kind):
                 rooms_input_service.RoomInputService.create_update_list(
-                    room.id, input_kind, extracted_fields.get(input_kind),
+                    room.id,
+                    input_kind,
+                    extracted_fields.get(input_kind),
                 )
 
         return room
@@ -84,7 +86,9 @@ class RoomService:
             for input_kind in inputs_kind:
                 if input_kind in extracted_fields and extracted_fields.get(input_kind):
                     rooms_input_service.RoomInputService.create_update_list(
-                        room.id, input_kind, extracted_fields.get(input_kind),
+                        room.id,
+                        input_kind,
+                        extracted_fields.get(input_kind),
                     )
             db.session.commit()
         return room
@@ -131,7 +135,7 @@ class RoomService:
 
     @staticmethod
     def duplicate(base_room, clone_scenario_parent_id, children_id_maps):
-        """ Duplicate a room and his children"""
+        """Duplicate a room and his children"""
         fields_to_treat_separately = ["scenario_id", "heating_id"]
         base_fields = ServicesUtils.fetch_dict_fields_from_object(
             base_room, extra_fields_to_remove=fields_to_treat_separately.copy()

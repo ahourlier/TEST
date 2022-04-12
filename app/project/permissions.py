@@ -83,22 +83,26 @@ class ProjectPermission:
     def check_project_permission(
         user, project_id, include_client_access=False, app_section=None
     ):
-        """ Return True if user has the authorization to access the given project.
+        """Return True if user has the authorization to access the given project.
         By default, does not include specific clients accesses.
-        By default, does not specify an app section for client accesses """
+        By default, does not specify an app section for client accesses"""
         project = projects_service.ProjectService.get_by_id(project_id)
         if not project_id:
             # Project_id is not provided. Only admin has access to the road.
             return user.role == UserRole.ADMIN
-        has_mission_permission = missions_permissions.MissionPermission.check_mission_permission(
-            project.mission_id, user
+        has_mission_permission = (
+            missions_permissions.MissionPermission.check_mission_permission(
+                project.mission_id, user
+            )
         )
         has_permission = permissions_utils.PermissionsUtils.bypass_admins(
             has_mission_permission, user
         )
         if include_client_access:
-            client_permission = missions_permissions.MissionPermission.has_client_mission_access(
-                project.mission_id, user, app_section
+            client_permission = (
+                missions_permissions.MissionPermission.has_client_mission_access(
+                    project.mission_id, user, app_section
+                )
             )
             return has_permission or client_permission
         else:
@@ -108,7 +112,7 @@ class ProjectPermission:
     def query_project_remove_unauthorized(q, user):
         """Remove unauthorized projects with default parameters :
         - Take accounts of clients access
-        - Always authorize for admins and managers """
+        - Always authorize for admins and managers"""
         q = ProjectPermission.filter_query_project_by_user_permissions(q, user)
         q = ProjectPermission.filter_project_by_app_section_access(q, user)
         return q
@@ -168,8 +172,8 @@ class ProjectPermission:
 
     @staticmethod
     def filter_project_fields(response):
-        """ Callback for "filter_response_with_clients_access" decorator.
-         Extract forbidden fields from a project item, according to clients access permissions"""
+        """Callback for "filter_response_with_clients_access" decorator.
+        Extract forbidden fields from a project item, according to clients access permissions"""
         filtered_response = list(response)
         if g.user.role == UserRole.CLIENT:
             filtered_response[
@@ -183,8 +187,8 @@ class ProjectPermission:
 
     @staticmethod
     def filter_projects_list_fields(response):
-        """ Callback for "filter_response_with_clients_access" decorator.
-         Extract forbidden fields from a projects list, according to clients access permissions"""
+        """Callback for "filter_response_with_clients_access" decorator.
+        Extract forbidden fields from a projects list, according to clients access permissions"""
         if g.user.role == UserRole.CLIENT:
             items = missions_permissions.MissionPermission.filter_list_response_by_mission_settings(
                 response[0].get("items"),
@@ -196,5 +200,5 @@ class ProjectPermission:
 
     @staticmethod
     def extract_mission_id_from_project(project):
-        """ Callback used during client access decorator workflow"""
+        """Callback used during client access decorator workflow"""
         return project.get("mission_id")

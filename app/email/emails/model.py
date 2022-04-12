@@ -15,7 +15,7 @@ class EmailStatus(Enum):
 
 
 class Email(BaseMixin, db.Model):
-    """ Email  """
+    """Email"""
 
     __tablename__ = "email"
 

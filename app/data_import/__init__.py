@@ -41,7 +41,9 @@ def register_internal_routes(bp):
     )
 
     bp.add_url_rule(
-        f"{prefix}/close", view_func=CloseImport.as_view("close"), methods=["POST"],
+        f"{prefix}/close",
+        view_func=CloseImport.as_view("close"),
+        methods=["POST"],
     )
 
     bp.add_url_rule(
