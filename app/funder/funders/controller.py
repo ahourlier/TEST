@@ -20,12 +20,12 @@ from app.common.search import SEARCH_PARAMS
 
 @api.route("/")
 class FunderResource(AuthenticatedApi):
-    """ Funders """
+    """Funders"""
 
     @accepts(*SEARCH_PARAMS, dict(name="requester_type", type=str), api=api)
     @responds(schema=FunderPaginatedSchema)
     def get(self) -> Pagination:
-        """ Get all funders """
+        """Get all funders"""
         return FunderService.get_all(
             page=int(request.args.get("page", FUNDERS_DEFAULT_PAGE)),
             size=int(request.args.get("size", FUNDERS_DEFAULT_PAGE_SIZE)),
@@ -44,7 +44,7 @@ class FunderResource(AuthenticatedApi):
     @responds(schema=FunderSchema, api=api)
     @requires(can_manage_funders)
     def post(self) -> Funder:
-        """ Create a funder """
+        """Create a funder"""
 
         return FunderService.create(request.parsed_obj, commit=True)
 
@@ -54,12 +54,12 @@ class FunderResource(AuthenticatedApi):
 class FunderIdResource(AuthenticatedApi):
     @responds(schema=FunderSchema, api=api)
     def get(self, funder_id: int) -> Funder:
-        """ Get single funder """
+        """Get single funder"""
         return FunderService.get_by_id(funder_id)
 
     @requires(can_manage_funders)
     def delete(self, funder_id: int) -> Response:
-        """ Delete a funder """
+        """Delete a funder"""
         id = FunderService.delete_by_id(funder_id, commit=True)
         return jsonify(dict(status="Success", id=id))
 
@@ -67,7 +67,7 @@ class FunderIdResource(AuthenticatedApi):
     @responds(schema=FunderSchema, api=api)
     @requires(can_manage_funders)
     def put(self, funder_id: int) -> Funder:
-        """ Update a single funder """
+        """Update a single funder"""
 
         changes: FunderInterface = request.parsed_obj
         db_funder = FunderService.get_by_id(funder_id)

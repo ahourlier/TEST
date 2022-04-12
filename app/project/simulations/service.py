@@ -16,6 +16,8 @@ from app.common.exceptions import (
 from app.common.search import sort_query
 from app.funder.funders import Funder
 from app.funder.funding_scenarios import FundingScenario
+from app.perrenoud.scenarios.service import ScenarioService
+from app.project import simulations
 from app.project.quotes.interface import QuoteInterface
 from app.project.simulations import Simulation
 from .error_handlers import (
@@ -25,6 +27,7 @@ from .error_handlers import (
     CloneFunderException,
     SimulationQuoteNotFoundException,
     SimulationFunderNotFoundException,
+    InconsistentScenarioException,
 )
 from app.project.simulations.interface import (
     SimulationInterface,
@@ -74,7 +77,11 @@ class SimulationService:
         q = sort_query(Simulation.query, sort_by, direction)
         if term is not None:
             search_term = f"%{term}%"
-            q = q.filter(or_(Simulation.name.ilike(search_term),))
+            q = q.filter(
+                or_(
+                    Simulation.name.ilike(search_term),
+                )
+            )
 
         if quote_id is not None:
             q = q.filter(
@@ -112,7 +119,7 @@ class SimulationService:
 
     @staticmethod
     def create(new_attrs: SimulationInterface) -> Simulation:
-        """ Create a new simulation """
+        """Create a new simulation"""
 
         # Verify parent project existence
         project_service.ProjectService.get_by_id(new_attrs["project_id"])
@@ -202,7 +209,7 @@ class SimulationService:
     def update(
         simulation: Simulation, changes: SimulationInterface, force_update: bool = True
     ) -> Simulation:
-        """ This update worflow is special due to a business rule :
+        """This update worflow is special due to a business rule :
         some fields cannot be modified since the simulation is "used" (frozen),
         while other can always be modified."""
         if force_update or SimulationService.has_changed(simulation, changes):
@@ -220,6 +227,14 @@ class SimulationService:
                 changes.get("use_cases"), simulation.id
             )
             del changes["use_cases"]
+
+            # If scenario_id, check if scenario is in the same project
+            if changes.get("scenario_id"):
+                existing_scenario = ScenarioService.get_by_id(
+                    changes.get("scenario_id")
+                )
+                if existing_scenario.accommodation.project_id != simulation.project_id:
+                    raise InconsistentScenarioException
 
             # Update simulations_use notes :
             # (Notes can always be updated, even when simulation is "frozen")
@@ -307,7 +322,8 @@ class SimulationUseCaseService:
 
     @staticmethod
     def create_list(
-        use_cases_values: List[SimulationUseCaseInterface], simulation_id: int,
+        use_cases_values: List[SimulationUseCaseInterface],
+        simulation_id: int,
     ) -> List[SimulationUseCase]:
 
         use_cases = []
@@ -386,7 +402,8 @@ class SimulationQuoteService:
 
     @staticmethod
     def update_list(
-        simulation: SimulationInterface, quotes_values: List[QuoteInterface],
+        simulation: SimulationInterface,
+        quotes_values: List[QuoteInterface],
     ) -> List[SimulationQuote]:
         original_quotes_id = [
             simulation_quote.base_quote_id
@@ -475,10 +492,12 @@ class SimulationFunderService:
             simulation_quote.base_quote_id
             for simulation_quote in simulation.simulation_quotes
         ]
-        simulation_funder.match_scenario = funding_scenario_service.FundingScenarioService.get_match_scenarios(
-            simulation_funder.duplicate_funder,
-            simulation_funder.simulation.project_id,
-            quotes_id=quotes_id,
+        simulation_funder.match_scenario = (
+            funding_scenario_service.FundingScenarioService.get_match_scenarios(
+                simulation_funder.duplicate_funder,
+                simulation_funder.simulation.project_id,
+                quotes_id=quotes_id,
+            )
         )
 
         if "funder_accommodations" in extracted_fields:
@@ -497,9 +516,9 @@ class SimulationFunderService:
 
     @staticmethod
     def reset_funder(simulation_funder_id):
-        """ Reset a funder linked to a simulation to his initial state.
+        """Reset a funder linked to a simulation to his initial state.
         At the end of the operation, the "duplicate_funder" has the same values
-        as the "base_funder" within a simulation_funder entity """
+        as the "base_funder" within a simulation_funder entity"""
         simulation_funder = SimulationFunderService.get_by_id(simulation_funder_id)
         base_funder = simulation_funder.base_funder
 
@@ -534,10 +553,12 @@ class SimulationFunderService:
             for simulation_quote in simulation_funder.simulation.simulation_quotes
         ]
         # Set the adequate scenario for the parent project/requester situation
-        simulation_funder.match_scenario = funding_scenario_service.FundingScenarioService.get_match_scenarios(
-            simulation_funder.duplicate_funder,
-            simulation_funder.simulation.project_id,
-            quotes_id=quotes_id,
+        simulation_funder.match_scenario = (
+            funding_scenario_service.FundingScenarioService.get_match_scenarios(
+                simulation_funder.duplicate_funder,
+                simulation_funder.simulation.project_id,
+                quotes_id=quotes_id,
+            )
         )
         db.session.commit()
         return simulation_funder
@@ -576,8 +597,10 @@ class SimulationFunderService:
                     .first()
                     .base_funder
                 )
-            match_scenario = funding_scenario_service.FundingScenarioService.get_match_scenarios(
-                base_funder, project_id, quotes_id=quotes_id
+            match_scenario = (
+                funding_scenario_service.FundingScenarioService.get_match_scenarios(
+                    base_funder, project_id, quotes_id=quotes_id
+                )
             )
 
             new_simulation_funder = {
@@ -604,7 +627,8 @@ class SimulationFunderService:
 
     @staticmethod
     def update(
-        simulation_funder: SimulationFunder, changes: SimulationFunderInterface,
+        simulation_funder: SimulationFunder,
+        changes: SimulationFunderInterface,
     ) -> Simulation:
         extracted_fields = ServicesUtils.clean_attrs(
             changes,
@@ -638,7 +662,8 @@ class SimulationFunderService:
 
     @staticmethod
     def update_list(
-        simulation: Simulation, simulation_funders_values,
+        simulation: Simulation,
+        simulation_funders_values,
     ) -> List[SimulationFunder]:
 
         original_funders_id = [
@@ -676,7 +701,7 @@ class SimulationFunderService:
 
     @staticmethod
     def create_by_funders_id(funders_id, simulation_id):
-        """ Obsolete """
+        """Obsolete"""
         simulation = SimulationService.get_by_id(simulation_id)
         for new_funder_id in funders_id["funders_id"]:
             SimulationFunderService.create(

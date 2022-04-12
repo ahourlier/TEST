@@ -21,7 +21,7 @@ class AreaService:
     def create(
         new_attrs: AreaInterface, room_id=None, room_input_id=None, commit=True
     ) -> Area:
-        """ Create a new area"""
+        """Create a new area"""
         if room_id is not None:
             new_attrs["room_id"] = room_id
             rooms_service.RoomService.get_by_id(new_attrs.get("room_id"))
@@ -104,7 +104,7 @@ class AreaService:
         clone_wall_parent_id=None,
         clone_ceiling_parent_id=None,
     ):
-        """ Duplicate an area"""
+        """Duplicate an area"""
         if not base_area:
             return
         fields_to_treat_separately = [

@@ -1,7 +1,6 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, Float
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship, backref
-
 from app import db
 from app.common.base_model import BaseMixin
 
@@ -14,7 +13,7 @@ SIMULATIONS_KEYWORD_SORT = {
 
 
 class SimulationSubResult(BaseMixin, db.Model):
-    """ SimulationSubResult table"""
+    """SimulationSubResult table"""
 
     __tablename__ = "simulation_sub_result"
 
@@ -39,7 +38,7 @@ class SimulationSubResult(BaseMixin, db.Model):
 
 
 class SimulationAccommodation(BaseMixin, db.Model):
-    """ SimulationAccommodation """
+    """SimulationAccommodation"""
 
     __tablename__ = "simulation_accommodation"
 
@@ -52,13 +51,16 @@ class SimulationAccommodation(BaseMixin, db.Model):
     )
     accommodation_id = Column(Integer, ForeignKey("accommodation.id"), nullable=True)
     accommodation = relationship("Accommodation", backref="accommodations_simulations")
+
+    scenario_id = Column(Integer, ForeignKey("scenario.id"), nullable=True)
+
     rent_type = Column(String(255), nullable=True)
     rent_per_msq = Column(Float(), nullable=True)
     rent = Column(Float(), nullable=True)
 
 
 class SimulationQuote(BaseMixin, db.Model):
-    """ SimulationQuote  """
+    """SimulationQuote"""
 
     __tablename__ = "simulation_quote"
 
@@ -74,7 +76,7 @@ class SimulationQuote(BaseMixin, db.Model):
 
 
 class SimulationFunder(BaseMixin, db.Model):
-    """ SimulationFunder  """
+    """SimulationFunder"""
 
     __tablename__ = "simulation_funder"
 
@@ -112,7 +114,7 @@ class SimulationFunder(BaseMixin, db.Model):
 
 
 class SimulationDeposit(BaseMixin, db.Model):
-    """ SimulationDeposit  """
+    """SimulationDeposit"""
 
     __tablename__ = "simulation_deposit"
 
@@ -129,7 +131,7 @@ class SimulationDeposit(BaseMixin, db.Model):
 
 
 class SimulationPaymentRequest(BaseMixin, db.Model):
-    """ SimulationPaymentRequest  """
+    """SimulationPaymentRequest"""
 
     __tablename__ = "simulation_payment_request"
 
@@ -146,7 +148,7 @@ class SimulationPaymentRequest(BaseMixin, db.Model):
 
 
 class SimulationCertified(BaseMixin, db.Model):
-    """ SimulationCertified  """
+    """SimulationCertified"""
 
     __tablename__ = "simulation_certified"
 
@@ -163,7 +165,7 @@ class SimulationCertified(BaseMixin, db.Model):
 
 
 class FunderAccommodation(BaseMixin, db.Model):
-    """ FunderAccommodation """
+    """FunderAccommodation"""
 
     __tablename__ = "funder_accommodations"
 
@@ -206,7 +208,7 @@ class FunderAccommodation(BaseMixin, db.Model):
 
 
 class Simulation(BaseMixin, db.Model):
-    """ Simulation  """
+    """Simulation"""
 
     __tablename__ = "simulation"
 
@@ -223,6 +225,7 @@ class Simulation(BaseMixin, db.Model):
     remaining_costs = Column(Float, nullable=True)
     subvention_on_TTC = Column(Integer, nullable=True)
     total_advances = Column(Float, nullable=True)
+    scenario_id = Column(Integer, ForeignKey("scenario.id"), nullable=True)
 
     @hybrid_property
     def quotes(self):
@@ -252,7 +255,9 @@ class Simulation(BaseMixin, db.Model):
     def base_funders(self):
         # Return all base funders linked to the simulation
         return [
-            {"funder": simulation_funder.base_funder,}
+            {
+                "funder": simulation_funder.base_funder,
+            }
             for simulation_funder in self.simulation_funders
         ]
 

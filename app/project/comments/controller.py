@@ -20,7 +20,7 @@ from ...common.search import SEARCH_PARAMS
 
 @api.route("/")
 class CommentResource(AuthenticatedApi):
-    """ Comments """
+    """Comments"""
 
     # TODO endpoint_access_check
     @accepts(
@@ -31,7 +31,7 @@ class CommentResource(AuthenticatedApi):
     )
     @responds(schema=CommentPaginatedSchema())
     def get(self) -> Pagination:
-        """ Get all comments """
+        """Get all comments"""
         return CommentService.get_all(
             page=int(request.args.get("page", COMMENTS_DEFAULT_PAGE)),
             size=int(request.args.get("size", COMMENTS_DEFAULT_PAGE_SIZE)),
@@ -52,7 +52,7 @@ class CommentResource(AuthenticatedApi):
     @responds(schema=CommentPaginatedSchema())
     @requires(has_project_permission)
     def post(self) -> Pagination:
-        """ Create an comment """
+        """Create an comment"""
         return CommentService.create(request.parsed_obj)
 
 
@@ -62,7 +62,7 @@ class CommentIdResource(AuthenticatedApi):
     # TODO endpoint_access_check
     @responds(schema=CommentSchema)
     def get(self, comment_id: int) -> Comment:
-        """ Get single comment """
+        """Get single comment"""
 
         return CommentService.get_by_id(comment_id)
 

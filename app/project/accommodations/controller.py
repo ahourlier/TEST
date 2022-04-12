@@ -19,12 +19,12 @@ from ...common.search import SEARCH_PARAMS
 
 @api.route("/")
 class AccommodationResource(AuthenticatedApi):
-    """ accommodation api """
+    """accommodation api"""
 
     @accepts(*SEARCH_PARAMS, dict(name="project_id", type=int), api=api)
     @responds(schema=AccommodationPaginatedSchema())
     def get(self) -> Pagination:
-        """ Get all accommodations """
+        """Get all accommodations"""
         return AccommodationService.get_all(
             page=int(request.args.get("page", ACCOMMODATIONS_DEFAULT_PAGE)),
             size=int(request.args.get("size", ACCOMMODATIONS_DEFAULT_PAGE_SIZE)),
@@ -45,7 +45,7 @@ class AccommodationCreateResource(AuthenticatedApi):
     @accepts(schema=AccommodationSchema(), api=api)
     @responds(schema=AccommodationSchema(), api=api)
     def post(self, project_id) -> Accommodation:
-        """ Create an accommodation """
+        """Create an accommodation"""
         return AccommodationService.create(request.parsed_obj, project_id)
 
 
@@ -54,7 +54,7 @@ class AccommodationCreateResource(AuthenticatedApi):
 class AccommodationIdResource(AuthenticatedApi):
     @responds(schema=AccommodationSchema(), api=api)
     def get(self, accommodation_id: int) -> Accommodation:
-        """ Get single accommodation """
+        """Get single accommodation"""
 
         return AccommodationService.get_by_id(accommodation_id)
 

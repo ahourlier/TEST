@@ -4,7 +4,7 @@ from app.common.base_model import BaseMixin
 
 
 class AppConfig(BaseMixin, db.Model):
-    """ Application Configuration table """
+    """Application Configuration table"""
 
     __tablename__ = "app_config"
 

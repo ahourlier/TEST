@@ -8,7 +8,7 @@ from app.common.base_model import BaseMixin
 
 
 class Scenario(BaseMixin, db.Model):
-    """ Scenario  """
+    """Scenario"""
 
     __tablename__ = "scenario"
     id = Column(Integer(), primary_key=True, autoincrement=True)
@@ -49,6 +49,7 @@ class Scenario(BaseMixin, db.Model):
     inertia = db.Column(String(255), nullable=True)
     altitude = db.Column(String(255), nullable=True)
     commentary = Column(String(800), nullable=True)
+    simulations = relationship("Simulation")
 
     @hybrid_property
     def is_new(self):

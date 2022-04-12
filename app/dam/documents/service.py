@@ -20,7 +20,6 @@ from app.common.docs_utils import DocsUtils
 from app.common.drive_utils import DriveUtils, DRIVE_DEFAULT_FIELDS
 from app.common.exceptions import (
     InconsistentUpdateIdException,
-    SharedDriveException,
     GoogleDocsException,
     GoogleSheetsException,
 )
@@ -32,6 +31,8 @@ from app.dam.documents import Document, api
 from app.dam.documents.error_handlers import (
     DocumentNotFoundException,
     InvalidSourceException,
+    SharedDriveException,
+    shared_drive_exception,
 )
 from app.dam.documents.interface import DocumentInterface
 
@@ -63,12 +64,14 @@ class DocumentGenerationService:
     def generate_document(document: Document, user_email=None):
 
         project = projects_service.ProjectService.get_by_id(document.project_id)
-        template = DriveUtils.get_file(document.template_id)
+        template = DriveUtils.get_file(document.template_id, user_email=user_email)
         if template is not None:
             name = f'{template.get("name")} - Projet/{project.code_name}'
         else:
             DocumentService.update(document, {"status": DocumentStatus.ERROR.value})
-            raise SharedDriveException(KEY_SHARED_DRIVE_FETCH_EXCEPTION)
+            resp, code = shared_drive_exception(SharedDriveException())
+            resp.code = code
+            return jsonify(resp)
 
         dest_folder = None
 
@@ -126,7 +129,8 @@ class DocumentGenerationService:
     @staticmethod
     def replace_doc_placeholders(document: Document, user_email=None):
         g_docs = DocsUtils.get_document(
-            doc_id=document.document_id, user_email=user_email,
+            doc_id=document.document_id,
+            user_email=user_email,
         )
 
         if not g_docs:
@@ -207,7 +211,7 @@ class DocumentService:
 
     @staticmethod
     def create(new_attrs: DocumentInterface) -> Document:
-        """ Generate a document from a given template """
+        """Generate a document from a given template"""
 
         projects_service.ProjectService.get_by_id(new_attrs.get("project_id"))
         if new_attrs.get("source") not in DocumentSources.__members__:
@@ -249,7 +253,7 @@ class DocumentService:
 
     @staticmethod
     def html_document(new_attrs: DocumentInterface):
-        """ Return an HTML text based on a template, completed with corresponding values """
+        """Return an HTML text based on a template, completed with corresponding values"""
         project = projects_service.ProjectService.get_by_id(new_attrs.get("project_id"))
         html_doc = (
             DriveUtils.export_file(

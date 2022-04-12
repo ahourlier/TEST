@@ -7,7 +7,7 @@ from app.common.base_model import BaseMixin
 
 
 class Disorder(BaseMixin, db.Model):
-    """ Disorder  """
+    """Disorder"""
 
     __tablename__ = "disorder"
 
@@ -36,7 +36,7 @@ class Disorder(BaseMixin, db.Model):
 
 
 class DisorderType(BaseMixin, db.Model):
-    """ Disorder type """
+    """Disorder type"""
 
     __tablename__ = "disorder_type"
 

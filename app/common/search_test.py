@@ -10,7 +10,9 @@ from app.test.fixtures import app, db
 def query(db: SQLAlchemy):
     class DummyModel(db.Model):
         id = db.Column(Integer, primary_key=True, autoincrement=True)
-        field_1 = db.Column(String(10),)
+        field_1 = db.Column(
+            String(10),
+        )
 
     return DummyModel.query
 

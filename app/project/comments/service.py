@@ -83,7 +83,11 @@ class CommentService:
 
         if term is not None:
             search_term = f"%{term}%"
-            q = q.filter(or_(Comment.content.ilike(search_term),))
+            q = q.filter(
+                or_(
+                    Comment.content.ilike(search_term),
+                )
+            )
 
         if project_id is not None:
             q = q.filter(Comment.project_id == project_id)
@@ -101,7 +105,7 @@ class CommentService:
 
     @staticmethod
     def create(new_attrs: CommentInterface) -> Pagination:
-        """ Create a new comment in a given agency """
+        """Create a new comment in a given agency"""
         project_service.ProjectService.get_by_id(new_attrs.get("project_id"))
         new_attrs["author_id"] = g.user.id
         comment = Comment(**new_attrs)
@@ -113,7 +117,7 @@ class CommentService:
     def update(
         comment: Comment, changes: CommentInterface, force_update: bool = False
     ) -> Pagination:
-        """ Edit comment if user have sufficient permissions.
+        """Edit comment if user have sufficient permissions.
         If an admin or an app manager modifies a comment, he/she becames the new author"""
 
         content_changed = (
@@ -163,8 +167,7 @@ class CommentService:
 class AutomaticCommentService:
     @staticmethod
     def automatic_project_status_comment(trigger, project):
-        """Create an automatic comment, depending on new project status.
-        """
+        """Create an automatic comment, depending on new project status."""
         base_content = BASE_AUTOMATIC_CONTENTS.get(trigger, None)
 
         # If new status does not match any corresponding auto comment, do nothing.
@@ -195,8 +198,7 @@ class AutomaticCommentService:
 
     @staticmethod
     def automatic_funder_comment(trigger, funder_name, project):
-        """Create an automatic comment, depending on new state into simulation.
-        """
+        """Create an automatic comment, depending on new state into simulation."""
         base_content = BASE_AUTOMATIC_CONTENTS.get(trigger, None)
         # If new status does not match any corresponding auto comment, do nothing.
         if base_content is not None:
