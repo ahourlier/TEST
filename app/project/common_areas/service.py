@@ -16,7 +16,7 @@ import app.project.disorders.service as disorders_service
 class CommonAreaService:
     @staticmethod
     def create(new_attrs: CommonAreaInterface, project_id: int) -> CommonArea:
-        """ Create a new common_area """
+        """Create a new common_area"""
         common_area_fields = CommonAreaInterface(**new_attrs)
         disorders = []
         if "disorders" in common_area_fields:

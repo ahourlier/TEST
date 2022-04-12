@@ -20,18 +20,18 @@ from ...common.search import SEARCH_PARAMS
 
 @api.route("/")
 class ScenarioResource(AuthenticatedApi):
-    """ Scenarios """
+    """Scenarios"""
 
     @accepts(schema=ScenarioSchema, api=api)
     @responds(schema=ScenarioSchema)
     def post(self) -> Scenario:
-        """ Create an scenario """
+        """Create an scenario"""
         return ScenarioService.create(request.parsed_obj)
 
 
 @api.route("/accommodation/<int:accommodation_id>")
 class ScenarioByAccommodationResource(AuthenticatedApi):
-    """ Scenarios by accommodation """
+    """Scenarios by accommodation"""
 
     @accepts(
         *SEARCH_PARAMS,
@@ -40,7 +40,7 @@ class ScenarioByAccommodationResource(AuthenticatedApi):
     )
     @responds(schema=ScenarioPaginatedSchema())
     def get(self, accommodation_id: int) -> Pagination:
-        """ Get all scenarios by accommodation"""
+        """Get all scenarios by accommodation"""
         return ScenarioService.get_all(
             accommodation_id,
             page=int(request.args.get("page", SCENARIOS_DEFAULT_PAGE)),
@@ -61,7 +61,7 @@ class ScenarioByAccommodationResource(AuthenticatedApi):
 class ScenarioIdResource(AuthenticatedApi):
     @responds(schema=ScenarioSchema)
     def get(self, scenario_id: int) -> Scenario:
-        """ Get single scenario """
+        """Get single scenario"""
 
         return ScenarioService.get_by_id(scenario_id)
 
@@ -73,7 +73,10 @@ class ScenarioIdResource(AuthenticatedApi):
 
     @accepts(dict(name="section", type=str), schema=ScenarioSchema, api=api)
     @responds(schema=ScenarioSchema)
-    def put(self, scenario_id: int,) -> Scenario:
+    def put(
+        self,
+        scenario_id: int,
+    ) -> Scenario:
         """Update single scenario"""
 
         changes: ScenarioInterface = request.parsed_obj
@@ -92,7 +95,7 @@ class ScenarioIdResource(AuthenticatedApi):
 class ScenarioByAccommodationIdResource(AuthenticatedApi):
     @responds(schema=ScenarioSchema)
     def get(self, accommodation_id: int) -> Scenario:
-        """ Get single scenario """
+        """Get single scenario"""
 
         return ScenarioService.get_initial_state_by_accommodation_id(accommodation_id)
 
@@ -101,7 +104,10 @@ class ScenarioByAccommodationIdResource(AuthenticatedApi):
 @api.param("scenarioId", "Scenario unique ID")
 class ScenarioDuplicationResource(AuthenticatedApi):
     @responds(schema=ScenarioSchema)
-    def put(self, scenario_id: int,) -> Scenario:
+    def put(
+        self,
+        scenario_id: int,
+    ) -> Scenario:
         """Duplicate a scenario and return the clone"""
         return ScenarioService.duplicate(scenario_id)
 
@@ -111,15 +117,17 @@ class ScenarioDuplicationResource(AuthenticatedApi):
 class LaunchAnalysisResource(AuthenticatedApi):
     @responds(schema=ScenarioSchema)
     def get(self, scenario_id: int) -> Scenario:
-        """ Update analysis values for one scenario """
-        return ScenarioService.launch_perrenoud_analysis(scenario_id,)
+        """Update analysis values for one scenario"""
+        return ScenarioService.launch_perrenoud_analysis(
+            scenario_id,
+        )
 
 
 @api.route("/<int:scenario_id>/analysis_test")
 @api.param("scenarioId", "Scenario unique ID")
 class TestXMLResource(AuthenticatedApi):
     def get(self, scenario_id: int) -> Scenario:
-        """ Get xml perrenoud generated for a single scenario """
+        """Get xml perrenoud generated for a single scenario"""
         return ScenarioService.launch_perrenoud_analysis(scenario_id, test_XML=True)
 
 
@@ -127,6 +135,9 @@ class TestXMLResource(AuthenticatedApi):
 @api.param("accommodationId", "Accommodation unique ID")
 class InitialStateCreationAndDuplicationResource(AuthenticatedApi):
     @responds(schema=ScenarioSchema)
-    def put(self, accommodation_id: int,) -> Scenario:
+    def put(
+        self,
+        accommodation_id: int,
+    ) -> Scenario:
         """Create a scenario and return the clone"""
         return ScenarioService.create_and_duplicate(accommodation_id)

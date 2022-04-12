@@ -249,7 +249,7 @@ class ProjectService:
 
     @staticmethod
     def create(new_attrs: dict) -> Project:
-        """ Create a new project with linked mission, referrers, and requester """
+        """Create a new project with linked mission, referrers, and requester"""
         project_leads = None
         work_types = None
         # Check if project_leads exist and save them :
@@ -297,7 +297,9 @@ class ProjectService:
             queue=PROJECT_INIT_QUEUE_NAME,
             uri=f"{os.getenv('API_URL')}/_internal/projects/init-drive",
             method="POST",
-            payload={"project_id": project.id,},
+            payload={
+                "project_id": project.id,
+            },
         )
 
         return project
@@ -393,7 +395,7 @@ class ProjectService:
 
     @staticmethod
     def anonymize_list(projects_id: List[int], delete_documents: bool = False):
-        """Anonymize multiple projects """
+        """Anonymize multiple projects"""
         for id in projects_id:
             ProjectService.anonymize_by_id(id, delete_documents=delete_documents)
         return projects_id
@@ -457,7 +459,7 @@ class ProjectService:
 
     @staticmethod
     def create_drive_structure(project: Project) -> Project:
-        """ Creates the drive structure for a project
+        """Creates the drive structure for a project
         Root
         |-> Devis et Factures
         |-> Logement

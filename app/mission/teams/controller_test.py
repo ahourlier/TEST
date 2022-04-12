@@ -32,13 +32,26 @@ def make_team(
     user_id: int = 1,
 ) -> Team:
     return Team(
-        id=id, user_position=user_position, mission_id=mission_id, user_id=user_id,
+        id=id,
+        user_position=user_position,
+        mission_id=mission_id,
+        user_id=user_id,
     )
 
 
 def get_all_fake_data(**kwargs):
-    m1 = make_team(123, user_position=TEAM_ONE_USER_POSITION, mission_id=1, user_id=1,)
-    m2 = make_team(456, user_position=TEAM_TWO_USER_POSITION, mission_id=1, user_id=1,)
+    m1 = make_team(
+        123,
+        user_position=TEAM_ONE_USER_POSITION,
+        mission_id=1,
+        user_id=1,
+    )
+    m2 = make_team(
+        456,
+        user_position=TEAM_TWO_USER_POSITION,
+        mission_id=1,
+        user_id=1,
+    )
 
     items = [m1, m2]
     total = 2
@@ -58,7 +71,10 @@ def get_all_fake_data(**kwargs):
         items = [m2, m1]
 
     return make_pagination(
-        items=items, page=kwargs.get("page"), per_page=kwargs.get("size"), total=total,
+        items=items,
+        page=kwargs.get("page"),
+        per_page=kwargs.get("size"),
+        total=total,
     )
 
 

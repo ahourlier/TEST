@@ -22,7 +22,7 @@ REFERRERS_DEFAULT_SORT_DIRECTION = "desc"
 class ProjectLeadService:
     @staticmethod
     def create(new_attrs: ProjectLeadInterface) -> ProjectLead:
-        """ Create a new project_lead for a project """
+        """Create a new project_lead for a project"""
 
         # Check if project exists
         project_service.ProjectService.get_by_id(new_attrs.get("project_id"))

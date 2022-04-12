@@ -14,7 +14,7 @@ class FieldsCategories(Enum):
 
 
 class CustomField(SoftDeletableMixin, BaseMixin, db.Model):
-    """ CustomField  """
+    """CustomField"""
 
     __tablename__ = "custom_field"
 
@@ -28,7 +28,7 @@ class CustomField(SoftDeletableMixin, BaseMixin, db.Model):
 
 
 class AvailableFieldValue(SoftDeletableMixin, BaseMixin, db.Model):
-    """ AvailableFieldValue  """
+    """AvailableFieldValue"""
 
     __tablename__ = "available_field_value"
 

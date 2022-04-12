@@ -5,7 +5,7 @@ import logging
 class ServicesUtils:
     @staticmethod
     def clean_attrs(attrs: dict, excluded_fields: []):
-        """ Remove excluded fields from entring attrs and return them"""
+        """Remove excluded fields from entring attrs and return them"""
 
         extracted_fields = {}
 
@@ -38,7 +38,7 @@ class ServicesUtils:
 
     @staticmethod
     def set_nested_dict(dic, keys, value, append=False):
-        """ Small util to set value into nested dict.
+        """Small util to set value into nested dict.
         Can append new value into existing as dict or list"""
         for key in keys[:-1]:
             dic = dic.setdefault(key, {})
@@ -57,7 +57,7 @@ class ServicesUtils:
 
     @staticmethod
     def deep_copy_list_of_dicts(list):
-        """ Returns a deepcopy of the given list of dicts"""
+        """Returns a deepcopy of the given list of dicts"""
         copy_list = []
         for li in list:
             copy_item = copy.deepcopy(li)

@@ -6,7 +6,7 @@ from app.common.base_model import BaseMixin
 
 
 class Comment(BaseMixin, db.Model):
-    """ Comment  """
+    """Comment"""
 
     __tablename__ = "comment"
 

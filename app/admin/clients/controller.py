@@ -20,12 +20,12 @@ from ...common.search import SEARCH_PARAMS
 
 @api.route("/")
 class ClientResource(AuthenticatedApi):
-    """ Clients """
+    """Clients"""
 
     @accepts(*SEARCH_PARAMS, api=api)
     @responds(schema=ClientPaginatedSchema())
     def get(self) -> Pagination:
-        """ Get all clients """
+        """Get all clients"""
         return ClientService.get_all(
             page=int(request.args.get("page", CLIENTS_DEFAULT_PAGE)),
             size=int(request.args.get("size", CLIENTS_DEFAULT_PAGE_SIZE)),
@@ -38,7 +38,7 @@ class ClientResource(AuthenticatedApi):
     @responds(schema=ClientSchema)
     @requires(is_manager)
     def post(self) -> Client:
-        """ Create a client """
+        """Create a client"""
         return ClientService.create(request.parsed_obj)
 
 
@@ -47,7 +47,7 @@ class ClientResource(AuthenticatedApi):
 class ClientIdResource(AuthenticatedApi):
     @responds(schema=ClientSchema)
     def get(self, client_id: int) -> Client:
-        """ Get single client """
+        """Get single client"""
 
         return ClientService.get_by_id(client_id)
 

@@ -19,7 +19,7 @@ class WallService:
 
     @staticmethod
     def create(new_attrs: WallInterface, scenario_id=None, commit=True) -> Wall:
-        """ Create a new wall"""
+        """Create a new wall"""
         if scenario_id is not None:
             new_attrs["scenario_id"] = scenario_id
         scenarios_service.ScenarioService.get_by_id(new_attrs.get("scenario_id"))
@@ -81,7 +81,7 @@ class WallService:
 
     @staticmethod
     def duplicate(base_wall, clone_scenario_parent_id):
-        """ Duplicate a wall"""
+        """Duplicate a wall"""
         fields_to_treat_separately = ["scenario_id"]
         base_fields = ServicesUtils.fetch_dict_fields_from_object(
             base_wall, extra_fields_to_remove=fields_to_treat_separately.copy()

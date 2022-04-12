@@ -10,7 +10,7 @@ from app.mission.missions.model import Mission
 
 
 class Funder(SoftDeletableMixin, BaseMixin, db.Model):
-    """ Represents a funder """
+    """Represents a funder"""
 
     __tablename__ = "funder"
 

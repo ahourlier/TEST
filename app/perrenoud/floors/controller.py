@@ -12,7 +12,10 @@ from .. import Floor
 class FloorScenarioIdResource(AuthenticatedApi):
     @accepts(schema=FloorSchema, api=api)
     @responds(schema=FloorSchema)
-    def post(self, scenario_id: int,) -> Floor:
+    def post(
+        self,
+        scenario_id: int,
+    ) -> Floor:
         """Create single floor"""
 
         return FloorService.create(request.parsed_obj, scenario_id)

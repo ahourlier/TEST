@@ -52,6 +52,7 @@ class SheetsList(Enum):
     COMMON_AREA = "Parties_Communes"
     PROJECTS_LEADS = "Referents"
 
+
 date_status_fields_map = {
     "Visite conseil à programmer": "date_meet_advices_to_plan",
     "Visite contrôle à programmer": "date_meet_control_to_plan",
@@ -67,7 +68,7 @@ date_status_fields_map = {
     "Visite à traiter": "date_meet_to_process",
     "Non éligible": "date_non_eligible",
     "Demande paiement à faire": "date_payment_request_to_do",
-    "À Contacter": "date_to_contact"
+    "À Contacter": "date_to_contact",
 }
 
 projects_fields_map = {
@@ -836,13 +837,15 @@ class DataImportUtils:
     def fetch_data_from_sheet(sheet_id, user_email, A1_location):
         """From a given data sheet, fetch fields at the given A1 location"""
         sheet_file = SheetsUtils.get_spreadsheet_by_datafilter(
-            sheet_id, A1_notation_filters=A1_location, user_email=user_email,
+            sheet_id,
+            A1_notation_filters=A1_location,
+            user_email=user_email,
         )
         return SheetsUtils.format_sheet(sheet_file)
 
     @staticmethod
     def format_value(value, type):
-        """ Return formatted value, ready to be inserted into db"""
+        """Return formatted value, ready to be inserted into db"""
         if type in [SheetFieldsTypes.INTEGER.value, SheetFieldsTypes.DATE_YEAR.value]:
             value = int(value)
         elif type == SheetFieldsTypes.BOOLEAN.value:
@@ -860,7 +863,7 @@ class DataImportUtils:
     # V2 Is there a better way to extract theses models ?
     @staticmethod
     def fetch_model(model_name):
-        """ From a given string, returns the corresponding SQL Alchemy Model"""
+        """From a given string, returns the corresponding SQL Alchemy Model"""
         from app.project import Requester
         from app.project.contacts import Contact
         from app.project.projects import Project
@@ -897,8 +900,8 @@ class DataImportUtils:
 
     @staticmethod
     def extract_phone_attrs(phone_number):
-        """ From raw phone value, extract phones fields and
-        return a proper new_attr """
+        """From raw phone value, extract phones fields and
+        return a proper new_attr"""
         phone_values = phone_number.get("value").split("-")
         return {
             "country_code": phone_values[0].strip(),
@@ -909,8 +912,8 @@ class DataImportUtils:
 
     @staticmethod
     def extract_disorder_types_attrs(disorder_types):
-        """ From raw disorder_types value, extract disorder types fields and
-        return a proper new_attr lists """
+        """From raw disorder_types value, extract disorder types fields and
+        return a proper new_attr lists"""
         disorders_values = disorder_types.get("value").split("&")
         disorder_types_attrs_list = []
         for value in disorders_values:
@@ -925,13 +928,15 @@ class DataImportUtils:
 
     @staticmethod
     def extract_work_types_attrs(work_types):
-        """ From raw work_types value, extract work_types fields and
-        return a proper new_attr lists """
+        """From raw work_types value, extract work_types fields and
+        return a proper new_attr lists"""
         work_values = work_types.get("value").split("&")
         work_types_attrs_list = []
         for value in work_values:
             work_types_attrs_list.append(
-                {"type_name": value.strip(),}
+                {
+                    "type_name": value.strip(),
+                }
             )
         return work_types_attrs_list
 

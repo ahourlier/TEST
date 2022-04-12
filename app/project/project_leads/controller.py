@@ -18,12 +18,12 @@ from app.project.project_leads.service import (
 
 @api.route("/")
 class ReferrersResource(AuthenticatedApi):
-    """ Referrers """
+    """Referrers"""
 
     @accepts(*SEARCH_PARAMS, api=api)
     @responds(schema=UserPaginatedSchema())
     def get(self) -> Pagination:
-        """ Get all referrers """
+        """Get all referrers"""
         return ProjectLeadService.get_all(
             page=int(request.args.get("page", REFERRERS_DEFAULT_PAGE)),
             size=int(request.args.get("size", REFERRERS_DEFAULT_PAGE_SIZE)),

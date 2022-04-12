@@ -29,15 +29,16 @@ from ...common.search import SEARCH_PARAMS
 
 @api.route("/")
 class DocumentResource(AuthenticatedApi):
-    """ Documents """
+    """Documents"""
 
     @accepts(
-        *SEARCH_PARAMS, api=api,
+        *SEARCH_PARAMS,
+        api=api,
     )
     @responds(schema=DocumentPaginatedSchema())
     @requires(is_admin)
     def get(self) -> Pagination:
-        """ Get all documents """
+        """Get all documents"""
         return DocumentService.get_all(
             page=int(request.args.get("page", DOCUMENTS_DEFAULT_PAGE)),
             size=int(request.args.get("size", DOCUMENTS_DEFAULT_PAGE_SIZE)),
@@ -52,7 +53,7 @@ class DocumentResource(AuthenticatedApi):
     @responds(schema=DocumentSchema)
     @requires(has_project_permission)
     def post(self) -> Document:
-        """ Generate a document completed from template """
+        """Generate a document completed from template"""
         return DocumentService.create(request.parsed_obj)
 
 
@@ -61,7 +62,7 @@ class DocumentHTMLResource(AuthenticatedApi):
     @accepts(schema=DocumentRequestSchema, api=api)
     @requires(has_project_permission)
     def post(self) -> Document:
-        """ Return an HTML text based on a template, completed with corresponding values """
+        """Return an HTML text based on a template, completed with corresponding values"""
         return DocumentService.html_document(request.parsed_obj)
 
 
@@ -71,7 +72,7 @@ class DocumentIdResource(AuthenticatedApi):
     @responds(schema=DocumentSchema(), api=api)
     @requires(is_admin)
     def get(self, document_id: int) -> Document:
-        """ Get single document """
+        """Get single document"""
 
         return DocumentService.get_by_id(document_id)
 

@@ -33,12 +33,12 @@ from app.project.search.service import (
 
 @api.route("/")
 class ProjectExecuteSearchResource(AuthenticatedApi):
-    """ Searchs on projects """
+    """Searchs on projects"""
 
     @accepts(schema=SearchSchema(), api=api)
     @responds(schema=ProjectPaginatedSchema(), api=api)
     def post(self) -> Pagination:
-        """ Search on projects """
+        """Search on projects"""
         return ProjectSearchService.search_projects(
             request.get_json(),
             page=int(request.args.get("page", SEARCH_DEFAULT_PAGE)),
@@ -50,17 +50,17 @@ class ProjectExecuteSearchResource(AuthenticatedApi):
 
 @api.route("/save/me/")
 class ProjectSearchResource(AuthenticatedApi):
-    """ Get registered searchs """
+    """Get registered searchs"""
 
     @responds(schema=SearchDumpSchema(many=True))
     def get(self) -> List[Search]:
-        """ Get all searchs """
+        """Get all searchs"""
         return ProjectRegisterSearchService.get_all_raw()
 
     @accepts(schema=SearchRegisterSchema(), api=api)
     @responds(schema=SearchDumpSchema(), api=api)
     def post(self) -> Search:
-        """ Create a search """
+        """Create a search"""
         return ProjectRegisterSearchService.create(request.parsed_obj)
 
 
@@ -69,7 +69,7 @@ class ProjectSearchResource(AuthenticatedApi):
 class PaginatedSearchResource(AuthenticatedApi):
     @responds(schema=SearchPaginatedSchema())
     def get(self) -> Pagination:
-        """ Get all searchs paginated """
+        """Get all searchs paginated"""
         return ProjectRegisterSearchService.get_all_paginated(
             page=int(request.args.get("page", SAVED_SEARCH_DEFAULT_PAGE)),
             size=int(request.args.get("size", SAVED_SEARCH_DEFAULT_PAGE_SIZE)),
@@ -85,7 +85,7 @@ class PaginatedSearchResource(AuthenticatedApi):
 class SearchIdResource(AuthenticatedApi):
     @responds(schema=SearchDumpSchema(), api=api)
     def get(self, search_id: int) -> Search:
-        """ Get single search """
+        """Get single search"""
         return ProjectRegisterSearchService.get_by_id(search_id)
 
     @responds(schema=SearchDumpSchema(many=True))

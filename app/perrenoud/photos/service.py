@@ -39,7 +39,7 @@ class PhotoService:
         room_id=None,
         scenario_id=None,
     ):
-        """ Add multiple photos from the user drive into accommodations/photos folder.
+        """Add multiple photos from the user drive into accommodations/photos folder.
         Insert the appropriate photo monitoring entity into base"""
         project = projects_service.ProjectService.get_by_id(project_id)
         if section not in SECTIONS:
@@ -87,8 +87,8 @@ class PhotoService:
         room=None,
         scenario=None,
     ):
-        """ Add a photo from the user drive into accommodations/photos folder
-         Insert the appropriate photo monitoring entity into base """
+        """Add a photo from the user drive into accommodations/photos folder
+        Insert the appropriate photo monitoring entity into base"""
         prefix = PhotoService.build_prefix(
             project, section, accommodation=accommodation, room=room
         )
@@ -133,7 +133,7 @@ class PhotoService:
     def upload_multiple(
         project_id, accommodation_id, photos, section, room_id=None, scenario_id=None
     ):
-        """ Upload multiple photos from user device"""
+        """Upload multiple photos from user device"""
         if section not in SECTIONS:
             raise MissingSectionException()
         project = projects_service.ProjectService.get_by_id(project_id)
@@ -163,7 +163,7 @@ class PhotoService:
 
     @staticmethod
     def upload(project, photo, section, accommodation=None, room=None, scenario=None):
-        """ Upload a photo from user device"""
+        """Upload a photo from user device"""
 
         properties = {
             "projectId": project.id,

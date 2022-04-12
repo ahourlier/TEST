@@ -43,7 +43,7 @@ class DataImportService:
 
     @staticmethod
     def create(new_attrs: DataImportInterface) -> DataImport:
-        """ Create a new data_import """
+        """Create a new data_import"""
         data_import = DataImport(**new_attrs)
         db.session.add(data_import)
         db.session.commit()
@@ -72,7 +72,7 @@ class DataImportService:
 
     @staticmethod
     def import_projects(mission: Mission, data_sheet_id: str):
-        """ Launch tasks to begin multiple projects import"""
+        """Launch tasks to begin multiple projects import"""
         create_task(
             project=os.getenv("GOOGLE_CLOUD_PROJECT"),
             location=os.getenv("QUEUES_LOCATION"),
@@ -134,7 +134,7 @@ class DataImportService:
 
     @staticmethod
     def close_import(import_id: int):
-        """ End import worflow. Make raw data empty, update import status and commit changes"""
+        """End import worflow. Make raw data empty, update import status and commit changes"""
         db_data_import = DataImportService.get_by_id(import_id)
         changes = {"status": DataImportStatus.DONE.value, "data": None, "labels": None}
         DataImportService.update(db_data_import, changes)
@@ -150,7 +150,7 @@ class DataImportService:
         entities_keys_map: int,
         mission_id: int,
     ):
-        """ For given sheet and row id (corresponding to a sheet data loaded into base),
+        """For given sheet and row id (corresponding to a sheet data loaded into base),
         create one entity and launch a task for the next index of the data"""
 
         db_data_import = DataImportService.get_by_id(import_id)
@@ -173,14 +173,20 @@ class DataImportService:
                 import_id, sheet_id + 1, 0, entities_keys_map, mission_id
             )
 
-        label_fields_map = SPREADSHEET_STRUCTURE.get(sheet_name).get("labels_fields_map")
+        label_fields_map = SPREADSHEET_STRUCTURE.get(sheet_name).get(
+            "labels_fields_map"
+        )
 
         if sheet_name == SheetsList.PROJECTS.value:
-            date_status_fields_map = SPREADSHEET_STRUCTURE.get(sheet_name).get("date_status_fields_map")
-            label_fields_map = DataImportService.add_date_status_to_label_fields(sheet_data[row_id],
-                                                                                 json.loads(db_data_import.labels).get(sheet_name)[0],
-                                                                                 label_fields_map,
-                                                                                 date_status_fields_map)
+            date_status_fields_map = SPREADSHEET_STRUCTURE.get(sheet_name).get(
+                "date_status_fields_map"
+            )
+            label_fields_map = DataImportService.add_date_status_to_label_fields(
+                sheet_data[row_id],
+                json.loads(db_data_import.labels).get(sheet_name)[0],
+                label_fields_map,
+                date_status_fields_map,
+            )
         # Fetch new entity fields/values correspondances
         new_entity_fields = DataImportService.build_entity_labels_fields_list(
             row_fields=sheet_data[row_id],
@@ -255,10 +261,9 @@ class DataImportService:
         )
         return entities_keys_map
 
-    def add_date_status_to_label_fields(fields_values,
-                                        fields_label,
-                                        labels_fields_map,
-                                        date_status_fields_map):
+    def add_date_status_to_label_fields(
+        fields_values, fields_label, labels_fields_map, date_status_fields_map
+    ):
         imported_status_name = None
         for index, label in enumerate(fields_label):
             if label == "status":
@@ -269,10 +274,14 @@ class DataImportService:
             for status_name in date_status_fields_map:
                 if status_name == imported_status_name:
                     found_db_field_name = date_status_fields_map[status_name]
-                    labels_fields_map['date du status'] = {}
-                    labels_fields_map['date du status']['field'] = found_db_field_name
-                    labels_fields_map['date du status']['type'] = SheetFieldsTypes.DATE_DAY.value
-                    labels_fields_map['date du status']['model'] = BaseEntities.PROJECT.value
+                    labels_fields_map["date du status"] = {}
+                    labels_fields_map["date du status"]["field"] = found_db_field_name
+                    labels_fields_map["date du status"][
+                        "type"
+                    ] = SheetFieldsTypes.DATE_DAY.value
+                    labels_fields_map["date du status"][
+                        "model"
+                    ] = BaseEntities.PROJECT.value
                     break
         return labels_fields_map
 
@@ -281,7 +290,7 @@ class DataImportService:
     def build_new_entity_attrs(
         sheet_name, model_name, entities_keys_map, new_entity_fields, mission_id
     ):
-        """ From the new_entity_fields list, return :
+        """From the new_entity_fields list, return :
         1 : a new_attr dict ready to be injected to instantiate a new SQL ALchemy Object
         2 : a primary_key_field object containing infos and value of the primary field
         """
@@ -296,7 +305,10 @@ class DataImportService:
             if field_infos.get("type") == SheetFieldsTypes.PRIMARY_ID.value:
                 # Store primary keys for future relational mapping
                 primary_key_field = DataImportService.validate_primary_key(
-                    sheet_name, field_infos, entities_keys_map, model_name,
+                    sheet_name,
+                    field_infos,
+                    entities_keys_map,
+                    model_name,
                 )
                 continue
             elif field_infos.get("type") == SheetFieldsTypes.FOREIGN_ID.value:
@@ -351,7 +363,9 @@ class DataImportService:
         ):
 
             DataImportService.rollback_import(
-                entities_keys_map, sheet_name, message="Incorrect or absent entity ID",
+                entities_keys_map,
+                sheet_name,
+                message="Incorrect or absent entity ID",
             )
         if primary_key_field:
             DataImportService.rollback_import(
@@ -363,7 +377,7 @@ class DataImportService:
 
     @staticmethod
     def fetch_foreign_key(field_infos, entities_keys_map, sheet_name):
-        """ Within the entities_keys_map, fetch the real database foreign key corresponding.
+        """Within the entities_keys_map, fetch the real database foreign key corresponding.
         Cancel import if none can be found"""
         try:
             model = field_infos.get("foreign_model")
@@ -398,7 +412,9 @@ class DataImportService:
 
     @staticmethod
     def build_entity_labels_fields_list(
-        row_fields, labels_fields_map, labels_lists,
+        row_fields,
+        labels_fields_map,
+        labels_lists,
     ):
         """For each element of a given sheet row, map the sheet value
         with field infos provided by the SPREADSHEET_STRUCTURE main object"""
@@ -415,7 +431,7 @@ class DataImportService:
     def insert_new_entity(
         model_name, new_attrs, entities_keys_map, primary_key_value=None
     ):
-        """ Insert a new entity in db, based on provided new_attrs"""
+        """Insert a new entity in db, based on provided new_attrs"""
         model = DataImportUtils.fetch_model(model_name)
         new_entity = None
         try:
@@ -434,7 +450,7 @@ class DataImportService:
 
     @staticmethod
     def activate_imported_projects(projects_id_list: List, import_id):
-        """ Loop over provided projects_ids and activate them when import is over"""
+        """Loop over provided projects_ids and activate them when import is over"""
         for project_id in projects_id_list:
             db.session.query(DataImportUtils.fetch_model("Project")).filter_by(
                 id=project_id
@@ -488,7 +504,7 @@ class DataImportService:
         entities_keys_map: int,
         mission_id: int,
     ):
-        """ Launch task to register a new entity"""
+        """Launch task to register a new entity"""
         create_task(
             project=os.getenv("GOOGLE_CLOUD_PROJECT"),
             location=os.getenv("QUEUES_LOCATION"),
@@ -536,35 +552,39 @@ class DataImportService:
 
     @staticmethod
     def activate_projects_task(projects_id_list):
-        """ Launch task to activate imported projects"""
+        """Launch task to activate imported projects"""
         create_task(
             project=os.getenv("GOOGLE_CLOUD_PROJECT"),
             location=os.getenv("QUEUES_LOCATION"),
             queue=ACTIVATE_PROJECTS_QUEUE_NAME,
             uri=f"{os.getenv('API_URL')}/_internal/data_import/activate",
             method="POST",
-            payload={"projects_id_list": projects_id_list,},
+            payload={
+                "projects_id_list": projects_id_list,
+            },
         )
 
         return "Success"
 
     @staticmethod
     def close_import_task(import_id):
-        """ Launch task to close import"""
+        """Launch task to close import"""
         create_task(
             project=os.getenv("GOOGLE_CLOUD_PROJECT"),
             location=os.getenv("QUEUES_LOCATION"),
             queue=CLOSE_IMPORT_QUEUE_NAME,
             uri=f"{os.getenv('API_URL')}/_internal/data_import/close",
             method="POST",
-            payload={"import_id": import_id,},
+            payload={
+                "import_id": import_id,
+            },
         )
 
         return "Success"
 
     @staticmethod
     def initialize_projects_drives_task(projects_id_list: List):
-        """ Loop over provided projects_ids and launch tasks to initialize
+        """Loop over provided projects_ids and launch tasks to initialize
         all projects drive folders tree"""
         for project_id in projects_id_list:
             create_task(
@@ -573,19 +593,23 @@ class DataImportService:
                 queue=PROJECT_INIT_QUEUE_NAME,
                 uri=f"{os.getenv('API_URL')}/_internal/projects/init-drive",
                 method="POST",
-                payload={"project_id": project_id,},
+                payload={
+                    "project_id": project_id,
+                },
             )
 
     @staticmethod
     def delete_canceled_project_task(projects_id_list: List):
-        """ Launch task to delete the next item of the provided list"""
+        """Launch task to delete the next item of the provided list"""
         create_task(
             project=os.getenv("GOOGLE_CLOUD_PROJECT"),
             location=os.getenv("QUEUES_LOCATION"),
             queue=DELETE_PROJECT_QUEUE_NAME,
             uri=f"{os.getenv('API_URL')}/_internal/data_import/rollback",
             method="POST",
-            payload={"projects_id_list": projects_id_list,},
+            payload={
+                "projects_id_list": projects_id_list,
+            },
         )
 
     @staticmethod

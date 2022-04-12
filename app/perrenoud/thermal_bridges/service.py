@@ -21,7 +21,7 @@ class ThermalBridgeService:
     def create(
         new_attrs: ThermalBridgeInterface, scenario_id=None, commit=True
     ) -> ThermalBridge:
-        """ Create a new thermal_bridge"""
+        """Create a new thermal_bridge"""
         if scenario_id is not None:
             new_attrs["scenario_id"] = scenario_id
         scenarios_service.ScenarioService.get_by_id(new_attrs.get("scenario_id"))
@@ -97,7 +97,7 @@ class ThermalBridgeService:
 
     @staticmethod
     def duplicate(base_thermal_bridge, clone_scenario_parent_id):
-        """ Duplicate a thermal_bridge """
+        """Duplicate a thermal_bridge"""
         fields_to_treat_separately = ["scenario_id"]
         base_fields = ServicesUtils.fetch_dict_fields_from_object(
             base_thermal_bridge,

@@ -6,7 +6,7 @@ from app.common.base_model import BaseMixin
 
 
 class TaxableIncome(BaseMixin, db.Model):
-    """ Taxable Income  """
+    """Taxable Income"""
 
     __tablename__ = "taxable_income"
 

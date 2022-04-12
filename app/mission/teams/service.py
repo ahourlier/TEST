@@ -108,7 +108,7 @@ class TeamService:
 
     @staticmethod
     def create(new_attrs: TeamInterface) -> Team:
-        """ Create a new team in a given agency """
+        """Create a new team in a given agency"""
         mission_service.MissionService.get_by_id(new_attrs.get("mission_id"))
 
         if new_attrs.get("user_id"):
