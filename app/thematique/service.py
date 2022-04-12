@@ -11,10 +11,12 @@ from app.thematique.error_handlers import (
     MissingVersionIdException,
     MissingStepIdException,
     UnauthorizedToDeleteException,
+    UnauthorizedToUpdateException,
     UnauthorizedDuplicationException,
+    NotUniqueDataAndNameVersionException
 )
 from app.thematique.model import ThematiqueMission
-from app.thematique.schema import StepSchema
+from app.thematique.schema import StepSchema, VersionSchema
 from app import db
 
 
@@ -122,13 +124,17 @@ class ThematiqueService:
         firestore_service = FirestoreUtils()
         ThematiqueService.check_duplication_authorization(version, firestore_service)
 
+        collection = firestore_service.client.collection(current_app.config.get("FIRESTORE_THEMATIQUE_COLLECTION"))
+
+        unique_date_and_name = ThematiqueService.check_date_and_name_version(collection, version)
+        if not unique_date_and_name:
+            raise NotUniqueDataAndNameVersionException
+        
         steps = version.get("steps", [])
         del version["steps"]
         if "id" in version:
             del version["id"]
-        document = firestore_service.client.collection(
-            current_app.config.get("FIRESTORE_THEMATIQUE_COLLECTION")
-        ).document()
+        document = collection.document()
         document.set(version)
 
         for s in steps:
@@ -171,6 +177,16 @@ class ThematiqueService:
         # Found template with correct thematic_name, scope and heritable attr
         return len(template) > 0
 
+    def check_date_and_name_version(collection, version_to_duplicate):
+        docs = collection.stream()
+        for doc in docs:
+            obj = doc.to_dict()
+            if obj.get('version_name') == version_to_duplicate.get('version_name') and \
+               obj.get('version_date') == version_to_duplicate.get('version_date') and \
+               obj.get('scope') == version_to_duplicate.get('scope'):
+                return False
+        return True
+
     @staticmethod
     def update_step(version_id: str, step_id: str, payload: StepSchema):
 
@@ -187,6 +203,39 @@ class ThematiqueService:
                 del payload["metadata"][key]
 
         step.reference.set(payload, merge=True)
+        return ThematiqueService.get_version(version_id)
+
+    @staticmethod
+    def update_version(version_id: str, payload: VersionSchema):
+
+        if version_id in ["", None]:
+            raise MissingVersionIdException
+
+        firestore_service = FirestoreUtils()
+
+        version = firestore_service.get_version_by_id(version_id=version_id)
+        version = version.to_dict()
+        if version.get('versionnable', None) and version.get('heritable', None):
+            # Only update from copro scope if heritable
+            if version.get("scope") != "copro":
+                raise UnauthorizedToUpdateException
+            # Get versions with same name and date (unicity checked on create)
+            matching_versions = firestore_service.query_version(
+                version_name=version.get('version_name'),
+                version_date=version.get('version_date'),
+                thematique_name=version.get('thematique_name')
+            )
+            # Update all inherited versions with the same version_name and version_date
+            for vers in matching_versions:
+                vers.reference.set(payload, merge=True)
+
+        elif version.get('versionnable', None):
+            # Simply update version when only versionnable
+            version.reference.set(payload, merge=True)
+        else:
+            # Nothing to update if not versionnable (should not happend)
+            raise UnauthorizedToUpdateException
+
         return ThematiqueService.get_version(version_id)
 
     @staticmethod

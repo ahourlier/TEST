@@ -14,8 +14,12 @@ from app.common.config_error_messages import (
     KEY_STEP_NOT_FOUND_EXCEPTION,
     KEY_VERSION_DELETION_UNAUTHORIZED,
     VERSION_DELETION_UNAUTHORIZED,
+    KEY_VERSION_UPDATE_UNAUTHORIZED,
+    VERSION_UPDATE_UNAUTHORIZED,
     KEY_VERSION_DUPLICATION_UNAUTHORIZED,
     VERSION_DUPLICATION_UNAUTHORIZED,
+    KEY_NOT_UNIQUE_DATA_AND_NAME_VERSION_UNAUTHORIZED,
+    NOT_UNIQUE_DATA_AND_NAME_VERSION_UNAUTHORIZED
 )
 
 
@@ -82,10 +86,23 @@ class UnauthorizedToDeleteException(HTTPException):
         self.message = message
         self.status = "UNAUTHORIZED"
 
+class UnauthorizedToUpdateException(HTTPException):
+    def __init__(self, message=VERSION_UPDATE_UNAUTHORIZED):
+        self.code = 401
+        self.key = KEY_VERSION_UPDATE_UNAUTHORIZED
+        self.message = message
+        self.status = "UNAUTHORIZED"
 
 class UnauthorizedDuplicationException(HTTPException):
     def __init__(self, message=VERSION_DUPLICATION_UNAUTHORIZED):
         self.code = 401
         self.key = KEY_VERSION_DUPLICATION_UNAUTHORIZED
+        self.message = message
+        self.status = "UNAUTHORIZED"
+
+class NotUniqueDataAndNameVersionException(HTTPException):
+    def __init__(self, message=NOT_UNIQUE_DATA_AND_NAME_VERSION_UNAUTHORIZED):
+        self.code = 401
+        self.key = KEY_NOT_UNIQUE_DATA_AND_NAME_VERSION_UNAUTHORIZED
         self.message = message
         self.status = "UNAUTHORIZED"
