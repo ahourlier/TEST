@@ -31,6 +31,11 @@ def upgrade():
         "SET type = 'LOCATAIRE' "
         "WHERE type IN ('Locataire', 'TENANT')"
     )
+    session.execute(
+        "UPDATE core.requester "
+        "SET type = 'SDC' "
+        "WHERE type IN ('SDC (Syndicat des Copropriétaires)', 'SDC (Syndicat des copropriétaires)')"
+    )
     # ### end Alembic commands ###
 
 

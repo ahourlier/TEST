@@ -10,7 +10,7 @@ class RequesterTypes(Enum):
     PO = "PO"
     PB = "PB"
     TENANT = "LOCATAIRE"
-    SDC = "SDC (Syndicat des Copropriétaires)"
+    SDC = "SDC"
 
 
 class Requester(HasPhones, BaseMixin, db.Model):
