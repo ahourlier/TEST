@@ -1,4 +1,4 @@
-from flask import Response, request, jsonify
+from flask import request, jsonify
 from flask_accepts import responds, accepts
 from flask_allows import requires
 

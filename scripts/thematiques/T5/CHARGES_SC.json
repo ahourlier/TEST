@@ -1,0 +1,133 @@
+{
+	"thematique_name": "CHARGES",
+	"scope": "sc",
+	"versionnable": true,
+	"heritable": false,
+	"extend_parent": false,
+	"steps": [
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "DONNEES_CADRAGE",
+				"order": 1,
+				"status": ""
+			},
+			"fields": {
+				"total_lots_principaux": {
+					"type": "number",
+					"multiple": false,
+					"value": []
+				},
+				"electricite": {
+					"type": "currency",
+					"multiple": false,
+					"value": []
+				},
+				"electricite_depense_lot_principal": {
+					"type": "currency",
+					"multiple": false,
+					"formula": "(electricite || 0)/(total_lots_principaux || 1)",
+					"value": []
+				},
+				"chauffage": {
+					"type": "currency",
+					"multiple": false,
+					"value": []
+				},
+				"chauffage_depense_lot_principal": {
+					"type": "currency",
+					"multiple": false,
+					"formula": "(chauffage || 0)/(total_lots_principaux || 1)",
+					"value": []
+				},
+				"eau_chaude_sanitaire": {
+					"type": "currency",
+					"multiple": false,
+					"value": []
+				},
+				"eau_chaude_sanitaire_depense_lot_principal": {
+					"type": "currency",
+					"multiple": false,
+					"formula": "(eau_chaude_sanitaire || 0)/(total_lots_principaux || 1)",
+					"value": []
+				},
+				"assurance": {
+					"type": "currency",
+					"multiple": false,
+					"value": []
+				},
+				"assurance_depense_lot_principal": {
+					"type": "currency",
+					"multiple": false,
+					"formula": "(assurance || 0)/(total_lots_principaux || 1)",
+					"value": []
+				},
+				"frais_gestion_et_honoraires_syndic": {
+					"type": "currency",
+					"multiple": false,
+					"value": []
+				},
+				"frais_gestion_et_honoraires_syndic_depense_lot_principal": {
+					"type": "currency",
+					"multiple": false,
+					"formula": "(frais_gestion_et_honoraires_syndic || 0)/(total_lots_principaux || 1)",
+					"value": []
+				},
+				"alerte_sur_postes_depenses_semblant_surfactures": {
+					"type": "switch",
+					"multiple": false,
+					"value": []
+				},
+				"postes_concernes": {
+					"type": "textArea",
+					"multiple": false,
+					"value": []
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "ANALYSE_COLLEGIALE_CONTRATS_CIBLES",
+				"order": 5,
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": true,
+					"value": [
+						{
+							"contrat_analyse": {
+								"type": "string",
+								"multiple": false,
+								"value": []
+							},
+							"numero_contrat": {
+								"type": "number",
+								"multiple": false,
+								"value": []
+							},
+							"montant_initial_ttc": {
+								"type": "currency",
+								"multiple": false,
+								"value": []
+							},
+							"montant_revise_ttc": {
+								"type": "currency",
+								"multiple": false,
+								"value": []
+							},
+							"gain_sur_contrat_ttc": {
+								"type": "currency",
+								"multiple": false,
+								"formula": "montant_initial_ttc - montant_revise_ttc",
+								"value": []
+							}
+						}
+					]
+				}
+			}
+		}
+	]
+}

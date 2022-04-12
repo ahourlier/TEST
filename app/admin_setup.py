@@ -1,6 +1,28 @@
 from app.referential.enums import AppEnum
 from app.referential.enums.admin import (
+    AdministrativeSituation,
+    AdministrativeSupport,
+    AskedSupportName,
+    Civility,
     CombinedStructureType,
+    DebtOrigin,
+    EnergeticPrecariousnessCause,
+    HouseholdAccompaniedStatusAndPreviousStatus,
+    HouseholdDebtRate,
+    HouseholdEnergeticEffortRate,
+    HouseholdOtherFunderLimitStatus,
+    HouseholdResourcesAnahStatus,
+    LitigationAction,
+    LocatairesRessources,
+    LotSeniorityOccupation,
+    MainAxisAccompaniementEstablished,
+    SocialProblematics,
+    MainOccupantAge,
+    MaritalSituation,
+    MonthlyRessourcesOrigin,
+    MovingHouseProject,
+    Overoccupation,
+    PreLitigationAction,
     ProjectStatusAdminView,
     MissionStatusAdminView,
     ProjectContactSource,
@@ -28,6 +50,10 @@ from app.referential.enums.admin import (
     MissionSubjob,
     CoproConstructionTime,
     CoproType,
+    RDVType,
+    RentLevel,
+    SocialProblematics,
+    SocialSupportType,
     SyndicType,
     BuildingConstructionTime,
     BuildingERPCategory,
@@ -47,6 +73,8 @@ from app.referential.enums.admin import (
     Prefinanceurs,
     NatureTravauxPartieCommune,
     NatureAide,
+    UrbanisAction,
+    type1Ressources,
 )
 
 
@@ -474,3 +502,253 @@ def register_admin_views(admin, db):
             endpoint="manage_combined_structure_type",
         )
     )
+    admin.add_view(
+        MainOccupantAge(
+            AppEnum,
+            db.session,
+            "Age de l'occupant principal",
+            url="main-occupant-age",
+            endpoint="manage_main_occupant_age",
+        )
+    )
+    admin.add_view(
+        HouseholdDebtRate(
+            AppEnum,
+            db.session,
+            "Taux d'endettement des ménages",
+            url="household-debt-rate",
+            endpoint="manage_household_debt_rate",
+        )
+    )
+    admin.add_view(
+        LotSeniorityOccupation(
+            AppEnum,
+            db.session,
+            "Ancienneté occupation du logement",
+            url="lot-seniority-occupation",
+            endpoint="manage_lot_seniority_occupation",
+        )
+    )
+    admin.add_view(
+        RentLevel(
+            AppEnum,
+            db.session,
+            "Niveau des loyers",
+            url="rent-level",
+            endpoint="manage_rent_level",
+        )
+    )
+    admin.add_view(
+        HouseholdResourcesAnahStatus(
+            AppEnum,
+            db.session,
+            "Statut du ménage ressources ANAH",
+            url="household-resources-anah-status",
+            endpoint="manage_household_resources_anah_status",
+        )
+    )
+    admin.add_view(
+        HouseholdOtherFunderLimitStatus(
+            AppEnum,
+            db.session,
+            "Statut du ménage ressources autres financeurs",
+            url="household-other-funder-limit-status",
+            endpoint="manage_household_other_funder_limit_status",
+        )
+    )
+    admin.add_view(
+        LocatairesRessources(
+            AppEnum,
+            db.session,
+            "Ressources locataires",
+            url="locataires-ressources",
+            endpoint="manage_locataires_ressources",
+        )
+    )
+    admin.add_view(
+        HouseholdEnergeticEffortRate(
+            AppEnum,
+            db.session,
+            "Taux d'effort énergétique",
+            url="household-energetic-effort-rate",
+            endpoint="manage_household_energetic_effort_rate",
+        )
+    )
+    admin.add_view(
+        EnergeticPrecariousnessCause(
+            AppEnum,
+            db.session,
+            "Taux d'effort énergétique",
+            url="energetic-precariousness-cause",
+            endpoint="manage_energetic_precariousness_cause",
+        )
+    )
+    admin.add_view(
+        Overoccupation(
+            AppEnum,
+            db.session,
+            "Suroccupation",
+            url="suroccupation",
+            endpoint="manage_suroccupation",
+        )
+    )
+    admin.add_view(
+        HouseholdAccompaniedStatusAndPreviousStatus(
+            AppEnum,
+            db.session,
+            "Statut du ménage accompagné + Statut antérieur",
+            url="household-accompanied-status",
+            endpoint="manage_household_accompanied_status",
+        )
+    )
+    admin.add_view(
+        Civility(
+            AppEnum,
+            db.session,
+            "Civilité",
+            url="civility",
+            endpoint="manage_civility",
+        )
+    )
+    admin.add_view(
+        AdministrativeSituation(
+            AppEnum,
+            db.session,
+            "Situation administrative",
+            url="administrative-situation",
+            endpoint="manage_administrative_situation",
+        )
+    )
+    admin.add_view(
+        MaritalSituation(
+            AppEnum,
+            db.session,
+            "Situation matrimoniale",
+            url="marital-situation",
+            endpoint="manage_marital_situation",
+        )
+    )
+    admin.add_view(
+        MovingHouseProject(
+            AppEnum,
+            db.session,
+            "Projet de déménagement",
+            url="moving-house-project",
+            endpoint="manage_moving_house_project",
+        )
+    )
+    admin.add_view(
+        MonthlyRessourcesOrigin(
+            AppEnum,
+            db.session,
+            "Origines ressources mensuelles",
+            url="monthly-ressources-origin",
+            endpoint="manage_monthly_ressources_origin",
+        )
+    )
+    admin.add_view(
+        type1Ressources(
+            AppEnum,
+            db.session,
+            "Ressource de type 1",
+            url="type1-ressources",
+            endpoint="manage_type1_ressources",
+        )
+    )
+    admin.add_view(
+        DebtOrigin(
+            AppEnum,
+            db.session,
+            "Origine de la dette",
+            url="debt-origin",
+            endpoint="manage_debt_origin",
+        )
+    )
+    admin.add_view(
+        SocialProblematics(
+            AppEnum,
+            db.session,
+            "Problématique sociale",
+            url="social-problematics",
+            endpoint="manage_social_problematics",
+        )
+    )
+    admin.add_view(
+        SocialSupportType(
+            AppEnum,
+            db.session,
+            "Type d'accompagnement social",
+            url="social-support-type",
+            endpoint="manage_social_support_type",
+        )
+    )
+    admin.add_view(
+        MainAxisAccompaniementEstablished(
+            AppEnum,
+            db.session,
+            "Axe principal d'accompagnement instauré",
+            url="main-axis-accompaniement-established",
+            endpoint="manage_main_axis_accompaniement_established",
+        )
+    )
+    admin.add_view(
+        RDVType(
+            AppEnum,
+            db.session,
+            "Type de rdv",
+            url="rdv-type",
+            endpoint="manage_rdv_type",
+        )
+    )
+    admin.add_view(
+        AdministrativeSupport(
+            AppEnum,
+            db.session,
+            "Aide administrative",
+            url="administrative-support",
+            endpoint="manage_administrative_support",
+        )
+    )
+    admin.add_view(
+        AskedSupportName(
+            AppEnum,
+            db.session,
+            "Nom de l'aide sollicitée",
+            url="asked-support-name",
+            endpoint="manage_asked_support_name",
+        )
+    )
+    admin.add_view(
+        PreLitigationAction(
+            AppEnum,
+            db.session,
+            "Action contentieuse",
+            url="pre-litigation-action",
+            endpoint="manage_pre_litigation_action",
+        )
+    )
+    admin.add_view(
+        UrbanisAction(
+            AppEnum,
+            db.session,
+            "Action Urbanis",
+            url="urbanis-action",
+            endpoint="manage_urbanis_action",
+        )
+    )
+    admin.add_view(
+        LitigationAction(
+            AppEnum,
+            db.session,
+            "Action contentieuse",
+            url="litigation-action",
+            endpoint="manage_litigation_action",
+        )
+    )
+    
+    
+    
+    
+    
+    
+    
