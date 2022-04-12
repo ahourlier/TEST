@@ -113,7 +113,11 @@ class EmailService:
 
     @staticmethod
     def send_email(db_email: Email):
-        content = db_email.content.encode().decode("utf-8")
+        try:
+            content = db_email.content.encode().decode("utf-8")
+        except AttributeError as e:
+            logging.error("Sending a mail with empty content is forbidden")
+            raise e
         subject = db_email.subject
         sender = db_email.sender.email
         to = ",".join(db_email.to)
