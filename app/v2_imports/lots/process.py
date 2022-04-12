@@ -108,7 +108,7 @@ class LotImport:
                 del lot["copro_address"]
                 if not associated_copro:
                     raise CoproNotFoundException
-            
+
             except Exception as e:
                 print(traceback.format_exc())
                 logs = []
@@ -190,7 +190,7 @@ class LotImport:
                 # Create person if not exists
                 if not dry_run:
                     associated_person = PersonService.create(person_object, user_email)
-                    
+
             # Keep for dry run logs
             person_log = {
                 "last_name": lot_object["co_owner_last_name"],
@@ -258,7 +258,6 @@ class LotImport:
             building_name = import_lot.get("building_name")  # Keep for dry run logs
             del import_lot["building_name"]
 
-
             # Manage co-owner
             person_object = {}
             lastname = import_lot.get("co_owner_last_name")
@@ -278,7 +277,7 @@ class LotImport:
             else:
                 person_object["is_physical_person"] = True
             person_object["address"] = import_lot.get("co_owner_address")
-            
+
             if not dry_run:
                 if not associated_person:
                     PersonService.remove_owners_from_lot(existing_lot)
