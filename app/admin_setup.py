@@ -631,9 +631,9 @@ def register_admin_views(admin, db):
         MonthlyRessourcesType(
             AppEnum,
             db.session,
-            "Ressource de type 1",
-            url="type1-ressources",
-            endpoint="manage_type1_ressources",
+            "Type de ressources mensuelles",
+            url="monthly-ressources-type",
+            endpoint="manage_monthly_ressources_type",
         )
     )
     admin.add_view(
