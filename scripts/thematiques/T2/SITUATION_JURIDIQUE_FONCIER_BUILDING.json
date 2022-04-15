@@ -90,7 +90,8 @@
 			},
 			"fields": {
 				"descriptif_axe_travail": {
-					"type": "string",
+					"type": "select",
+					"endpoint": "/referential/enums/?enums=WorkAxis",
 					"multiple": false,
 					"value": []
 				},
@@ -163,7 +164,8 @@
 			},
 			"fields": {
 				"descriptif_axe_travail": {
-					"type": "string",
+					"type": "select",
+					"endpoint": "/referential/enums/?enums=WorkAxis",
 					"multiple": false,
 					"value": []
 				},

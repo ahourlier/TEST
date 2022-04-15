@@ -19,7 +19,8 @@ thematiques = [
     "IMPAYES",
 ]
 scopes = ["sc", "copro", "building", "lot"]
-collection = db.collection("thematiques_template")
+#collection = db.collection("thematiques_template")
+collection = db.collection("thematiques")
 
 for thematique_name in thematiques:
     thematique_exists = collection.where(
@@ -27,6 +28,7 @@ for thematique_name in thematiques:
     ).stream()
     for existing in thematique_exists:
         scope = existing.get("scope")
-        if scopes.index(scope):
+        res = scopes.index(scope)
+        if res >= 0:
             print(f"scope {scope} |  thematic {thematique_name}")
             collection.document(existing.id).delete()

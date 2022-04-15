@@ -2,9 +2,8 @@ from app.referential.enums import AppEnum
 from app.referential.enums.admin import (
     AdministrativeSituation,
     AdministrativeSupport,
-    AskedSupportName,
-    Civility,
     CombinedStructureType,
+    ContractType,
     DebtOrigin,
     EnergeticPrecariousnessCause,
     HouseholdAccompaniedStatusAndPreviousStatus,
@@ -12,17 +11,16 @@ from app.referential.enums.admin import (
     HouseholdEnergeticEffortRate,
     HouseholdOtherFunderLimitStatus,
     HouseholdResourcesAnahStatus,
+    InformativeEventsOrganization,
     LitigationAction,
     LocatairesRessources,
     LotSeniorityOccupation,
-    MainAxisAccompaniementEstablished,
-    SocialProblematics,
     MainOccupantAge,
     MaritalSituation,
-    MonthlyRessourcesOrigin,
     MovingHouseProject,
     Overoccupation,
     PreLitigationAction,
+    ProfessionalSituation,
     ProjectStatusAdminView,
     MissionStatusAdminView,
     ProjectContactSource,
@@ -52,7 +50,7 @@ from app.referential.enums.admin import (
     CoproType,
     RDVType,
     RentLevel,
-    SocialProblematics,
+    PrincipalSocialProblematics,
     SocialSupportType,
     SyndicType,
     BuildingConstructionTime,
@@ -74,7 +72,8 @@ from app.referential.enums.admin import (
     NatureTravauxPartieCommune,
     NatureAide,
     UrbanisAction,
-    type1Ressources,
+    MonthlyRessourcesType,
+    WorkAxis,
 )
 
 
@@ -602,15 +601,6 @@ def register_admin_views(admin, db):
         )
     )
     admin.add_view(
-        Civility(
-            AppEnum,
-            db.session,
-            "Civilité",
-            url="civility",
-            endpoint="manage_civility",
-        )
-    )
-    admin.add_view(
         AdministrativeSituation(
             AppEnum,
             db.session,
@@ -638,16 +628,7 @@ def register_admin_views(admin, db):
         )
     )
     admin.add_view(
-        MonthlyRessourcesOrigin(
-            AppEnum,
-            db.session,
-            "Origines ressources mensuelles",
-            url="monthly-ressources-origin",
-            endpoint="manage_monthly_ressources_origin",
-        )
-    )
-    admin.add_view(
-        type1Ressources(
+        MonthlyRessourcesType(
             AppEnum,
             db.session,
             "Ressource de type 1",
@@ -665,7 +646,7 @@ def register_admin_views(admin, db):
         )
     )
     admin.add_view(
-        SocialProblematics(
+        PrincipalSocialProblematics(
             AppEnum,
             db.session,
             "Problématique sociale",
@@ -680,15 +661,6 @@ def register_admin_views(admin, db):
             "Type d'accompagnement social",
             url="social-support-type",
             endpoint="manage_social_support_type",
-        )
-    )
-    admin.add_view(
-        MainAxisAccompaniementEstablished(
-            AppEnum,
-            db.session,
-            "Axe principal d'accompagnement instauré",
-            url="main-axis-accompaniement-established",
-            endpoint="manage_main_axis_accompaniement_established",
         )
     )
     admin.add_view(
@@ -710,19 +682,46 @@ def register_admin_views(admin, db):
         )
     )
     admin.add_view(
-        AskedSupportName(
+        InformativeEventsOrganization(
             AppEnum,
             db.session,
-            "Nom de l'aide sollicitée",
-            url="asked-support-name",
-            endpoint="manage_asked_support_name",
+            "Organisation d'évenements informatifs",
+            url="informativ-events-organization",
+            endpoint="manage_informativ_events_organization",
+        )
+    )
+    admin.add_view(
+        ProfessionalSituation(
+            AppEnum,
+            db.session,
+            "Situation professionnelle",
+            url="situation-professionnelle",
+            endpoint="manage_situation_professionnelle",
+        )
+    )
+    admin.add_view(
+        ContractType(
+            AppEnum,
+            db.session,
+            "Type de contrat",
+            url="contract-type",
+            endpoint="manage_contract_type",
+        )
+    )
+    admin.add_view(
+        WorkAxis(
+            AppEnum,
+            db.session,
+            "Axe de travail",
+            url="work-axis",
+            endpoint="manage_work_axis",
         )
     )
     admin.add_view(
         PreLitigationAction(
             AppEnum,
             db.session,
-            "Action contentieuse",
+            "Action pré-contentieuse",
             url="pre-litigation-action",
             endpoint="manage_pre_litigation_action",
         )
@@ -745,6 +744,7 @@ def register_admin_views(admin, db):
             endpoint="manage_litigation_action",
         )
     )
+    
     
     
     

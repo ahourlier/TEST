@@ -471,12 +471,6 @@ class HouseholdAccompaniedStatusAndPreviousStatus(EnumBaseAdminView):
     FIELD_REF = None
 
 
-class Civility(EnumBaseAdminView):
-    ENUM_KIND = "Civility"
-    FIELD_MODEL = None
-    FIELD_REF = None
-
-
 class AdministrativeSituation(EnumBaseAdminView):
     ENUM_KIND = "AdministrativeSituation"
     FIELD_MODEL = None
@@ -495,14 +489,8 @@ class MovingHouseProject(EnumBaseAdminView):
     FIELD_REF = None
 
 
-class MonthlyRessourcesOrigin(EnumBaseAdminView):
-    ENUM_KIND = "MonthlyRessourcesOrigin"
-    FIELD_MODEL = None
-    FIELD_REF = None
-
-
-class type1Ressources(EnumBaseAdminView):
-    ENUM_KIND = "type1Ressources"
+class MonthlyRessourcesType(EnumBaseAdminView):
+    ENUM_KIND = "MonthlyRessourcesType"
     FIELD_MODEL = None
     FIELD_REF = None
 
@@ -513,20 +501,14 @@ class DebtOrigin(EnumBaseAdminView):
     FIELD_REF = None
 
 
-class SocialProblematics(EnumBaseAdminView):
-    ENUM_KIND = "SocialProblematics"
+class PrincipalSocialProblematics(EnumBaseAdminView):
+    ENUM_KIND = "PrincipalSocialProblematics"
     FIELD_MODEL = None
     FIELD_REF = None
 
 
 class SocialSupportType(EnumBaseAdminView):
     ENUM_KIND = "SocialSupportType"
-    FIELD_MODEL = None
-    FIELD_REF = None
-
-
-class MainAxisAccompaniementEstablished(EnumBaseAdminView):
-    ENUM_KIND = "MainAxisAccompaniementEstablished"
     FIELD_MODEL = None
     FIELD_REF = None
 
@@ -543,8 +525,26 @@ class AdministrativeSupport(EnumBaseAdminView):
     FIELD_REF = None
 
 
-class AskedSupportName(EnumBaseAdminView):
-    ENUM_KIND = "AskedSupportName"
+class InformativeEventsOrganization(EnumBaseAdminView):
+    ENUM_KIND = "InformativeEventsOrganization"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class ProfessionalSituation(EnumBaseAdminView):
+    ENUM_KIND = "ProfessionalSituation"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class ContractType(EnumBaseAdminView):
+    ENUM_KIND = "ContractType"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class WorkAxis(EnumBaseAdminView):
+    ENUM_KIND = "WorkAxis"
     FIELD_MODEL = None
     FIELD_REF = None
 
@@ -559,6 +559,7 @@ class UrbanisAction(EnumBaseAdminView):
     ENUM_KIND = "UrbanisAction"
     FIELD_MODEL = None
     FIELD_REF = None
+
 
 class LitigationAction(EnumBaseAdminView):
     ENUM_KIND = "LitigationAction"

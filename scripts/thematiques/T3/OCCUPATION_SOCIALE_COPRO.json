@@ -80,7 +80,8 @@
 					"value": [
 						{
 							"nature_evenement": {
-								"type": "textArea",
+								"type": "select",
+								"endpoint": "/referential/enums/?enums=InformativeEventsOrganization",
 								"multiple": false,
 								"value": []
 							},
@@ -129,6 +130,11 @@
 										},
 										"redacteur": {
 											"type": "switch",
+											"multiple": false,
+											"value": []
+										},
+										"communication_livret_accueil_nouvel_arrivant": {
+											"type": "date",
 											"multiple": false,
 											"value": []
 										}

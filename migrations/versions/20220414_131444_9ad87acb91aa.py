@@ -25,7 +25,10 @@ def upgrade():
     now = datetime.today().strftime("%Y-%m-%d %H:%M:%S.%f")
     enums = {
         "WorkAxis": [
-            # Not in form model
+            "Scission",
+            "Résidentialisation",
+            "Fusion",
+            "Autre"
         ],
         "MainOccupantAge": [
             "20-30",
@@ -106,13 +109,6 @@ def upgrade():
             "Autre",
             "NR"
         ],
-        "Civility": [
-            "Mme",
-            "M.",
-            "Mme et M.",
-            "Mme et Mme",
-            "M. et M."
-        ],
         "AdministrativeSituation": [
             "Carte d\'identité française",
             "Passeport européen",
@@ -139,7 +135,7 @@ def upgrade():
             "> 10",
             "NR"
         ],
-        "MonthlyRessourcesOrigin": [
+        "MonthlyRessourcesType": [
             "Salaire",
             "Indemnité chômage",
             "IJ",
@@ -153,9 +149,6 @@ def upgrade():
             "Prime Activité",
             "Autre"
         ],
-        "type1Ressources": [
-            #Not in form model
-        ],
         "DebtOrigin": [
             "Perte emploi",
             "Pas une priorité",
@@ -164,7 +157,7 @@ def upgrade():
             "Difficultés budgétaires",
             "NR"
         ],
-        "SocialProblematics": [
+        "PrincipalSocialProblematics": [
             "Difficulté financière",
             "Difficulté pour payer quote-part travaux",
             "Dette de charges",
@@ -183,37 +176,57 @@ def upgrade():
             "CAF",
             "Autre"
         ],
-        "MainAxisAccompaniementEstablished": [
-            #Not in form model
-        ],
         "RDVType": [
             "domicile / visio / permanence ou local",
             "visio",
             "permanence ou local"
         ],
         "AdministrativeSupport": [
-            # Not in form model
-        ],
-        "AskedSupportName": [
             "Aide financière type alimentaire",
             "FSL",
             "FSE-FSeau",
-            "Aide 1%",
+            "Aide 1% ",
             "CAF",
             "CNAV",
             "FAP Subvention",
             "FAP Prêt",
-            "PAH",
+            "PAH ",
+            "Autre"
+        ],
+        "InformativeEventsOrganization": [
+            "Réunion cage d'escaliers",
+            "Réunion pied d'immeuble",
+            "Réunion générale",
+            "Fête des voisins",
+            "Autre"
+        ],
+        "ProfessionalSituation": [
+            "Salarié",
+            "Fonctionnaire",
+            "Travailleur Indépendant",
+            "Demandeur d'emploi",
+            "Retraité",
+            "Invalidité",
+            "Autre"
+        ],
+        "ContractType": [
+            "CDI temps plein",
+            "CDI temps partiel",
+            "CDD temps plein",
+            "CDD temps partiel",
+            "Interimaire",
+            "Formation rémunérée",
+            "Formation non rémunérée",
             "Autre"
         ],
         "PreLitigationAction": [
-            # Not in form model 
+            # En attente du Urbanis
         ],
         "UrbanisAction": [
-            # Not in form model
+            # En attente du Urbanis
         ],
         "LitigationAction": [
-            # Not in form model
+            # En attente du Urbanis
         ]
     }
     session.execute(

@@ -3,7 +3,7 @@
 	"scope": "lot",
 	"versionnable": false,
 	"heritable": false,
-	"extend_parent": false,
+	"extend_parent": true,
 	"steps": [
 		{
 			"metadata": {

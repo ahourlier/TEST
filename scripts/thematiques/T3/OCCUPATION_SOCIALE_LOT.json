@@ -194,37 +194,6 @@
 		{
 			"metadata": {
 				"legendes": [],
-				"name": "ACCUEIL_ARRIVANTS",
-				"order": 2,
-				"status": ""
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": true,
-					"value": [
-						{
-							"livret_accueil_group": {
-								"type": "group",
-								"multiple": false,
-								"value": [
-									{
-										"communication_livret_accueil_nouvel_arrivant": {
-											"type": "date",
-											"multiple": false,
-											"value": []
-										}
-									}
-								]
-							}
-						}
-					]
-				}
-			}
-		},
-		{
-			"metadata": {
-				"legendes": [],
 				"name": "ETABLISSEMENT_CONTACT_SOCIAL",
 				"order": 3,
 				"status": ""
@@ -272,9 +241,8 @@
 								"value": [
 									{
 										"majeur_reference_civilite": {
-											"type": "select",
+											"type": "string",
 											"multiple": false,
-											"endpoint": "/referential/enums/?enums=Civility",
 											"value": []
 										},
 										"majeur_reference_prenom": {
@@ -473,17 +441,19 @@
 											"value": [
 												{
 													"situation_professionnelle": {
+														"type": "select",
+														"endpoint": "/referential/enums/?enums=ProfessionalSituation",
+														"multiple": false,
+														"value": []
+													},
+													"lieu_travail": {
 														"type": "string",
 														"multiple": false,
 														"value": []
 													},
-													"Lieu de travail": {
-														"type": "string",
-														"multiple": false,
-														"value": []
-													},
-													"Type de contrat": {
-														"type": "string",
+													"type_contrat_travail": {
+														"type": "select",
+														"endpoint": "/referential/enums/?enums=ContractType",
 														"multiple": false,
 														"value": []
 													},
@@ -495,7 +465,7 @@
 																"origine_ressources_mensuelles": {
 																	"type": "select",
 																	"multiple": false,
-																	"endpoint": "/referential/enums/?enums=MonthlyRessourcesOrigin",
+																	"endpoint": "/referential/enums/?enums=MonthlyRessourcesType",
 																	"value": []
 																},
 																"montant_ressources_mensuelles": {
@@ -522,7 +492,7 @@
 													"type_1_ressources": {
 														"type": "select",
 														"multiple": false,
-														"endpoint": "/referential/enums/?enums=type1Ressources",
+														"endpoint": "/referential/enums/?enums=MonthlyRessourcesType",
 														"value": []
 													},
 													"montant_ressources_mensuelles_autre_membre_menage": {
@@ -813,7 +783,7 @@
 							"problematique_sociale_principale_menage": {
 								"type": "select",
 								"multiple": false,
-								"endpoint": "/referential/enums/?enums=SocialProblematics",
+								"endpoint": "/referential/enums/?enums=PrincipalSocialProblematics",
 								"if": "menage_deja_accompagne_par_partenaire_organisme === true",
 								"value": []
 							},
@@ -836,7 +806,7 @@
 							"axe_principal_accompagnement_instaure": {
 								"type": "select",
 								"multiple": false,
-								"endpoint": "/referential/enums/?enums=MainAxisAccompaniementEstablished",
+								"endpoint": "/referential/enums/?enums=PrincipalSocialProblematics",
 								"value": []
 							},
 							"menage_suivre_commission_sociale": {
@@ -968,7 +938,7 @@
 										"nom_aide_sollicitee": {
 											"type": "select",
 											"multiple": false,
-											"endpoint": "/referential/enums/?enums=AskedSupportName",
+											"endpoint": "/referential/enums/?enums=AdministrativeSupport",
 											"value": []
 										},
 										"aides_sociales_sollicitees_date_depot_dossier": {
