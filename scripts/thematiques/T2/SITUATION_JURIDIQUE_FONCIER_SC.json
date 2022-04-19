@@ -1,0 +1,284 @@
+{
+	"thematique_name": "SITUATION_JURIDIQUE_FONCIER",
+	"scope": "sc",
+	"versionnable": false,
+	"heritable": false,
+	"extend_parent": false,
+	"steps": [
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "DONNEES_CADRAGE",
+				"order": 1,
+				"status": ""
+			},
+			"fields": {
+				"reglement_copropriete_statuts": {
+					"type": "switch",
+					"multiple": false,
+					"value": []
+				},
+				"descriptif_lots_group": {
+					"type": "group",
+					"multiple": false,
+					"value": [
+						{
+							"lots_habitation": {
+								"TODO": "CHAMP RAPPELE",
+								"type": "number",
+								"multiple": false,
+								"value": []
+							},
+							"loges": {
+								"type": "number",
+								"multiple": false,
+								"value": []
+							},
+							"lots_commerciaux": {
+								"TODO": "CHAMP RAPPELE",
+								"type": "number",
+								"multiple": false,
+								"value": []
+							},
+							"autres_lots_principaux": {
+								"TODO": "CHAMP RAPPELE",
+								"type": "number",
+								"multiple": false,
+								"value": []
+							},
+							"total_lots_principaux": {
+								"type": "string",
+								"multiple": false,
+								"formula": "lots_habitation + loges + lots_commerciaux + autres_lots_principaux",
+								"value": []
+							},
+							"lots_secondaires": {
+								"type": "number",
+								"multiple": false,
+								"value": []
+							},
+							"total_lots_principaux_secondaires": {
+								"type": "string",
+								"multiple": false,
+								"formula": "total_lots_principaux + lots_secondaires",
+								"value": []
+							}
+						}
+					]
+				},
+				"structure_combinee_group": {
+					"type": "group",
+					"multiple": false,
+					"value": [
+						{
+							"structure_combinee": {
+								"TODO": "CHAMP RAPPELE",
+								"type": "switch",
+								"multiple": false,
+								"value": []
+							},
+							"nature": {
+								"TODO": "CHAMP RAPPELE",
+								"type": "select",
+								"multiple": false,
+								"endpoint": "/referential/enums/?enums=CombinedStructureType",
+								"value": []
+							},
+							"membres": {
+								"type": "textArea",
+								"multiple": false,
+								"value": []
+							},
+							"nom_structure": {
+								"TODO": "CHAMP RAPPELE",
+								"type": "string",
+								"multiple": false,
+								"value": []
+							},
+							"nom_gestionnaire": {
+								"TODO": "CHAMP RAPPELE",
+								"type": "string",
+								"multiple": false,
+								"value": []
+							},
+							"coordonnées": {
+								"TODO": "CHAMP RAPPELE",
+								"type": "string",
+								"multiple": false,
+								"value": []
+							},
+							"creation": {
+								"TODO": "CHAMP RAPPELE",
+								"type": "date",
+								"multiple": false,
+								"value": []
+							},
+							"objet": {
+								"TODO": "CHAMP RAPPELE",
+								"type": "string",
+								"multiple": false,
+								"value": []
+							},
+							"statuts": {
+								"type": "switch",
+								"multiple": false,
+								"value": []
+							},
+							"date_publication_statuts": {
+								"type": "date",
+								"multiple": false,
+								"value": []
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "INTERVENTION_JURIDIQUE",
+				"order": 2,
+				"status": ""
+			},
+			"fields": {
+				"descriptif_axe_travail": {
+					"type": "string",
+					"multiple": false,
+					"value": []
+				},
+				"date_demarrage_travail": {
+					"type": "date",
+					"multiple": false,
+					"value": []
+				},
+				"partenariat": {
+					"type": "switch",
+					"multiple": false,
+					"value": []
+				},
+				"Partenaires": {
+					"type": "string",
+					"multiple": false,
+					"value": []
+				},
+				"reunions_group": {
+					"type": "group",
+					"multiple": true,
+					"value": [
+						{
+							"date_reunion": {
+								"type": "date",
+								"multiple": false,
+								"value": []
+							},
+							"objet_reunion": {
+								"type": "string",
+								"multiple": false,
+								"value": []
+							}
+						}
+					]
+				},
+				"production": {
+					"type": "switch",
+					"multiple": false,
+					"value": []
+				},
+				"nature_documents_produits": {
+					"type": "string",
+					"multiple": false,
+					"value": []
+				},
+				"date_livraison": {
+					"type": "date",
+					"multiple": false,
+					"value": []
+				},
+				"couts_ttc_production": {
+					"type": "currency",
+					"multiple": false,
+					"value": []
+				},
+				"autre_resultat": {
+					"type": "textArea",
+					"multiple": false,
+					"value": []
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "INTERVENTION_FONCIERE",
+				"order": 3,
+				"status": ""
+			},
+			"fields": {
+				"descriptif_axe_travail": {
+					"type": "string",
+					"multiple": false,
+					"value": []
+				},
+				"date_demarrage_travail": {
+					"type": "date",
+					"multiple": false,
+					"value": []
+				},
+				"partenariat": {
+					"type": "switch",
+					"multiple": false,
+					"value": []
+				},
+				"Partenaires": {
+					"type": "string",
+					"multiple": false,
+					"value": []
+				},
+				"reunions_group": {
+					"type": "group",
+					"multiple": true,
+					"value": [
+						{
+							"date_reunion": {
+								"type": "date",
+								"multiple": false,
+								"value": []
+							},
+							"objet_reunion": {
+								"type": "string",
+								"multiple": false,
+								"value": []
+							}
+						}
+					]
+				},
+				"production": {
+					"type": "switch",
+					"multiple": false,
+					"value": []
+				},
+				"nature_documents_produits": {
+					"type": "string",
+					"multiple": false,
+					"value": []
+				},
+				"date_livraison": {
+					"type": "date",
+					"multiple": false,
+					"value": []
+				},
+				"couts_ttc_production": {
+					"type": "currency",
+					"multiple": false,
+					"value": []
+				},
+				"autre_resultat": {
+					"type": "textArea",
+					"multiple": false,
+					"value": []
+				}
+			}
+		}
+	]
+}

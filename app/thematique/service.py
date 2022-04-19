@@ -14,7 +14,7 @@ from app.thematique.error_handlers import (
     UnauthorizedToDeleteException,
     UnauthorizedToUpdateException,
     UnauthorizedDuplicationException,
-    NotUniqueDataAndNameVersionException
+    NotUniqueDataAndNameVersionException,
 )
 from app.thematique.model import ThematiqueMission
 from app.thematique.schema import StepSchema, VersionSchema
@@ -108,7 +108,7 @@ class ThematiqueService:
         mapping_model = {"lot": Lot, "building": Building}
         if scope in mapping_model.keys():
             if ThematiqueService.check_inheritance_authorization(
-                scope, thematique_name, firestore_service
+                scope, thematique_name
             ):
                 list_docs = ThematiqueService.handle_child(
                     scope=scope,
@@ -121,16 +121,21 @@ class ThematiqueService:
         return sorted(list_docs, key=lambda d: d["version_date"], reverse=True)
 
     @staticmethod
-    def duplicate_thematique(version):
+    def duplicate_thematique(version, create_from_parent=False):
+
+        # chek duplication authorization
+        ThematiqueService.check_duplication_authorization(version, create_from_parent)
+
+        # check if the name and date are unique
+        ThematiqueService.check_date_and_name_version(
+            version, version.get("scope"), version.get("resource_id")
+        )
+
         firestore_service = FirestoreUtils()
-        ThematiqueService.check_duplication_authorization(version, firestore_service)
+        collection = firestore_service.client.collection(
+            current_app.config.get("FIRESTORE_THEMATIQUE_COLLECTION")
+        )
 
-        collection = firestore_service.client.collection(current_app.config.get("FIRESTORE_THEMATIQUE_COLLECTION"))
-
-        unique_date_and_name = ThematiqueService.check_date_and_name_version(collection, version)
-        if not unique_date_and_name:
-            raise NotUniqueDataAndNameVersionException
-        
         steps = version.get("steps", [])
         del version["steps"]
         if "id" in version:
@@ -147,24 +152,32 @@ class ThematiqueService:
         return ThematiqueService.get_version(document.id)
 
     @staticmethod
-    def check_duplication_authorization(version, firestore_service):
-        # Get templates collection
-        template = (
-            firestore_service.client.collection(
-                current_app.config.get("FIRESTORE_THEMATIQUE_TEMPLATE_COLLECTION")
-            )
-            .where("label", "==", version.get("label"))
-            .where("scope", "==", version.get("scope"))
-            .where("versionnable", "==", True)
-            .get()
+    def check_duplication_authorization(version, create_from_parent=False):
+        firestore_service = FirestoreUtils()
+        versionnable = version.get("versionnable")
+        extend_parent = version.get("extend_parent")
+        versions_list = firestore_service.query_version(
+            thematique_name=version.get("thematique_name"),
+            scope=version.get("scope"),
+            resource_id=version.get("resource_id"),
         )
-
-        # Found template with correct label, scope and versionnable attr
-        if len(template) == 0:
+        if (
+            extend_parent == True
+            and (create_from_parent == False or versionnable == True)
+        ) or (
+            extend_parent == False
+            and (
+                create_from_parent == True
+                or (versionnable == False and len(versions_list) > 0)
+            )
+        ):
             raise UnauthorizedDuplicationException
 
+        # No raise, allow duplication
+
     @staticmethod
-    def check_inheritance_authorization(scope, thematic_name, firestore_service):
+    def check_inheritance_authorization(scope, thematic_name):
+        firestore_service = FirestoreUtils()
         # Get templates collection
         template = (
             firestore_service.client.collection(
@@ -172,21 +185,36 @@ class ThematiqueService:
             )
             .where("thematique_name", "==", thematic_name)
             .where("scope", "==", scope)
-            .where("heritable", "==", True)
+            .where("extend_parent", "==", True)
             .get()
         )
         # Found template with correct thematic_name, scope and heritable attr
         return len(template) > 0
 
-    def check_date_and_name_version(collection, version_to_duplicate):
-        docs = collection.stream()
+    def check_date_and_name_version(version, scope, resource_id, expected=0):
+        firestore_service = FirestoreUtils()
+        thematique_name = version.get("thematique_name")
+        docs = (
+            firestore_service.client.collection(
+                current_app.config.get("FIRESTORE_THEMATIQUE_COLLECTION")
+            )
+            .where("thematique_name", "==", thematique_name)
+            .where("scope", "==", scope)
+            .where("resource_id", "==", resource_id)
+            .get()
+        )
+        found = 0
+        version_name = version.get("version_name")
+        version_date = version.get("version_date")
         for doc in docs:
             obj = doc.to_dict()
-            if obj.get('version_name') == version_to_duplicate.get('version_name') and \
-               obj.get('version_date') == version_to_duplicate.get('version_date') and \
-               obj.get('scope') == version_to_duplicate.get('scope'):
-                return False
-        return True
+            if (
+                obj.get("version_name") == version_name
+                and obj.get("version_date") == version_date
+            ):
+                found += 1
+        if found > expected:
+            raise NotUniqueDataAndNameVersionException
 
     @staticmethod
     def update_step(version_id: str, step_id: str, payload: StepSchema, user: User):
@@ -230,30 +258,77 @@ class ThematiqueService:
 
         firestore_service = FirestoreUtils()
 
+        # get the current version from firestore
         version = firestore_service.get_version_by_id(version_id=version_id)
-        version = version.to_dict()
-        if version.get('versionnable', None) and version.get('heritable', None):
-            # Only update from copro scope if heritable
-            if version.get("scope") != "copro":
-                raise UnauthorizedToUpdateException
-            # Get versions with same name and date (unicity checked on create)
-            matching_versions = firestore_service.query_version(
-                version_name=version.get('version_name'),
-                version_date=version.get('version_date'),
-                thematique_name=version.get('thematique_name')
-            )
-            # Update all inherited versions with the same version_name and version_date
-            for vers in matching_versions:
-                vers.reference.set(payload, merge=True)
+        version_dict = version.to_dict()
 
-        elif version.get('versionnable', None):
-            # Simply update version when only versionnable
-            version.reference.set(payload, merge=True)
-        else:
-            # Nothing to update if not versionnable (should not happend)
+        scope = version_dict.get("scope")
+        resource_id = version_dict.get("resource_id")
+        thematique_name = version_dict.get("thematique_name")
+
+        # check if the scope is valid
+        if scope not in ["sc", "copro", "building", "lot"]:
+            raise InvalidScopeException
+
+        # check if the parent is not extended
+        if version_dict.get("extend_parent", None):
             raise UnauthorizedToUpdateException
 
+        # check if the name and date are unique
+        payload["thematique_name"] = thematique_name
+        ThematiqueService.check_date_and_name_version(payload, scope, resource_id)
+
+        # update current version
+        version.reference.set(payload, merge=True)
+
+        # update sub_versions
+        ThematiqueService.update_sub_versions_recursively(version_dict, payload)
+
         return ThematiqueService.get_version(version_id)
+
+    @staticmethod
+    def update_sub_versions_recursively(version, payload):
+        scope = ThematiqueService.get_sub_scope(version.get("scope"))
+        if scope:
+            firestore_service = FirestoreUtils()
+            # Get template collection
+            templates = (
+                firestore_service.client.collection(
+                    current_app.config.get("FIRESTORE_THEMATIQUE_TEMPLATE_COLLECTION")
+                )
+                .where("thematique_name", "==", version.get("thematique_name"))
+                .where("scope", "==", scope)
+                .get()
+            )
+            version["scope"] = scope
+            if len(templates):
+                template_dic = templates[0].to_dict()
+                # check if the parent is extended
+                if template_dic.get("extend_parent", None):
+                    matching_versions = firestore_service.query_version(
+                        version_name=version.get("version_name"),
+                        version_date=version.get("version_date"),
+                        thematique_name=version.get("thematique_name"),
+                        scope=scope,
+                    )
+                    # Update all inherited versions version with the same version_name and version_date
+                    if len(matching_versions):
+                        matching_versions[0].reference.set(payload, merge=True)
+                        if template_dic.get("heritable", None):
+                            ThematiqueService.update_sub_versions_recursively(
+                                version, payload
+                            )
+            else:
+                # in case it is not a direct child
+                ThematiqueService.update_sub_versions_recursively(version, payload)
+
+    @staticmethod
+    def get_sub_scope(scope):
+        scopes = ["sc", "copro", "building", "lot"]
+        idx = scopes.index(scope) + 1
+        if len(scopes) > idx:
+            return scopes[idx]
+        return None
 
     @staticmethod
     def get_thematiques_from_mission(mission_id):
@@ -300,7 +375,9 @@ class ThematiqueService:
                 template["version_name"] = doc.get("version_name")
                 template["version_date"] = doc.get("version_date")
                 template["resource_id"] = int(child_id)
-                version_created = ThematiqueService.duplicate_thematique(template)
+                version_created = ThematiqueService.duplicate_thematique(
+                    template, create_from_parent=True
+                )
                 list_docs.append(version_created)
         return list_docs
 

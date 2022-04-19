@@ -1,0 +1,165 @@
+{
+	"thematique_name": "IMPAYES",
+	"scope": "lot",
+	"versionnable": false,
+	"heritable": false,
+	"extend_parent": true,
+	"steps": [
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "MISE_EN_PLACE_ET_ANIMATION_COMMISSION_IMPAYES",
+				"order": 3,
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": true,
+					"value": [
+						{
+							"impayes_lot_group": {
+								"type": "group",
+								"multiple": true,
+								"value": [
+									{
+										"numero_client_chez_syndic": {
+											"type": "string",
+											"multiple": false,
+											"value": []
+										},
+										"annee_achat_bien": {
+											"type": "date",
+											"multiple": false,
+											"format": "AAAA",
+											"value": []
+										},
+										"annee_vente_bien": {
+											"type": "date",
+											"multiple": false,
+											"format": "AAAA",
+											"value": []
+										},
+										"impayes_charges_courantes": {
+											"type": "currency",
+											"multiple": false,
+											"value": []
+										},
+										"impayes_charges_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"value": []
+										},
+										"total_impayes": {
+											"type": "currency",
+											"multiple": false,
+											"formula": "impayes_charges_courantes + impayes_charges_travaux",
+											"value": []
+										},
+										"dette_inferieur_2t": {
+											"type": "switch",
+											"multiple": false,
+											"value": []
+										},
+										"dette_entre_2t_et_4t": {
+											"type": "switch",
+											"multiple": false,
+											"value": []
+										},
+										"dette_superieur_4t": {
+											"type": "switch",
+											"multiple": false,
+											"value": []
+										},
+										"cotation_syndic": {
+											"type": "string",
+											"multiple": false,
+											"value": []
+										},
+										"action_precontentieuse": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=PreLitigationAction",
+											"multiple": false,
+											"value": []
+										},
+										"decision_engagement_action_precontentieuse": {
+											"type": "date",
+											"multiple": false,
+											"value": []
+										},
+										"action_urbanis": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=UrbanisAction",
+											"multiple": false,
+											"value": []
+										},
+										"decision_engagement_action_urbanis": {
+											"type": "date",
+											"multiple": false,
+											"value": []
+										},
+										"action_contentieuse": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=LitigationAction",
+											"multiple": false,
+											"value": []
+										},
+										"decision_engagement_action_contentieuse": {
+											"type": "date",
+											"multiple": false,
+											"value": []
+										},
+										"annee_vote_saisie_immobiliere": {
+											"type": "date",
+											"multiple": false,
+											"format": "AAAA",
+											"value": []
+										},
+										"commentaires": {
+											"type": "textArea",
+											"multiple": false,
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "CONTACT_AVEC_DEBITEURS_ET_ACCOMPAGNEMENT",
+				"order": 4,
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": true,
+					"value": [
+						{
+							"nombre_proprietaires_rencontres": {
+								"type": "number",
+								"multiple": true,
+								"value": []
+							},
+							"nombre_fsl_deposes": {
+								"type": "number",
+								"multiple": true,
+								"value": []
+							},
+							"montant_aides_fsl_mobilisees": {
+								"type": "currency",
+								"multiple": true,
+								"value": []
+							}
+						}
+					]
+				}
+			}
+		}
+	]
+}
