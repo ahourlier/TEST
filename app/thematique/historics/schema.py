@@ -2,7 +2,7 @@ from marshmallow import fields, EXCLUDE
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
 from app.common.schemas import PaginatedSchema
-from app.thematique.historic.historics.model import Historic
+from app.thematique.historics.model import Historic
 
 
 class HistoricSchema(SQLAlchemyAutoSchema):

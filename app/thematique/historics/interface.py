@@ -4,5 +4,7 @@ from mypy_extensions import TypedDict
 class HistoricInterface(TypedDict, total=False):
     id: int
     thematique_id: str
-    old_value: dict
-    new_value: dict
+    updated_by: str
+    status_changed: bool
+    old_status: str
+    new_status: str

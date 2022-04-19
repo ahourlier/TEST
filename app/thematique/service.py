@@ -1,4 +1,5 @@
-from flask import current_app, jsonify
+from flask import current_app
+from app.auth.users.model import User
 
 from app.building import Building
 from app.common.firestore_utils import FirestoreUtils
@@ -188,7 +189,7 @@ class ThematiqueService:
         return True
 
     @staticmethod
-    def update_step(version_id: str, step_id: str, payload: StepSchema):
+    def update_step(version_id: str, step_id: str, payload: StepSchema, user: User):
 
         if version_id in ["", None]:
             raise MissingVersionIdException
@@ -202,7 +203,23 @@ class ThematiqueService:
             if key in payload["metadata"]:
                 del payload["metadata"][key]
 
+        from app.thematique.historics.service import HistoricService
+        new_attrs = {
+            "thematique_id": version_id,
+            "updated_by": user
+        }
+        old_status = step.to_dict()["metadata"]["status"]
+        new_status = payload["metadata"]["status"]
+        if old_status != new_status:
+            new_attrs["status_changed"]= True,
+            new_attrs["old_status"] = old_status,
+            new_attrs["new_status"]= new_status
+        else:
+            new_attrs["status_changed"]= False
+
         step.reference.set(payload, merge=True)
+
+        HistoricService.create(new_attrs, commit=True)
         return ThematiqueService.get_version(version_id)
 
     @staticmethod
