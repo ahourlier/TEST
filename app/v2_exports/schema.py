@@ -3,11 +3,10 @@ from marshmallow import fields, EXCLUDE
 from app.auth.users.schema import UserLightSchema
 from app.common.schemas import PaginatedSchema
 
-from app.v2_imports.model import Imports
+from app.v2_exports.model import Exports
 
 
-class ImportsSchema(SQLAlchemyAutoSchema):
-    log_sheet_id = fields.String(dump_only=True)
+class ExportsSchema(SQLAlchemyAutoSchema):
     status = fields.String(dump_only=True)
     type = fields.String(dump_only=True)
     mission_id = fields.Integer(dump_only=True)
@@ -15,8 +14,8 @@ class ImportsSchema(SQLAlchemyAutoSchema):
     author = fields.Nested(UserLightSchema(), dump_only=True)
 
     class Meta:
-        model = Imports
+        model = Exports
 
 
-class ImportsPaginatedSchema(PaginatedSchema):
-    items = fields.Nested(ImportsSchema, many=True, dump_only=True)
+class ExportsPaginatedSchema(PaginatedSchema):
+    items = fields.Nested(ExportsSchema, many=True, dump_only=True)

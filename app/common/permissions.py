@@ -12,6 +12,7 @@ import app.building.service as building_service
 import app.lot.service as lot_service
 import app.thematique.service as thematic_service
 import app.v2_imports.service as import_service
+import app.v2_imports.service as export_service
 
 
 class PermissionsUtils:
@@ -236,6 +237,21 @@ def has_import_permissions(user):
     current_import = import_service.ImportsService.get(import_id)
     permission = mission_permissions.MissionPermission.check_mission_permission(
         current_import.mission_id, user
+    )
+    return PermissionsUtils.bypass_admins(permission, user)
+
+
+def has_export_permissions(user):
+    export_id = PermissionsUtils.get_entity_id("export_id")
+    if not export_id:
+        export_id = PermissionsUtils.get_entity_id("exportId")
+
+    if not export_id:
+        return user.role == UserRole.ADMIN
+
+    current_export = export_service.ImportsService.get(export_id)
+    permission = mission_permissions.MissionPermission.check_mission_permission(
+        current_export.mission_id, user
     )
     return PermissionsUtils.bypass_admins(permission, user)
 
