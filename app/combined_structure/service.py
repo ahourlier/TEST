@@ -11,6 +11,7 @@ from app.common.address.schema import AddressSchema
 from app.common.exceptions import EnumException
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
+from app.common.db_utils import DBUtils
 from app.copro.president.service import PresidentService
 from app.copro.syndic.service import SyndicService
 from app.thematique.service import ThematiqueService
@@ -151,11 +152,7 @@ class CombinedStructureService:
 
     @staticmethod
     def delete(combined_structure_id):
-        existing_combined_structure = CombinedStructureService.get(
-            combined_structure_id
-        )
-        existing_combined_structure.soft_delete()
-        db.session.commit()
+        DBUtils.soft_delete_cascade(combined_structure_id, CombinedStructureService)
         return combined_structure_id
 
     @staticmethod

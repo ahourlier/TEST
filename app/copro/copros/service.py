@@ -10,6 +10,7 @@ from app.common.app_name import App
 from app.common.exceptions import EnumException
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
+from app.common.db_utils import DBUtils
 from app.common.phone_number.model import PhoneNumber
 from app.common.phone_number.service import PhoneNumberService
 from app.copro.cadastre import Cadastre
@@ -317,10 +318,7 @@ class CoproService:
 
     @staticmethod
     def delete(copro_id: int):
-        current_copro = CoproService.get(copro_id)
-        if current_copro:
-            current_copro.soft_delete()
-            db.session.commit()
+        DBUtils.soft_delete_cascade(copro_id, CoproService)
         return copro_id
 
     @staticmethod
