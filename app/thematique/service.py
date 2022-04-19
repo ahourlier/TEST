@@ -211,9 +211,9 @@ class ThematiqueService:
         old_status = step.to_dict()["metadata"]["status"]
         new_status = payload["metadata"]["status"]
         if old_status != new_status:
-            new_attrs["status_changed"]= True,
-            new_attrs["old_status"] = old_status,
-            new_attrs["new_status"]= new_status
+            new_attrs["status_changed"] = True
+            new_attrs["old_status"] = old_status
+            new_attrs["new_status"] = new_status
         else:
             new_attrs["status_changed"]= False
 
