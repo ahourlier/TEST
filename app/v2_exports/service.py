@@ -83,10 +83,10 @@ class ExportsService:
 
     def delete_export(current_export: Exports, export_id: int):
 
-        if current_export.log_sheet_id:
+        if current_export.export_sheet_id:
             # todo create with service account as sheet will be created in shared drive with service account
             res = DriveUtils.delete_file(
-                current_export.log_sheet_id, user_email=g.user.email
+                current_export.export_sheet_id, user_email=g.user.email
             )
             if not res:
                 print(f"cannot delete log sheet for export {current_export.id}")
