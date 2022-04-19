@@ -1,10 +1,11 @@
 from distutils.version import Version
 from app import db
-from app.thematique.historic.historics import Historic
-from app.thematique.historic.historics.exceptions import HistoricNotFoundException
-from app.thematique.historic.historics.interface import HistoricInterface
+from app.auth.users.model import User
+from app.thematique.historics import Historic
+from app.thematique.historics.exceptions import HistoricNotFoundException
+from app.thematique.historics.interface import HistoricInterface
 from app.thematique.error_handlers import VersionNotFoundException
-from app.thematique.historic.historics.error_handlers import (
+from app.thematique.historics.error_handlers import (
     CreateHistoricException,
     HistoricNotFoundException,
 )

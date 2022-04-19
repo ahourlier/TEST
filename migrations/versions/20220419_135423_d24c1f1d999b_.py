@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: cd1b8543d53a
-Revises: d136e7d303e1
-Create Date: 2022-03-22 16:10:41.069024
+Revision ID: d24c1f1d999b
+Revises: b8ac6ad1b7a1
+Create Date: 2022-04-19 13:54:23.713861
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'cd1b8543d53a'
-down_revision = 'd136e7d303e1'
+revision = 'd24c1f1d999b'
+down_revision = 'b8ac6ad1b7a1'
 branch_labels = None
 depends_on = None
 
@@ -24,8 +24,11 @@ def upgrade():
     sa.Column('is_deleted', sa.Boolean(), nullable=True),
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('thematique_id', sa.String(), nullable=False),
-    sa.Column('old_value', sa.JSON(), nullable=False),
-    sa.Column('new_value', sa.JSON(), nullable=False),
+    sa.Column('updated_by_id', sa.Integer(), nullable=False),
+    sa.Column('status_changed', sa.Boolean(), nullable=False),
+    sa.Column('old_status', sa.String(), nullable=True),
+    sa.Column('new_status', sa.String(), nullable=True),
+    sa.ForeignKeyConstraint(['updated_by_id'], ['core.user.id'], name=op.f('fk_historic_updated_by_id_user')),
     sa.PrimaryKeyConstraint('id', name=op.f('pk_historic')),
     schema='core'
     )

@@ -1,4 +1,4 @@
-from flask import Response, request, jsonify
+from flask import request, jsonify, g
 from flask_accepts import responds, accepts
 from flask_allows import requires
 
@@ -57,7 +57,7 @@ class ThematiqueStepResource(AuthenticatedApi):
     @requires(has_version_permissions)
     def put(self, version_id: str, step_id: str):
         return ThematiqueService.update_step(
-            version_id=version_id, step_id=step_id, payload=request.parsed_obj
+            version_id=version_id, step_id=step_id, payload=request.parsed_obj, user=g.user
         )
 
 
