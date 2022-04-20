@@ -233,7 +233,7 @@ class ThematiqueService:
 
         from app.thematique.historics.service import HistoricService
 
-        new_attrs = {"thematique_id": version_id, "updated_by": user}
+        new_attrs = {"version_id": version_id, "updated_by": user}
         old_status = step.to_dict()["metadata"]["status"]
         new_status = payload["metadata"]["status"]
         if old_status != new_status:

@@ -47,7 +47,7 @@ class HistoricService:
     def create(new_attrs: HistoricInterface, commit: bool = False) -> Historic:
         try:
             # Check thematique exists in Firestore
-            ThematiqueService.get_version(new_attrs["thematique_id"])
+            ThematiqueService.get_version(new_attrs["version_id"])
         except VersionNotFoundException as ve:
             print(f"{ve.message}")
             raise CreateHistoricException
