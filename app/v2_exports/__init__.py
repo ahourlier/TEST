@@ -17,6 +17,6 @@ def register_internal_routes(bp):
     prefix = "/exports"
     bp.add_url_rule(
         f"{prefix}/run",
-        view_func=ExportRunView.as_view("exports-run"),
+        view_func=ExportRunView.as_view("export-run"),
         methods=["PUT"],
     )

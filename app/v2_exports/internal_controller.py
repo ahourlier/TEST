@@ -14,4 +14,9 @@ class ExportRunView(InternalAPIView):
         # from app.v2_exports.lots.process import LotExport
         payload = request.get_json(force=True)
         print(payload)
+
+        running_export = Exports.query.get(payload.get("export_id"))
+        if not running_export:
+            print(f"export {payload.get('export_id')} not found")
+            return f"export {payload.get('export_id')} not found"
         return "done"
