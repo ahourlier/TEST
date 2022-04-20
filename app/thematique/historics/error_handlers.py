@@ -2,7 +2,7 @@ from . import api
 
 from .exceptions import CreateHistoricException, HistoricNotFoundException
 
-from ....common.error_handlers import parse_exception
+from app.common.error_handlers import parse_exception
 
 
 @api.errorhandler(CreateHistoricException)

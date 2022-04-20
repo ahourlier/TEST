@@ -33,6 +33,7 @@ class ThematiqueSchema(SQLAlchemyAutoSchema):
     steps = fields.Nested(StepSchema, many=True)
     versionnable = fields.Boolean()
     heritable = fields.Boolean()
+    extend_parent = fields.Boolean()
 
 
 class VersionSchema(ThematiqueSchema):

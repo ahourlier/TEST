@@ -14,6 +14,7 @@ from app.common.address.service import AddressService
 from app.common.exceptions import EnumException
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
+from app.common.db_utils import DBUtils
 from app.copro.copros.model import Copro
 from app.mission import missions
 from app.thematique.service import ThematiqueService
@@ -170,9 +171,7 @@ class BuildingService:
 
     @staticmethod
     def delete(building_id):
-        existing_building = BuildingService.get(building_id)
-        existing_building.soft_delete()
-        db.session.commit()
+        DBUtils.soft_delete_cascade(building_id, BuildingService)
         return building_id
 
     @staticmethod

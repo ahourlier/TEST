@@ -1,0 +1,429 @@
+{
+	"thematique_name": "IMPAYES",
+	"scope": "copro",
+	"versionnable": true,
+	"heritable": true,
+	"extend_parent": false,
+	"steps": [
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "DONNEES_CADRAGE",
+				"order": 1,
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": true,
+					"value": [
+						{
+							"budget_group": {
+								"type": "group",
+								"multiple": true,
+								"value": [
+									{
+										"annee_reference": {
+											"type": "date",
+											"multiple": false,
+											"format": "AAAA",
+											"value": []
+										},
+										"arrete_comptes": {
+											"type": "date",
+											"multiple": true,
+											"value": []
+										},
+										"budget_previsionnel_vote": {
+											"type": "currency",
+											"multiple": false,
+											"value": []
+										},
+										"budget_operations_exceptionnelles_vote": {
+											"type": "currency",
+											"multiple": false,
+											"value": []
+										},
+										"budget_realise": {
+											"type": "currency",
+											"multiple": false,
+											"value": []
+										},
+										"total_lots_principaux": {
+											"type": "number",
+											"multiple": false,
+											"value": []
+										},
+										"trimestre_moyen_reference": {
+											"type": "currency",
+											"multiple": false,
+											"formula": "((budget_previsionnel_vote || 0) / 4)/(total_lots_principaux || 1)",
+											"value": []
+										}
+									}
+								]
+							},
+							"dette_fournisseurs_group": {
+								"type": "group",
+								"multiple": true,
+								"value": [
+									{
+										"dette_fournisseurs": {
+											"type": "currency",
+											"multiple": false,
+											"value": []
+										},
+										"taux_impayes_fournisseurs": {
+											"type": "number",
+											"multiple": false,
+											"value": []
+										}
+									}
+								]
+							},
+							"total_sommes_appelees": {
+								"type": "currency",
+								"multiple": false,
+								"value": []
+							},
+							"total_sommes_recouvrees": {
+								"type": "currency",
+								"multiple": false,
+								"value": []
+							},
+							"nombre_total_coproprietaires": {
+								"type": "number",
+								"multiple": false,
+								"value": []
+							},
+							"nombre_total_debiteurs_a_date_arrete_comptes": {
+								"type": "number",
+								"multiple": false,
+								"value": []
+							},
+							"impayes_a_date_arrete_comptes": {
+								"type": "currency",
+								"multiple": false,
+								"value": []
+							},
+							"nombre_procedures_precontentieuses_en_cours_a_date_arrete_comptes": {
+								"type": "number",
+								"multiple": false,
+								"value": []
+							},
+							"nombre_procedures_contentieuses_en_cours_a_date_arrete_comptes": {
+								"type": "number",
+								"multiple": false,
+								"value": []
+							},
+							"taux_impayes_group": {
+								"type": "group",
+								"multiple": true,
+								"value": [
+									{
+										"taux_impayes_alerte": {
+											"type": "number",
+											"multiple": false,
+											"formula": "(impayes_a_date_arrete_comptes || 0)/((budget_previsionnel_vote + budget_operations_exceptionnelles_vote) || 1)",
+											"value": []
+										},
+										"taux_impayes_mpr_c": {
+											"type": "number",
+											"multiple": false,
+											"formula": "(impayes_a_date_arrete_comptes || 0)/((budget_previsionnel_vote + budget_operations_exceptionnelles_vote) || 1)",
+											"value": []
+										},
+										"taux_impayes_operationnel": {
+											"type": "number",
+											"multiple": false,
+											"formula": "(impayes_a_date_arrete_comptes || 0)/(budget_previsionnel_vote || 1)",
+											"value": []
+										},
+										"taux_defaillance": {
+											"type": "number",
+											"multiple": false,
+											"formula": "(nombre_total_debiteurs_a_date_arrete_comptes || 0)/(nombre_total_coproprietaires || 1)",
+											"value": []
+										},
+										"taux_recouvrement": {
+											"type": "number",
+											"multiple": false,
+											"formula": "(total_sommes_recouvrees || 0)/(total_sommes_appelees || 1)",
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "RENCONTRE_COPROPRIETE_ET_PARTENAIRES",
+				"order": 2,
+				"status": ""
+			},
+			"fields": {
+				"reunion": {
+					"type": "date",
+					"multiple": false,
+					"value": []
+				},
+				"presence_cs": {
+					"type": "switch",
+					"multiple": false,
+					"value": []
+				},
+				"rencontre_partenaires_acteurs_pouvant_aider_a_travailler_sur_impayes_group": {
+					"type": "group",
+					"multiple": true,
+					"value": [
+						{
+							"nom_organisme_partenaire": {
+								"type": "string",
+								"multiple": false,
+								"value": []
+							},
+							"date_rencontre": {
+								"type": "date",
+								"multiple": false,
+								"value": []
+							},
+							"interlocuteur_chez_organisme": {
+								"type": "string",
+								"multiple": false,
+								"value": []
+							},
+							"interlocuteur_telephone": {
+								"type": "phone",
+								"multiple": false,
+								"value": []
+							},
+							"interlocuteur_mail": {
+								"type": "email",
+								"multiple": false,
+								"value": []
+							},
+							"fonction_dans_mission": {
+								"type": "string",
+								"multiple": false,
+								"value": []
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "MISE_EN_PLACE_ET_ANIMATION_COMMISSION_IMPAYES",
+				"order": 3,
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": true,
+					"value": [
+						{
+							"commission_impayes_group": {
+								"type": "group",
+								"multiple": true,
+								"value": [
+									{
+										"commission_impayes_date": {
+											"type": "date",
+											"multiple": false,
+											"value": []
+										},
+										"presence_cs": {
+											"type": "switch",
+											"multiple": false,
+											"value": []
+										},
+										"presence_tiers": {
+											"type": "switch",
+											"multiple": false,
+											"value": []
+										},
+										"montant_impayes": {
+											"type": "currency",
+											"multiple": false,
+											"value": []
+										},
+										"taux_defaillance": {
+											"type": "number",
+											"multiple": false,
+											"TODO": "formula",
+											"value": []
+										},
+										"nombre_protocoles_amiables_signes": {
+											"type": "number",
+											"multiple": false,
+											"value": []
+										},
+										"nombre_procedures_precontentieuses_en_cours": {
+											"type": "number",
+											"multiple": false,
+											"value": []
+										},
+										"nombre_procedures_contentieuses_en_cours": {
+											"type": "number",
+											"multiple": false,
+											"value": []
+										},
+										"debiteurs_inferieur_2t": {
+											"type": "number",
+											"multiple": false,
+											"formula": "nombre_po_avec_dette_inferieur_2t + nombre_pb_avec_dette_inferieur_2t + nombre_autre_statut_avec_dette_inferieur_2t",
+											"value": []
+										},
+										"debiteurs_entre_2t_et_4t": {
+											"type": "number",
+											"multiple": false,
+											"formula": "nombre_po_avec_dette_entre_2t_et_4t + nombre_pb_avec_dette_entre_2t_et_4t + nombre_autre_statut_avec_dette_entre_2t_et_4t",
+											"value": []
+										},
+										"debiteurs_superieur_4t": {
+											"type": "number",
+											"multiple": false,
+											"formula": "nombre_po_avec_dette_superieur_4t + nombre_pb_avec_dette_superieur_4t + nombre_autre_statut_avec_dette_superieur_4t",
+											"value": []
+										},
+										"nombre_po_avec_dette_inferieur_2t": {
+											"type": "number",
+											"multiple": false,
+											"value": []
+										},
+										"dette_cumulee_po_inferieur_2t": {
+											"type": "currency",
+											"multiple": false,
+											"value": []
+										},
+										"nombre_po_avec_dette_entre_2t_et_4t": {
+											"type": "number",
+											"multiple": false,
+											"value": []
+										},
+										"dette_cumulee_po_entre_2t_et_4t": {
+											"type": "currency",
+											"multiple": false,
+											"value": []
+										},
+										"nombre_po_avec_dette_superieur_4t": {
+											"type": "number",
+											"multiple": false,
+											"value": []
+										},
+										"dette_cumulee_po_superieur_4t": {
+											"type": "currency",
+											"multiple": false,
+											"value": []
+										},
+										"nombre_pb_avec_dette_inferieur_2t": {
+											"type": "number",
+											"multiple": false,
+											"value": []
+										},
+										"dette_cumulee_pb_inferieur_2t": {
+											"type": "currency",
+											"multiple": false,
+											"value": []
+										},
+										"nombre_pb_avec_dette_entre_2t_et_4t": {
+											"type": "number",
+											"multiple": false,
+											"value": []
+										},
+										"dette_cumulee_pb_entre_2t_et_4t": {
+											"type": "currency",
+											"multiple": false,
+											"value": []
+										},
+										"nombre_pb_avec_dette_superieur_4t": {
+											"type": "number",
+											"multiple": false,
+											"value": []
+										},
+										"dette_cumulee_pb_superieur_4t": {
+											"type": "currency",
+											"multiple": false,
+											"value": []
+										},
+										"nombre_autre_statut_avec_dette_inferieur_2t": {
+											"type": "number",
+											"multiple": false,
+											"value": []
+										},
+										"dette_cumulee_autre_statut_inferieur_2t": {
+											"type": "currency",
+											"multiple": false,
+											"value": []
+										},
+										"nombre_autre_statut_avec_dette_entre_2t_et_4t": {
+											"type": "number",
+											"multiple": false,
+											"value": []
+										},
+										"dette_cumulee_autre_statut_entre_2t_et_4t": {
+											"type": "currency",
+											"multiple": false,
+											"value": []
+										},
+										"nombre_autre_statut_avec_dette_superieur_4t": {
+											"type": "number",
+											"multiple": false,
+											"value": []
+										},
+										"dette_cumulee_autre_statut_superieur_4t": {
+											"type": "currency",
+											"multiple": false,
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "CONTACT_AVEC_DEBITEURS_ET_ACCOMPAGNEMENT",
+				"order": 4,
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": true,
+					"value": [
+						{
+							"nombre_proprietaires_rencontres": {
+								"type": "number",
+								"multiple": true,
+								"value": []
+							},
+							"nombre_fsl_deposes": {
+								"type": "number",
+								"multiple": true,
+								"value": []
+							},
+							"montant_aides_fsl_mobilisees": {
+								"type": "currency",
+								"multiple": true,
+								"value": []
+							}
+						}
+					]
+				}
+			}
+		}
+	]
+}
