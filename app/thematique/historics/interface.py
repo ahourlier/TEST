@@ -3,7 +3,7 @@ from mypy_extensions import TypedDict
 
 class HistoricInterface(TypedDict, total=False):
     id: int
-    thematique_id: str
+    version_id: str
     updated_by: str
     status_changed: bool
     old_status: str

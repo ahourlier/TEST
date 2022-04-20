@@ -4,8 +4,8 @@ from app.copro.copros.model import Copro
 from app.building.model import Building
 from app.lot.model import Lot
 
-class DBUtils:
 
+class DBUtils:
     def soft_delete_cascade(entity_id, service):
         """Soft delete an entity and all its children"""
         existing_entity = service.get(entity_id)
@@ -18,6 +18,7 @@ class DBUtils:
             )
             for copro in copros:
                 from app.copro.copros.service import CoproService
+
                 DBUtils.soft_delete_cascade(copro.id, CoproService)
 
         if type(existing_entity) == Copro:
@@ -29,6 +30,7 @@ class DBUtils:
             )
             for building in buildings:
                 from app.building.service import BuildingService
+
                 DBUtils.soft_delete_cascade(building.id, BuildingService)
 
         if type(existing_entity) == Building:
@@ -40,8 +42,9 @@ class DBUtils:
             )
             for lot in lots:
                 from app.lot.service import LotService
+
                 DBUtils.soft_delete_cascade(lot.id, LotService)
-                
+
         if type(existing_entity) == Lot:
             existing_entity.soft_delete()
             db.session.commit()

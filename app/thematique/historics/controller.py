@@ -25,6 +25,17 @@ class HistoricResource(AuthenticatedApi):
         return HistoricService.create(request.parsed_obj, commit=True)
 
 
+@api.route("/<string:version_id>")
+class HistoricVersionIdResource(AuthenticatedApi):
+    """Historics"""
+
+    @accepts(api=api)
+    @responds(schema=HistoricPaginatedSchema)
+    def get(self, version_id) -> Pagination:
+        """Get historics by version id"""
+        return HistoricService.get_by_version_id(version_id)
+
+
 @api.route("/<string:historic_id>")
 class HistoricIdResource(AuthenticatedApi):
     @responds(api=api)

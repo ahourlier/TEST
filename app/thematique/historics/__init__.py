@@ -6,6 +6,7 @@ BASE_ROUTE = "historics"
 
 api = Namespace("Historics", description="Historic namespace")
 
+
 def register_routes(api, app, root="api"):
     from .controller import api as historics_api
 
