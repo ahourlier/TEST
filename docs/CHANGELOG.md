@@ -1,3 +1,18 @@
+# [1.3.0-rc.2](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.1...v1.3.0-rc.2) (2022-04-20)
+
+
+### Bug Fixes
+
+* **THEMATICS:** update thematic ([fedad72](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/fedad721394b4d274aad2cd4979cac404955ae1f))
+
+
+### Features
+
+* **DELETE:** update all soft delete in a recursiv way ([45275c9](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/45275c95e3c83ced63d4bcf1520e2d76b7cad027))
+* **HISTORIC:** Refactor directory structure + change fields types + create when update thematique step ([8258d8d](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/8258d8df24d8d4f6bc5c993203df7b7d27ad83ce))
+* **SEARCH:** Search on 5 primary entity works ([6c0bd07](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/6c0bd076d253bf5f360119908eb0f97e63498d65))
+* **THEMATICS:** Templating 1/2 + REF_STATUS + Update de versions ([2dbc24e](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/2dbc24e8ddad50ef70b016166a37e6b881646b85))
+
 # [1.3.0-rc.1](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.2.4-rc.1...v1.3.0-rc.1) (2022-04-07)
 
 
