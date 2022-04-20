@@ -337,6 +337,8 @@ def has_version_permissions(user):
 
 
 def check_permissions_by_scope(scope, resource_id, user):
+    if scope == "sc":
+        return check_combined_structure_permissions(resource_id, user)
     if scope == "copro":
         return check_copro_permissions(resource_id, user)
     if scope == "building":

@@ -16,10 +16,11 @@ def register_routes(api, app, root="api"):
     from app.lot import register_routes as attach_lots
     from app.person import register_routes as attach_people
     from app.thematique import register_routes as attach_thematiques
-    from app.thematique.historic import register_routes as attach_historics
+    from app.thematique.historics import register_routes as attach_historics
     from app.task import register_routes as attach_tasks
     from app.combined_structure import register_routes as attach_combined_structures
     from app.v2_imports import register_routes as attach_v2_imports
+    from app.v2_search import register_routes as attach_search
 
     attach_auth(api, app, root)
     attach_admin(api, app, root)
@@ -41,3 +42,4 @@ def register_routes(api, app, root="api"):
     attach_tasks(api, app, root)
     attach_combined_structures(api, app, root)
     attach_v2_imports(api, app, root)
+    attach_search(api, app, root)

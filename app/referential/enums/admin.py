@@ -403,3 +403,165 @@ class CombinedStructureType(EnumBaseAdminView):
     ENUM_KIND = "CombinedStructureType"
     FIELD_MODEL = CombinedStructure
     FIELD_REF = "type"
+
+
+class MainOccupantAge(EnumBaseAdminView):
+    ENUM_KIND = "MainOccupantAge"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class HouseholdDebtRate(EnumBaseAdminView):
+    ENUM_KIND = "HouseholdDebtRate"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class LotSeniorityOccupation(EnumBaseAdminView):
+    ENUM_KIND = "LotSeniorityOccupation"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class RentLevel(EnumBaseAdminView):
+    ENUM_KIND = "RentLevel"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class HouseholdResourcesAnahStatus(EnumBaseAdminView):
+    ENUM_KIND = "HouseholdResourcesAnahStatus"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class HouseholdOtherFunderLimitStatus(EnumBaseAdminView):
+    ENUM_KIND = "HouseholdOtherFunderLimitStatus"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class LocatairesRessources(EnumBaseAdminView):
+    ENUM_KIND = "LocatairesRessources"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class HouseholdEnergeticEffortRate(EnumBaseAdminView):
+    ENUM_KIND = "HouseholdEnergeticEffortRate"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class EnergeticPrecariousnessCause(EnumBaseAdminView):
+    ENUM_KIND = "EnergeticPrecariousnessCause"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class Overoccupation(EnumBaseAdminView):
+    ENUM_KIND = "Overoccupation"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class HouseholdAccompaniedStatusAndPreviousStatus(EnumBaseAdminView):
+    ENUM_KIND = "HouseholdAccompaniedStatusAndPreviousStatus"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class AdministrativeSituation(EnumBaseAdminView):
+    ENUM_KIND = "AdministrativeSituation"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class MaritalSituation(EnumBaseAdminView):
+    ENUM_KIND = "MaritalSituation"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class MovingHouseProject(EnumBaseAdminView):
+    ENUM_KIND = "MovingHouseProject"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class MonthlyRessourcesType(EnumBaseAdminView):
+    ENUM_KIND = "MonthlyRessourcesType"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class DebtOrigin(EnumBaseAdminView):
+    ENUM_KIND = "DebtOrigin"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class PrincipalSocialProblematics(EnumBaseAdminView):
+    ENUM_KIND = "PrincipalSocialProblematics"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class SocialSupportType(EnumBaseAdminView):
+    ENUM_KIND = "SocialSupportType"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class RDVType(EnumBaseAdminView):
+    ENUM_KIND = "RDVType"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class AdministrativeSupport(EnumBaseAdminView):
+    ENUM_KIND = "AdministrativeSupport"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class InformativeEventsOrganization(EnumBaseAdminView):
+    ENUM_KIND = "InformativeEventsOrganization"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class ProfessionalSituation(EnumBaseAdminView):
+    ENUM_KIND = "ProfessionalSituation"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class ContractType(EnumBaseAdminView):
+    ENUM_KIND = "ContractType"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class WorkAxis(EnumBaseAdminView):
+    ENUM_KIND = "WorkAxis"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class PreLitigationAction(EnumBaseAdminView):
+    ENUM_KIND = "PreLitigationAction"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class UrbanisAction(EnumBaseAdminView):
+    ENUM_KIND = "UrbanisAction"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class LitigationAction(EnumBaseAdminView):
+    ENUM_KIND = "LitigationAction"
+    FIELD_MODEL = None
+    FIELD_REF = None

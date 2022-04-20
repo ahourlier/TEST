@@ -8,6 +8,7 @@ from app.cle_repartition.service import CleRepartitionService
 from app.common.exceptions import EnumException
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
+from app.common.db_utils import DBUtils
 from app.copro.copros.model import Copro
 from app.lot import Lot
 from app.lot.error_handlers import (
@@ -152,9 +153,7 @@ class LotService:
 
     @staticmethod
     def delete(lot_id: int):
-        lot = LotService.get(lot_id)
-        lot.soft_delete()
-        db.session.commit()
+        DBUtils.soft_delete_cascade(lot_id, LotService)
         return lot_id
 
     @staticmethod
