@@ -32,11 +32,9 @@ class LotInterface(TypedDict):
     unpaid_date: Optional[date]
     # Pour les logements loues, niveau de loyer
     lease_type: Optional[str]
-    rent_per_month: Optional[float]
+    rent_hc_per_month: Optional[float]
     charges_per_month: Optional[float]
+    rent_cc_per_month: Optional[float]
     intermediate_rent: Optional[bool]
     convention_rent_type: Optional[str]
-    # suivi des dia
-    dia: Optional[bool]
-    dia_price: Optional[float]
-    dia_price_m2: Optional[float]
+    outstanding_payements_amount: Optional[float]

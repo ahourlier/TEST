@@ -16,9 +16,6 @@ from app import db
 from app.common.address.model import Address
 from app.common.base_model import SoftDeletableMixin, BaseMixin
 from app.common.phone_number.model import PhoneNumber, HasPhones
-from app.copro.cadastre import Cadastre
-from app.copro.president import President
-from app.copro.moe import Moe
 
 
 class Copro(HasPhones, SoftDeletableMixin, BaseMixin, db.Model):
@@ -31,8 +28,40 @@ class Copro(HasPhones, SoftDeletableMixin, BaseMixin, db.Model):
     president = relationship("President", backref="copro")
     moe_id = Column(Integer, ForeignKey("moe.id"), nullable=True)
     moe = relationship("Moe", backref="copro")
+    # combined structure
+    cs_id = Column(Integer, ForeignKey("combined_structure.id"), nullable=True)
+    cs = relationship("CombinedStructure", backref="copros")
 
-    # syndic
+    # copropriété
+    name = Column(String(255), nullable=True)
+    copro_type = Column(String(255), nullable=True)
+    access_code = Column(Text(), nullable=True)
+
+    address_1_id = Column(Integer(), ForeignKey("address.id"), nullable=True)
+    address_1 = relationship(
+        "Address",
+        cascade="all, delete",
+        foreign_keys=[address_1_id],
+        primaryjoin=address_1_id == Address.id,
+    )
+    address_2_id = Column(Integer(), ForeignKey("address.id"), nullable=True)
+    address_2 = relationship(
+        "Address",
+        cascade="all, delete",
+        foreign_keys=[address_2_id],
+        primaryjoin=address_2_id == Address.id,
+    )
+    user_in_charge_id = Column(Integer, ForeignKey("user.id"), nullable=True)
+    user_in_charge = relationship("User", backref="copro")
+    mixed_copro = Column(Boolean, nullable=True, default=False)
+    priority_copro = Column(Boolean, nullable=True, default=False)
+    horizontal_copro = Column(Boolean, nullable=True, default=False)
+    copro_registry_number = Column(String(255), nullable=True)
+    copro_creation_date = Column(db.Date, nullable=True)
+    is_member_s1_s2 = Column(Boolean, nullable=True, default=False)
+    is_member_association = Column(Boolean, nullable=True, default=False)
+
+    # syndic & CS
     syndic_name = Column(String(255), nullable=True)
     syndic_type = Column(String(255), nullable=True)
     syndic_contract_date = Column(Date, nullable=True)
@@ -63,56 +92,46 @@ class Copro(HasPhones, SoftDeletableMixin, BaseMixin, db.Model):
         foreign_keys=[admin_manager_address_id],
         primaryjoin=admin_manager_address_id == Address.id,
     )
+    other_syndic_counsel_member_infos = Column(Text(), nullable=True)
 
-    # copropriété
-    name = Column(String(255), nullable=True)
-    copro_type = Column(String(255), nullable=True)
-    address_1_id = Column(Integer(), ForeignKey("address.id"), nullable=True)
-    address_1 = relationship(
-        "Address",
-        cascade="all, delete",
-        foreign_keys=[address_1_id],
-        primaryjoin=address_1_id == Address.id,
+    # Personnel
+    care_taker_id = Column(
+        Integer(), ForeignKey("caretaker.id"), nullable=True
     )
-    address_2_id = Column(Integer(), ForeignKey("address.id"), nullable=True)
-    address_2 = relationship(
-        "Address",
-        cascade="all, delete",
-        foreign_keys=[address_2_id],
-        primaryjoin=address_2_id == Address.id,
+    care_taker = relationship("CareTaker", backref="copro")
+    employee_id = Column(
+        Integer(), ForeignKey("employee.id"), nullable=True
     )
-    user_in_charge_id = Column(Integer, ForeignKey("user.id"), nullable=True)
-    user_in_charge = relationship("User", backref="copro")
-    mixed_copro = Column(Boolean, nullable=True, default=False)
-    priority_copro = Column(Boolean, nullable=True, default=False)
-    horizontal_copro = Column(Boolean, nullable=True, default=False)
-    copro_registry_number = Column(String(255), nullable=True)
-    copro_creation_date = Column(db.Date, nullable=True)
-    is_member_s1_s2 = Column(Boolean, nullable=True, default=False)
-    is_member_association = Column(Boolean, nullable=True, default=False)
-    # combined structure
-    cs_id = Column(Integer, ForeignKey("combined_structure.id"), nullable=True)
-    cs = relationship("CombinedStructure", backref="copros")
+    employee = relationship("Employee", backref="copro")
+    fire_safety_personnel_id = Column(
+        Integer(), ForeignKey("fire_safety_personnel.id"), nullable=True
+    )
+    fire_safety_personnel = relationship("FireSafetyPersonnel", backref="copro")
+
+    # Architecte conseil
+    architect_id = Column(
+        Integer(), ForeignKey("architect.id"), nullable=True
+    )
+    architect = relationship("Architect", backref="copro")
+
     # Fonctionnement
     nb_lots = Column(Integer, nullable=True)
     nb_co_owners = Column(Integer, nullable=True)
+    nb_commercial_lots = Column(Integer, nullable=True)
     nb_sub_lots = Column(Integer, nullable=True)
     percentage_lots_to_habitation = Column(Float, nullable=True)
     percentage_tantiemes_to_habitation = Column(Float, nullable=True)
-    contract_end_date = Column(db.Date, nullable=True)
-    closing_accounts_date = Column(db.Date, nullable=True)
-    last_assembly_date = Column(db.Date, nullable=True)
-    percentage_attending_tantiemes = Column(Float, nullable=True)
-    percentage_attending_co_owners = Column(Float, nullable=True)
+    po_majority = Column(Boolean, nullable=True)
     institutional_landlords_presence = Column(Boolean, nullable=True, default=False)
-    # charges
-    charges_last_year = Column(Float, nullable=True)
-    provisional_budget_last_assembly = Column(Float, nullable=True)
-    average_charges_per_quarter_per_lot = Column(Float, nullable=True)
+
     # description technique rapide
+    nb_building = Column(Integer, nullable=True)
     construction_time = Column(String(255), nullable=True)
     pmr = Column(Boolean, nullable=True, default=False)
     igh = Column(Boolean, nullable=True, default=False)
+    collective_heating = Column(Boolean, nullable=True)
+    rcu = Column(Boolean, nullable=True)
+    heritage_classification = Column(Boolean, nullable=True)
     external_spaces = Column(Boolean, nullable=True, default=False)
     underground_parking = Column(Boolean, nullable=True, default=False)
     aerial_parking = Column(Boolean, nullable=True, default=False)

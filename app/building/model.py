@@ -48,9 +48,6 @@ class Building(SoftDeletableMixin, BaseMixin, db.Model):
     individual_ecs_counter = Column(Boolean(), nullable=True)
     other_equipments = Column(Text(), nullable=True)
     # diagnostique technique
-    energy_diagnosis_date = Column(db.Date, nullable=True)
-    initial_energy_label = Column(String(255), nullable=True)
-    initial_consumption = Column(Float(), nullable=True)
     asbestos_diagnosis_date = Column(db.Date, nullable=True)
     asbestos_diagnosis_result = Column(String(255), nullable=True)
     lead_diagnosis_date = Column(db.Date, nullable=True)

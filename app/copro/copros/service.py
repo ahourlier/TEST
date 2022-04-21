@@ -3,6 +3,7 @@ from sqlalchemy import or_, and_
 
 from app import db
 from app.auth.users.model import UserRole
+from app.building.service import BuildingService
 from app.cle_repartition.service import CleRepartitionService
 from app.common.address.model import Address
 from app.common.address.service import AddressService
@@ -13,7 +14,11 @@ from app.common.services_utils import ServicesUtils
 from app.common.db_utils import DBUtils
 from app.common.phone_number.model import PhoneNumber
 from app.common.phone_number.service import PhoneNumberService
+from app.copro.architect.model import Architect
+from app.copro.architect.service import ArchitectService
 from app.copro.cadastre import Cadastre
+from app.copro.caretaker.model import CareTaker
+from app.copro.caretaker.service import CareTakerService
 from app.copro.copros.error_handlers import (
     CoproNotFoundException,
     MissionNotTypeCoproException,
@@ -21,6 +26,10 @@ from app.copro.copros.error_handlers import (
 )
 from app.copro.copros.interface import CoproInterface
 from app.copro.copros.model import Copro
+from app.copro.employee.model import Employee
+from app.copro.employee.service import EmployeeService
+from app.copro.fire_safety_personnel.model import FireSafetyPersonnel
+from app.copro.fire_safety_personnel.service import FireSafetyPersonnelService
 from app.copro.moe.model import Moe
 from app.copro.moe.service import MoeService
 from app.copro.president import President
@@ -101,6 +110,9 @@ class CoproService:
         if mission.mission_type != App.COPRO:
             raise MissionNotTypeCoproException
 
+        if new_attrs.get("access_code"):
+            new_attrs["access_code"] = BuildingService.encode_access_code(new_attrs.get("access_code"))
+
         if new_attrs.get("address_1"):
             new_attrs["address_1_id"] = AddressService.create_address(
                 new_attrs.get("address_1")
@@ -148,6 +160,22 @@ class CoproService:
         if new_attrs.get("moe"):
             new_attrs["moe_id"] = MoeService.create(new_attrs.get("moe"))
             del new_attrs["moe"]
+
+        if new_attrs.get("architect"):
+            new_attrs["architect_id"] = ArchitectService.create(new_attrs.get("architect"))
+            del new_attrs["architect"]
+        
+        if new_attrs.get("caretaker"):
+            new_attrs["caretaker_id"] = CareTakerService.create(new_attrs.get("caretaker"))
+            del new_attrs["caretaker"]
+        
+        if new_attrs.get("employee"):
+            new_attrs["employee_id"] = EmployeeService.create(new_attrs.get("employee"))
+            del new_attrs["employee"]
+        
+        if new_attrs.get("fire_safety_personnel"):
+            new_attrs["fire_safety_personnel_id"] = FireSafetyPersonnelService.create(new_attrs.get("fire_safety_personnel"))
+            del new_attrs["fire_safety_personnel"]
 
         new_attrs["president_id"] = PresidentService.create(
             new_attrs.get("president", {})
@@ -304,6 +332,46 @@ class CoproService:
                         Moe.query.get(db_copro.moe_id), changes.get("moe")
                     )
             del changes["moe"]
+
+        if "architect" in changes:
+            if changes.get("architect"):
+                if not db_copro.architect_id:
+                    changes["architect_id"] = ArchitectService.create(changes.get("architect"))
+                else:
+                    ArchitectService.update(
+                        Architect.query.get(db_copro.architect_id), changes.get("architect")
+                    )
+            del changes["architect"]
+        
+        if "caretaker" in changes:
+            if changes.get("caretaker"):
+                if not db_copro.caretaker_id:
+                    changes["caretaker_id"] = CareTakerService.create(changes.get("caretaker"))
+                else:
+                    CareTakerService.update(
+                        CareTaker.query.get(db_copro.caretaker_id), changes.get("caretaker")
+                    )
+            del changes["caretaker"]
+        
+        if "employee" in changes:
+            if changes.get("employee"):
+                if not db_copro.employee_id:
+                    changes["employee_id"] = EmployeeService.create(changes.get("employee"))
+                else:
+                    EmployeeService.update(
+                        Employee.query.get(db_copro.employee_id), changes.get("employee")
+                    )
+            del changes["employee"]
+        
+        if "fire_safety_personnel" in changes:
+            if changes.get("fire_safety_personnel"):
+                if not db_copro.fire_safety_personnel_id:
+                    changes["fire_safety_personnel_id"] = FireSafetyPersonnelService.create(changes.get("fire_safety_personnel"))
+                else:
+                    FireSafetyPersonnelService.update(
+                        FireSafetyPersonnel.query.get(db_copro.fire_safety_personnel_id), changes.get("fire_safety_personnel")
+                    )
+            del changes["fire_safety_personnel"]
 
         if "cles_repartition" in changes:
             CleRepartitionService.handle_keys(

@@ -35,13 +35,8 @@ class CombinedStructure(SoftDeletableMixin, BaseMixin, db.Model):
     president = relationship("President", backref="combined_structures")
     members_cs = Column(Text(), nullable=True)
     # gestion fonctionnement
-    annual_budget = Column(Float())
-    last_general_assemblee_date = Column(Date(), nullable=True)
-    account_closing_date = Column(Date(), nullable=True)
     main_member_exists = Column(Boolean(), nullable=True)
     main_member = Column(Text(), nullable=True)
-    rules_exists = Column(Boolean(), nullable=True)
-    total_tantieme = Column(BigInteger(), nullable=True)
     # contrats
     contract_syndic = Column(Boolean(), nullable=True)
     contract_syndic_date = Column(String(), nullable=True)

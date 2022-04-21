@@ -1,6 +1,4 @@
 import base64
-from http.cookiejar import CookiePolicy
-
 from sqlalchemy import or_, and_
 
 from app import db
@@ -16,7 +14,6 @@ from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.common.db_utils import DBUtils
 from app.copro.copros.model import Copro
-from app.mission import missions
 from app.thematique.service import ThematiqueService
 
 SEARCH_BUILDINGS_PARAMS = [
