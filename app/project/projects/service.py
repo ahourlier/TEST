@@ -285,7 +285,7 @@ class ProjectService:
             work_type_service.WorkTypeService.create_list(work_types, project.id)
         if project.requester.type in [
             RequesterTypes.PO.value,
-            RequesterTypes.TENANT.value,
+            RequesterTypes.LOCATAIRE.value,
             RequesterTypes.SDC.value,
         ]:
             logging.info(f"Creating accommodation for project {project.id}")
