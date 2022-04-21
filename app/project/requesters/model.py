@@ -9,8 +9,8 @@ from app.common.phone_number.model import HasPhones, PhoneNumber
 class RequesterTypes(Enum):
     PO = "PO"
     PB = "PB"
-    TENANT = "LOCATAIRE"
-    SDC = "SDC (Syndicat des Copropriétaires)"
+    LOCATAIRE = "LOCATAIRE"
+    SDC = "SDC"
 
 
 class Requester(HasPhones, BaseMixin, db.Model):
