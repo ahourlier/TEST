@@ -21,13 +21,8 @@ class CombinedStructureInterface(TypedDict):
     president: Optional[dict]
     members_cs: Optional[str]
     # gestion fonctionnement
-    annual_budget: Optional[float]
-    last_general_assemblee_date: Optional[date]
-    account_closing_date: Optional[str]
     main_member_exists: Optional[bool]
     main_member: Optional[str]
-    rules_exists: Optional[bool]
-    total_tantieme: Optional[int]
     # equipements contrats
     green_spaces: Optional[bool]
     heater: Optional[bool]

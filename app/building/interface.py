@@ -42,9 +42,6 @@ class BuildingInterface(TypedDict):
     individual_ecs_counter: Optional[bool]
     other_equipments: Optional[str]
     # diagnostique technique
-    energy_diagnosis_date: Optional[date]
-    initial_energy_label: Optional[str]
-    initial_consumption: Optional[float]
     asbestos_diagnosis_date: Optional[date]
     asbestos_diagnosis_result: Optional[str]
     lead_diagnosis_date: Optional[date]
