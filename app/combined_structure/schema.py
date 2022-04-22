@@ -33,9 +33,13 @@ class CombinedStructureSchema(SQLAlchemyAutoSchema):
     president = fields.Nested(PresidentSchema())
     syndics = fields.List(fields.Nested(SyndicSchema()), dump_only=True)
     tantiemes = fields.Method("get_tantiemes_for_cs")
+    sum_tantiemes = fields.Method("get_sum_tantiemes_by_label")
 
     def get_tantiemes_for_cs(self, obj):
         return CombinedStructureService.get_tantiemes_for_cs(obj)
+
+    def get_sum_tantiemes_by_label(self, obj):
+        return CombinedStructureService.get_sum_tantiemes_by_label(obj)
 
     class Meta:
         model = CombinedStructure

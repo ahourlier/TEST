@@ -1,6 +1,7 @@
 from sqlalchemy import or_, and_
 
 from app import db
+from app.cle_repartition.model import CleRepartition
 from app.combined_structure.error_handlers import (
     CombinedStructureNotFoundException,
     EnumException as CombinedStructureEnumException,
@@ -173,6 +174,21 @@ class CombinedStructureService:
             item["tantieme"] = tantieme
             items.append(item)
         return items
+
+    @staticmethod
+    def get_sum_tantiemes_by_label(cs):
+        sum_tantieme = {}
+        for copro in cs.copros:
+            for lot in copro.lots:
+                for lot_cle in lot.cles_repartition:
+                    cle = CleRepartition.query.filter(CleRepartition.id == lot_cle.cle_repartition_id).first()
+                    print(f"Copro {copro.id} - Lot {lot.id} - Cle {cle.label} n°{cle.id} - Tantieme {lot_cle.tantieme}")
+                    if cle.label not in sum_tantieme:
+                        sum_tantieme[cle.label] = 0
+                    sum_tantieme[cle.label] += lot_cle.tantieme
+                    print(sum_tantieme)
+
+        return sum_tantieme
 
     @staticmethod
     def get_thematiques(copro_id: int):
