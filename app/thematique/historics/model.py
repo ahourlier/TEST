@@ -14,6 +14,7 @@ class Historic(SoftDeletableMixin, BaseMixin, db.Model):
     version_id = Column(String, nullable=False)
     updated_by_id = Column(Integer, ForeignKey("user.id"), nullable=False)
     updated_by = relationship("User", backref="historics")
+    step_name = Column(String, nullable=False)
     status_changed = Column(Boolean, nullable=False)
     old_status = Column(String, nullable=True)
     new_status = Column(String, nullable=True)
