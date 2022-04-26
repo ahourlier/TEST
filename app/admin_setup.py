@@ -744,11 +744,3 @@ def register_admin_views(admin, db):
             endpoint="manage_litigation_action",
         )
     )
-    
-    
-    
-    
-    
-    
-    
-    

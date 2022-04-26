@@ -57,7 +57,10 @@ class ThematiqueStepResource(AuthenticatedApi):
     @requires(has_version_permissions)
     def put(self, version_id: str, step_id: str):
         return ThematiqueService.update_step(
-            version_id=version_id, step_id=step_id, payload=request.parsed_obj, user=g.user
+            version_id=version_id,
+            step_id=step_id,
+            payload=request.parsed_obj,
+            user=g.user,
         )
 
 

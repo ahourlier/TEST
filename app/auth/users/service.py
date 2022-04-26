@@ -260,12 +260,11 @@ class UserService:
                     break
             except HttpError as e:
                 logging.error(
-                    f"Unable to retrieve user {email} groups from Google Workspace: {e}"
+                    f"Unable to retrieve user {email} groups from Google Workspace: \n{e}"
                 )
                 error = True
                 break
         if error:
-            print("has error")
             client = DirectoryService(os.getenv("TECHNICAL_ACCOUNT_EMAIL")).get()
             print("client created")
             groups = []
@@ -283,7 +282,7 @@ class UserService:
                         break
                 except HttpError as e:
                     logging.error(
-                        f"Unable to retrieve user {email} groups from GSuite: {e}"
+                        f"Unable to retrieve user {email} groups from GSuite: \n{e}"
                     )
                     return None
 
@@ -299,17 +298,14 @@ class UserService:
                 .all()
             )
             print(f"fetched {len(agencies)} agencies")
-            antennas = (
-                Antenna.query.with_entities(
-                    Antenna.id, Antenna.email_address, Antenna.agency
-                )
-                .filter(Antenna.email_address.in_(source_groups))
-                .all()
-            )
+            antennas = Antenna.query.filter(
+                Antenna.email_address.in_(source_groups)
+            ).all()
             print(f"fetched {len(antennas)} antennas")
 
             agencies_data = {}
             for agency in agencies:
+                print(f"agency fetched :{agency} n° {agency.id}")
                 agencies_data[agency.email_address] = agency.id
             print("agencies_data loaded")
             del agencies
