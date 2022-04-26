@@ -298,19 +298,10 @@ class UserService:
                 .all()
             )
             print(f"fetched {len(agencies)} agencies")
-            antennas = (
-                Antenna.query.filter(Antenna.email_address.in_(source_groups)).all()
-            )
-
+            antennas = Antenna.query.filter(
+                Antenna.email_address.in_(source_groups)
+            ).all()
             print(f"fetched {len(antennas)} antennas")
-            for antenna in antennas:
-                print(f"{antenna} n° {antenna.id}")
-                print(f"Agency {antenna.agency}")
-
-            from sqlalchemy import inspect
-            mapper = inspect(Antenna)
-            for column in mapper.attrs:
-                print(column.key, type(column.key))
 
             agencies_data = {}
             for agency in agencies:

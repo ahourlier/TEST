@@ -232,10 +232,8 @@ class ThematiqueService:
                 del payload["metadata"][key]
 
         from app.thematique.historics.service import HistoricService
-        new_attrs = {
-            "thematique_id": version_id,
-            "updated_by": user
-        }
+
+        new_attrs = {"thematique_id": version_id, "updated_by": user}
         old_status = step.to_dict()["metadata"]["status"]
         new_status = payload["metadata"]["status"]
         if old_status != new_status:
@@ -243,7 +241,7 @@ class ThematiqueService:
             new_attrs["old_status"] = old_status
             new_attrs["new_status"] = new_status
         else:
-            new_attrs["status_changed"]= False
+            new_attrs["status_changed"] = False
 
         step.reference.set(payload, merge=True)
 

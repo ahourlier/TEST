@@ -62,7 +62,7 @@ class ComplexFilters:
                     or_(
                         Person.first_name == filter["values"][0],
                         Person.last_name == filter["values"][0],
-                        Person.company_name == filter["values"][0]
+                        Person.company_name == filter["values"][0],
                     ),
                 )
             )
