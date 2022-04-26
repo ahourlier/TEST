@@ -15,6 +15,7 @@ from .service import (
 )
 from ..common.api import AuthenticatedApi
 from ..common.permissions import has_mission_permission
+from ..common.permissions import has_task_permission
 
 SEARCH_PARAMS = [
     dict(name="page", type=int),
@@ -80,7 +81,7 @@ class TaskResource(AuthenticatedApi):
     @responds(schema=TaskSchema)
     @requires(has_mission_permission)
     def post(self) -> Task:
-        """Create a client"""
+        """Create a task"""
         request.parsed_obj["task_type"] = get_task_type_from_url(request.path)
         return TaskService.create(request.parsed_obj)
 
@@ -100,16 +101,16 @@ class TaskIdResource(AuthenticatedApi):
 
     @accepts(schema=TaskUpdateSchema, api=api)
     @responds(schema=TaskSchema)
-    @requires(has_mission_permission)
+    @requires(has_task_permission)
     def put(self, task_id: int) -> Task:
         """Update a task"""
         request.parsed_obj["task_type"] = get_task_type_from_url(request.path)
         db_task = TaskService.get(task_id, request.parsed_obj["task_type"])
         return TaskService.update(db_task, request.parsed_obj)
 
-    @requires(has_mission_permission)
+    @requires(has_task_permission)
     def delete(self, task_id: int) -> Response:
-        """Update a task"""
+        """Delete a task"""
         task_type = get_task_type_from_url(request.path)
         id = TaskService.delete(task_id, task_type)
         return jsonify(dict(status="Success", id=id))
