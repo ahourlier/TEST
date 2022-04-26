@@ -1,3 +1,10 @@
+# [1.3.0-rc.3](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.2...v1.3.0-rc.3) (2022-04-26)
+
+
+### Bug Fixes
+
+* **LOGIN:** Resolved fetched antenna problem when updating users groups ([224e6e7](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/224e6e7119d371b913a58afb811baca3911ff791))
+
 # [1.3.0-rc.2](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.1...v1.3.0-rc.2) (2022-04-20)
 
 
