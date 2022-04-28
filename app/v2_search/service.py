@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 
 from sqlalchemy import inspect
@@ -229,7 +230,6 @@ class SearchV2Service:
         for param_column_name, value in parameters.items():
             obj = {}
             obj["values"] = []
-            #
             if one_to_one_mapper:
                 for column_name, references in one_to_one_mapper.items():
                     # If current column is mapped to a complex field
@@ -239,16 +239,43 @@ class SearchV2Service:
             if not "field" in obj:
                 obj["field"] = param_column_name
 
-            # If value is an enum, set values as the enum list
-            # and search for exact value
+            # Parse the current value to know if it's a list or simple value
+            # Manage date differently to allow 'in' and 'range' search
             try:
                 value = json.loads(value)
-                obj["values"] = value
-                obj["op"] = "eq"
             except ValueError:
+                # Here only simple string value
+                try:   
+                    datetime.strptime(value, "%Y-%m-%d")
+                    obj["values"].append(value)
+                    obj["op"] = "eq"
+                    search["filters"].append(obj)
+                    continue
+                except Exception as e:
+                    pass
+
+                # It is a string, not a date, search with IN operator
                 obj["values"].append(value)
                 obj["op"] = operator
-
+                search["filters"].append(obj)
+                continue
+            
+            # Here value is a list 
+            # Search for range of date
+            if len(value) == 2:
+                try:
+                    datetime.strptime(value[0], "%Y-%m-%d")
+                    datetime.strptime(value[1], "%Y-%m-%d")
+                    obj["values"] = value
+                    obj["op"] = "range"
+                    search["filters"].append(obj)
+                    continue
+                except:
+                    pass
+            
+            # No range found, it's a list of strings, search exact value
+            obj["values"] = value
+            obj["op"] = "eq"
             search["filters"].append(obj)
         return search
 
