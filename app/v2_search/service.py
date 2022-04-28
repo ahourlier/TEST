@@ -5,6 +5,7 @@ from sqlalchemy import inspect
 from .config_structure import (
     ENTITY_TO_MODEL_MAPPING,
     ENTITY_TO_DEFAULT_MAPPING,
+    MAPPER_ENTITY_TO_ORDER_DEFAULT_FIELDS,
     ENTITY_TO_ENUMS_MAPPING,
     MAPPING_TYPE_TO_UNKNOWN_COLUMN,
     ENTITY_TO_CONFIG_AUTOCOMPLETE,
@@ -96,7 +97,7 @@ class StructureService:
 
     def add_is_default_fields(entity, structure):
         """
-        Add is_default field to each field
+        Add is_default field to each field and position
         """
         if entity not in ENTITY_TO_DEFAULT_MAPPING:
             print(f"Entity {entity} has no is_default column mapper reference")
@@ -111,7 +112,14 @@ class StructureService:
             item["is_default"] = False
             for column in mapper_default:
                 if column == item["name"]:
-                    item["is_default"] = True  # Override if found
+                    item["is_default"] = True  # Override if found*
+
+            if entity not in MAPPER_ENTITY_TO_ORDER_DEFAULT_FIELDS:
+                print(f"Entity {entity} has no order default field mapper reference")
+            else:
+                for key, order in MAPPER_ENTITY_TO_ORDER_DEFAULT_FIELDS[entity].items():
+                    if key == item["name"]:
+                        item["order"] = order
         return structure
 
     def add_enums_values(entity, structure):
