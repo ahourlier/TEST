@@ -7,6 +7,7 @@ from .config_structure import (
     ENTITY_TO_DEFAULT_MAPPING,
     ENTITY_TO_ENUMS_MAPPING,
     MAPPING_TYPE_TO_UNKNOWN_COLUMN,
+    ENTITY_TO_CONFIG_AUTOCOMPLETE,
 )
 from .config_sql_relations import (
     ENTITY_TO_ONE_TO_ONE_RELATION_MAPPING,
@@ -127,8 +128,22 @@ class StructureService:
             for (key, enum_name) in mapper_enums.items():
                 enum_list.append(enum_name)
                 if key == item["name"]:
-                    item["values"] = AppEnumService.get_enums(enum_list)[enum_name]
+                    item["items"] = AppEnumService.get_enums(enum_list)[enum_name]
 
+        return structure
+
+
+    def add_autocomplete_values(entity, structure):
+        """
+        Add autocomplete values to fields which must call an endpoint
+        """
+        if entity not in ENTITY_TO_CONFIG_AUTOCOMPLETE:
+            print(f"Entity {entity} has no autocomplete config reference")
+            return structure
+
+        autocomplete_config = ENTITY_TO_CONFIG_AUTOCOMPLETE[entity]
+        for db_key, config in autocomplete_config.items():
+            structure = [{**elem, **config} if elem["name"] == db_key else elem for elem in structure]
         return structure
 
     def change_column_type(structure):
@@ -163,6 +178,7 @@ class StructureService:
         structure = StructureService.add_label_fields(entity, structure)
         structure = StructureService.add_is_default_fields(entity, structure)
         structure = StructureService.add_enums_values(entity, structure)
+        structure = StructureService.add_autocomplete_values(entity, structure)
 
         structure = StructureService.change_column_type(structure)
         return structure

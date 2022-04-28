@@ -93,3 +93,150 @@ ENTITY_TO_ENUMS_MAPPING = {
 
 
 # --------------------------------------------------
+
+# MAPPING AUTOCOMPLETE CONFIGS
+
+AUTOCOMPLETE_MISSION_CONFIG = {
+    "mission_type": {
+        "endpointUrl":"/referential/enums/?enums=WorkAxis",
+        "fieldsMask":"name,id",
+        "itemText":"name",
+        "itemValue":"id",
+        "returnObject": True,
+        "filterFields":[
+            "name"
+        ],
+        "valueToDisplay":{
+            "title":"name",
+            "subtitle":"email_address"
+        }
+    },
+    "agency_id": {
+        "endpointUrl":"/admin/agencies/",
+        "fieldsMask":"name,id",
+        "itemText":"name",
+        "itemValue":"id",
+        "returnObject": True,
+        "filterFields":[
+            "name"
+        ],
+        "valueToDisplay":{
+            "title":"name",
+            "subtitle":"email_address"
+        }
+    },
+    "client_id": {
+        "endpointUrl":"/admin/clients/",
+        "fieldsMask":"last_name,first_name,id",
+        "itemText":"name",
+        "itemValue":"id",
+        "returnObject": True,
+        "filterFields":[
+            "last_name",
+            "first_name"
+        ],
+        "valueToDisplay":{
+            "title":"name",
+            "subtitle":"email_address"
+        }
+    }
+}
+
+AUTOCOMPLETE_LOT_CONFIG = {
+    "building_id": {
+        "endpointUrl":"/buildings/",
+        "fieldsMask":"name,id",
+        "itemText":"name",
+        "itemValue":"id",
+        "returnObject": True,
+        "filterFields":[
+            "name"
+        ],
+        "valueToDisplay":{
+            "title":"name"
+        }
+    },
+    "copro_id": {
+        "endpointUrl":"/copro/copros",
+        "fieldsMask":"name,id",
+        "itemText":"name",
+        "itemValue":"id",
+        "returnObject": True,
+        "filterFields":[
+            "name"
+        ],
+        "valueToDisplay":{
+            "title":"name"
+        }
+    }
+}
+
+AUTOCOMPLETE_BUILDING_CONFIG = {
+    "copro_id": {
+        "endpointUrl":"/copro/copros",
+        "fieldsMask":"name,id",
+        "itemText":"name",
+        "itemValue":"id",
+        "returnObject": True,
+        "filterFields":[
+            "name"
+        ],
+        "valueToDisplay":{
+            "title":"name"
+        }
+    }
+}
+
+AUTOCOMPLETE_COPRO_CONFIG = {
+    "cs_id": {
+        "endpointUrl":"/combined_structures",
+        "fieldsMask":"name,id",
+        "itemText":"name",
+        "itemValue":"id",
+        "returnObject": True,
+        "filterFields":[
+            "name"
+        ],
+        "valueToDisplay":{
+            "title":"name"
+        }
+    },
+    "mission_id": {
+        "endpointUrl":"/mission/missions",
+        "fieldsMask":"name,status,id",
+        "itemText":"name",
+        "itemValue":"id",
+        "returnObject": True,
+        "filterFields":[
+            "name",
+            "status"
+        ],
+        "valueToDisplay":{
+            "title":"name",
+            "subtitle":"status"
+        }
+    },
+    "user_in_charge_id": {
+        "endpointUrl":"/auth/users",
+        "fieldsMask":"first_name,last_name,id",
+        "itemText":"email",
+        "itemValue":"id",
+        "returnObject": True,
+        "filterFields":[
+            "first_name",
+            "last_name"
+        ],
+        "valueToDisplay": {
+            "title":"email",
+            "subtitle": "role"
+        }
+    }
+}
+
+
+ENTITY_TO_CONFIG_AUTOCOMPLETE = {
+    "mission": AUTOCOMPLETE_MISSION_CONFIG,
+    "lot": AUTOCOMPLETE_LOT_CONFIG,
+    "building": AUTOCOMPLETE_BUILDING_CONFIG,
+    "copro": AUTOCOMPLETE_COPRO_CONFIG
+}
