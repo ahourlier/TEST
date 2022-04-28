@@ -179,7 +179,7 @@ class StructureService:
             if item["type"] in type_mapping:
                 item["type"] = type_mapping[item["type"]]
             # Specific case for enums values
-            if "values" in item:
+            if "items" in item:
                 item["type"] = "select"
         return structure
 
