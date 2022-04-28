@@ -152,7 +152,13 @@ class StructureService:
 
         autocomplete_config = ENTITY_TO_CONFIG_AUTOCOMPLETE[entity]
         for db_key, config in autocomplete_config.items():
-            structure = [{**elem, **config} if elem["name"] == db_key else elem for elem in structure]
+            
+            for elem in structure:
+                if elem["name"] == db_key:
+                    merge = {**elem, **config}
+                    merge["type"] = "autocomplete"
+                    structure.remove(elem)
+                    structure.append(merge)
         return structure
 
     def change_column_type(structure):
