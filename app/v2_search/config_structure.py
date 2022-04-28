@@ -137,8 +137,8 @@ ENTITY_TO_ENUMS_MAPPING = {
 # MAPPING AUTOCOMPLETE CONFIGS
 
 AUTOCOMPLETE_MISSION_CONFIG = {
-    "mission_type": {
-        "endpointUrl":"/referential/enums/?enums=WorkAxis",
+    "antenna_id": {
+        "endpointUrl":"/admin/antennas/",
         "fieldsMask":"name,id",
         "itemText":"name",
         "itemValue":"id",
@@ -147,8 +147,7 @@ AUTOCOMPLETE_MISSION_CONFIG = {
             "name"
         ],
         "valueToDisplay":{
-            "title":"name",
-            "subtitle":"email_address"
+            "title":"name"
         }
     },
     "agency_id": {
@@ -161,13 +160,12 @@ AUTOCOMPLETE_MISSION_CONFIG = {
             "name"
         ],
         "valueToDisplay":{
-            "title":"name",
-            "subtitle":"email_address"
+            "title":"name"
         }
     },
     "client_id": {
         "endpointUrl":"/admin/clients/",
-        "fieldsMask":"last_name,first_name,id",
+        "fieldsMask":"name,last_name,first_name,id",
         "itemText":"name",
         "itemValue":"id",
         "returnObject": True,
@@ -176,8 +174,8 @@ AUTOCOMPLETE_MISSION_CONFIG = {
             "first_name"
         ],
         "valueToDisplay":{
-            "title":"name",
-            "subtitle":"email_address"
+            "title": ["last_name", "first_name"],
+            "subtitle":"name"
         }
     }
 }
@@ -258,7 +256,7 @@ AUTOCOMPLETE_COPRO_CONFIG = {
     },
     "user_in_charge_id": {
         "endpointUrl":"/auth/users",
-        "fieldsMask":"first_name,last_name,id",
+        "fieldsMask":"first_name,last_name,email,id",
         "itemText":"email",
         "itemValue":"id",
         "returnObject": True,
@@ -267,8 +265,8 @@ AUTOCOMPLETE_COPRO_CONFIG = {
             "last_name"
         ],
         "valueToDisplay": {
-            "title":"email",
-            "subtitle": "role"
+            "title":["first_name", "last_name"],
+            "subtitle": "email"
         }
     }
 }
