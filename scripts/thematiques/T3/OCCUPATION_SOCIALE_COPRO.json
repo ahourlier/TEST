@@ -48,6 +48,7 @@
 						{
 							"partenaire": {
 								"type": "textArea",
+								"lg": 12,
 								"multiple": false,
 								"value": []
 							},
@@ -58,6 +59,7 @@
 							},
 							"rapide_cr_réunion": {
 								"type": "textArea",
+								"lg": 12,
 								"multiple": false,
 								"value": []
 							}
@@ -97,6 +99,7 @@
 							},
 							"commentaires": {
 								"type": "textArea",
+								"lg": 12,
 								"multiple": false,
 								"value": []
 							}
@@ -171,6 +174,7 @@
 							},
 							"themes_abordes": {
 								"type": "textArea",
+								"lg": 12,
 								"multiple": false,
 								"value": []
 							}

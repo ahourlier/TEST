@@ -53,6 +53,7 @@
 				"commentaires": {
 					"type": "textArea",
 					"multiple": false,
+					"lg": 12,
 					"value": []
 				},
 				"descriptif_lots_group": {
@@ -116,12 +117,14 @@
 							},
 							"denomination_syndicat_principal": {
 								"type": "textArea",
+								"lg": 12,
 								"multiple": false,
 								"if": "copropriete_membre_S1_S2",
 								"value": []
 							},
 							"perimetre": {
 								"type": "textArea",
+								"lg": 12,
 								"multiple": false,
 								"if": "copropriete_membre_S1_S2",
 								"value": []
@@ -205,6 +208,7 @@
 				},
 				"autre_resultat": {
 					"type": "textArea",
+					"lg": 12,
 					"multiple": false,
 					"value": []
 				}
@@ -278,6 +282,7 @@
 				},
 				"autre_resultat": {
 					"type": "textArea",
+					"lg": 12,
 					"multiple": false,
 					"value": []
 				}
