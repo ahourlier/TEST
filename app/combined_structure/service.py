@@ -181,8 +181,12 @@ class CombinedStructureService:
         for copro in cs.copros:
             for lot in copro.lots:
                 for lot_cle in lot.cles_repartition:
-                    cle = CleRepartition.query.filter(CleRepartition.id == lot_cle.cle_repartition_id).first()
-                    print(f"Copro {copro.id} - Lot {lot.id} - Cle {cle.label} n°{cle.id} - Tantieme {lot_cle.tantieme}")
+                    cle = CleRepartition.query.filter(
+                        CleRepartition.id == lot_cle.cle_repartition_id
+                    ).first()
+                    print(
+                        f"Copro {copro.id} - Lot {lot.id} - Cle {cle.label} n°{cle.id} - Tantieme {lot_cle.tantieme}"
+                    )
                     if cle.label not in sum_tantieme:
                         sum_tantieme[cle.label] = 0
                     sum_tantieme[cle.label] += lot_cle.tantieme

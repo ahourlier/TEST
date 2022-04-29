@@ -46,7 +46,9 @@ class ArchitectService:
                 if not changes.get("address"):
                     architect.address_id = None
                     changes["address_id"] = None
-                AddressService.update_address(architect.address_id, changes.get("address"))
+                AddressService.update_address(
+                    architect.address_id, changes.get("address")
+                )
             else:
                 if changes.get("address"):
                     changes["address_id"] = AddressService.create_address(

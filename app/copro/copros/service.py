@@ -111,7 +111,9 @@ class CoproService:
             raise MissionNotTypeCoproException
 
         if new_attrs.get("access_code"):
-            new_attrs["access_code"] = BuildingService.encode_access_code(new_attrs.get("access_code"))
+            new_attrs["access_code"] = BuildingService.encode_access_code(
+                new_attrs.get("access_code")
+            )
 
         if new_attrs.get("address_1"):
             new_attrs["address_1_id"] = AddressService.create_address(
@@ -162,19 +164,25 @@ class CoproService:
             del new_attrs["moe"]
 
         if new_attrs.get("architect"):
-            new_attrs["architect_id"] = ArchitectService.create(new_attrs.get("architect"))
+            new_attrs["architect_id"] = ArchitectService.create(
+                new_attrs.get("architect")
+            )
             del new_attrs["architect"]
-        
+
         if new_attrs.get("caretaker"):
-            new_attrs["caretaker_id"] = CareTakerService.create(new_attrs.get("caretaker"))
+            new_attrs["caretaker_id"] = CareTakerService.create(
+                new_attrs.get("caretaker")
+            )
             del new_attrs["caretaker"]
-        
+
         if new_attrs.get("employee"):
             new_attrs["employee_id"] = EmployeeService.create(new_attrs.get("employee"))
             del new_attrs["employee"]
-        
+
         if new_attrs.get("fire_safety_personnel"):
-            new_attrs["fire_safety_personnel_id"] = FireSafetyPersonnelService.create(new_attrs.get("fire_safety_personnel"))
+            new_attrs["fire_safety_personnel_id"] = FireSafetyPersonnelService.create(
+                new_attrs.get("fire_safety_personnel")
+            )
             del new_attrs["fire_safety_personnel"]
 
         new_attrs["president_id"] = PresidentService.create(
@@ -336,40 +344,56 @@ class CoproService:
         if "architect" in changes:
             if changes.get("architect"):
                 if not db_copro.architect_id:
-                    changes["architect_id"] = ArchitectService.create(changes.get("architect"))
+                    changes["architect_id"] = ArchitectService.create(
+                        changes.get("architect")
+                    )
                 else:
                     ArchitectService.update(
-                        Architect.query.get(db_copro.architect_id), changes.get("architect")
+                        Architect.query.get(db_copro.architect_id),
+                        changes.get("architect"),
                     )
             del changes["architect"]
-        
+
         if "caretaker" in changes:
             if changes.get("caretaker"):
                 if not db_copro.caretaker_id:
-                    changes["caretaker_id"] = CareTakerService.create(changes.get("caretaker"))
+                    changes["caretaker_id"] = CareTakerService.create(
+                        changes.get("caretaker")
+                    )
                 else:
                     CareTakerService.update(
-                        CareTaker.query.get(db_copro.caretaker_id), changes.get("caretaker")
+                        CareTaker.query.get(db_copro.caretaker_id),
+                        changes.get("caretaker"),
                     )
             del changes["caretaker"]
-        
+
         if "employee" in changes:
             if changes.get("employee"):
                 if not db_copro.employee_id:
-                    changes["employee_id"] = EmployeeService.create(changes.get("employee"))
+                    changes["employee_id"] = EmployeeService.create(
+                        changes.get("employee")
+                    )
                 else:
                     EmployeeService.update(
-                        Employee.query.get(db_copro.employee_id), changes.get("employee")
+                        Employee.query.get(db_copro.employee_id),
+                        changes.get("employee"),
                     )
             del changes["employee"]
-        
+
         if "fire_safety_personnel" in changes:
             if changes.get("fire_safety_personnel"):
                 if not db_copro.fire_safety_personnel_id:
-                    changes["fire_safety_personnel_id"] = FireSafetyPersonnelService.create(changes.get("fire_safety_personnel"))
+                    changes[
+                        "fire_safety_personnel_id"
+                    ] = FireSafetyPersonnelService.create(
+                        changes.get("fire_safety_personnel")
+                    )
                 else:
                     FireSafetyPersonnelService.update(
-                        FireSafetyPersonnel.query.get(db_copro.fire_safety_personnel_id), changes.get("fire_safety_personnel")
+                        FireSafetyPersonnel.query.get(
+                            db_copro.fire_safety_personnel_id
+                        ),
+                        changes.get("fire_safety_personnel"),
                     )
             del changes["fire_safety_personnel"]
 

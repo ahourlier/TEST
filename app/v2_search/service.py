@@ -141,7 +141,6 @@ class StructureService:
 
         return structure
 
-
     def add_autocomplete_values(entity, structure):
         """
         Add autocomplete values to fields which must call an endpoint
@@ -152,7 +151,7 @@ class StructureService:
 
         autocomplete_config = ENTITY_TO_CONFIG_AUTOCOMPLETE[entity]
         for db_key, config in autocomplete_config.items():
-            
+
             for elem in structure:
                 if elem["name"] == db_key:
                     merge = {**elem, **config}
@@ -251,7 +250,7 @@ class SearchV2Service:
                 value = json.loads(value)
             except ValueError:
                 # Here only simple string value
-                try:   
+                try:
                     datetime.strptime(value, "%Y-%m-%d")
                     obj["values"].append(value)
                     obj["op"] = "eq"
@@ -265,8 +264,8 @@ class SearchV2Service:
                 obj["op"] = operator
                 search["filters"].append(obj)
                 continue
-            
-            # Here value is a list 
+
+            # Here value is a list
             # Search for range of date
             if len(value) == 2:
                 try:
@@ -278,7 +277,7 @@ class SearchV2Service:
                     continue
                 except:
                     pass
-            
+
             # No range found, it's a list of strings, search exact value
             obj["values"] = value
             obj["op"] = "eq"

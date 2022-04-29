@@ -217,6 +217,7 @@ def has_task_permission(user):
     if not task_id:
         return user.role == UserRole.ADMIN
     from app.task.service import TaskService
+
     current_task = TaskService.get(task_id)
     permission = mission_permissions.MissionPermission.check_mission_permission(
         current_task.mission_id, user

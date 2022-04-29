@@ -26,7 +26,9 @@ class HistoricService:
         direction=HISTORICS_DEFAULT_SORT_DIRECTION,
     ):
         col = getattr(Historic, sort_by)
-        q = Historic.query.order_by(col.desc() if direction == "desc" else col.asc())
+        q = Historic.query.filter(Historic.is_deleted == False).order_by(
+            col.desc() if direction == "desc" else col.asc()
+        )
         return q.paginate(page=page, per_page=size)
 
     @staticmethod
@@ -38,8 +40,10 @@ class HistoricService:
         direction=HISTORICS_DEFAULT_SORT_DIRECTION,
     ):
         col = getattr(Historic, sort_by)
-        q = Historic.query.filter(Historic.version_id == version_id).order_by(
-            col.desc() if direction == "desc" else col.asc()
+        q = (
+            Historic.query.filter(Historic.version_id == version_id)
+            .filter(Historic.is_deleted == False)
+            .order_by(col.desc() if direction == "desc" else col.asc())
         )
         return q.paginate(page=page, per_page=size)
 

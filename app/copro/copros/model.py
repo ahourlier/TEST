@@ -95,13 +95,9 @@ class Copro(HasPhones, SoftDeletableMixin, BaseMixin, db.Model):
     other_syndic_counsel_member_infos = Column(Text(), nullable=True)
 
     # Personnel
-    care_taker_id = Column(
-        Integer(), ForeignKey("caretaker.id"), nullable=True
-    )
+    care_taker_id = Column(Integer(), ForeignKey("caretaker.id"), nullable=True)
     care_taker = relationship("CareTaker", backref="copro")
-    employee_id = Column(
-        Integer(), ForeignKey("employee.id"), nullable=True
-    )
+    employee_id = Column(Integer(), ForeignKey("employee.id"), nullable=True)
     employee = relationship("Employee", backref="copro")
     fire_safety_personnel_id = Column(
         Integer(), ForeignKey("fire_safety_personnel.id"), nullable=True
@@ -109,9 +105,7 @@ class Copro(HasPhones, SoftDeletableMixin, BaseMixin, db.Model):
     fire_safety_personnel = relationship("FireSafetyPersonnel", backref="copro")
 
     # Architecte conseil
-    architect_id = Column(
-        Integer(), ForeignKey("architect.id"), nullable=True
-    )
+    architect_id = Column(Integer(), ForeignKey("architect.id"), nullable=True)
     architect = relationship("Architect", backref="copro")
 
     # Fonctionnement
