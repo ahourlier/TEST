@@ -19,6 +19,7 @@ class VersionType(Enum):
     V1 = "INDIVIDUEL"
     V2 = "COPROPRIETE"
 
+
 class Permission(BaseMixin, db.Model):
     """Permission Matrix"""
 
@@ -31,4 +32,3 @@ class Permission(BaseMixin, db.Model):
         String(255), ForeignKey("role.name"), nullable=False, primary_key=True
     )
     role = relationship("Role", backref="permissions")
-    

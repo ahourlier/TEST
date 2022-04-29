@@ -13,7 +13,7 @@ class HistoricSchema(SQLAlchemyAutoSchema):
         model = Historic
         include_fk = True
         unknown = EXCLUDE
-        exclude = ('updated_by_id',)  # Already present in updated_by
+        exclude = ("updated_by_id",)  # Already present in updated_by
 
 
 class HistoricPaginatedSchema(PaginatedSchema):

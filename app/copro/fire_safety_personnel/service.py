@@ -19,7 +19,10 @@ class FireSafetyPersonnelService:
         return new_fire_safety_personnel.id
 
     @staticmethod
-    def update(fire_safety_personnel: FireSafetyPersonnel, changes: FireSafetyPersonnelInterface):
+    def update(
+        fire_safety_personnel: FireSafetyPersonnel,
+        changes: FireSafetyPersonnelInterface,
+    ):
 
         if "phone_number" in changes:
             if changes.get("phone_number", None):

@@ -3,10 +3,26 @@ from flask_marshmallow.sqla import SQLAlchemyAutoSchema
 from marshmallow import fields, EXCLUDE
 
 from app.building.settings import NB_LOOP_ACCESS_CODE
-from app.copro.architect.schema import ArchitectCreateSchema, ArchitectSchema, ArchitectUpdateSchema
-from app.copro.caretaker.schema import CareTakerCreateSchema, CareTakerSchema, CareTakerUpdateSchema
-from app.copro.employee.schema import EmployeeCreateSchema, EmployeeSchema, EmployeeUpdateSchema
-from app.copro.fire_safety_personnel.schema import FireSafetyPersonnelCreateSchema, FireSafetyPersonnelSchema, FireSafetyPersonnelUpdateSchema
+from app.copro.architect.schema import (
+    ArchitectCreateSchema,
+    ArchitectSchema,
+    ArchitectUpdateSchema,
+)
+from app.copro.caretaker.schema import (
+    CareTakerCreateSchema,
+    CareTakerSchema,
+    CareTakerUpdateSchema,
+)
+from app.copro.employee.schema import (
+    EmployeeCreateSchema,
+    EmployeeSchema,
+    EmployeeUpdateSchema,
+)
+from app.copro.fire_safety_personnel.schema import (
+    FireSafetyPersonnelCreateSchema,
+    FireSafetyPersonnelSchema,
+    FireSafetyPersonnelUpdateSchema,
+)
 
 from .model import Copro
 from ..cadastre.schema import CadastreSchema
@@ -23,6 +39,7 @@ class CoproSchema(SQLAlchemyAutoSchema):
     president = fields.Nested(PresidentSchema(), dump_only=True)
     cadastres = fields.List(fields.Nested(CadastreSchema()), dump_only=True)
     access_code = fields.Method("decode_access_code", dump_only=True)
+
     def decode_access_code(self, obj):
         if not obj.access_code:
             return ""
@@ -42,7 +59,9 @@ class CoproSchema(SQLAlchemyAutoSchema):
     architect = fields.Nested(ArchitectSchema(), required=False, allow_none=True)
     caretaker = fields.Nested(CareTakerSchema(), required=False, allow_none=True)
     employee = fields.Nested(EmployeeSchema(), required=False, allow_none=True)
-    fire_safety_personnel = fields.Nested(FireSafetyPersonnelSchema(), required=False, allow_none=True)
+    fire_safety_personnel = fields.Nested(
+        FireSafetyPersonnelSchema(), required=False, allow_none=True
+    )
     cles_repartition = fields.List(fields.Nested(CleRepartitionSchema()))
 
     class Meta:
@@ -71,7 +90,9 @@ class CoproUpdateSchema(SQLAlchemyAutoSchema):
     architect = fields.Nested(ArchitectUpdateSchema(), required=False, allow_none=True)
     caretaker = fields.Nested(CareTakerUpdateSchema(), required=False, allow_none=True)
     employee = fields.Nested(EmployeeUpdateSchema(), required=False, allow_none=True)
-    fire_safety_personnel = fields.Nested(FireSafetyPersonnelUpdateSchema(), required=False, allow_none=True)
+    fire_safety_personnel = fields.Nested(
+        FireSafetyPersonnelUpdateSchema(), required=False, allow_none=True
+    )
     cles_repartition = fields.List(fields.Nested(CleRepartitionCreateSchema()))
 
     class Meta:
@@ -98,7 +119,9 @@ class CoproCreateSchema(SQLAlchemyAutoSchema):
     architect = fields.Nested(ArchitectCreateSchema(), required=False, allow_none=True)
     caretaker = fields.Nested(CareTakerCreateSchema(), required=False, allow_none=True)
     employee = fields.Nested(EmployeeCreateSchema(), required=False, allow_none=True)
-    fire_safety_personnel = fields.Nested(FireSafetyPersonnelCreateSchema(), required=False, allow_none=True)
+    fire_safety_personnel = fields.Nested(
+        FireSafetyPersonnelCreateSchema(), required=False, allow_none=True
+    )
     cles_repartition = fields.List(fields.Nested(CleRepartitionCreateSchema()))
 
     class Meta:
