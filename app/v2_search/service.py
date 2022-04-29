@@ -245,6 +245,10 @@ class SearchV2Service:
             if not "field" in obj:
                 obj["field"] = param_column_name
 
+            # Skip term param
+            if param_column_name == "term":
+                continue
+
             # Parse the current value to know if it's a list or simple value
             # Manage date differently to allow 'in' and 'range' search
             try:
@@ -266,6 +270,13 @@ class SearchV2Service:
                 search["filters"].append(obj)
                 continue
             
+            # Here value can be a list or an int
+            if isinstance(value, int):
+                obj["values"].append(value)
+                obj["op"] = "eq"
+                search["filters"].append(obj)
+                continue
+
             # Here value is a list 
             # Search for range of date
             if len(value) == 2:
@@ -279,7 +290,7 @@ class SearchV2Service:
                 except:
                     pass
             
-            # No range found, it's a list of strings, search exact value
+            # No range or int found, it's a list of strings, search exact value
             obj["values"] = value
             obj["op"] = "eq"
             search["filters"].append(obj)
