@@ -26,7 +26,7 @@
 				"electricite_depense_lot_principal": {
 					"type": "currency",
 					"multiple": false,
-					"formula": "(electricite || 0)/(total_lots_principaux || 1)",
+					"formula": "electricite/(total_lots_principaux == 0 ? 1 : total_lots_principaux)",
 					"value": []
 				},
 				"chauffage": {
@@ -37,7 +37,7 @@
 				"chauffage_depense_lot_principal": {
 					"type": "currency",
 					"multiple": false,
-					"formula": "(chauffage || 0)/(total_lots_principaux || 1)",
+					"formula": "chauffage/(total_lots_principaux == 0 ? 1 : total_lots_principaux)",
 					"value": []
 				},
 				"eau_chaude_sanitaire": {
@@ -48,7 +48,7 @@
 				"eau_chaude_sanitaire_depense_lot_principal": {
 					"type": "currency",
 					"multiple": false,
-					"formula": "(eau_chaude_sanitaire || 0)/(total_lots_principaux || 1)",
+					"formula": "eau_chaude_sanitaire/(total_lots_principaux == 0 ? 1 : total_lots_principaux)",
 					"value": []
 				},
 				"assurance": {
@@ -59,7 +59,7 @@
 				"assurance_depense_lot_principal": {
 					"type": "currency",
 					"multiple": false,
-					"formula": "(assurance || 0)/(total_lots_principaux || 1)",
+					"formula": "assurance/(total_lots_principaux == 0 ? 1 : total_lots_principaux)",
 					"value": []
 				},
 				"frais_gestion_et_honoraires_syndic": {
@@ -70,7 +70,7 @@
 				"frais_gestion_et_honoraires_syndic_depense_lot_principal": {
 					"type": "currency",
 					"multiple": false,
-					"formula": "(frais_gestion_et_honoraires_syndic || 0)/(total_lots_principaux || 1)",
+					"formula": "frais_gestion_et_honoraires_syndic/(total_lots_principaux == 0 ? 1 : total_lots_principaux)",
 					"value": []
 				},
 				"alerte_sur_postes_depenses_semblant_surfactures": {
@@ -80,6 +80,7 @@
 				},
 				"postes_concernes": {
 					"type": "textArea",
+					"lg": 12,
 					"multiple": false,
 					"value": []
 				}

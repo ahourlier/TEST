@@ -69,7 +69,7 @@ ORDER_DEFAULT_FIELDS_MISSION = {
     "agency_id": 1,
     "mission_type": 2,
     "client_id": 3,
-    "status": 4
+    "status": 4,
 }
 
 ORDER_DEFAULT_FIELDS_LOT = {
@@ -77,7 +77,7 @@ ORDER_DEFAULT_FIELDS_LOT = {
     "owner_status": 2,
     "type": 3,
     "habitation_type": 4,
-    "occupant_status": 5
+    "occupant_status": 5,
 }
 
 ORDER_DEFAULT_FIELDS_COPRO = {
@@ -85,14 +85,14 @@ ORDER_DEFAULT_FIELDS_COPRO = {
     "address_1_id": 2,
     "address_2_id": 3,
     "syndic_name": 4,
-    "priority_copro": 5 ,
+    "priority_copro": 5,
     "construction_time": 6,
-    "user_in_charge_id": 7
+    "user_in_charge_id": 7,
 }
 
 ORDER_DEFAULT_FIELDS_SC = {
     "type": 1,
-    #"commune",
+    # "commune",
     "name": 2,
     "syndic_name": 3,
 }
@@ -138,137 +138,165 @@ ENTITY_TO_ENUMS_MAPPING = {
 
 AUTOCOMPLETE_MISSION_CONFIG = {
     "antenna_id": {
-        "endpointUrl":"/admin/antennas/",
-        "fieldsMask":"name,id",
-        "itemText":"name",
-        "itemValue":"id",
+        "endpointUrl": "/admin/antennas/",
+        "fieldsMask": "name,email_address,id",
+        "filterFields": ["name", "email_address"],
+        "itemValue": "id",
+        "itemText": ["name"],
+        "title": ["name"],
+        "subtitle": ["email_address"],
+        "cacheItems": True,
+        "chips": True,
+        "chipsColor": "urbLightGreen",
+        "chipsLimit": "50",
+        "deletableChips": True,
+        "appendIcon": "mdi-magnify",
+        "hideNoData": True,
         "returnObject": True,
-        "filterFields":[
-            "name"
-        ],
-        "valueToDisplay":{
-            "title":"name"
-        }
     },
     "agency_id": {
-        "endpointUrl":"/admin/agencies/",
-        "fieldsMask":"name,id",
-        "itemText":"name",
-        "itemValue":"id",
+        "endpointUrl": "/admin/agencies/",
+        "fieldsMask": "name,id",
+        "filterFields": ["name"],
+        "itemValue": "id",
+        "itemText": ["name"],
+        "title": ["name"],
+        "cacheItems": True,
+        "chips": True,
+        "chipsColor": "urbLightGreen",
+        "chipsLimit": "50",
+        "deletableChips": True,
+        "appendIcon": "mdi-magnify",
+        "hideNoData": True,
         "returnObject": True,
-        "filterFields":[
-            "name"
-        ],
-        "valueToDisplay":{
-            "title":"name"
-        }
     },
     "client_id": {
-        "endpointUrl":"/admin/clients/",
-        "fieldsMask":"name,last_name,first_name,id",
-        "itemText":"name",
-        "itemValue":"id",
+        "endpointUrl": "/admin/clients/",
+        "fieldsMask": "name,last_name,first_name,id",
+        "filterFields": ["name", "last_name", "first_name"],
+        "itemValue": "id",
+        "itemText": ["name"],
+        "title": ["name"],
+        "subtitle": ["last_name", "first_name"],
+        "cacheItems": True,
+        "chips": True,
+        "chipsColor": "urbLightGreen",
+        "chipsLimit": "50",
+        "deletableChips": True,
+        "appendIcon": "mdi-magnify",
+        "hideNoData": True,
         "returnObject": True,
-        "filterFields":[
-            "last_name",
-            "first_name"
-        ],
-        "valueToDisplay":{
-            "title": ["last_name", "first_name"],
-            "subtitle":"name"
-        }
-    }
+    },
 }
 
 AUTOCOMPLETE_LOT_CONFIG = {
     "building_id": {
-        "endpointUrl":"/buildings/",
-        "fieldsMask":"name,id",
-        "itemText":"name",
-        "itemValue":"id",
+        "endpointUrl": "/buildings/",
+        "fieldsMask": "name,copro,id",
+        "itemValue": "id",
+        "itemText": ["name"],
+        "filterFields": ["name"],
+        "title": ["name"],
+        "subtitle": ["copro.name"],
+        "cacheItems": True,
+        "chips": True,
+        "chipsColor": "urbLightGreen",
+        "chipsLimit": "50",
+        "deletableChips": True,
+        "appendIcon": "mdi-magnify",
+        "hideNoData": True,
         "returnObject": True,
-        "filterFields":[
-            "name"
-        ],
-        "valueToDisplay":{
-            "title":"name"
-        }
     },
     "copro_id": {
-        "endpointUrl":"/copro/copros",
-        "fieldsMask":"name,id",
-        "itemText":"name",
-        "itemValue":"id",
+        "endpointUrl": "/copro/copros",
+        "fieldsMask": "name,copro_type,id",
+        "filterFields": ["name", "copro_type"],
+        "itemValue": "id",
+        "itemText": ["name"],
+        "title": ["name"],
+        "subtitle": ["copro_type"],
+        "cacheItems": True,
+        "chips": True,
+        "chipsColor": "urbLightGreen",
+        "chipsLimit": "50",
+        "deletableChips": True,
+        "appendIcon": "mdi-magnify",
+        "hideNoData": True,
         "returnObject": True,
-        "filterFields":[
-            "name"
-        ],
-        "valueToDisplay":{
-            "title":"name"
-        }
-    }
+    },
 }
 
 AUTOCOMPLETE_BUILDING_CONFIG = {
     "copro_id": {
-        "endpointUrl":"/copro/copros",
-        "fieldsMask":"name,id",
-        "itemText":"name",
-        "itemValue":"id",
+        "endpointUrl": "/copro/copros",
+        "fieldsMask": "name,copro_type,id",
+        "filterFields": ["name", "copro_type"],
+        "itemValue": "id",
+        "itemText": ["name"],
+        "title": ["name"],
+        "subtitle": ["copro_type"],
+        "cacheItems": True,
+        "chips": True,
+        "chipsColor": "urbLightGreen",
+        "chipsLimit": "50",
+        "deletableChips": True,
+        "appendIcon": "mdi-magnify",
+        "hideNoData": True,
         "returnObject": True,
-        "filterFields":[
-            "name"
-        ],
-        "valueToDisplay":{
-            "title":"name"
-        }
     }
 }
 
 AUTOCOMPLETE_COPRO_CONFIG = {
     "cs_id": {
-        "endpointUrl":"/combined_structures",
-        "fieldsMask":"name,id",
-        "itemText":"name",
-        "itemValue":"id",
+        "endpointUrl": "/combined_structures",
+        "fieldsMask": "name,id",
+        "filterFields": ["name"],
+        "itemValue": "id",
+        "itemText": ["name"],
+        "title": ["name"],
+        "cacheItems": True,
+        "chips": True,
+        "chipsColor": "urbLightGreen",
+        "chipsLimit": "50",
+        "deletableChips": True,
+        "appendIcon": "mdi-magnify",
+        "hideNoData": True,
         "returnObject": True,
-        "filterFields":[
-            "name"
-        ],
-        "valueToDisplay":{
-            "title":"name"
-        }
     },
     "mission_id": {
-        "endpointUrl":"/mission/missions",
-        "fieldsMask":"name,status,id",
-        "itemText":"name",
-        "itemValue":"id",
+        "endpointUrl": "/mission/missions",
+        "fieldsMask": "name,status,id",
+        "filterFields": ["name", "status"],
+        "itemValue": "id",
+        "itemText": ["name"],
+        "title": ["name"],
+        "subtitle": ["status"],
+        "cacheItems": True,
+        "chips": True,
+        "chipsColor": "urbLightGreen",
+        "chipsLimit": "50",
+        "deletableChips": True,
+        "appendIcon": "mdi-magnify",
+        "hideNoData": True,
         "returnObject": True,
-        "filterFields":[
-            "name",
-            "status"
-        ],
-        "valueToDisplay":{
-            "title":"name",
-            "subtitle":"status"
-        }
     },
     "user_in_charge_id": {
-        "endpointUrl":"/auth/users",
-        "fieldsMask":"first_name,last_name,email,id",
-        "itemText":"email",
-        "itemValue":"id",
+        "endpointUrl": "/auth/users/",
+        "fieldsMask": "first_name, last_name,email,id",
+        "filterFields": ["first_name", "last_name", "email"],
+        "itemValue": "id",
+        "itemText": ["first_name", "last_name"],
+        "title": ["first_name", "last_name"],
+        "subtitle": ["email"],
+        "cacheItems": True,
+        "chips": True,
+        "chipsColor": "urbLightGreen",
+        "chipsLimit": "50",
+        "deletableChips": True,
+        "appendIcon": "mdi-magnify",
+        "hideNoData": True,
         "returnObject": True,
-        "filterFields":[
-            "first_name",
-            "last_name"
-        ],
-        "valueToDisplay": {
-            "title":["first_name", "last_name"],
-            "subtitle": "email"
-        }
-    }
+    },
 }
 
 
@@ -276,5 +304,5 @@ ENTITY_TO_CONFIG_AUTOCOMPLETE = {
     "mission": AUTOCOMPLETE_MISSION_CONFIG,
     "lot": AUTOCOMPLETE_LOT_CONFIG,
     "building": AUTOCOMPLETE_BUILDING_CONFIG,
-    "copro": AUTOCOMPLETE_COPRO_CONFIG
+    "copro": AUTOCOMPLETE_COPRO_CONFIG,
 }
