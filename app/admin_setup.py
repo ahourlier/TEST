@@ -2,6 +2,7 @@ from app.referential.enums import AppEnum
 from app.referential.enums.admin import (
     AdministrativeSituation,
     AdministrativeSupport,
+    ArchitectQualification,
     CombinedStructureType,
     ContractType,
     DebtOrigin,
@@ -51,6 +52,7 @@ from app.referential.enums.admin import (
     RDVType,
     RentLevel,
     PrincipalSocialProblematics,
+    SecurityCommissionResult,
     SocialSupportType,
     SyndicType,
     BuildingConstructionTime,
@@ -744,3 +746,25 @@ def register_admin_views(admin, db):
             endpoint="manage_litigation_action",
         )
     )
+    admin.add_view(
+        ArchitectQualification(
+            AppEnum,
+            db.session,
+            "Qualification de l'architecte",
+            url="architect-qualification",
+            endpoint="manage_architect_qualification",
+        )
+    )
+    admin.add_view(
+        SecurityCommissionResult(
+            AppEnum,
+            db.session,
+            "Résultats du comité de sécurité",
+            url="security-commission-result",
+            endpoint="manage_security_commission_result",
+        )
+    )
+
+    
+
+    

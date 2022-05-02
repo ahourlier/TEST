@@ -95,8 +95,8 @@ class Copro(HasPhones, SoftDeletableMixin, BaseMixin, db.Model):
     other_syndic_counsel_member_infos = Column(Text(), nullable=True)
 
     # Personnel
-    care_taker_id = Column(Integer(), ForeignKey("caretaker.id"), nullable=True)
-    care_taker = relationship("CareTaker", backref="copro")
+    caretaker_id = Column(Integer(), ForeignKey("caretaker.id"), nullable=True)
+    caretaker = relationship("CareTaker", backref="copro")
     employee_id = Column(Integer(), ForeignKey("employee.id"), nullable=True)
     employee = relationship("Employee", backref="copro")
     fire_safety_personnel_id = Column(

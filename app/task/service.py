@@ -215,7 +215,7 @@ class TaskService:
         now = date.today()
         for t in tasks:
             if t.reminder_date:
-                if t.status == "Terminée" or t.status == "Non concerné":
+                if t.status == "Terminée" or t.status == "Non concernée":
                     remind_tasks_inactive.insert(0, t)
 
                 if t.reminder_date < now:
@@ -229,7 +229,7 @@ class TaskService:
             else:
                 if t.status == "A faire" or t.status == "En cours":
                     no_remind_task_active.insert(0, t)
-                if t.status == "Terminée" or t.status == "Non concerné":
+                if t.status == "Terminée" or t.status == "Non concernée":
                     no_remind_tasks_inactive.insert(0, t)
 
         expired_tasks_active = sorted(

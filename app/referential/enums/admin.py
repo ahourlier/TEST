@@ -274,7 +274,7 @@ class MissionSubjob(EnumBaseAdminView):
 
 
 class CoproConstructionTime(EnumBaseAdminView):
-    ENUM_KIND = "ConstructionTime"
+    ENUM_KIND = "CoproConstructionTime"
     FIELD_MODEL = Copro
     FIELD_REF = "construction_time"
 
@@ -563,5 +563,17 @@ class UrbanisAction(EnumBaseAdminView):
 
 class LitigationAction(EnumBaseAdminView):
     ENUM_KIND = "LitigationAction"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class ArchitectQualification(EnumBaseAdminView):
+    ENUM_KIND = "ArchitectQualification"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class SecurityCommissionResult(EnumBaseAdminView):
+    ENUM_KIND = "SecurityCommissionResult"
     FIELD_MODEL = None
     FIELD_REF = None

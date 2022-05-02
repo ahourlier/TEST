@@ -51,5 +51,6 @@ class CombinedStructureInterface(TypedDict):
     contract_cctv: Optional[bool]
     contract_cctv_date: Optional[str]
     other_technical_equipments: Optional[bool]
+    equipment_description: Optional[str]
     # commentaires / precisions
     comment: Optional[str]
