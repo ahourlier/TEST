@@ -1,3 +1,24 @@
+# [1.3.0-rc.3](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.2...v1.3.0-rc.3) (2022-05-03)
+
+
+### Bug Fixes
+
+* **CI:** Fix black dependencies ([ee9c437](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/ee9c437930479a0c961faaaeaa2dd4b06c9e1579))
+* **COMBINED_STRUCTURES:** Add None value for key without tantieme specified + remove old tantieme key ([87f9df7](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/87f9df7409901fab3d4aaca76623917198ef7fb4))
+* **HISTORIC:** Added step_name in DB, add user info in get response, fix pagination parameters ([757f734](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/757f734121fe3d552781dac6282385fb47df2747))
+* **HISTORICS:** Fix filter on get ([2cc13ce](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/2cc13ce5ca0d61a48055bf90d505572ba6b7bf27))
+* **LOGIN:** Resolved fetched antenna problem when updating users groups ([224e6e7](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/224e6e7119d371b913a58afb811baca3911ff791))
+* **LOT:** Removed condition on mission_id not existing, because mission_id will always be send ([dfeb8cb](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/dfeb8cba4b60e6b8e283b6b3ff20837d57770784))
+* **MODELS:** Review models, schema, interface from form model ([73c53da](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/73c53dada7d89408ac52af6465b65e9af9b76a35))
+* **STRUCTURE:** Repass on missing enums/fields ([eb82f79](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/eb82f7980f5721c624803159c88e394621772412))
+
+
+### Features
+
+* **COMBINED_STRUCTURES:** add sum of tantiemes for cs by label ([7bb4847](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/7bb4847713caea320bb421bef08ecdb82ac1de34))
+* **GLOBAL:** thematics and search fields ([66a1723](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/66a172396cd4e47a3d6076ee2f2a1fc6f56cfadb))
+* **PERMISSIONS:** Split permissions by version of application ([ad7945e](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/ad7945ed2ac657301c1b3e007d8e603f2709d4f9))
+
 # [1.3.0-rc.3](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.2...v1.3.0-rc.3) (2022-04-26)
 
 
