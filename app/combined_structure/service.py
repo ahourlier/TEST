@@ -1,6 +1,7 @@
 from sqlalchemy import or_, and_
 
 from app import db
+from app.cle_repartition.model import CleRepartition
 from app.combined_structure.error_handlers import (
     CombinedStructureNotFoundException,
     EnumException as CombinedStructureEnumException,
@@ -12,6 +13,7 @@ from app.common.exceptions import EnumException
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.common.db_utils import DBUtils
+from app.copro.copros.model import Copro
 from app.copro.president.service import PresidentService
 from app.copro.syndic.service import SyndicService
 from app.thematique.service import ThematiqueService
@@ -173,6 +175,32 @@ class CombinedStructureService:
             item["tantieme"] = tantieme
             items.append(item)
         return items
+
+    @staticmethod
+    def get_sum_tantiemes_by_label(cs):
+        sum_tantieme = {}
+
+        # Define repartition keys for each copro in cs
+        for copro in cs.copros:
+            print(copro.id)
+            cles = CleRepartition.query.filter(
+                CleRepartition.copro_id == copro.id
+            ).all()
+            for cle in cles:
+                sum_tantieme[cle.label] = None
+
+        # Fill tantiemes for key repartition defined in lot
+        for copro in cs.copros:
+            for lot in copro.lots:
+                for lot_cle in lot.cles_repartition:
+                    cle = CleRepartition.query.filter(
+                        CleRepartition.id == lot_cle.cle_repartition_id
+                    ).first()
+                    if cle.label in sum_tantieme and sum_tantieme[cle.label] == None:
+                        sum_tantieme[cle.label] = 0
+                    sum_tantieme[cle.label] += lot_cle.tantieme
+
+        return sum_tantieme
 
     @staticmethod
     def get_thematiques(copro_id: int):

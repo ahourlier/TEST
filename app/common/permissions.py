@@ -1,6 +1,3 @@
-import functools
-from enum import Enum
-
 from flask import request, g
 from app.combined_structure.service import CombinedStructureService
 
@@ -208,6 +205,22 @@ def has_mission_permission(user):
     missions_service.MissionService.get_by_id(mission_id)
     permission = mission_permissions.MissionPermission.check_mission_permission(
         mission_id, user
+    )
+    return PermissionsUtils.bypass_admins(permission, user)
+
+
+def has_task_permission(user):
+    task_id = PermissionsUtils.get_entity_id("task_id")
+    if not task_id:
+        task_id = PermissionsUtils.get_entity_id("taskId")
+
+    if not task_id:
+        return user.role == UserRole.ADMIN
+    from app.task.service import TaskService
+
+    current_task = TaskService.get(task_id)
+    permission = mission_permissions.MissionPermission.check_mission_permission(
+        current_task.mission_id, user
     )
     return PermissionsUtils.bypass_admins(permission, user)
 

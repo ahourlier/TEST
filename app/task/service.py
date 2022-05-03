@@ -31,11 +31,10 @@ ENUM_MAPPING = {
 class TaskService:
     @staticmethod
     def get(task_id: int, task_type: str = None) -> Task:
-        task = (
-            Task.query.filter(Task.id == task_id)
-            .filter(Task.task_type == task_type)
-            .first()
-        )
+        q = Task.query.filter(Task.id == task_id)
+        if task_type:
+            q = q.filter(Task.task_type == task_type)
+        task = q.first()
         if not task or task.is_deleted:
             raise TaskNotFoundException
         return task
@@ -216,7 +215,7 @@ class TaskService:
         now = date.today()
         for t in tasks:
             if t.reminder_date:
-                if t.status == "Terminée" or t.status == "Non concerné":
+                if t.status == "Terminée" or t.status == "Non concernée":
                     remind_tasks_inactive.insert(0, t)
 
                 if t.reminder_date < now:
@@ -230,7 +229,7 @@ class TaskService:
             else:
                 if t.status == "A faire" or t.status == "En cours":
                     no_remind_task_active.insert(0, t)
-                if t.status == "Terminée" or t.status == "Non concerné":
+                if t.status == "Terminée" or t.status == "Non concernée":
                     no_remind_tasks_inactive.insert(0, t)
 
         expired_tasks_active = sorted(

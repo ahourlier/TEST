@@ -307,6 +307,7 @@
 							},
 							"identite_menage_accompagne_commentaires": {
 								"type": "textArea",
+								"lg": 12,
 								"multiple": false,
 								"value": []
 							},
@@ -348,6 +349,7 @@
 										},
 										"composition_familiale_commentaires": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"value": []
 										}
@@ -389,6 +391,7 @@
 										},
 										"parcours_residentiel_commentaires": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"value": []
 										}
@@ -515,6 +518,7 @@
 										},
 										"ressources_menage_commentaires": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"value": []
 										},
@@ -622,6 +626,7 @@
 													},
 													"detail_charges_mensuelles_menage_commentaires": {
 														"type": "textArea",
+														"lg": 12,
 														"multiple": false,
 														"value": []
 													}
@@ -653,6 +658,7 @@
 										},
 										"annee_retenue_pour_rfr": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"value": []
 										},
@@ -731,6 +737,7 @@
 										},
 										"synthese_financiere_commentaires": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"value": []
 										}
@@ -757,6 +764,7 @@
 				},
 				"commentaires": {
 					"type": "textArea",
+					"lg": 12,
 					"multiple": false,
 					"value": []
 				},
@@ -777,6 +785,7 @@
 							},
 							"referent_social_coordonnees": {
 								"type": "textArea",
+								"lg": 12,
 								"multiple": false,
 								"value": []
 							},
@@ -821,6 +830,7 @@
 							},
 							"situation_sociale_commentaires": {
 								"type": "textArea",
+								"lg": 12,
 								"multiple": false,
 								"value": []
 							}
@@ -904,6 +914,7 @@
 										},
 										"type_pret_negocie": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"value": []
 										},
@@ -963,6 +974,7 @@
 										},
 										"aides_sociales_sollicitees_Commentaires": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"value": []
 										}
@@ -976,6 +988,7 @@
 							},
 							"demarches_avec_pour_menage_commentaires": {
 								"type": "textArea",
+								"lg": 12,
 								"multiple": false,
 								"value": []
 							},
@@ -991,6 +1004,7 @@
 										},
 										"precisions_sur_dls": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"value": []
 										},
@@ -1052,26 +1066,31 @@
 							},
 							"resume_situation_sociale": {
 								"type": "textArea",
+								"lg": 12,
 								"multiple": false,
 								"value": []
 							},
 							"actions_definies": {
 								"type": "textArea",
+								"lg": 12,
 								"multiple": false,
 								"value": []
 							},
 							"actions_partenaires": {
 								"type": "textArea",
+								"lg": 12,
 								"multiple": false,
 								"value": []
 							},
 							"actions_urbanis": {
 								"type": "textArea",
+								"lg": 12,
 								"multiple": false,
 								"value": []
 							},
 							"actions_a_entreprendre": {
 								"type": "textArea",
+								"lg": 12,
 								"multiple": false,
 								"value": []
 							}
@@ -1100,6 +1119,7 @@
 				},
 				"organisme_orientation_menage": {
 					"type": "textArea",
+					"lg": 12,
 					"multiple": false,
 					"value": []
 				}

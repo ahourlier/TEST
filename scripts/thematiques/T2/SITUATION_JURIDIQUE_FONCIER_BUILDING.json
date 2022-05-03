@@ -150,6 +150,7 @@
 				},
 				"autre_resultat": {
 					"type": "textArea",
+					"lg": 12,
 					"multiple": false,
 					"value": []
 				}
@@ -224,6 +225,7 @@
 				},
 				"autre_resultat": {
 					"type": "textArea",
+					"lg": 12,
 					"multiple": false,
 					"value": []
 				}

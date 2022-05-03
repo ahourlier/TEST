@@ -57,7 +57,7 @@
 										"trimestre_moyen_reference": {
 											"type": "currency",
 											"multiple": false,
-											"formula": "((budget_previsionnel_vote || 0) / 4)/(total_lots_principaux || 1)",
+											"formula": "(budget_previsionnel_vote / 4)/(total_lots_principaux == 0 ? 1 : total_lots_principaux)",
 											"value": []
 										}
 									}
@@ -124,31 +124,31 @@
 										"taux_impayes_alerte": {
 											"type": "number",
 											"multiple": false,
-											"formula": "(impayes_a_date_arrete_comptes || 0)/((budget_previsionnel_vote + budget_operations_exceptionnelles_vote) || 1)",
+											"formula": "impayes_a_date_arrete_comptes/((budget_previsionnel_vote + budget_operations_exceptionnelles_vote) == 0 ? 1 : (budget_previsionnel_vote + budget_operations_exceptionnelles_vote))",
 											"value": []
 										},
 										"taux_impayes_mpr_c": {
 											"type": "number",
 											"multiple": false,
-											"formula": "(impayes_a_date_arrete_comptes || 0)/((budget_previsionnel_vote + budget_operations_exceptionnelles_vote) || 1)",
+											"formula": "impayes_a_date_arrete_comptes/((budget_previsionnel_vote + budget_operations_exceptionnelles_vote) == 0 ? 1 : (budget_previsionnel_vote + budget_operations_exceptionnelles_vote))",
 											"value": []
 										},
 										"taux_impayes_operationnel": {
 											"type": "number",
 											"multiple": false,
-											"formula": "(impayes_a_date_arrete_comptes || 0)/(budget_previsionnel_vote || 1)",
+											"formula": "impayes_a_date_arrete_comptes/(budget_previsionnel_vote == 0 ? 1 : budget_previsionnel_vote)",
 											"value": []
 										},
 										"taux_defaillance": {
 											"type": "number",
 											"multiple": false,
-											"formula": "(nombre_total_debiteurs_a_date_arrete_comptes || 0)/(nombre_total_coproprietaires || 1)",
+											"formula": "nombre_total_debiteurs_a_date_arrete_comptes/(nombre_total_coproprietaires == 0 ? 1 : nombre_total_coproprietaires)",
 											"value": []
 										},
 										"taux_recouvrement": {
 											"type": "number",
 											"multiple": false,
-											"formula": "(total_sommes_recouvrees || 0)/(total_sommes_appelees || 1)",
+											"formula": "total_sommes_recouvrees/(total_sommes_appelees == 0 ? 1 : total_sommes_appelees)",
 											"value": []
 										}
 									}

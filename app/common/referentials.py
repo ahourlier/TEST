@@ -1,5 +1,14 @@
-from sqlalchemy import Column, String, Integer, ForeignKey
+from sqlalchemy import (
+    Column,
+    String,
+    Integer,
+    ForeignKey,
+    Enum as sqlAlchemyEnum,
+    UniqueConstraint,
+)
 from sqlalchemy.orm import relationship
+
+from enum import Enum
 
 from app import db
 from app.common.base_model import BaseMixin
@@ -13,6 +22,11 @@ class Role(BaseMixin, db.Model):
     value = Column(Integer, nullable=False, default=0)
 
 
+class VersionType(Enum):
+    V1 = "INDIVIDUEL"
+    V2 = "COPROPRIETE"
+
+
 class Permission(BaseMixin, db.Model):
     """Permission Matrix"""
 
@@ -20,7 +34,13 @@ class Permission(BaseMixin, db.Model):
 
     entity = Column(String(255), nullable=False, primary_key=True)
     action = Column(String(255), nullable=False, primary_key=True)
+    applied_to = Column(sqlAlchemyEnum(VersionType), nullable=False, primary_key=True)
     role_id = Column(
         String(255), ForeignKey("role.name"), nullable=False, primary_key=True
     )
     role = relationship("Role", backref="permissions")
+    __table_args__ = (
+        UniqueConstraint(
+            "entity", "action", "role_id", "applied_to", name="pk_permission"
+        ),
+    )

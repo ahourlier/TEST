@@ -375,6 +375,7 @@ class UserService:
         permissions = (
             Permission.query.with_entities(Permission.entity, Permission.action)
             .filter(Permission.role.has(Role.value >= role.value))
+            .filter(Permission.applied_to == g.user.preferred_app.preferred_app)
             .all()
         )
         output = {}

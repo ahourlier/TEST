@@ -1,6 +1,4 @@
 import base64
-from http.cookiejar import CookiePolicy
-
 from sqlalchemy import or_, and_
 
 from app import db
@@ -16,7 +14,6 @@ from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.common.db_utils import DBUtils
 from app.copro.copros.model import Copro
-from app.mission import missions
 from app.thematique.service import ThematiqueService
 
 SEARCH_BUILDINGS_PARAMS = [
@@ -94,12 +91,10 @@ class BuildingService:
         
         if cs_id:
             if not mission_id:
-                q = q.join(Copro)
+                q = q.join(Copro, Building.address_id == Copro.address_1_id)
             q = q.filter(Copro.cs_id == cs_id)
 
         if user is not None and user.role != UserRole.ADMIN:
-            if not mission_id and not cs_id:
-                q = q.join(Copro)
             q = q.join(Mission)
             q = mission_permissions.MissionPermission.filter_query_mission_by_user_permissions(
                 q, user
@@ -176,10 +171,12 @@ class BuildingService:
 
     @staticmethod
     def encode_access_code(access_code):
+        print(access_code)
         for i in range(0, NB_LOOP_ACCESS_CODE):
             if type(access_code) == str:
                 access_code = access_code.encode("ascii")
             access_code = base64.b64encode(access_code)
+            print(access_code)
         return access_code.decode()
 
     @staticmethod

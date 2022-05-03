@@ -10,7 +10,8 @@ cred = credentials.ApplicationDefault()
 firebase_admin.initialize_app(
     cred,
     {
-        "projectId": "app-oslo-dev",
+        # "projectId": "app-oslo-dev",
+        "projectId": "app-oslo-preprod",
     },
 )
 db = firestore.client()
@@ -73,13 +74,16 @@ for folder_name in folders:
             i18n_keys.append(thematique_data["label"])
 
         if not DRY_RUN:
-            created_thematique = db.collection(thematique_template_collection).document()
+            created_thematique = db.collection(
+                thematique_template_collection
+            ).document()
             created_thematique.set(thematique_data)
 
         for step in steps:
             step["fields"]["commentaire"] = {
                 "type": "textArea",
                 "multiple": False,
+                "lg": 12,
                 "value": [],
             }
             step_name = step["metadata"]["name"]

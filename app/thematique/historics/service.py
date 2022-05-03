@@ -26,14 +26,32 @@ class HistoricService:
         direction=HISTORICS_DEFAULT_SORT_DIRECTION,
     ):
         col = getattr(Historic, sort_by)
-        q = Historic.query.order_by(col.desc() if direction == "desc" else col.asc())
+        q = Historic.query.filter(Historic.is_deleted == False).order_by(
+            col.desc() if direction == "desc" else col.asc()
+        )
+        return q.paginate(page=page, per_page=size)
+
+    @staticmethod
+    def get_by_version_id(
+        version_id,
+        page=HISTORICS_DEFAULT_PAGE,
+        size=HISTORICS_DEFAULT_PAGE_SIZE,
+        sort_by=HISTORICS_DEFAULT_SORT_FIELD,
+        direction=HISTORICS_DEFAULT_SORT_DIRECTION,
+    ):
+        col = getattr(Historic, sort_by)
+        q = (
+            Historic.query.filter(Historic.version_id == version_id)
+            .filter(Historic.is_deleted == False)
+            .order_by(col.desc() if direction == "desc" else col.asc())
+        )
         return q.paginate(page=page, per_page=size)
 
     @staticmethod
     def create(new_attrs: HistoricInterface, commit: bool = False) -> Historic:
         try:
             # Check thematique exists in Firestore
-            ThematiqueService.get_version(new_attrs["thematique_id"])
+            ThematiqueService.get_version(new_attrs["version_id"])
         except VersionNotFoundException as ve:
             print(f"{ve.message}")
             raise CreateHistoricException
