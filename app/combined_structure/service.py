@@ -184,7 +184,7 @@ class CombinedStructureService:
         for copro in cs.copros:
             print(copro.id)
             cles = CleRepartition.query.filter(
-                Copro.id == copro.id
+                CleRepartition.copro_id == copro.id
             ).all()
             for cle in cles:
                 sum_tantieme[cle.label] = None
