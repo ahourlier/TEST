@@ -43,8 +43,8 @@ class CoproInterface(TypedDict, total=False):
     admin_manager_address = Optional[dict]
     admin_manager_phone_number = Optional[dict]
     # Personnel
-    care_taker: Optional[dict]
-    care_taker_id: Optional[dict]
+    caretaker: Optional[dict]
+    caretaker_id: Optional[dict]
     employee: Optional[dict]
     employee_id: Optional[dict]
     fire_safety_personnel: Optional[dict]

@@ -41,10 +41,10 @@ class CoproSchema(SQLAlchemyAutoSchema):
     access_code = fields.Method("decode_access_code", dump_only=True)
 
     def decode_access_code(self, obj):
-        if not obj.access_code:
+        if not obj.access_code or obj.access_code == "":
             return ""
         access_code = obj.access_code
-        for i in range(0, NB_LOOP_ACCESS_CODE):
+        for _ in range(0, NB_LOOP_ACCESS_CODE):
             access_code = base64.b64decode(access_code)
         return access_code.decode()
 

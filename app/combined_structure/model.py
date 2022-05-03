@@ -57,5 +57,6 @@ class CombinedStructure(SoftDeletableMixin, BaseMixin, db.Model):
     contract_cctv = Column(Boolean(), nullable=True)
     contract_cctv_date = Column(String(), nullable=True)
     other_technical_equipments = Column(Boolean(), nullable=True)
+    equipment_description = Column(Text(), nullable=True)
     # commentaires / precisions
     comment = Column(Text(), nullable=True)

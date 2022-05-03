@@ -1,3 +1,4 @@
+import base64
 from flask_sqlalchemy import Pagination
 from sqlalchemy import or_, and_
 
@@ -37,6 +38,8 @@ from app.copro.president.service import PresidentService
 from app.copro.syndic.service import SyndicService
 from app.mission.missions.service import MissionService
 from app.thematique.service import ThematiqueService
+
+from app.building.settings import NB_LOOP_ACCESS_CODE
 
 COPRO_DEFAULT_PAGE = 1
 COPRO_DEFAULT_PAGE_SIZE = 20
@@ -111,9 +114,7 @@ class CoproService:
             raise MissionNotTypeCoproException
 
         if new_attrs.get("access_code"):
-            new_attrs["access_code"] = BuildingService.encode_access_code(
-                new_attrs.get("access_code")
-            )
+            new_attrs["access_code"] = BuildingService.encode_access_code(new_attrs.get("access_code"))
 
         if new_attrs.get("address_1"):
             new_attrs["address_1_id"] = AddressService.create_address(
@@ -402,6 +403,9 @@ class CoproService:
                 db_copro.id, changes.get("cles_repartition")
             )
             del changes["cles_repartition"]
+
+        if "access_code" in  changes:
+            changes["access_code"] = BuildingService.encode_access_code(changes.get("access_code"))
 
         db_copro.update(changes)
         db.session.commit()
