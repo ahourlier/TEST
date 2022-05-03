@@ -13,6 +13,7 @@ from app.common.exceptions import EnumException
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.common.db_utils import DBUtils
+from app.copro.copros.model import Copro
 from app.copro.president.service import PresidentService
 from app.copro.syndic.service import SyndicService
 from app.thematique.service import ThematiqueService
@@ -178,19 +179,26 @@ class CombinedStructureService:
     @staticmethod
     def get_sum_tantiemes_by_label(cs):
         sum_tantieme = {}
+
+        # Define repartition keys for each copro in cs
+        for copro in cs.copros:
+            print(copro.id)
+            cles = CleRepartition.query.filter(
+                Copro.id == copro.id
+            ).all()
+            for cle in cles:
+                sum_tantieme[cle.label] = None
+
+        # Fill tantiemes for key repartition defined in lot
         for copro in cs.copros:
             for lot in copro.lots:
                 for lot_cle in lot.cles_repartition:
                     cle = CleRepartition.query.filter(
                         CleRepartition.id == lot_cle.cle_repartition_id
                     ).first()
-                    print(
-                        f"Copro {copro.id} - Lot {lot.id} - Cle {cle.label} n°{cle.id} - Tantieme {lot_cle.tantieme}"
-                    )
-                    if cle.label not in sum_tantieme:
+                    if cle.label in sum_tantieme and sum_tantieme[cle.label] == None:
                         sum_tantieme[cle.label] = 0
                     sum_tantieme[cle.label] += lot_cle.tantieme
-                    print(sum_tantieme)
 
         return sum_tantieme
 
