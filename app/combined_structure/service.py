@@ -146,6 +146,13 @@ class CombinedStructureService:
             del changes["president"]
 
         if "syndics" in changes:
+            for s in changes['syndics']:
+                s["cs_id"] = combined_structure_id
+                SyndicService.update(
+                    SyndicService.get(s.id),
+                    s,
+                    s.id
+                )
             del changes["syndics"]
 
         db_combined_structure.update(changes)
@@ -182,7 +189,6 @@ class CombinedStructureService:
 
         # Define repartition keys for each copro in cs
         for copro in cs.copros:
-            print(copro.id)
             cles = CleRepartition.query.filter(
                 CleRepartition.copro_id == copro.id
             ).all()

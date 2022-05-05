@@ -171,12 +171,10 @@ class BuildingService:
 
     @staticmethod
     def encode_access_code(access_code):
-        print(access_code)
         for i in range(0, NB_LOOP_ACCESS_CODE):
             if type(access_code) == str:
                 access_code = access_code.encode("ascii")
             access_code = base64.b64encode(access_code)
-            print(access_code)
         return access_code.decode()
 
     @staticmethod
