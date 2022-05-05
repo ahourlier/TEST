@@ -267,12 +267,6 @@ class MissionJob(EnumBaseAdminView):
     FIELD_REF = "job"
 
 
-class MissionSubjob(EnumBaseAdminView):
-    ENUM_KIND = "Subjob"
-    FIELD_MODEL = MissionDetail
-    FIELD_REF = "subjob"
-
-
 class CoproConstructionTime(EnumBaseAdminView):
     ENUM_KIND = "CoproConstructionTime"
     FIELD_MODEL = Copro

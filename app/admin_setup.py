@@ -46,7 +46,6 @@ from app.referential.enums.admin import (
     QuoteCompanyOrigin,
     MissionOperationalPlan,
     MissionJob,
-    MissionSubjob,
     CoproConstructionTime,
     CoproType,
     RDVType,
@@ -294,15 +293,6 @@ def register_admin_views(admin, db):
             "Type de métier",
             url="job-mission",
             endpoint="manage_jobs",
-        )
-    )
-    admin.add_view(
-        MissionSubjob(
-            AppEnum,
-            db.session,
-            "Sous métier",
-            url="subjob-mission",
-            endpoint="manage_subjobs",
         )
     )
     admin.add_view(
