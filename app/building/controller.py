@@ -63,7 +63,7 @@ class BuildingsResource(AuthenticatedApi):
     @requires(has_building_permissions, is_contributor)
     def put(self, building_id):
         db_building = BuildingService.get(building_id)
-        return BuildingService.update(db_building, building_id, request.parsed_obj)
+        return BuildingService.update(db_building, request.parsed_obj)
 
     @requires(has_building_permissions, is_contributor)
     def delete(self, building_id) -> Response:
