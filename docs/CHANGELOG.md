@@ -1,3 +1,10 @@
+# [1.3.0-rc.4](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.3...v1.3.0-rc.4) (2022-05-09)
+
+
+### Features
+
+* **MISSIONS:** Added mission manager in listing ([f383ee3](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/f383ee3f70538eeb27e7c2e876c9e2193786bdac))
+
 # [1.3.0-rc.3](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.2...v1.3.0-rc.3) (2022-05-03)
 
 
