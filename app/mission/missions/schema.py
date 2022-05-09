@@ -1,6 +1,8 @@
 from flask_marshmallow.sqla import SQLAlchemyAutoSchema
 from marshmallow import fields, EXCLUDE
 
+from app.auth.users.schema import UserSchema
+
 from .model import Mission
 from ..teams.schema import TeamSchema
 from ...admin.agencies import AgencySchema
@@ -23,6 +25,7 @@ class MissionSchema(SQLAlchemyAutoSchema):
     thematiques = fields.Nested(
         ThematiqueMissionSchema(), many=True, allow_none=True, required=False
     )
+    managers = fields.List(fields.Nested(UserSchema(), allow_none=True, required=False))
     import_running = fields.Method("is_import_running")
 
     def is_import_running(self, obj):

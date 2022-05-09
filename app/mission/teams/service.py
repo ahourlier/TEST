@@ -83,6 +83,7 @@ class TeamService:
         term=None,
         sort_by=MISSION_MANAGERS_DEFAULT_SORT_FIELD,
         direction=MISSION_MANAGERS_DEFAULT_SORT_DIRECTION,
+        mission_id=None
     ) -> Pagination:
         q = User.query.join(Team, Team.user_id == User.id)
         q = q.filter(Team.user_position == UserTeamPositions.MISSION_MANAGER).distinct(
@@ -96,6 +97,8 @@ class TeamService:
                     User.last_name.ilike(search_term),
                 )
             )
+        if mission_id:
+            q = q.filter(Team.mission_id == mission_id)
         q = sort_query(q, sort_by, direction)
         return q.paginate(page=page, per_page=size)
 

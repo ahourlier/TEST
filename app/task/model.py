@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Text, String, ForeignKey
+from sqlalchemy import Column, Integer, Text, String, ForeignKey, JSON
 from sqlalchemy.orm import relationship, backref
 import enum
 from app import db
@@ -37,4 +37,5 @@ class Task(SoftDeletableMixin, BaseMixin, db.Model):
     date = db.Column(db.Date, nullable=True)
     mission_id = Column(Integer, ForeignKey("mission.id"), nullable=True)
     mission = relationship("Mission", backref=backref("tasks", cascade="all, delete"))
+    path = Column(JSON, nullable=False)
     task_type = Column(String(5), nullable=False, default=TaskType.TASK.value)
