@@ -47,6 +47,7 @@ from app.mission.missions.schema import MissionLightSchema
 
 from app.mission.teams import Team
 
+
 import app.auth.users.service as users_service
 
 MISSIONS_DEFAULT_PAGE = 1
@@ -78,6 +79,7 @@ class MissionService:
         mission_type=None,
     ) -> Pagination:
         import app.mission.permissions as mission_permissions
+        from app.mission.teams.service import TeamService
 
         q = sort_query(Mission.query, sort_by, direction)
         q = q.filter(or_(Mission.is_deleted == False, Mission.is_deleted == None))
@@ -108,7 +110,13 @@ class MissionService:
                 q, user
             )
 
-        return q.paginate(page=page, per_page=size)
+        pagination = q.paginate(page=page, per_page=size)
+
+        for item in pagination.items:
+            mission_managers = TeamService.get_all_mission_managers(mission_id=item.id)
+            item.managers = mission_managers.items
+
+        return  q.paginate(page=page, per_page=size)
 
     @staticmethod
     def get_by_id(mission_id: int) -> Mission:

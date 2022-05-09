@@ -15,3 +15,4 @@ class MissionInterface(TypedDict, total=False):
     antenna_id: int
     client_id: int
     referents: Optional[List[dict]]
+    managers: Optional[List[dict]]
