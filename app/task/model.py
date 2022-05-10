@@ -39,3 +39,4 @@ class Task(SoftDeletableMixin, BaseMixin, db.Model):
     mission = relationship("Mission", backref=backref("tasks", cascade="all, delete"))
     path = Column(JSON, nullable=False)
     task_type = Column(String(5), nullable=False, default=TaskType.TASK.value)
+    linked_mission = Column(JSON, nullable=False)
