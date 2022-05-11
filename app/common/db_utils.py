@@ -1,3 +1,4 @@
+from sqlalchemy import or_
 from app import db
 from app.combined_structure.model import CombinedStructure
 from app.copro.copros.model import Copro
@@ -14,6 +15,7 @@ class DBUtils:
             copros = (
                 Copro.query.with_entities(Copro.id)
                 .filter(Copro.cs_id == entity_id)
+                .filter(or_(Copro.is_deleted == False, Copro.is_deleted == None))
                 .all()
             )
             for copro in copros:
@@ -26,6 +28,7 @@ class DBUtils:
             buildings = (
                 Building.query.with_entities(Building.id)
                 .filter(Building.copro_id == entity_id)
+                .filter(or_(Building.is_deleted == False, Building.is_deleted == None))
                 .all()
             )
             for building in buildings:
@@ -38,6 +41,7 @@ class DBUtils:
             lots = lots = (
                 Lot.query.with_entities(Lot.id)
                 .filter(Lot.building_id == entity_id)
+                .filter(or_(Lot.is_deleted == False, Lot.is_deleted == None))
                 .all()
             )
             for lot in lots:

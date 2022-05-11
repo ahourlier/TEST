@@ -268,7 +268,7 @@ class SearchV2Service:
                 obj["op"] = operator
                 search["filters"].append(obj)
                 continue
-            
+
             # Here value can be a list or an int
             if isinstance(value, int):
                 obj["values"].append(value)
@@ -276,7 +276,7 @@ class SearchV2Service:
                 search["filters"].append(obj)
                 continue
 
-            # Here value is a list 
+            # Here value is a list
             # Search for range of date
             if len(value) == 2:
                 try:
@@ -288,7 +288,7 @@ class SearchV2Service:
                     continue
                 except:
                     pass
-            
+
             # No range or int found, it's a list of strings, search exact value
             obj["values"] = value
             obj["op"] = "eq"

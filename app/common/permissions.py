@@ -242,6 +242,7 @@ def has_import_permissions(user):
 
 # check permissions for list
 
+
 def has_combined_structure_list_permissions(user):
     mission_id = PermissionsUtils.get_entity_id("missionId")
     if not mission_id:

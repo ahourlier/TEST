@@ -1,4 +1,11 @@
-from sqlalchemy import Column, String, Integer, ForeignKey, Enum as sqlAlchemyEnum, UniqueConstraint
+from sqlalchemy import (
+    Column,
+    String,
+    Integer,
+    ForeignKey,
+    Enum as sqlAlchemyEnum,
+    UniqueConstraint,
+)
 from sqlalchemy.orm import relationship
 
 from enum import Enum
@@ -32,5 +39,8 @@ class Permission(BaseMixin, db.Model):
         String(255), ForeignKey("role.name"), nullable=False, primary_key=True
     )
     role = relationship("Role", backref="permissions")
-    __table_args__ = (UniqueConstraint('entity', 'action', 'role_id', 'applied_to', name='pk_permission'),)
-    
+    __table_args__ = (
+        UniqueConstraint(
+            "entity", "action", "role_id", "applied_to", name="pk_permission"
+        ),
+    )

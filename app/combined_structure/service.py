@@ -155,13 +155,9 @@ class CombinedStructureService:
             del changes["president"]
 
         if "syndics" in changes:
-            for s in changes['syndics']:
+            for s in changes["syndics"]:
                 s["cs_id"] = combined_structure_id
-                SyndicService.update(
-                    SyndicService.get(s.id),
-                    s,
-                    s.id
-                )
+                SyndicService.update(SyndicService.get(s.id), s, s.id)
             del changes["syndics"]
 
         db_combined_structure.update(changes)
