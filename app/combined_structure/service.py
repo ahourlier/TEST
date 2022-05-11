@@ -16,6 +16,7 @@ from app.common.db_utils import DBUtils
 from app.copro.copros.model import Copro
 from app.copro.president.service import PresidentService
 from app.copro.syndic.service import SyndicService
+from app.mission.missions.model import Mission
 from app.thematique.service import ThematiqueService
 
 SEARCH_COMBINED_STRUCTURES_PARAMS = [
@@ -46,6 +47,8 @@ class CombinedStructureService:
         mission_id=None,
         user=None,
     ):
+        import app.mission.permissions as mission_permissions
+
         q = sort_query(CombinedStructure.query, sort_by, direction)
         q = q.filter(
             or_(
@@ -64,6 +67,12 @@ class CombinedStructureService:
 
         if mission_id:
             q = q.filter(CombinedStructure.mission_id == int(mission_id))
+        else:
+            # On Global Listing page and not admin, need to filter by user's missions
+            q = q.join(Mission)
+            q = mission_permissions.MissionPermission.filter_query_mission_by_user_permissions(
+                q, user
+            )
 
         return q.paginate(page=page, per_page=size)
 

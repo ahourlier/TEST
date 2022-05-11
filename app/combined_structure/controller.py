@@ -7,6 +7,7 @@ from app.common.permissions import (
     has_mission_permission,
     is_contributor,
     has_combined_structure_permissions,
+    has_combined_structure_list_permissions
 )
 from .schema import (
     CombinedStructureSchema,
@@ -36,7 +37,7 @@ class CombinedStructuresResource(AuthenticatedApi):
         api=api,
     )
     @responds(schema=CombinedStructurePaginatedSchema(), api=api)
-    @requires(has_mission_permission)
+    @requires(has_combined_structure_list_permissions)
     def get(self) -> Pagination:
         return CombinedStructureService.list(
             page=int(request.args.get("page", COMBINED_STRUCTURE_DEFAULT_PAGE)),

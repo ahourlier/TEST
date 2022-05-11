@@ -95,6 +95,10 @@ class BuildingService:
             q = q.filter(Copro.cs_id == cs_id)
 
         if user is not None and user.role != UserRole.ADMIN:
+            # On Global Listing page and not admin, need copro to join with mission
+            if not mission_id and not cs_id:
+                q = q.join(Copro)
+
             q = q.join(Mission)
             q = mission_permissions.MissionPermission.filter_query_mission_by_user_permissions(
                 q, user

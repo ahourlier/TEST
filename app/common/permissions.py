@@ -242,6 +242,17 @@ def has_import_permissions(user):
 
 # check permissions for list
 
+def has_combined_structure_list_permissions(user):
+    mission_id = PermissionsUtils.get_entity_id("missionId")
+    if not mission_id:
+        # Mission_id is not provided, filter will be done in logic
+        return True
+    missions_service.MissionService.get_by_id(mission_id)
+    permission = mission_permissions.MissionPermission.check_mission_permission(
+        mission_id, user
+    )
+    return PermissionsUtils.bypass_admins(permission, user)
+
 
 def has_copro_list_permissions(user):
     mission_id = PermissionsUtils.get_entity_id("missionId")
