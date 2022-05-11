@@ -7,7 +7,7 @@ from app.common.permissions import (
     has_mission_permission,
     is_contributor,
     has_combined_structure_permissions,
-    has_combined_structure_list_permissions
+    has_combined_structure_list_permissions,
 )
 from .schema import (
     CombinedStructureSchema,

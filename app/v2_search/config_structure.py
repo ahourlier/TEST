@@ -115,7 +115,11 @@ MAPPING_TYPE_TO_UNKNOWN_COLUMN = {"commune": "string"}
 
 MAPPING_MISSION_ENUMS = {"status": "MissionStatus"}
 
-MAPPING_LOT_ENUMS = {"type": "LotType", "habitation_type": "LotHabitationType", "occupant_status": "LotOccupantStatus"}
+MAPPING_LOT_ENUMS = {
+    "type": "LotType",
+    "habitation_type": "LotHabitationType",
+    "occupant_status": "LotOccupantStatus",
+}
 
 MAPPING_BUILDING_ENUMS = {"access_type": "AccessType"}
 
@@ -167,7 +171,7 @@ AUTOCOMPLETE_MISSION_CONFIG = {
         "deletableChips": True,
         "appendIcon": "mdi-magnify",
         "hideNoData": True,
-        "itemValue":"name",
+        "itemValue": "name",
         "returnObject": True,
     },
     "client_id": {
@@ -184,7 +188,7 @@ AUTOCOMPLETE_MISSION_CONFIG = {
         "deletableChips": True,
         "appendIcon": "mdi-magnify",
         "hideNoData": True,
-        "itemValue":"name",
+        "itemValue": "name",
         "returnObject": True,
     },
 }
@@ -294,7 +298,7 @@ AUTOCOMPLETE_COPRO_CONFIG = {
         "deletableChips": True,
         "appendIcon": "mdi-magnify",
         "hideNoData": True,
-        "itemValue":"name",
+        "itemValue": "name",
         "returnObject": True,
     },
 }

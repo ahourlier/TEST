@@ -754,7 +754,3 @@ def register_admin_views(admin, db):
             endpoint="manage_security_commission_result",
         )
     )
-
-    
-
-    

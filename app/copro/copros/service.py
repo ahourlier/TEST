@@ -114,7 +114,9 @@ class CoproService:
             raise MissionNotTypeCoproException
 
         if new_attrs.get("access_code"):
-            new_attrs["access_code"] = BuildingService.encode_access_code(new_attrs.get("access_code"))
+            new_attrs["access_code"] = BuildingService.encode_access_code(
+                new_attrs.get("access_code")
+            )
 
         if new_attrs.get("address_1"):
             new_attrs["address_1_id"] = AddressService.create_address(
@@ -292,7 +294,9 @@ class CoproService:
         if "syndic_manager_address" in changes:
             if changes.get("syndic_manager_address"):
                 if not db_copro.syndic_manager_address:
-                    changes["syndic_manager_address_id"] = AddressService.create_address(
+                    changes[
+                        "syndic_manager_address_id"
+                    ] = AddressService.create_address(
                         changes.get("syndic_manager_address")
                     )
                 else:
@@ -404,8 +408,10 @@ class CoproService:
             )
             del changes["cles_repartition"]
 
-        if "access_code" in  changes:
-            changes["access_code"] = BuildingService.encode_access_code(changes.get("access_code"))
+        if "access_code" in changes:
+            changes["access_code"] = BuildingService.encode_access_code(
+                changes.get("access_code")
+            )
 
         db_copro.update(changes)
         db.session.commit()
