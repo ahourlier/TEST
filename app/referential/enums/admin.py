@@ -387,12 +387,6 @@ class NatureTravauxPartieCommune(EnumBaseAdminView):
     FIELD_REF = None
 
 
-class NatureAide(EnumBaseAdminView):
-    ENUM_KIND = "NatureAide"
-    FIELD_MODEL = None
-    FIELD_REF = None
-
-
 class CombinedStructureType(EnumBaseAdminView):
     ENUM_KIND = "CombinedStructureType"
     FIELD_MODEL = CombinedStructure
@@ -569,5 +563,184 @@ class ArchitectQualification(EnumBaseAdminView):
 
 class SecurityCommissionResult(EnumBaseAdminView):
     ENUM_KIND = "SecurityCommissionResult"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class LocalisationCopropriete(EnumBaseAdminView):
+    ENUM_KIND = "LocalisationCopropriete"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class WaterBillingType(EnumBaseAdminView):
+    ENUM_KIND = "WaterBillingType"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class HeaterBillingType(EnumBaseAdminView):
+    ENUM_KIND = "HeaterBillingType"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class MeetingTheme(EnumBaseAdminView):
+    ENUM_KIND = "MeetingTheme"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class ActionUrbanisThemeGUP(EnumBaseAdminView):
+    ENUM_KIND = "ActionUrbanisThemeGUP"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class OtherActionUrbanis(EnumBaseAdminView):
+    ENUM_KIND = "OtherActionUrbanis"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class NatureDysfunction(EnumBaseAdminView):
+    ENUM_KIND = "NatureDysfunction"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class ActionType(EnumBaseAdminView):
+    ENUM_KIND = "ActionType"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+class CommunicationActionType(EnumBaseAdminView):
+    ENUM_KIND = "CommunicationActionType"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class ActionResponsibleCommunication(EnumBaseAdminView):
+    ENUM_KIND = "ActionResponsibleCommunication"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class FormationType(EnumBaseAdminView):
+    ENUM_KIND = "FormationType"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class Former(EnumBaseAdminView):
+    ENUM_KIND = "Former"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class ActionResponsibleFormation(EnumBaseAdminView):
+    ENUM_KIND = "ActionResponsibleFormation"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class AGType(EnumBaseAdminView):
+    ENUM_KIND = "AGType"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class Renegociation(EnumBaseAdminView):
+    ENUM_KIND = "Renegociation"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class CompetitionReopening(EnumBaseAdminView):
+    ENUM_KIND = "CompetitionReopening"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class ConsumptionLabel(EnumBaseAdminView):
+    ENUM_KIND = "ConsumptionLabel"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class ProcedureCommonParts(EnumBaseAdminView):
+    ENUM_KIND = "ProcedureCommonParts"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class ProcedurePrivateParts(EnumBaseAdminView):
+    ENUM_KIND = "ProcedurePrivateParts"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class WorkNatureAssetPlan(EnumBaseAdminView):
+    ENUM_KIND = "WorkNatureAssetPlan"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class WorkEligibleSubsidiesHeritagePlan(EnumBaseAdminView):
+    ENUM_KIND = "WorkEligibleSubsidiesHeritagePlan"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class ActionResponsible(EnumBaseAdminView):
+    ENUM_KIND = "ActionResponsible"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class WorkNatureCommonParts(EnumBaseAdminView):
+    ENUM_KIND = "WorkNatureCommonParts"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class WorkNatureCollectivInterestPrivateParts(EnumBaseAdminView):
+    ENUM_KIND = "WorkNaturePrivateParts"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class HelpType(EnumBaseAdminView):
+    ENUM_KIND = "HelpType"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class IndividualLoanType(EnumBaseAdminView):
+    ENUM_KIND = "IndividualLoanType"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class WorkNaturePrivateParts(EnumBaseAdminView):
+    ENUM_KIND = "WorkNaturePrivateParts"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class FunderOrganism(EnumBaseAdminView):
+    ENUM_KIND = "FunderOrganism"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class SupportingStructure(EnumBaseAdminView):
+    ENUM_KIND = "SupportingStructure"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class BuyerSales(EnumBaseAdminView):
+    ENUM_KIND = "BuyerSales"
     FIELD_MODEL = None
     FIELD_REF = None

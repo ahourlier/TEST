@@ -1,0 +1,1056 @@
+{
+	"thematique_name": "GESTION_ET_FONCTIONNEMENT",
+	"scopes": [
+		"sc",
+		"copro"
+	],
+	"versionnable": [
+		true,
+		true
+	],
+	"heritable": [
+		false,
+		false
+	],
+	"extend_parent": [
+		false,
+		false
+	],
+	"steps": [
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "DONNEES_CADRAGE",
+				"order": 1,
+				"status": "",
+				"scopes": [
+					"sc",
+					"copro"
+				]
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"sc",
+						"copro"
+					],
+					"value": [
+						{
+							"date_cloture_comptes": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"delegation_pouvoir_etendue": {
+								"type": "switch",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"date_initiale_rencontre_syndic_ou_aj": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"date_initiale_rencontre_cs": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "ACCOMPAGNEMENT_INSTANCES_GESTION",
+				"order": 2,
+				"status": "",
+				"scopes": [
+					"sc",
+					"copro"
+				]
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"sc",
+						"copro"
+					],
+					"value": [
+						{
+							"rencontres_cs_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": [
+									{
+										"presence_syndic_aj_rencontres_cs": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"date_rencontres_cs": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"nombre_participants_rencontres_cs": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"resume_reunion_rencontres_cs": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"appui_aux_actions_communication_courante_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": [
+									{
+										"date_appui_aux_actions_communication_courante": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"public_cible_appui_aux_actions_communication_courante": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"nombre_participants_appui_aux_actions_communication_courante": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"type_action_appui_aux_actions_communication_courante": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=CommunicationActionType",
+											"multiple": true,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"objectifs_vises_appui_aux_actions_communication_courante": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"responsable_action_appui_aux_actions_communication_courante": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=ActionResponsibleCommunication",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"commentaires_appui_aux_actions_communication_courante": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"formations_destination_cs_coproprietaires_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": [
+									{
+										"date_formations_destination_cs_coproprietaires": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"public_cible_formations_destination_cs_coproprietaires": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"nombre_participants_formations_destination_cs_coproprietaires": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"modalites_formation_formations_destination_cs_coproprietaires": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=FormationType",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"sujet_formation_formations_destination_cs_coproprietaires": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"formateur_formations_destination_cs_coproprietaires": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=Former",
+											"multiple": true,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"responsable_action_formations_destination_cs_coproprietaires": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=ActionResponsibleFormation",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"commentaires_formations_destination_cs_coproprietaires": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "SUIVI_DU_BUDGET",
+				"order": 3,
+				"status": "",
+				"scopes": [
+					"sc",
+					"copro"
+				]
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": true,
+					"scopes": [
+						"sc",
+						"copro"
+					],
+					"value": [
+						{
+							"budget_annuel_previsionnel": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"annee_etudiee": {
+								"type": "date",
+								"format": "YYYY",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"budget_vote": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"provisions_appelees": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"produits_percus": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"budget_realise": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"resultat_exercice": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"rappel_montant_impayes": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"rappel_taux_impayes_cloture_exercice": {
+								"type": "number",
+								"suffix": "%",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"sommes_figurant_sur_comptes_attente_crediteur": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"date_saisie_sommes_sur_compte_attente_crediteur": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"sommes_figurant_sur_comptes_attente_debiteur": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"date_saisie_sommes_sur_compte_attente_crediteur_debiteur": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"commentaires": {
+								"type": "textArea",
+								"lg": 12,
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"travaux_et_operations_exceptionnelles_clotures_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": [
+									{
+										"travaux_et_operations_exceptionnelles_clotures": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"vote_travaux_et_operations_exceptionnelles_clotures": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"montant_vote_travaux_et_operations_exceptionnelles_clotures": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"provisions_appelees_travaux_et_operations_exceptionnelles_clotures": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"produits_exceptionnels_travaux_et_operations_exceptionnelles_clotures": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"montant_realise_travaux_et_operations_exceptionnelles_clotures": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"solde_travaux_et_operations_exceptionnelles_clotures": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"travaux_et_operations_exceptionnelles_non_clotures_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": [
+									{
+										"travaux_et_operations_exceptionnelles_non_clotures": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"vote_travaux_et_operations_exceptionnelles_non_clotures": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"montant_vote_travaux_et_operations_exceptionnelles_non_clotures": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"provisions_appelees_travaux_et_operations_exceptionnelles_non_clotures": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"travaux_payes_travaux_et_operations_exceptionnelles_non_clotures": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"travaux_realise_travaux_et_operations_exceptionnelles_non_clotures": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"solde_travaux_et_operations_exceptionnelles_non_clotures": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "SUIVI_DU_FONCTIONNEMENT",
+				"order": 4,
+				"status": "",
+				"scopes": [
+					"sc",
+					"copro"
+				]
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": true,
+					"scopes": [
+						"sc",
+						"copro"
+					],
+					"value": [
+						{
+							"suivi_ag_et_reunions_copropriete_sous_ap_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": [
+									{
+										"ag_ou_reunion_ap": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"type_ag_ou_reunion_coproprietaires": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=AGType",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"presence_urbanis": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"taux_participation_en_nb_tantiemes_presents_ou_representes": {
+											"type": "number",
+											"suffix": "%",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"taux_participation_en_nb_presents_ou_representes": {
+											"type": "number",
+											"suffix": "%",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"commentaires_suivi_ag_et_reunions_copropriete_sous_ap": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"sujets_gestion_courante_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": [
+									{
+										"sujets_gestion_courante": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"approbation_comptes_exercice_ecoule_sujets_gestion_courante": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"approbation_budget_previsionnel_annee_n_sujets_gestion_courante": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"approbation_budget_previsionnel_annee_n_plus_1_sujets_gestion_courante": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"vote_quitus_sujets_gestion_courante": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"renouvellement_mandat_syndic_sujets_gestion_courante": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"election_cs_sujets_gestion_courante": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"seuil_consultation_cs_sujets_gestion_courante": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"seuil_mise_en_concurrence_sujets_gestion_courante": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"vote_fonds_travaux_sujets_gestion_courante": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"saisies_immobilieres_portees_au_vote_sujets_gestion_courante": {
+											"type": "number",
+											"suffix": "%",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"saisies_immobilieres_votees_sujets_gestion_courante": {
+											"type": "number",
+											"suffix": "%",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"engagements_poursuites_hors_saisies_immobilieres_sujets_gestion_courante": {
+											"type": "number",
+											"suffix": "%",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"commentaires_sujets_gestion_courante": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"travaux_importance_soumis_au_vote_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": [
+									{
+										"travaux_importance_soumis_au_vote": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"montant_inferieur_ou_egale_au_budget_annuel_courant_travaux_importance_soumis_au_vote": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"montant_superieur_au_budget_annuel_courant_travaux_importance_soumis_au_vote": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"commentaires_travaux_importance_soumis_au_vote": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "AIDE_A_LA_GESTION",
+				"order": 5,
+				"status": "",
+				"scopes": [
+					"copro"
+				]
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": true,
+					"scopes": [
+						"copro"
+					],
+					"value": [
+						{
+							"demande_aide_a_gestion_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
+										"financeur_demande_aide_a_gestion": {
+											"type": "autocomplete",
+											"endpoint": "/funder/funders/",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"montant_demande_demande_aide_a_gestion": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"montant_accorde_demande_aide_a_gestion": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"date_demande_aide_demande_aide_a_gestion": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"date_accord_demande_aide_a_gestion": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"commentaires": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"demande_paiement_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
+										"date_demande_paiement_demande_paiement": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"demande_acompte_demande_paiement": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"demande_solde_demande_paiement": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"date_versement_demande_paiement": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"montant_verse_demande_paiement": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		}
+	]
+}
