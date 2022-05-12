@@ -448,7 +448,8 @@
 					"value": [
 						{
 							"descriptif_axe_travail_intervention_juridique": {
-								"type": "string",
+								"type": "select",
+								"endpoint": "/referential/enums/?enums=WorkAxis",
 								"multiple": false,
 								"scopes": [
 									"sc",
@@ -604,7 +605,7 @@
 						{
 							"descriptif_axe_travail_intervention_fonciere": {
 								"type": "select",
-								"endpoint": "TODO",
+								"endpoint": "/referential/enums/?enums=WorkAxis",
 								"multiple": false,
 								"scopes": [
 									"sc",

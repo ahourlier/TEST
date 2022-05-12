@@ -102,7 +102,7 @@
 												{
 													"nature_travaux_sur_parties_communes": {
 														"type": "select",
-														"endpoint": "TODO",
+														"endpoint": "/referential/enums/?enums=WorkNatureCommonParts",
 														"multiple": true,
 														"scopes": [
 															"sc",
@@ -199,7 +199,7 @@
 												{
 													"nature_travaux_interet_collectif_sur_parties_privatives": {
 														"type": "select",
-														"endpoint": "TODO",
+														"endpoint": "/referential/enums/?enums=WorkNaturePrivateParts",
 														"multiple": true,
 														"scopes": [
 															"sc",
@@ -443,7 +443,7 @@
 												{
 													"type_aide_demande_aide_financeur": {
 														"type": "select",
-														"endpoint": "TODO",
+														"endpoint": "/referential/enums/?enums=HelpType",
 														"multiple": false,
 														"scopes": [
 															"sc",
@@ -987,7 +987,7 @@
 										},
 										"type_pret_collectif_organisme_pret_collectif": {
 											"type": "select",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=TypePretCollectif",
 											"multiple": false,
 											"scopes": [
 												"sc",
@@ -1140,7 +1140,7 @@
 										},
 										"type_pret_individuel_organisme_pret_individuel": {
 											"type": "select",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=IndividualLoanType",
 											"multiple": false,
 											"scopes": [
 												"sc",

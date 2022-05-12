@@ -664,7 +664,7 @@
 							},
 							"resultat_assistance_renegociation": {
 								"type": "select",
-								"endpoint": "TODO",
+								"endpoint": "/referential/enums/?enums=Renegociation",
 								"multiple": false,
 								"scopes": [
 									"sc",
@@ -769,7 +769,7 @@
 							},
 							"resultat_assistance_remise_en_concurrence": {
 								"type": "select",
-								"endpoint": "TODO",
+								"endpoint": "/referential/enums/?enums=CompetitionReopening",
 								"multiple": false,
 								"showIf": "remise_en_concurrence_decidee_assistance_remise_en_concurrence",
 								"scopes": [

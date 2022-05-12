@@ -52,7 +52,7 @@
 									{
 										"localisation_copropriete": {
 											"type": "select",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=Localisation",
 											"multiple": false,
 											"value": [],
 											"scopes": [
@@ -193,7 +193,7 @@
 									{
 										"eau": {
 											"type": "select",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=WaterBillingType",
 											"multiple": false,
 											"value": [],
 											"scopes": [
@@ -203,7 +203,7 @@
 										},
 										"chauffage": {
 											"type": "select",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=HeaterBillingType",
 											"multiple": false,
 											"value": [],
 											"scopes": [
@@ -461,6 +461,7 @@
 										"themes_demarches_gup_dans_quartier": {
 											"type": "textArea",
 											"showIf": "demarches_gup_dans_quartier",
+											"lg": 12,
 											"multiple": false,
 											"value": [],
 											"scopes": [
@@ -470,6 +471,7 @@
 										"structures_porteuses_demarches_gup_dans_quartier": {
 											"type": "textArea",
 											"showIf": "demarches_gup_dans_quartier",
+											"lg": 12,
 											"multiple": false,
 											"value": [],
 											"scopes": [
@@ -498,6 +500,7 @@
 										"themes_autres_actions_sur_terrain": {
 											"type": "textArea",
 											"showIf": "autres_actions_sur_terrain",
+											"lg": 12,
 											"multiple": false,
 											"value": [],
 											"scopes": [
@@ -507,6 +510,7 @@
 										"structures_porteuses_autres_actions_sur_terrain": {
 											"type": "textArea",
 											"showIf": "autres_actions_sur_terrain",
+											"lg": 12,
 											"multiple": false,
 											"value": [],
 											"scopes": [
@@ -535,6 +539,7 @@
 										"themes_coordinations_existantes": {
 											"type": "textArea",
 											"showIf": "coordinations_existantes",
+											"lg": 12,
 											"multiple": false,
 											"value": [],
 											"scopes": [
@@ -652,7 +657,7 @@
 										},
 										"themes_reunion": {
 											"type": "select",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=MeetingTheme",
 											"multiple": true,
 											"value": [],
 											"scopes": [
@@ -681,7 +686,7 @@
 										"themes_action_urbanis_titre_gup": {
 											"type": "select",
 											"showIf": "action_urbanis_titre_gup",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=ActionUrbanisThemeGUP",
 											"multiple": true,
 											"scopes": [
 												"copro"
@@ -729,7 +734,7 @@
 										"themes_autres_actions_avec_participation_urbanis": {
 											"type": "select",
 											"showIf": "autres_actions_avec_participation_urbanis",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=OtherActionUrbanis",
 											"multiple": true,
 											"scopes": [
 												"copro"
@@ -771,7 +776,7 @@
 										},
 										"nature_suivi_dysfonctionnements": {
 											"type": "select",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=NatureDysfunction",
 											"multiple": true,
 											"scopes": [
 												"sc",

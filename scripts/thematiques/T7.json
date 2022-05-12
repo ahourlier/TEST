@@ -70,6 +70,7 @@
 										},
 										"commentaires_servitudes_urbanisme": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"scopes": [
 												"sc",
@@ -107,6 +108,7 @@
 										},
 										"commentaires_existence_carnet_entretien": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"scopes": [
 												"copro"
@@ -149,6 +151,7 @@
 										},
 										"commentaires_existence_audit_energetique": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"scopes": [
 												"copro",
@@ -187,6 +190,7 @@
 										},
 										"commentaires_existence_dtg": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"scopes": [
 												"copro"
@@ -223,6 +227,7 @@
 										},
 										"commentaires_realisation_existence_ppt": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"scopes": [
 												"copro"
@@ -239,6 +244,7 @@
 										},
 										"commentaires_existence_ppt": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"scopes": [
 												"copro"
@@ -303,6 +309,7 @@
 										},
 										"thermique_commentaires": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"scopes": [
 												"copro",
@@ -323,6 +330,7 @@
 										},
 										"plomb_dans_peintures_commentaires": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"scopes": [
 												"copro",
@@ -343,6 +351,7 @@
 										},
 										"plomb_dans_arrivees_eau_commentaires": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"scopes": [
 												"copro",
@@ -363,6 +372,7 @@
 										},
 										"termites_commentaires": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"scopes": [
 												"copro",
@@ -383,6 +393,7 @@
 										},
 										"merule_commentaires": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"scopes": [
 												"copro",
@@ -403,6 +414,7 @@
 										},
 										"amiante_commentaires": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"scopes": [
 												"copro",
@@ -423,6 +435,7 @@
 										},
 										"ascenseur_commentaires": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"scopes": [
 												"copro",
@@ -443,6 +456,7 @@
 										},
 										"pcb_commentaires": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"scopes": [
 												"copro",
@@ -463,6 +477,7 @@
 										},
 										"radon_commentaires": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"scopes": [
 												"copro",
@@ -473,6 +488,7 @@
 										},
 										"autres_diagnostics": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"scopes": [
 												"copro",
@@ -483,6 +499,7 @@
 										},
 										"commentaires_diagnostics_techniques": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"scopes": [
 												"copro",
@@ -516,7 +533,7 @@
 												{
 													"au_demarrage_notre_accompagnement": {
 														"type": "select",
-														"endpoint": "TODO",
+														"endpoint": "/referential/enums/?enums=ConsumptionLabel",
 														"multiple": false,
 														"scopes": [
 															"copro",
@@ -527,7 +544,7 @@
 													},
 													"projetee_apres_travaux": {
 														"type": "select",
-														"endpoint": "TODO",
+														"endpoint": "/referential/enums/?enums=ConsumptionLabel",
 														"multiple": false,
 														"scopes": [
 															"copro",
@@ -538,7 +555,7 @@
 													},
 													"reelle_apres_travaux": {
 														"type": "select",
-														"endpoint": "TODO",
+														"endpoint": "/referential/enums/?enums=ConsumptionLabel",
 														"multiple": false,
 														"scopes": [
 															"copro",
@@ -744,7 +761,7 @@
 									{
 										"type_en_parties_communes": {
 											"type": "select",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=ProcedureCommonParts",
 											"multiple": false,
 											"scopes": [
 												"sc",
@@ -817,7 +834,7 @@
 										},
 										"type_en_parties_privatives": {
 											"type": "select",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=ProcedurePrivateParts",
 											"multiple": false,
 											"scopes": [
 												"lot"
@@ -924,6 +941,7 @@
 										},
 										"commentaires_reunions_successives": {
 											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"scopes": [
 												"sc",
@@ -971,7 +989,7 @@
 									{
 										"postes_travaux_nature_travaux_t7": {
 											"type": "select",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=WorkNatureAssetPlan",
 											"multiple": true,
 											"scopes": [
 												"sc",
@@ -1028,7 +1046,7 @@
 										},
 										"travaux_recevables_aux_subventions_nature_travaux_t7": {
 											"type": "select",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=WorkEligibleSubsidiesHeritagePlan",
 											"multiple": true,
 											"scopes": [
 												"sc",
@@ -1277,7 +1295,7 @@
 						{
 							"nature_action": {
 								"type": "select",
-								"endpoint": "TODO",
+								"endpoint": "/referential/enums/?enums=ActionType",
 								"multiple": true,
 								"scopes": [
 									"sc",
@@ -1319,7 +1337,7 @@
 							},
 							"responsable_action_appui_aux_actions_communication_travaux": {
 								"type": "select",
-								"endpoint": "TODO",
+								"endpoint": "/referential/enums/?enums=ActionResponsible",
 								"multiple": false,
 								"scopes": [
 									"sc",

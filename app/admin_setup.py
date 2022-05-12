@@ -1,26 +1,48 @@
 from app.referential.enums import AppEnum
 from app.referential.enums.admin import (
+    AGType,
+    ActionResponsible,
+    ActionResponsibleCommunication,
+    ActionResponsibleFormation,
+    ActionType,
+    ActionUrbanisThemeGUP,
     AdministrativeSituation,
     AdministrativeSupport,
     ArchitectQualification,
+    BuyerSales,
     CombinedStructureType,
+    CommunicationActionType,
+    CompetitionReopening,
+    ConsumptionLabel,
     ContractType,
     DebtOrigin,
     EnergeticPrecariousnessCause,
+    FormationType,
+    Former,
+    FunderOrganism,
+    HeaterBillingType,
+    HelpType,
     HouseholdAccompaniedStatusAndPreviousStatus,
     HouseholdDebtRate,
     HouseholdEnergeticEffortRate,
     HouseholdOtherFunderLimitStatus,
     HouseholdResourcesAnahStatus,
+    IndividualLoanType,
     InformativeEventsOrganization,
     LitigationAction,
+    LocalisationCopropriete,
     LocatairesRessources,
     LotSeniorityOccupation,
     MainOccupantAge,
     MaritalSituation,
+    MeetingTheme,
     MovingHouseProject,
+    NatureDysfunction,
+    OtherActionUrbanis,
     Overoccupation,
     PreLitigationAction,
+    ProcedureCommonParts,
+    ProcedurePrivateParts,
     ProfessionalSituation,
     ProjectStatusAdminView,
     MissionStatusAdminView,
@@ -49,10 +71,12 @@ from app.referential.enums.admin import (
     CoproConstructionTime,
     CoproType,
     RDVType,
+    Renegociation,
     RentLevel,
     PrincipalSocialProblematics,
     SecurityCommissionResult,
     SocialSupportType,
+    SupportingStructure,
     SyndicType,
     BuildingConstructionTime,
     BuildingERPCategory,
@@ -71,10 +95,15 @@ from app.referential.enums.admin import (
     TypePretIndividuel,
     Prefinanceurs,
     NatureTravauxPartieCommune,
-    NatureAide,
     UrbanisAction,
     MonthlyRessourcesType,
+    WaterBillingType,
     WorkAxis,
+    WorkEligibleSubsidiesHeritagePlan,
+    WorkNatureAssetPlan,
+    WorkNatureCollectivInterestPrivateParts,
+    WorkNatureCommonParts,
+    WorkNaturePrivateParts,
 )
 
 
@@ -452,7 +481,7 @@ def register_admin_views(admin, db):
         TypePretIndividuel(
             AppEnum,
             db.session,
-            "Type de prêt individuel",
+            "Type de prêt individuel - travaux AG",
             url="type-pret-indiv",
             endpoint="manage_type_pret_indiv",
         )
@@ -473,15 +502,6 @@ def register_admin_views(admin, db):
             "Nature travaux partie commune",
             url="ntpc",
             endpoint="manage_ntpc",
-        )
-    )
-    admin.add_view(
-        NatureAide(
-            AppEnum,
-            db.session,
-            "Nature aide",
-            url="nature-aide",
-            endpoint="manage_nature_aide",
         )
     )
     admin.add_view(
@@ -754,3 +774,275 @@ def register_admin_views(admin, db):
             endpoint="manage_security_commission_result",
         )
     )
+    admin.add_view(
+        LocalisationCopropriete(
+            AppEnum,
+            db.session,
+            "Localisation de la copropriete",
+            url="localisation-copropriete",
+            endpoint="manage_localisation_copropriete",
+        )
+    )
+    admin.add_view(
+        WaterBillingType(
+            AppEnum,
+            db.session,
+            "Modalités de facturation d'eau",
+            url="water-billing-type",
+            endpoint="manage_water_billing_type",
+        )
+    )
+    admin.add_view(
+        HeaterBillingType(
+            AppEnum,
+            db.session,
+            "Modalités de facturation du chauffage",
+            url="heater-billing-type",
+            endpoint="manage_heater_billing_type",
+        )
+    )
+    admin.add_view(
+        MeetingTheme(
+            AppEnum,
+            db.session,
+            "Thème - réunions",
+            url="meeting-theme",
+            endpoint="manage_meeting_theme",
+        )
+    )
+    admin.add_view(
+        ActionUrbanisThemeGUP(
+            AppEnum,
+            db.session,
+            "Thème - action Urbanis au titre de la GUP",
+            url="action-urbanis-theme-gup",
+            endpoint="manage_action_urbanis_theme_gup",
+        )
+    )
+    admin.add_view(
+        OtherActionUrbanis(
+            AppEnum,
+            db.session,
+            "Thème - autre action à laquelle participe Urbanis",
+            url="other-action-urbanis",
+            endpoint="manage_other_action_urbanis",
+        )
+    )
+    admin.add_view(
+        NatureDysfunction(
+            AppEnum,
+            db.session,
+            "Dysfonctionnement (nature)",
+            url="dysfunction-nature",
+            endpoint="manage_dysfunction_nature",
+        )
+    )
+    admin.add_view(
+        ActionType(
+            AppEnum,
+            db.session,
+            "Type d'action",
+            url="action-type",
+            endpoint="manage_action_type",
+        )
+    )
+    admin.add_view(
+        CommunicationActionType(
+            AppEnum,
+            db.session,
+            "Type d'action de communication",
+            url="communication-action-type",
+            endpoint="manage_communication_action_type",
+        )
+    )
+    admin.add_view(
+        ActionResponsibleCommunication(
+            AppEnum,
+            db.session,
+            "Responsable de l'action - communication",
+            url="action-responsible-communication",
+            endpoint="manage_action_responsible_communication",
+        )
+    )
+    admin.add_view(
+        FormationType(
+            AppEnum,
+            db.session,
+            "Modalités de la formation",
+            url="formation-type",
+            endpoint="manage_formation_type",
+        )
+    )
+    admin.add_view(
+        Former(
+            AppEnum,
+            db.session,
+            "Formateur",
+            url="former",
+            endpoint="manage_former",
+        )
+    )
+    admin.add_view(
+        ActionResponsibleFormation(
+            AppEnum,
+            db.session,
+            "Responsable de l'action - formation",
+            url="action-responsible-formation",
+            endpoint="manage_action_responsible_formation",
+        )
+    )
+    admin.add_view(
+        AGType(
+            AppEnum,
+            db.session,
+            "Type d'AG",
+            url="ag-type",
+            endpoint="manage_ag_type",
+        )
+    )
+    admin.add_view(
+        Renegociation(
+            AppEnum,
+            db.session,
+            "Renégociation",
+            url="renegociation",
+            endpoint="manage_renegociation",
+        )
+    )
+    admin.add_view(
+        CompetitionReopening(
+            AppEnum,
+            db.session,
+            "Remise en concurrence",
+            url="competition-reopening",
+            endpoint="manage_competition_reopening",
+        )
+    )
+    admin.add_view(
+        ConsumptionLabel(
+            AppEnum,
+            db.session,
+            "Etiquette de consommation",
+            url="consumption-label",
+            endpoint="manage_consumption_label",
+        )
+    )
+    admin.add_view(
+        ProcedureCommonParts(
+            AppEnum,
+            db.session,
+            "Procédures administratives - parties communes",
+            url="procedures-common-parts",
+            endpoint="manage_procedures_common_parts",
+        )
+    )
+    admin.add_view(
+        ProcedurePrivateParts(
+            AppEnum,
+            db.session,
+            "Procédures administratives - parties privatives",
+            url="procedures-private-parts",
+            endpoint="manage_procedures_private_parts",
+        )
+    )
+    admin.add_view(
+        WorkNatureAssetPlan(
+            AppEnum,
+            db.session,
+            "Nature des travaux - plan de patrimoine",
+            url="work-nature-asset-plan",
+            endpoint="manage_work_nature_asset_plan",
+        )
+    )
+    admin.add_view(
+        WorkEligibleSubsidiesHeritagePlan(
+            AppEnum,
+            db.session,
+            "Travaux recevables aux subventions - plan de patrimoine",
+            url="work-eligible-subsidies-heritage-plan",
+            endpoint="manage_work_eligible_subsidies_heritage_plan",
+        )
+    )
+    admin.add_view(
+        ActionResponsible(
+            AppEnum,
+            db.session,
+            "Responsable de l'action",
+            url="action-responsible",
+            endpoint="manage_action_responsible",
+        )
+    )
+    admin.add_view(
+        WorkNatureCommonParts(
+            AppEnum,
+            db.session,
+            "Nature des travaux sur Parties Communes",
+            url="work-nature-common-parts",
+            endpoint="manage_work_nature_common_parts",
+        )
+    )
+    admin.add_view(
+        WorkNatureCollectivInterestPrivateParts(
+            AppEnum,
+            db.session,
+            "Nature des Travaux d'Intérêt Collectif sur Parties Privatives",
+            url="work-nature-collectiv-interest-private-parts",
+            endpoint="manage_work_nature_collectiv_interest_private_parts",
+        )
+    )
+    admin.add_view(
+        HelpType(
+            AppEnum,
+            db.session,
+            "Type d'aide",
+            url="help-type",
+            endpoint="manage_help_type",
+        )
+    )
+    admin.add_view(
+        IndividualLoanType(
+            AppEnum,
+            db.session,
+            "Type de prêt individuel - travaux hors AG",
+            url="individual-loan-type",
+            endpoint="manage_individual_loan_type",
+        )
+    )
+    admin.add_view(
+        WorkNaturePrivateParts(
+            AppEnum,
+            db.session,
+            "Nature des travaux en PP",
+            url="work-nature-private-parts",
+            endpoint="manage_work_nature_private_parts",
+        )
+    )
+    admin.add_view(
+        FunderOrganism(
+            AppEnum,
+            db.session,
+            "Organisme financeur",
+            url="funder-organism",
+            endpoint="manage_funder_organism",
+        )
+    )
+    admin.add_view(
+        SupportingStructure(
+            AppEnum,
+            db.session,
+            "Structure porteuse",
+            url="supporting-structure",
+            endpoint="manage_supporting_structure",
+        )
+    )
+    admin.add_view(
+        BuyerSales(
+            AppEnum,
+            db.session,
+            "Acquéreur vente",
+            url="buyer-sales",
+            endpoint="manage_buyer_sales",
+        )
+    )
+    
+    

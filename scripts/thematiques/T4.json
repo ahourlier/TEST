@@ -188,7 +188,7 @@
 										},
 										"type_action_appui_aux_actions_communication_courante": {
 											"type": "select",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=CommunicationActionType",
 											"multiple": true,
 											"scopes": [
 												"sc",
@@ -208,7 +208,7 @@
 										},
 										"responsable_action_appui_aux_actions_communication_courante": {
 											"type": "select",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=ActionResponsibleCommunication",
 											"multiple": false,
 											"scopes": [
 												"sc",
@@ -268,7 +268,7 @@
 										},
 										"modalites_formation_formations_destination_cs_coproprietaires": {
 											"type": "select",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=FormationType",
 											"multiple": false,
 											"scopes": [
 												"sc",
@@ -288,7 +288,7 @@
 										},
 										"formateur_formations_destination_cs_coproprietaires": {
 											"type": "select",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=Former",
 											"multiple": true,
 											"scopes": [
 												"sc",
@@ -298,7 +298,7 @@
 										},
 										"responsable_action_formations_destination_cs_coproprietaires": {
 											"type": "select",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=ActionResponsibleFormation",
 											"multiple": false,
 											"scopes": [
 												"sc",
@@ -670,7 +670,7 @@
 										},
 										"type_ag_ou_reunion_coproprietaires": {
 											"type": "select",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=AGType",
 											"multiple": false,
 											"scopes": [
 												"sc",

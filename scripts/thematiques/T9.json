@@ -42,7 +42,7 @@
 									{
 										"travaux_decides_nature_travaux": {
 											"type": "select",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=NatureWorkPrivateParts",
 											"multiple": false,
 											"scopes": [
 												"lot"
@@ -209,7 +209,7 @@
 												{
 													"organisme_financeur_demande_subvention_financement_projet": {
 														"type": "select",
-														"endpoint": "TODO",
+														"endpoint": "/referential/enums/?enums=FunderOrganism",
 														"multiple": false,
 														"scopes": [
 															"lot"
@@ -754,7 +754,7 @@
 										},
 										"type_pret_individuel_organisme_pret_individuel_t9": {
 											"type": "select",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=IndividualLoanType",
 											"multiple": false,
 											"scopes": [
 												"lot"

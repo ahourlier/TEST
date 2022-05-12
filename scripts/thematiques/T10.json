@@ -471,7 +471,7 @@
 										"structure_porteuse": {
 											"type": "select",
 											"multiple": false,
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=SupportingStructure",
 											"scopes": [
 												"copro"
 											],
@@ -787,7 +787,7 @@
 										},
 										"acquereur_vente_t10": {
 											"type": "select",
-											"endpoint": "TODO",
+											"endpoint": "/referential/enums/?enums=BuyerSales",
 											"multiple": false,
 											"scopes": [
 												"copro",

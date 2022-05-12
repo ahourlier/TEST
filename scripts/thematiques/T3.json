@@ -734,7 +734,7 @@
 							},
 							"statut_menage_accompagne": {
 								"type": "select",
-								"endpoint": "/referential/enums/?enums=HouseholdAccompaniedStatus",
+								"endpoint": "/referential/enums/?enums=HouseholdAccompaniedStatusAndPreviousStatus",
 								"multiple": false,
 								"scopes": [
 									"lot"
