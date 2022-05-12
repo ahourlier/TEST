@@ -1,0 +1,886 @@
+{
+	"thematique_name": "ENVIRONNEMENT_URBAIN_CADRE_VIE",
+	"scopes": [
+		"sc",
+		"copro",
+		"building"
+	],
+	"versionnable": [
+		false,
+		false,
+		false
+	],
+	"heritable": [
+		false,
+		false,
+		false
+	],
+	"extend_parent": [
+		false,
+		false,
+		false
+	],
+	"steps": [
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "DONNEES_CADRAGE",
+				"order": 1,
+				"status": "",
+				"scopes": [
+					"copro",
+					"building"
+				]
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"copro",
+						"building"
+					],
+					"value": [
+						{
+							"copropriete_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
+										"localisation_copropriete": {
+											"type": "select",
+											"endpoint": "TODO",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"quartier_dominante_habitat_social": {
+											"type": "switch",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"copropriete_mixte_copropriete": {
+											"type": "switch",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"perimetre_qpv": {
+											"type": "switch",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"perimetre_npnru": {
+											"type": "switch",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"perimetre_projet_urbain": {
+											"type": "switch",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"pic_priorite_nationale": {
+											"type": "switch",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"pic_priorite_régionale": {
+											"type": "switch",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"dans_commune_acv": {
+											"type": "switch",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"dans_commune_pvd": {
+											"type": "switch",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"autre_sectorisation": {
+											"type": "switch",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"precisions": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										}
+									}
+								]
+							},
+							"personnel_copropriete_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"copro",
+									"building"
+								],
+								"value": [
+									{
+										"personnel_copropriete": {
+											"type": "switch",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro",
+												"building"
+											]
+										},
+										"nom_coordonnees": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": true,
+											"value": [],
+											"scopes": [
+												"copro",
+												"building"
+											]
+										}
+									}
+								]
+							},
+							"modalites_facturation_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"copro",
+									"building"
+								],
+								"value": [
+									{
+										"eau": {
+											"type": "select",
+											"endpoint": "TODO",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro",
+												"building"
+											]
+										},
+										"chauffage": {
+											"type": "select",
+											"endpoint": "TODO",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro",
+												"building"
+											]
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "ARTICULATION_VOLETS_HABITAT_URBAIN",
+				"order": 2,
+				"status": "",
+				"scopes": [
+					"copro"
+				]
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"copro"
+					],
+					"value": [
+						{
+							"urbanis_prestataire_sur_volet_urbain": {
+								"type": "switch",
+								"multiple": false,
+								"value": [],
+								"scopes": [
+									"copro"
+								]
+							},
+							"outil_coordination_actions_habitat_urbain": {
+								"type": "switch",
+								"multiple": false,
+								"value": [],
+								"scopes": [
+									"copro"
+								]
+							},
+							"pilote_outil": {
+								"type": "textArea",
+								"lg": 12,
+								"multiple": false,
+								"value": [],
+								"scopes": [
+									"copro"
+								]
+							},
+							"reunion_coordination_officielle_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
+										"date_reunion_coordination_officielle": {
+											"type": "date",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"principaux_participants_reunion_coordination_officielle": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"principaux_enseignements_reunion_coordination_officielle": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										}
+									}
+								]
+							},
+							"reunion_travail_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
+										"date_reunion_travail": {
+											"type": "date",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"principaux_participants_reunion_travail": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"principaux_enseignements_reunion_travail": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "DIAGNOSTIC_INITIAL_GUP",
+				"order": 3,
+				"status": "",
+				"scopes": [
+					"copro",
+					"building"
+				]
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"copro",
+						"building"
+					],
+					"value": [
+						{
+							"entretien_avec_acteurs_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
+										"date_entretien_avec_acteurs": {
+											"type": "date",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"principaux_participants_entretien_avec_acteurs": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"principaux_enseignements_entretien_avec_acteurs": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										}
+									}
+								]
+							},
+							"surcouts_entretien_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"copro",
+									"building"
+								],
+								"value": [
+									{
+										"surcouts_entretien": {
+											"type": "switch",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro",
+												"building"
+											]
+										},
+										"surcout_moyen_annuel": {
+											"type": "currency",
+											"showIf": "surcouts_entretien",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro",
+												"building"
+											]
+										},
+										"postes_charges_concernes": {
+											"type": "textArea",
+											"showIf": "surcouts_entretien",
+											"lg": 12,
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro",
+												"building"
+											]
+										}
+									}
+								]
+							},
+							"demarches_gup_dans_quartier_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
+										"demarches_gup_dans_quartier": {
+											"type": "switch",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"themes_demarches_gup_dans_quartier": {
+											"type": "textArea",
+											"showIf": "demarches_gup_dans_quartier",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"structures_porteuses_demarches_gup_dans_quartier": {
+											"type": "textArea",
+											"showIf": "demarches_gup_dans_quartier",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										}
+									}
+								]
+							},
+							"autres_actions_sur_terrain_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
+										"autres_actions_sur_terrain": {
+											"type": "switch",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"themes_autres_actions_sur_terrain": {
+											"type": "textArea",
+											"showIf": "autres_actions_sur_terrain",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"structures_porteuses_autres_actions_sur_terrain": {
+											"type": "textArea",
+											"showIf": "autres_actions_sur_terrain",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										}
+									}
+								]
+							},
+							"coordinations_existantes_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
+										"coordinations_existantes": {
+											"type": "switch",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"themes_coordinations_existantes": {
+											"type": "textArea",
+											"showIf": "coordinations_existantes",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"pilotage_coordinations_existantes": {
+											"type": "string",
+											"showIf": "coordinations_existantes",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"rapport_visite_site": {
+											"type": "date",
+											"showIf": "coordinations_existantes",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"rapport_diagnostic": {
+											"type": "date",
+											"showIf": "coordinations_existantes",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										}
+									}
+								]
+							},
+							"restitution_notre_mission_moa_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
+										"restitution_notre_mission_moa": {
+											"type": "date",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"validation_plan_actions_par_moa": {
+											"type": "date",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										}
+									}
+								]
+							},
+							"validation_plan_actions_par_copropriete": {
+								"type": "date",
+								"multiple": false,
+								"value": [],
+								"scopes": [
+									"copro"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "MISE_EN_OEUVRE_GUP",
+				"order": 4,
+				"status": "",
+				"scopes": [
+					"sc",
+					"copro",
+					"building"
+				]
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"sc",
+						"copro",
+						"building"
+					],
+					"value": [
+						{
+							"reunion_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
+										"date_reunion": {
+											"type": "date",
+											"multiple": false,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										},
+										"themes_reunion": {
+											"type": "select",
+											"endpoint": "TODO",
+											"multiple": true,
+											"value": [],
+											"scopes": [
+												"copro"
+											]
+										}
+									}
+								]
+							},
+							"action_urbanis_titre_gup_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
+										"action_urbanis_titre_gup": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"themes_action_urbanis_titre_gup": {
+											"type": "select",
+											"showIf": "action_urbanis_titre_gup",
+											"endpoint": "TODO",
+											"multiple": true,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"partenaires_action_urbanis_titre_gup": {
+											"type": "textArea",
+											"showIf": "action_urbanis_titre_gup",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"autres_actions_avec_participation_urbanis_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
+										"autres_actions_avec_participation_urbanis": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"date_actions_avec_participation_urbanis": {
+											"type": "date",
+											"showIf": "autres_actions_avec_participation_urbanis",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"themes_autres_actions_avec_participation_urbanis": {
+											"type": "select",
+											"showIf": "autres_actions_avec_participation_urbanis",
+											"endpoint": "TODO",
+											"multiple": true,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"partenaires_autres_actions_avec_participation_urbanis": {
+											"type": "textArea",
+											"showIf": "autres_actions_avec_participation_urbanis",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"suivi_dysfonctionnements_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"sc",
+									"copro",
+									"building"
+								],
+								"value": [
+									{
+										"suivi_dysfonctionnements": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"nature_suivi_dysfonctionnements": {
+											"type": "select",
+											"endpoint": "TODO",
+											"multiple": true,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"localisation_suivi_dysfonctionnements": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"description_suivi_dysfonctionnements": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"action_preconisee_suivi_dysfonctionnements": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"intervenants_suivi_dysfonctionnements": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"delai_intervention_previsionnel_suivi_dysfonctionnements": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"besoin_validation_suivi_dysfonctionnements": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"decideur_besoin_validation_suivi_dysfonctionnements": {
+											"type": "textArea",
+											"showIf": "besoin_validation_suivi_dysfonctionnements",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"constat_resolution_suivi_dysfonctionnements": {
+											"type": "switch",
+											"showIf": "besoin_validation_suivi_dysfonctionnements",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"date_constat_resolution_suivi_dysfonctionnements": {
+											"type": "date",
+											"showIf": "constat_resolution_suivi_dysfonctionnements",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		}
+	]
+}

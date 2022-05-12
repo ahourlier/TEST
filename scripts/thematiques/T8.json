@@ -1,0 +1,1289 @@
+{
+	"thematique_name": "SUIVI_FINANCEMENTS_PC_ET_PPIC",
+	"scopes": [
+		"sc",
+		"copro",
+		"building",
+		"lot"
+	],
+	"versionnable": [
+		true,
+		true,
+		true,
+		true
+	],
+	"heritable": [
+		false,
+		true,
+		true,
+		false
+	],
+	"extend_parent": [
+		false,
+		false,
+		true,
+		true
+	],
+	"steps": [
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "DECOMPOSITION_DEPENSE",
+				"order": 1,
+				"status": "",
+				"scopes": [
+					"sc",
+					"copro",
+					"building",
+					"lot"
+				],
+				"vertical_dependencies": [
+					"travaux_sur_pc_ht_campagne_travaux",
+					"travaux_sur_pc_ttc_campagne_travaux",
+					"frais_sur_pc_ht_campagne_travaux",
+					"frais_sur_pc_ttc_campagne_travaux",
+					"depense_subventionnable_pc_ht_campagne_travaux",
+					"travaux_sur_ppic_ttc_campagne_travaux",
+					"frais_sur_ppic_ttc_campagne_travaux"
+				]
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"sc",
+						"copro",
+						"building",
+						"lot"
+					],
+					"value": [
+						{
+							"campagne_travaux_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro",
+									"building",
+									"lot"
+								],
+								"value": [
+									{
+										"nom_campagne_travaux": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"date_vote_en_ag": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"nature_travaux_sur_parties_communes_group": {
+											"type": "group",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": [
+												{
+													"nature_travaux_sur_parties_communes": {
+														"type": "select",
+														"endpoint": "TODO",
+														"multiple": true,
+														"scopes": [
+															"sc",
+															"copro",
+															"building"
+														],
+														"value": []
+													},
+													"description_succincte_poste_poste_nature_travaux_sur_parties_communes": {
+														"type": "string",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro",
+															"building"
+														],
+														"value": []
+													}
+												}
+											]
+										},
+										"travaux_sur_pc_ht_campagne_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"travaux_sur_pc_ttc_campagne_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"frais_sur_pc_ht_campagne_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"frais_sur_pc_ttc_campagne_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"depense_subventionnable_pc_ht_campagne_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"depense_totale_pc_ttc_campagne_travaux": {
+											"type": "string",
+											"formula": "travaux_sur_pc_ttc_campagne_travaux + frais_sur_pc_ttc_campagne_travaux",
+											"suffix": "€",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"nature_travaux_interet_collectif_sur_parties_privatives_group": {
+											"type": "group",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building",
+												"lot"
+											],
+											"value": [
+												{
+													"nature_travaux_interet_collectif_sur_parties_privatives": {
+														"type": "select",
+														"endpoint": "TODO",
+														"multiple": true,
+														"scopes": [
+															"sc",
+															"copro",
+															"building",
+															"lot"
+														],
+														"value": []
+													},
+													"description_succincte_poste_poste_nature_travaux_interet_collectif_sur_parties_privatives": {
+														"type": "string",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro",
+															"building",
+															"lot"
+														],
+														"value": []
+													}
+												}
+											]
+										},
+										"travaux_sur_ppic_ht_campagne_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building",
+												"lot"
+											],
+											"value": []
+										},
+										"travaux_sur_ppic_ttc_campagne_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building",
+												"lot"
+											],
+											"value": []
+										},
+										"frais_sur_ppic_ht_campagne_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building",
+												"lot"
+											],
+											"value": []
+										},
+										"frais_sur_ppic_ttc_campagne_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building",
+												"lot"
+											],
+											"value": []
+										},
+										"depense_subventionnable_ppic_ht_campagne_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building",
+												"lot"
+											],
+											"value": []
+										},
+										"depense_totale_ppic_ttc_campagne_travaux": {
+											"type": "string",
+											"formula": "travaux_sur_ppic_ttc_campagne_travaux + frais_sur_ppic_ttc_campagne_travaux",
+											"suffix": "€",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building",
+												"lot"
+											],
+											"value": []
+										},
+										"travaux_cumules_sur_pc_plus_ppic_ht_campagne_travaux": {
+											"type": "string",
+											"formula": "travaux_sur_pc_ht_campagne_travaux + travaux_sur_ppic_ht_campagne_travaux",
+											"suffix": "€",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"travaux_cumules_sur_pc_plus_ppic_ttc_campagne_travaux": {
+											"type": "string",
+											"formula": "travaux_sur_pc_ttc_campagne_travaux + travaux_sur_ppic_ttc_campagne_travaux",
+											"suffix": "€",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"frais_cumules_sur_pc_plus_ppic_ht_campagne_travaux": {
+											"type": "string",
+											"formula": "frais_sur_pc_ht_campagne_travaux + frais_sur_ppic_ht_campagne_travaux",
+											"suffix": "€",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"frais_cumules_sur_pc_plus_ppic_ttc_campagne_travaux": {
+											"type": "string",
+											"formula": "frais_sur_pc_ttc_campagne_travaux + frais_sur_ppic_ttc_campagne_travaux",
+											"suffix": "€",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"depense_subventionnable_sur_pc_plus_ppic_ht_campagne_travaux": {
+											"type": "string",
+											"formula": "depense_subventionnable_pc_ht_campagne_travaux + depense_subventionnable_ppic_ht_campagne_travaux",
+											"suffix": "€",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"depense_totale_sur_pc_plus_ppic_ttc_campagne_travaux": {
+											"type": "string",
+											"formula": "depense_totale_pc_ttc_campagne_travaux + depense_totale_ppic_ttc_campagne_travaux",
+											"suffix": "€",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "SUBVENTIONS_ET_PRIMES",
+				"order": 2,
+				"status": "",
+				"scopes": [
+					"sc",
+					"copro"
+				]
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"sc",
+						"copro"
+					],
+					"value": [
+						{
+							"financeur_subventions_et_primes_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": [
+									{
+										"financeur_financeur_subventions_et_primes": {
+											"type": "autocomplete",
+											"endpoint": "/funder/funders/",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"coordonnees_tel_financeur_subventions_et_primes": {
+											"type": "phone",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"coordonnees_mail_financeur_subventions_et_primes": {
+											"type": "email",
+											"rules": "email",
+											"prepend-inner-icon": "mdi-email",
+											"email-link": true,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"demande_aide_financeur_group": {
+											"type": "group",
+											"multiple": true,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": [
+												{
+													"type_aide_demande_aide_financeur": {
+														"type": "select",
+														"endpoint": "TODO",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"date_demande_aide_financeur": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"montant_aide_demande_subventions_demande_aide_financeur": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"montant_aide_demande_primes_demande_aide_financeur": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"accuse_reception_demande_aide_financeur": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"notification_decision_demande_aide_financeur": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"numero_notification_decision_demande_aide_financeur": {
+														"type": "string",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"montant_aide_engage_subventions_demande_aide_financeur": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"montant_aide_engage_primes_demande_aide_financeur": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"forclusion_demande_aide_financeur": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													}
+												}
+											]
+										},
+										"demande_avance_financeur_group": {
+											"type": "group",
+											"multiple": true,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": [
+												{
+													"date_demande_avance_financeur": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"montant_demande_avance_financeur": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"versement_demande_avance_financeur": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"montant_verse_demande_avance_financeur": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													}
+												}
+											]
+										},
+										"demande_acompte_financeur_group": {
+											"type": "group",
+											"multiple": true,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": [
+												{
+													"date_demande_acompte_financeur": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"montant_demande_acompte_financeur": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"date_versement_demande_acompte_financeur": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"montant_verse_demande_acompte_financeur": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													}
+												}
+											]
+										},
+										"demande_solde_financeur_group": {
+											"type": "group",
+											"multiple": true,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": [
+												{
+													"date_demande_solde_financeur": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"montant_demande_solde_financeur": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"date_versement_demande_solde_financeur": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"montant_verse_demande_solde_financeur": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													}
+												}
+											]
+										},
+										"delta_total_engage_total_verse_financeur": {
+											"type": "currency",
+											"multiple": true,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"demande_prorogation_financeur": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"nouvelle_forclusion_financeur": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"commentaires_financeur": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "PREFINANCEMENTS",
+				"order": 3,
+				"status": "",
+				"scopes": [
+					"sc",
+					"copro"
+				]
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"sc",
+						"copro"
+					],
+					"value": [
+						{
+							"prefinanceur_prefinancements_t8_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": [
+									{
+										"prefinanceur_prefinancements_t8": {
+											"type": "select",
+											"multiple": false,
+											"endpoint": "/referential/enums/?enums=Prefinanceurs",
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"coordonnees_tel_prefinanceur_prefinancements_t8": {
+											"type": "phone",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"coordonnees_mail_prefinanceur_prefinancements_t8": {
+											"type": "email",
+											"rules": "email",
+											"prepend-inner-icon": "mdi-email",
+											"email-link": true,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"date_demande_prefinanceur_prefinancements_t8": {
+											"type": "date",
+											"multiple": true,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"montant_demande_prefinanceur_prefinancements_t8": {
+											"type": "currency",
+											"multiple": true,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"accuse_reception_prefinanceur_prefinancements_t8": {
+											"type": "date",
+											"multiple": true,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"notification_decision_prefinanceur_prefinancements_t8": {
+											"type": "date",
+											"multiple": true,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"numero_convention_decision_prefinanceur_prefinancements_t8": {
+											"type": "string",
+											"multiple": true,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"montant_accorde_prefinanceur_prefinancements_t8": {
+											"type": "currency",
+											"multiple": true,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"demande_deblocage_prefinanceur_prefinancements_t8_group": {
+											"type": "group",
+											"multiple": true,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": [
+												{
+													"date_demande_deblocage_prefinanceur_prefinancements_t8": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"echeance_pret_demande_deblocage_prefinanceur_prefinancements_t8": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"date_demande_decaissement_demande_deblocage_prefinanceur_prefinancements_t8": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"montant_demande_decaissement_demande_deblocage_prefinanceur_prefinancements_t8": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"date_versement_demande_deblocage_prefinanceur_prefinancements_t8": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"montant_verse_demande_deblocage_prefinanceur_prefinancements_t8": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													}
+												}
+											]
+										},
+										"commentaires_financeur": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "AIDES_AU_PAIEMENT_RESTE_A_CHARGE",
+				"order": 4,
+				"status": "",
+				"scopes": [
+					"sc",
+					"copro",
+					"lot"
+				]
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"sc",
+						"copro",
+						"lot"
+					],
+					"value": [
+						{
+							"organisme_pret_collectif_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": [
+									{
+										"organisme_pret_collectif": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"coordonnees_tel_organisme_pret_collectif": {
+											"type": "phone",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"coordonnees_mail_organisme_pret_collectif": {
+											"type": "email",
+											"rules": "email",
+											"prepend-inner-icon": "mdi-email",
+											"email-link": true,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"type_pret_collectif_organisme_pret_collectif": {
+											"type": "select",
+											"endpoint": "TODO",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"nombre_adherents_au_pret_collectif_organisme_pret_collectif": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"montant_demande_organisme_pret_collectif": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"taux_annuel_effectif_global_organisme_pret_collectif": {
+											"type": "number",
+											"suffix": "%",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"notification_decision_organisme_pret_collectif": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"montant_accorde_organisme_pret_collectif": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"forclusion_organisme_pret_collectif": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"date_demande_deblocage_organisme_pret_collectif": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"montant_demande_deblocage_organisme_pret_collectif": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"date_versement_organisme_pret_collectif": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"montant_verse_organisme_pret_collectif": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"commentaires_organisme_pret_collectif": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"organisme_pret_individuel_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"sc",
+									"lot"
+								],
+								"value": [
+									{
+										"organisme_pret_individuel": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"coordonnees_tel_organisme_pret_individuel": {
+											"type": "phone",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"coordonnees_mail_organisme_pret_individuel": {
+											"type": "email",
+											"rules": "email",
+											"prepend-inner-icon": "mdi-email",
+											"email-link": true,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"type_pret_individuel_organisme_pret_individuel": {
+											"type": "select",
+											"endpoint": "TODO",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"date_demande_organisme_pret_individuel": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"montant_demande_organisme_pret_individuel": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"taux_annuel_effectif_global_organisme_pret_individuel": {
+											"type": "number",
+											"suffix": "%",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"notification_decision_organisme_pret_individuel": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"montant_accorde_organisme_pret_individuel": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"forclusion_organisme_pret_individuel": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"date_versement_organisme_pret_individuel": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"montant_verse_organisme_pret_individuel": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"commentaires_organisme_pret_individuel": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "TAUX_FINANCEMENT",
+				"order": 5,
+				"status": "",
+				"scopes": [
+					"sc",
+					"copro"
+				]
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"sc",
+						"copro"
+					],
+					"value": [
+						{
+							"taux_financement_sur_depense_subventionnable_pc_plus_ppic": {
+								"type": "number",
+								"suffix": "%",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"taux_financement_sur_depense_total_pc_plus_ppic": {
+								"type": "number",
+								"suffix": "%",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							}
+						}
+					]
+				}
+			}
+		}
+	]
+}

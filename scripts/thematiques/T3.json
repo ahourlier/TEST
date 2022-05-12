@@ -1,0 +1,1983 @@
+{
+	"thematique_name": "OCCUPATION_SOCIALE",
+	"scopes": [
+		"copro",
+		"lot"
+	],
+	"versionnable": [
+		false,
+		false
+	],
+	"heritable": [
+		false,
+		false
+	],
+	"extend_parent": [
+		false,
+		false
+	],
+	"steps": [
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "DONNEES_CADRAGE",
+				"order": 1,
+				"scopes": [
+					"copro"
+				],
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"copro"
+					],
+					"value": [
+						{
+							"rappel_axes_intervention_sur_champ_social": {
+								"type": "textArea",
+								"lg": 12,
+								"multiple": false,
+								"scopes": [
+									"copro"
+								],
+								"value": []
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "ENQUETES_OCCUPATION",
+				"order": 2,
+				"scopes": [
+					"copro",
+					"lot"
+				],
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": true,
+					"scopes": [
+						"copro",
+						"lot"
+					],
+					"value": [
+						{
+							"context_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"copro",
+									"lot"
+								],
+								"value": [
+									{
+										"date_enquete_sociale_context": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"annee_enquete_dispositif_context": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"nombre_cible_enquetes_context": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"enquetes_effectivement_realisees_context": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"identite_menage_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": [
+									{
+										"nom_identite_menage": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"statut_occupation_logement_identite_menage": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=LotOccupantStatus",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"age_occupant_principal_identite_menage": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=MainOccupantAge",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"taux_endettement_menages_identite_menage": {
+											"type": "select",
+											"suffix": "%",
+											"endpoint": "/referential/enums/?enums=HouseholdDebtRate",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"anciennete_occupation_logement_identite_menage": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=LotSeniorityOccupation",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"souhait_demenagement_identite_menage": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"souhait_decohabitation_identite_menage": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"loyers_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": [
+									{
+										"niveau_loyers": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=RentLevel",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"date_signature_initiale_bail_loyers": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"date_echeance_bail_loyers": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"ressources_menages_rencontres_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": [
+									{
+										"rfr_n_1": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"statut_menage_plafonds_anah_ressources_menages_rencontres": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=HouseholdResourcesAnahStatus",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"statut_menage_plafonds_autres_financeurs_ressources_menages_rencontres": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=HouseholdOtherFunderLimitStatus",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"ressources_locataires_rencontres_ressources_menages_rencontres": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=LocatairesRessources",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"situations_particulieres_occupation_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": [
+									{
+										"femmes_enceintes_enfants_lower_6_ans": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"enfants_mineurs": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"action_sociale_envisager": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"besoin_adaptation_age": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"besoin_adaptation_handicap": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"besoin_traducteur": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"commentaires_situations_particulieres_occupation": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"taux_effort_energetique_menages_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": [
+									{
+										"taux_effort_energetique_menages": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=HouseholdEnergeticEffortRate",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"precarite_energetique_menage": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"cause_precarite_energetique": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=EnergeticPrecariousnessCause",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"commentaires_taux_effort_energetique_menages": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"suroccupation_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": [
+									{
+										"averee_suroccupation": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"caracterisation_suroccupation": {
+											"type": "select",
+											"endpoint": "TODO",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"commentaires_suroccupation": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "RENCONTRES_PARTENAIRES_ACTION_SOCIALE",
+				"order": 3,
+				"scopes": [
+					"copro"
+				],
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": true,
+					"scopes": [
+						"copro"
+					],
+					"value": [
+						{
+							"date_rencontres_partenaires_action_sociale": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"copro"
+								],
+								"value": []
+							},
+							"partenaires_rencontres_partenaires_action_sociale": {
+								"type": "textArea",
+								"lg": 12,
+								"multiple": false,
+								"scopes": [
+									"copro"
+								],
+								"value": []
+							},
+							"rapide_cr_reunion_rencontres_partenaires_action_sociale": {
+								"type": "textArea",
+								"lg": 12,
+								"multiple": false,
+								"scopes": [
+									"copro"
+								],
+								"value": []
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "ORGANISATION_ACTIONS_COLLECTIVES",
+				"order": 4,
+				"scopes": [
+					"copro",
+					"lot"
+				],
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"copro",
+						"lot"
+					],
+					"value": [
+						{
+							"evenements_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
+										"nature_evenement_evenements": {
+											"type": "select",
+											"endpoint": "TODO",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"date_evenement_evenements": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"nombre_participants_hors_urbanis_evenements": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"commentaires_evenements": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"livret_accueil_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
+										"livret_accueil_existant": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"redacteur_livret_accueil": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"frequence_transmission_proposee": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"communication_livret_accueil_au_nouvel_arrivant": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"reunion_nouveaux_coproprietaires_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
+										"date_reunion_nouveaux_coproprietaires": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"nombre_participants_reunion_nouveaux_coproprietaires": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"themes_abordes_reunion_nouveaux_coproprietaires": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"formation_coproprietaires_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
+										"date_formation_coproprietaires": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"nombre_participants_formation_coproprietaires": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"themes_abordes_formation_coproprietaires": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "ETABLISSEMENT_CONTACT_SOCIAL",
+				"order": 5,
+				"scopes": [
+					"lot"
+				],
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"lot"
+					],
+					"value": [
+						{
+							"mise_a_disposition_initiale_etablissement_contact_social": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": []
+							},
+							"relance_etablissement_contact_social": {
+								"type": "date",
+								"multiple": true,
+								"scopes": [
+									"lot"
+								],
+								"value": []
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "EVALUATION_SOCIALE_ET_BUDGETAIRE",
+				"order": 6,
+				"scopes": [
+					"lot"
+				],
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"lot"
+					],
+					"value": [
+						{
+							"date_realisation_evaluation_sociale_et_budgetaire": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": []
+							},
+							"statut_menage_accompagne": {
+								"type": "select",
+								"endpoint": "/referential/enums/?enums=HouseholdAccompaniedStatus",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": []
+							},
+							"identite_menage_accompagne_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": [
+									{
+										"composition_familiale_group": {
+											"type": "group",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": [
+												{
+													"situation_matrimoniale": {
+														"type": "select",
+														"endpoint": "/referential/enums/?enums=MaritalSituation",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"nb_total_enfants": {
+														"type": "number",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"nb_enfants_vivant_domicile": {
+														"type": "number",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"nb_autres_personnes_charge_domicile": {
+														"type": "number",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"nb_total_personnes_logement": {
+														"type": "number",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"naissance_attendue": {
+														"type": "switch",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"commentaires_composition_familiale": {
+														"type": "textArea",
+														"lg": 12,
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"adresse_differente_celle_copropriete": {
+														"type": "switch",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"adresse_menage_si_differente_copropriete": {
+														"type": "address",
+														"showIf": "adresse_differente_celle_copropriete",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"numero_allocataire_caf": {
+														"type": "password",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													}
+												}
+											]
+										},
+										"majeur_reference_group": {
+											"type": "group",
+											"multiple": true,
+											"scopes": [
+												"lot"
+											],
+											"value": [
+												{
+													"majeur_reference_prenom": {
+														"type": "string",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"majeur_reference_nom": {
+														"type": "string",
+														"text_format": "uppercase",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"majeur_reference_telephone": {
+														"type": "telephone",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"majeur_reference_mail": {
+														"type": "email",
+														"rules": "email",
+														"prepend-inner-icon": "mdi-email",
+														"email-link": true,
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"majeur_reference_date_naissance": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"majeur_reference_age": {
+														"type": "number",
+														"formula": "majeur_reference_date_naissance",
+														"formula_type": "AGE",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"majeur_reference_situation_administrative": {
+														"type": "select",
+														"endpoint": "TODO",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"majeur_reference_date_expiration_titre": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"majeur_reference_commentaires": {
+														"type": "textArea",
+														"lg": 12,
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													}
+												}
+											]
+										},
+										"parcours_residentiel_menage_group": {
+											"type": "group",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": [
+												{
+													"annee_entree_logement": {
+														"type": "date",
+														"format": "YYYY",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"statut_anterieur": {
+														"type": "select",
+														"endpoint": "/referential/enums/?enums=HouseholdAccompaniedStatusAndPreviousStatus",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"commune_residence_anterieure": {
+														"type": "string",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"menage_proprietaire_autres_logements": {
+														"type": "switch",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"projet_demenagement": {
+														"type": "select",
+														"multiple": false,
+														"endpoint": "/referential/enums/?enums=MovingHouseProject",
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"parcours_residentiel_commentaires": {
+														"type": "textArea",
+														"lg": 12,
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													}
+												}
+											]
+										},
+										"emprunt_immobilier_po_group": {
+											"type": "group",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": [
+												{
+													"annee_achat_logement_emprunt_immobilier_po": {
+														"type": "date",
+														"format": "YYYY",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"montant_emprunt_emprunt_immobilier_po": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"duree_credit_initial_annees": {
+														"type": "number",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"capital_restant_du_emprunt_immobilier_po": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"fin_credit_immobilier": {
+														"type": "date",
+														"format": "YYYY",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													}
+												}
+											]
+										},
+										"ressources_menage_group": {
+											"type": "group",
+											"multiple": false,
+											"value": [
+												{
+													"majeur_charge_famille_group": {
+														"type": "group",
+														"multiple": true,
+														"value": [
+															{
+																"situation_professionnelle": {
+																	"type": "select",
+																	"endpoint": "/referential/enums/?enums=ProfessionalSituation",
+																	"multiple": false,
+																	"value": []
+																},
+																"lieu_travail": {
+																	"type": "string",
+																	"multiple": false,
+																	"value": []
+																},
+																"type_contrat_travail": {
+																	"type": "select",
+																	"endpoint": "/referential/enums/?enums=ContractType",
+																	"multiple": false,
+																	"value": []
+																},
+																"origine_ressources_mensuelles_group": {
+																	"type": "group",
+																	"multiple": true,
+																	"value": [
+																		{
+																			"origine_ressources_mensuelles": {
+																				"type": "select",
+																				"multiple": false,
+																				"endpoint": "/referential/enums/?enums=MonthlyRessourcesType",
+																				"value": []
+																			},
+																			"montant_ressources_mensuelles": {
+																				"type": "currency",
+																				"multiple": false,
+																				"value": []
+																			}
+																		}
+																	]
+																},
+																"total_ressources_mois": {
+																	"type": "currency",
+																	"multiple": false,
+																	"value": []
+																}
+															}
+														]
+													},
+													"autre_membre_menage_group": {
+														"type": "group",
+														"multiple": true,
+														"value": [
+															{
+																"type_1_ressources": {
+																	"type": "select",
+																	"multiple": false,
+																	"endpoint": "/referential/enums/?enums=MonthlyRessourcesType",
+																	"value": []
+																},
+																"montant_ressources_mensuelles_autre_membre_menage": {
+																	"type": "currency",
+																	"multiple": false,
+																	"value": []
+																},
+																"total_autre_membre_menage": {
+																	"type": "currency",
+																	"multiple": false,
+																	"value": []
+																}
+															}
+														]
+													},
+													"total_ressources_menage": {
+														"type": "currency",
+														"multiple": false,
+														"value": []
+													},
+													"ressources_menage_commentaires": {
+														"type": "textArea",
+														"lg": 12,
+														"multiple": false,
+														"value": []
+													},
+													"detail_charges_mensuelles_menage_group": {
+														"type": "group",
+														"multiple": false,
+														"value": [
+															{
+																"credit_immobilier": {
+																	"type": "currency",
+																	"multiple": false,
+																	"value": []
+																},
+																"loyer_cc": {
+																	"type": "currency",
+																	"multiple": false,
+																	"value": []
+																},
+																"montant_charges_copropriete": {
+																	"type": "currency",
+																	"multiple": false,
+																	"value": []
+																},
+																"energie_edf_gdf": {
+																	"type": "currency",
+																	"multiple": false,
+																	"value": []
+																},
+																"depense_energie": {
+																	"type": "number",
+																	"suffix": "%",
+																	"multiple": false,
+																	"value": []
+																},
+																"eau": {
+																	"type": "currency",
+																	"multiple": false,
+																	"value": []
+																},
+																"telephonie": {
+																	"type": "currency",
+																	"multiple": false,
+																	"value": []
+																},
+																"internet_ligne_fixe": {
+																	"type": "currency",
+																	"multiple": false,
+																	"value": []
+																},
+																"assurances_habitation_autres": {
+																	"type": "currency",
+																	"multiple": false,
+																	"value": []
+																},
+																"impots_sur_revenu": {
+																	"type": "currency",
+																	"multiple": false,
+																	"value": []
+																},
+																"taxe_habitation": {
+																	"type": "currency",
+																	"multiple": false,
+																	"value": []
+																},
+																"pensions_alimentaires": {
+																	"type": "currency",
+																	"multiple": false,
+																	"value": []
+																},
+																"credits_consommation": {
+																	"type": "currency",
+																	"multiple": false,
+																	"value": []
+																},
+																"credit_auto": {
+																	"type": "currency",
+																	"multiple": false,
+																	"value": []
+																},
+																"frais_transport_essence": {
+																	"type": "currency",
+																	"multiple": false,
+																	"value": []
+																},
+																"mutuelle": {
+																	"type": "currency",
+																	"multiple": false,
+																	"value": []
+																},
+																"frais_garde": {
+																	"type": "currency",
+																	"multiple": false,
+																	"value": []
+																},
+																"autres_frais": {
+																	"type": "currency",
+																	"multiple": false,
+																	"value": []
+																},
+																"total_depenses_mensuelles": {
+																	"type": "currency",
+																	"multiple": false,
+																	"formula": "credit_immobilier + loyer_cc + montant_charges_copropriete + energie_edf_gdf + eau + telephonie + internet_ligne_fixe + assurances_habitation_autres + impots_sur_revenu + taxe_habitation + pensions_alimentaires + credits_consommation + credit_auto + frais_transport_essence + mutuelle + frais_garde + autres_frais",
+																	"value": []
+																},
+																"detail_charges_mensuelles_menage_commentaires": {
+																	"type": "textArea",
+																	"lg": 12,
+																	"multiple": false,
+																	"value": []
+																}
+															}
+														]
+													}
+												}
+											]
+										},
+										"synthese_financiere_group": {
+											"type": "group",
+											"multiple": false,
+											"value": [
+												{
+													"montant_reste_vivre_menage": {
+														"type": "currency",
+														"multiple": false,
+														"value": []
+													},
+													"montant_reste_vivre_menage_par_personne": {
+														"type": "currency",
+														"multiple": false,
+														"value": []
+													},
+													"revenu_fiscal_reference": {
+														"type": "currency",
+														"multiple": false,
+														"value": []
+													},
+													"annee_retenue_pour_rfr": {
+														"type": "textArea",
+														"lg": 12,
+														"multiple": false,
+														"value": []
+													},
+													"taux_endettement_effort_locatif": {
+														"type": "number",
+														"suffix": "%",
+														"multiple": false,
+														"value": []
+													},
+													"taux_endettement_tf_charges_copro": {
+														"type": "number",
+														"suffix": "%",
+														"multiple": false,
+														"value": []
+													},
+													"menage_impayes": {
+														"type": "switch",
+														"multiple": false,
+														"value": []
+													},
+													"montant_dettes_locatives_ou_charges": {
+														"type": "currency",
+														"multiple": false,
+														"value": []
+													},
+													"origine_dette": {
+														"type": "select",
+														"multiple": false,
+														"endpoint": "/referential/enums/?enums=DebtOrigin",
+														"value": []
+													},
+													"plan_apurement_signe": {
+														"type": "switch",
+														"multiple": false,
+														"value": []
+													},
+													"date_signature_plan_apurement": {
+														"type": "date",
+														"multiple": false,
+														"showIf": "plan_apurement_signe",
+														"value": []
+													},
+													"rachat_credit": {
+														"type": "switch",
+														"multiple": false,
+														"value": []
+													},
+													"dossier_surendettement": {
+														"type": "switch",
+														"multiple": false,
+														"value": []
+													},
+													"vente_logement": {
+														"type": "switch",
+														"multiple": false,
+														"value": []
+													},
+													"annee_vente_logement": {
+														"type": "date",
+														"multiple": false,
+														"showIf": "vente_logement",
+														"format": "YYYY",
+														"value": []
+													},
+													"montant_prix_vente": {
+														"type": "currency",
+														"multiple": false,
+														"showIf": "vente_logement",
+														"value": []
+													},
+													"prix_vente_couvre_crd_emprunt": {
+														"type": "switch",
+														"multiple": false,
+														"showIf": "vente_logement",
+														"value": []
+													},
+													"synthese_financiere_commentaires": {
+														"type": "textArea",
+														"lg": 12,
+														"multiple": false,
+														"value": []
+													}
+												}
+											]
+										},
+										"adresse_differente_copropriete": {
+											"type": "switch",
+											"multiple": false,
+											"value": []
+										},
+										"adresse_menage": {
+											"type": "adresse",
+											"showIf": "adresse_differente_copropriete",
+											"multiple": false,
+											"value": []
+										},
+										"numero_allocataire_caf": {
+											"type": "password",
+											"multiple": false,
+											"value": []
+										},
+										"situation_administrative": {
+											"type": "select",
+											"multiple": false,
+											"endpoint": "/referential/enums/?enums=AdministrativeSituation",
+											"value": []
+										},
+										"date_expiration_titre": {
+											"type": "date",
+											"multiple": false,
+											"value": []
+										},
+										"identite_menage_accompagne_commentaires": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "SUIVI_SOCIALE",
+				"order": 7,
+				"scopes": [
+					"lot"
+				],
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"lot"
+					],
+					"value": [
+						{
+							"date_demarrage_suivi_sociale": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": []
+							},
+							"souhait_menage_rencontrer_urbanis": {
+								"type": "switch",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": []
+							},
+							"referent_social_coordonnees": {
+								"type": "textArea",
+								"lg": 12,
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": []
+							},
+							"commentaires_suivi_sociale": {
+								"type": "textArea",
+								"lg": 12,
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": []
+							},
+							"objectifs_suivi_social_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": [
+									{
+										"menage_deja_accompagne_par_partenaire_organisme": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"problematique_sociale_principale_menage": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=PrincipalSocialProblematics",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"possibilite_maintien_domicile": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"besoin_adaptation_logement": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"type_accompagnement_social": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=SocialSupportType",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"axe_principal_accompagnement_instaure": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=PrincipalSocialProblematics",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"menage_suivre_commission_sociale": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"accord_menage_pour_inclusion_commission_sociale": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"commentaires_situation_sociale": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"suivi_rencontres_menage_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"lot"
+								],
+								"value": [
+									{
+										"date_rencontre_suivi_rencontres_menage": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"type_rdv_suivi_rencontres_menage": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=RDVType",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"demarches_avec_pour_menage_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": [
+									{
+										"orientation_vers_ts_territoire": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"nom_organisme_demarches_avec_pour_menage": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"orientation_vers_adil_point_droit_maison_droit": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"aide_administrative_demarches_avec_pour_menage": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=AdministrativeSupport",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"accompagnement_budgetaire_demarches_avec_pour_menage": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"aide_ouverture_droits_demarches_avec_pour_menage": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"negociation_echeancier_pret_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"lot"
+								],
+								"value": [
+									{
+										"echeancier_pret_negociation_echeancier_pret": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"type_pret_negocie_negociation_echeancier_pret": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"date_depot_dossier_negociation_echeancier_pret": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"date_accord_negociation_echeancier_pret": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"montant_echeancier_accorde_negociation_echeancier_pret": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"nombre_mensuaties_negociees_negociation_echeancier_pret": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"aides_sociales_sollicitees_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"lot"
+								],
+								"value": [
+									{
+										"nom_aide_sollicitee_aides_sociales_sollicitees": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=AdministrativeSupport",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"date_depot_dossier_aides_sociales_sollicitees": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"montant_demande_aides_sociales_sollicitees": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"date_accord_aides_sociales_sollicitees": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"montant_accorde_aides_sociales_sollicitees": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"Commentaires_aides_sociales_sollicitees": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"demande_logement_social_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"lot"
+								],
+								"value": [
+									{
+										"date_initiale_depot_dls": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"precisions_sur_dls": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"date_renouvellement_dls": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"date_depot_recours_dalo": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"demande_logement_aupres_action_logement": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"depot_dossier_accord_collectf": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"date_accord_dossier_accord_co": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "SUIVI_MENAGE_COMMISSION_SOCIALE",
+				"order": 8,
+				"scopes": [
+					"lot"
+				],
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"lot"
+					],
+					"value": [
+						{
+							"accord_menage_pour_passage_commission_sociale": {
+								"type": "switch",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": []
+							},
+							"date_accord_ecrit": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": []
+							},
+							"decisions_commissions_sociales_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"lot"
+								],
+								"value": [
+									{
+										"date_commission_sociale_decisions_commissions_sociales": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"resume_situation_sociale_decisions_commissions_sociales": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"actions_definies_decisions_commissions_sociales": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"actions_partenaires_decisions_commissions_sociales": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"actions_urbanis_decisions_commissions_sociales": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"actions_a_entreprendre_decisions_commissions_sociales": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "CLOTURE_ACCOMPAGNEMENT",
+				"order": 9,
+				"scopes": [
+					"lot"
+				],
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"lot"
+					],
+					"value": [
+						{
+							"motif_cloture_accompagnement": {
+								"type": "select",
+								"endpoint": "TODO",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": []
+							},
+							"courrier_cloture_accompagnement": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": []
+							},
+							"organisme_orientation_menage_accompagnement": {
+								"type": "textArea",
+								"lg": 12,
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": []
+							}
+						}
+					]
+				}
+			}
+		}
+	]
+}
