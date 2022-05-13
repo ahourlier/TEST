@@ -294,7 +294,9 @@ class CoproService:
         if "syndic_manager_address" in changes:
             if changes.get("syndic_manager_address"):
                 if not db_copro.syndic_manager_address:
-                    changes["syndic_manager_address"] = AddressService.create_address(
+                    changes[
+                        "syndic_manager_address_id"
+                    ] = AddressService.create_address(
                         changes.get("syndic_manager_address")
                     )
                 else:
@@ -307,7 +309,7 @@ class CoproService:
         if "admin_manager_address" in changes:
             if changes.get("admin_manager_address"):
                 if not db_copro.admin_manager_address:
-                    changes["admin_manager_address"] = AddressService.create_address(
+                    changes["admin_manager_address_id"] = AddressService.create_address(
                         changes.get("admin_manager_address")
                     )
                 else:

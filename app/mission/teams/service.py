@@ -83,7 +83,7 @@ class TeamService:
         term=None,
         sort_by=MISSION_MANAGERS_DEFAULT_SORT_FIELD,
         direction=MISSION_MANAGERS_DEFAULT_SORT_DIRECTION,
-        mission_id=None
+        mission_id=None,
     ) -> Pagination:
         q = User.query.join(Team, Team.user_id == User.id)
         q = q.filter(Team.user_position == UserTeamPositions.MISSION_MANAGER).distinct(

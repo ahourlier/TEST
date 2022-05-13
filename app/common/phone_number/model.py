@@ -10,14 +10,13 @@ class PhoneNumber(BaseMixin, db.Model):
     """Represents a phone number"""
 
     __tablename__ = "phone_number"
-
     id = Column(Integer, primary_key=True, autoincrement=True)
-    country_code = Column(String(3), nullable=False)
-    national = Column(String(128), nullable=False)
-    international = Column(String(128), nullable=False)
+    country_code = Column(String(3), nullable=True)
+    national = Column(String(128), nullable=True)
+    international = Column(String(128), nullable=True)
     kind = Column(String(128), nullable=True)
-    resource_type = Column(String(128), nullable=False)
-    resource_id = Column(Integer, nullable=False)
+    resource_type = Column(String(128), nullable=True)
+    resource_id = Column(Integer, nullable=True)
 
     @property
     def resource(self):

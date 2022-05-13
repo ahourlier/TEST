@@ -115,7 +115,11 @@ MAPPING_TYPE_TO_UNKNOWN_COLUMN = {"commune": "string"}
 
 MAPPING_MISSION_ENUMS = {"status": "MissionStatus"}
 
-MAPPING_LOT_ENUMS = {"type": "LotType", "habitation_type": "LotHabitationType", "occupant_status": "LotOccupantStatus"}
+MAPPING_LOT_ENUMS = {
+    "type": "LotType",
+    "habitation_type": "LotHabitationType",
+    "occupant_status": "LotOccupantStatus",
+}
 
 MAPPING_BUILDING_ENUMS = {"access_type": "AccessType"}
 

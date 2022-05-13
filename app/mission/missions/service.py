@@ -116,7 +116,7 @@ class MissionService:
             mission_managers = TeamService.get_all_mission_managers(mission_id=item.id)
             item.managers = mission_managers.items
 
-        return  q.paginate(page=page, per_page=size)
+        return q.paginate(page=page, per_page=size)
 
     @staticmethod
     def get_by_id(mission_id: int) -> Mission:

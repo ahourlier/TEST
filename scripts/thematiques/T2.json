@@ -1,0 +1,740 @@
+{
+	"thematique_name": "SITUATION_JURIDIQUE_FONCIER",
+	"scopes": [
+		"sc",
+		"copro",
+		"building"
+	],
+	"versionnable": [
+		false,
+		false,
+		false
+	],
+	"heritable": [
+		false,
+		false,
+		false
+	],
+	"extend_parent": [
+		false,
+		false,
+		false
+	],
+	"steps": [
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "DONNEES_CADRAGE",
+				"order": 1,
+				"scopes": [
+					"sc",
+					"copro",
+					"building"
+				],
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"sc",
+						"copro",
+						"building"
+					],
+					"value": [
+						{
+							"reglement_copropriete_statuts": {
+								"type": "switch",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"publication_rcp": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"copro"
+								],
+								"value": []
+							},
+							"etat_descriptif_division": {
+								"type": "switch",
+								"multiple": false,
+								"scopes": [
+									"copro"
+								],
+								"value": []
+							},
+							"publication_ecd": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"copro"
+								],
+								"value": []
+							},
+							"coherence_fonciere": {
+								"type": "switch",
+								"multiple": false,
+								"scopes": [
+									"copro"
+								],
+								"value": []
+							},
+							"copropriete_mixte": {
+								"type": "switch",
+								"multiple": false,
+								"scopes": [
+									"copro"
+								],
+								"value": []
+							},
+							"copropriete_horizontale": {
+								"type": "switch",
+								"multiple": false,
+								"scopes": [
+									"copro"
+								],
+								"value": []
+							},
+							"commentaires": {
+								"type": "textArea",
+								"lg": 12,
+								"multiple": false,
+								"scopes": [
+									"copro"
+								],
+								"value": []
+							},
+							"descriptif_lots_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro",
+									"building"
+								],
+								"value": [
+									{
+										"lots_habitation": {
+											"TODO": "CHAMP RAPPELE",
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"loges": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"lots_commerciaux": {
+											"TODO": "CHAMP RAPPELE",
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"autres_lots_principaux": {
+											"TODO": "CHAMP RAPPELE",
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"total_lots_principaux": {
+											"type": "string",
+											"multiple": false,
+											"formula": "lots_habitation + loges + lots_commerciaux + autres_lots_principaux",
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"lots_secondaires": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"total_lots_principaux_secondaires": {
+											"type": "string",
+											"multiple": false,
+											"formula": "total_lots_principaux + lots_secondaires",
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"syndicat_principal_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
+										"syndicat_principal": {
+											"TODO": "CHAMP RAPPELE",
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"copropriete_membre_s1_s2": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"denomination_syndicat_principal": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"perimetre_syndicat_principal": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"gestionnaire_syndicat_principal": {
+											"TODO": "CHAMP RAPPELE",
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"syndicats_secondaires_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"building"
+								],
+								"value": [
+									{
+										"denomination_syndicats_secondaires": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"building"
+											],
+											"value": []
+										},
+										"perimetre_syndicats_secondaires": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"building"
+											],
+											"value": []
+										},
+										"gestionnaire_syndicats_secondaires": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"building"
+											],
+											"value": []
+										},
+										"coordonnees_tel_syndicats_secondaires": {
+											"type": "phone",
+											"multiple": false,
+											"scopes": [
+												"building"
+											],
+											"value": []
+										},
+										"coordonnees_mail_syndicats_secondaires": {
+											"type": "email",
+											"rules": "email",
+											"prepend-inner-icon": "mdi-email",
+											"email-link": true,
+											"multiple": false,
+											"scopes": [
+												"building"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"structure_combinee_group": {
+								"type": "group",
+								"scopes": [
+									"sc"
+								],
+								"multiple": false,
+								"value": [
+									{
+										"structure_combinee": {
+											"TODO": "CHAMP RAPPELE",
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"sc"
+											],
+											"value": []
+										},
+										"nature_structure_combinee": {
+											"TODO": "CHAMP RAPPELE",
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=CombinedStructureType",
+											"multiple": false,
+											"scopes": [
+												"sc"
+											],
+											"value": []
+										},
+										"membres_structure_combinee": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc"
+											],
+											"value": []
+										},
+										"nom_structure_combinee": {
+											"TODO": "CHAMP RAPPELE",
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"sc"
+											],
+											"value": []
+										},
+										"nom_gestionnaire_structure_combinee": {
+											"TODO": "CHAMP RAPPELE",
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"sc"
+											],
+											"value": []
+										},
+										"coordonnees_tel_gestionnaire_structure_combinee": {
+											"TODO": "CHAMP RAPPELE",
+											"type": "phone",
+											"multiple": false,
+											"scopes": [
+												"sc"
+											],
+											"value": []
+										},
+										"coordonnees_mail_gestionnaire_structure_combinee": {
+											"TODO": "CHAMP RAPPELE",
+											"type": "email",
+											"rules": "email",
+											"prepend-inner-icon": "mdi-email",
+											"email-link": true,
+											"multiple": false,
+											"scopes": [
+												"sc"
+											],
+											"value": []
+										},
+										"creation_structure_combinee": {
+											"TODO": "CHAMP RAPPELE",
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc"
+											],
+											"value": []
+										},
+										"objet_structure_combinee": {
+											"TODO": "CHAMP RAPPELE",
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"sc"
+											],
+											"value": []
+										},
+										"statuts_structure_combinee": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"sc"
+											],
+											"value": []
+										},
+										"date_publication_statuts_structure_combinee": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "INTERVENTION_JURIDIQUE",
+				"order": 2,
+				"scopes": [
+					"sc",
+					"copro",
+					"building"
+				],
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": true,
+					"scopes": [
+						"sc",
+						"copro",
+						"building"
+					],
+					"value": [
+						{
+							"descriptif_axe_travail_intervention_juridique": {
+								"type": "select",
+								"endpoint": "/referential/enums/?enums=WorkAxis",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro",
+									"building"
+								],
+								"value": []
+							},
+							"date_demarrage_travail_intervention_juridique": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro",
+									"building"
+								],
+								"value": []
+							},
+							"partenariat_intervention_juridique": {
+								"type": "switch",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro",
+									"building"
+								],
+								"value": []
+							},
+							"partenaires_intervention_juridique": {
+								"type": "textArea",
+								"lg": 12,
+								"showIf": "partenariat_intervention_juridique",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro",
+									"building"
+								],
+								"value": []
+							},
+							"reunions_intervention_juridique_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"sc",
+									"copro",
+									"building"
+								],
+								"value": [
+									{
+										"date_reunions_intervention_juridique": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"objet_reunions_intervention_juridique": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"production_intervention_juridique": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"nature_documents_produits_intervention_juridique": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"date_livraison_intervention_juridique": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"couts_ttc_production_intervention_juridique": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"autre_resultat_intervention_juridique": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "INTERVENTION_FONCIERE",
+				"order": 3,
+				"scopes": [
+					"sc",
+					"copro",
+					"building"
+				],
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": true,
+					"scopes": [
+						"sc",
+						"copro",
+						"building"
+					],
+					"value": [
+						{
+							"descriptif_axe_travail_intervention_fonciere": {
+								"type": "select",
+								"endpoint": "/referential/enums/?enums=WorkAxis",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro",
+									"building"
+								],
+								"value": []
+							},
+							"date_demarrage_travail_intervention_fonciere": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro",
+									"building"
+								],
+								"value": []
+							},
+							"partenariat_intervention_fonciere": {
+								"type": "switch",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro",
+									"building"
+								],
+								"value": []
+							},
+							"partenaires_intervention_fonciere": {
+								"type": "textArea",
+								"lg": 12,
+								"showIf": "partenariat_intervention_fonciere",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro",
+									"building"
+								],
+								"value": []
+							},
+							"reunions_intervention_fonciere_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"sc",
+									"copro",
+									"building"
+								],
+								"value": [
+									{
+										"date_reunions_intervention_fonciere": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"objet_reunions_intervention_fonciere": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"production_intervention_fonciere": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"nature_documents_produits_intervention_fonciere": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"date_livraison_intervention_fonciere": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"couts_ttc_production_intervention_fonciere": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"autre_resultat_intervention_fonciere": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		}
+	]
+}

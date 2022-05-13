@@ -1,0 +1,839 @@
+{
+	"thematique_name": "SUIVI_FINANCEMENTS_PP",
+	"scopes": [
+		"lot"
+	],
+	"versionnable": [
+		true
+	],
+	"heritable": [
+		false
+	],
+	"extend_parent": [
+		false
+	],
+	"steps": [
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "DECOMPOSITION_DEPENSE",
+				"order": 1,
+				"status": "",
+				"scopes": [
+					"lot"
+				]
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"lot"
+					],
+					"value": [
+						{
+							"nature_travaux_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"lot"
+								],
+								"value": [
+									{
+										"travaux_decides_nature_travaux": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=NatureWorkPrivateParts",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"description_succincte_poste_poste_nature_travaux": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"travaux_ht_nature_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"travaux_ttc_nature_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"moe_ht_nature_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"moe_ttc_nature_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"ergotherapeute_ht_nature_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"ergotherapeute_ttc_nature_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"autres_frais_ht_nature_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"autres_frais_ttc_nature_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"depense_subventionnable_ht_nature_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"depense_subventionnable_ttc_nature_travaux": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"depense_totale_ttc_nature_travaux": {
+											"type": "string",
+											"formula": "travaux_ttc_nature_travaux + moe_ttc_nature_travaux + ergotherapeute_ttc_nature_travaux + autres_frais_ttc_nature_travaux",
+											"suffix": "€",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"commentaires_nature_travaux": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "SUBVENTIONS_ET_PRIMES",
+				"order": 2,
+				"status": "",
+				"scopes": [
+					"lot"
+				]
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"lot"
+					],
+					"value": [
+						{
+							"financement_projet_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"lot"
+								],
+								"value": [
+									{
+										"financement_projet": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"demande_subvention_financement_projet_group": {
+											"type": "group",
+											"multiple": true,
+											"scopes": [
+												"lot"
+											],
+											"value": [
+												{
+													"organisme_financeur_demande_subvention_financement_projet": {
+														"type": "select",
+														"endpoint": "/referential/enums/?enums=FunderOrganism",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"coordonnees_tel_demande_subvention_financement_projet": {
+														"type": "phone",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"coordonnees_mail_demande_subvention_financement_projet": {
+														"type": "email",
+														"rules": "email",
+														"prepend-inner-icon": "mdi-email",
+														"email-link": true,
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"date_demande_aide_demande_subvention_financement_projet": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"montant_subvention_demande_subvention_financement_projet": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"type_aide_demande_subvention_financement_projet": {
+														"type": "select",
+														"endpoint": "TODO",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"montant_primes_demande_subvention_financement_projet": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"accuse_reception_demande_subvention_financement_projet": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													}
+												}
+											]
+										},
+										"notification_decision_financement_projet_group": {
+											"type": "group",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": [
+												{
+													"notification_decision_financement_projet": {
+														"type": "string",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"date_notification_decision_financement_projet": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"numero_notification_decision_financement_projet": {
+														"type": "string",
+														"rules": "alpha_num",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"subvention_engagee_notification_decision_financement_projet": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"prime_engagee_notification_decision_financement_projet": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													}
+												}
+											]
+										},
+										"forclusion_financement_projet_group": {
+											"type": "group",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": [
+												{
+													"date_forclusion_financement_projet": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"demande_prorogation_forclusion_financement_projet": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"nouvelle_forclusion_forclusion_financement_projet": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													}
+												}
+											]
+										},
+										"demande_avance_financement_projet_group": {
+											"type": "group",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": [
+												{
+													"date_demande_avance_financement_projet": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"montant_demande_avance_financement_projet": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"versement_demande_avance_financement_projet": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"montant_verse_demande_avance_financement_projet": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													}
+												}
+											]
+										},
+										"demande_acompte_financement_projet_group": {
+											"type": "group",
+											"multiple": true,
+											"scopes": [
+												"lot"
+											],
+											"value": [
+												{
+													"date_demande_acompte_financement_projet": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"montant_demande_acompte_financement_projet": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"montant_verse_demande_acompte_financement_projet": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													}
+												}
+											]
+										},
+										"demande_solde_financement_projet_group": {
+											"type": "group",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": [
+												{
+													"date_demande_solde_financement_projet": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"montant_demande_solde_financement_projet": {
+														"type": "currency",
+														"formula": "(subvention_engagee_notification_decision_financement_projet + prime_engagee_notification_decision_financement_projet) - montant_verse_demande_avance_financement_projet - montant_verse_demande_acompte_financement_projet",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"montant_verse_demande_solde_financement_projet": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													}
+												}
+											]
+										},
+										"delta_total_engage_total_verse_financement_projet": {
+											"type": "currency",
+											"formula": "(subvention_engagee_notification_decision_financement_projet + prime_engagee_notification_decision_financement_projet) / (montant_verse_demande_solde_financement_projet || 1)",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"commentaires_financement_projet": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "PREFINANCEMENTS",
+				"order": 3,
+				"status": "",
+				"scopes": [
+					"lot"
+				]
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"lot"
+					],
+					"value": [
+						{
+							"prefinanceur_prefinancements_t9_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"lot"
+								],
+								"value": [
+									{
+										"organisme_prefinanceur_prefinancements_t9": {
+											"type": "select",
+											"multiple": false,
+											"endpoint": "/referential/enums/?enums=Prefinanceurs",
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"coordonnees_tel_prefinanceur_prefinancements_t9": {
+											"type": "phone",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"coordonnees_mail_prefinanceur_prefinancements_t9": {
+											"type": "email",
+											"rules": "email",
+											"prepend-inner-icon": "mdi-email",
+											"email-link": true,
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"pret_avec_interets_prefinanceur_prefinancements_t9": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"detail_prefinanceur_prefinancements_t9_group": {
+											"type": "group",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": [
+												{
+													"montant_global_plan_financement_prefinanceur_prefinancements_t9": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"prefinancement_demande_prefinanceur_prefinancements_t9": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													}
+												}
+											]
+										},
+										"organismes_aux_aides_prefinancees_prefinanceur_prefinancements_t9_group": {
+											"type": "group",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": [
+												{
+													"organismes_aux_aides_prefinancees_prefinanceur_prefinancements_t9": {
+														"type": "textArea",
+														"lg": 12,
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"reste_a_charge_menage_organismes_aux_aides_prefinancees_prefinanceur_prefinancements_t9": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"demande_prefinancement_organismes_aux_aides_prefinancees_prefinanceur_prefinancements_t9": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"accuse_reception_dossier_organismes_aux_aides_prefinancees_prefinanceur_prefinancements_t9": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"accord_prefinancement_organismes_aux_aides_prefinancees_prefinanceur_prefinancements_t9": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"prefinancement_accorde_organismes_aux_aides_prefinancees_prefinanceur_prefinancements_t9": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"date_echeance_pret_organismes_aux_aides_prefinancees_prefinanceur_prefinancements_t9": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"demande_deblocage_organismes_aux_aides_prefinancees_prefinanceur_prefinancements_t9": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													}
+												}
+											]
+										},
+										"demande_versement_prefinancements_t9_group": {
+											"type": "group",
+											"multiple": true,
+											"scopes": [
+												"lot"
+											],
+											"value": [
+												{
+													"date_demande_versement_prefinancements_t9": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"montant_verse_demande_versement_prefinancements_t9": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"commentaires_demande_versement_prefinancements_t9": {
+														"type": "textArea",
+														"lg": 12,
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													}
+												}
+											]
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "AIDES_AU_PAIEMENT_RESTE_A_CHARGE",
+				"order": 4,
+				"status": "",
+				"scopes": [
+					"lot"
+				]
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"lot"
+					],
+					"value": [
+						{
+							"organisme_pret_individuel_t9_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"lot"
+								],
+								"value": [
+									{
+										"organisme_pret_individuel_t9": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"type_pret_individuel_organisme_pret_individuel_t9": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=IndividualLoanType",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"demande_pret_par_menage_organisme_pret_individuel_t9": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"montant_demande_organisme_pret_individuel_t9": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"taux_annuel_effectif_global_organisme_pret_individuel_t9": {
+											"type": "number",
+											"suffix": "%",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"accord_pret_organisme_pret_individuel_t9": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"montant_accorde_organisme_pret_individuel_t9": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"echeance_pret_organisme_pret_individuel_t9": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"montant_verse_organisme_pret_individuel_t9": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"commentaires_organisme_pret_individuel_t9": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		}
+	]
+}
