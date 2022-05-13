@@ -1,3 +1,18 @@
+# [1.3.0-rc.5](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.4...v1.3.0-rc.5) (2022-05-13)
+
+
+### Bug Fixes
+
+* **DELETE:** Add verification on children for cascade soft delete (+black applied) ([7d0c3de](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/7d0c3def12d85b44e78e61fbcbce5d3cc05d2f6c))
+* **PERMISSIONS:** Fix errors on listing buildings and sc from collaborator role ([a4c09e5](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/a4c09e5b785eff1db20057217979a00d0b30f54d))
+* **PHONES:** Allow nullable to always create phone numbers when creating a copro + fix syndic address not registered ([9ebfe6b](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/9ebfe6b66563d4c250735fbcc39afd33c8f03d6e))
+
+
+### Features
+
+* **TASKS:** Add mission info in task model ([fe8017b](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/fe8017b179851a60e35a83e6a544b4f43eb610ce))
+* **THEMATICS:** thematics etape 2/2 ([ea43ea2](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/ea43ea2088df688f399738c517eea07241263b5e))
+
 # [1.3.0-rc.4](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.3...v1.3.0-rc.4) (2022-05-09)
 
 
