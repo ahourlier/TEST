@@ -821,7 +821,6 @@
 										},
 										"saisies_immobilieres_portees_au_vote_sujets_gestion_courante": {
 											"type": "number",
-											"suffix": "%",
 											"multiple": false,
 											"scopes": [
 												"sc",
@@ -831,7 +830,6 @@
 										},
 										"saisies_immobilieres_votees_sujets_gestion_courante": {
 											"type": "number",
-											"suffix": "%",
 											"multiple": false,
 											"scopes": [
 												"sc",
@@ -841,7 +839,6 @@
 										},
 										"engagements_poursuites_hors_saisies_immobilieres_sujets_gestion_courante": {
 											"type": "number",
-											"suffix": "%",
 											"multiple": false,
 											"scopes": [
 												"sc",
