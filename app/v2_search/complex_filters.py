@@ -1,4 +1,6 @@
 from sqlalchemy.sql.elements import and_, or_
+from app.building.model import Building
+from app.copro.copros.model import Copro
 
 from app.copro.syndic.model import Syndic
 from app.combined_structure.model import CombinedStructure
@@ -24,14 +26,29 @@ class ComplexFilters:
                     # Removed because recursiv search couldn't
                     # find this column since it came from another table
                     search_obj["filters"].remove(filter)
-            # From lot
+
+            if entity == "building":
+                if filter["field"] == "mission_id":
+                    complex_filter["mission_id"] = ComplexFilters.build_building_mission_id_query(
+                        filter
+                    )
+                    search_obj["filters"].remove(filter)
+
             if entity == "lot":
                 if filter["field"] == "owner_name":
                     complex_filter[
                         "owner_name"
                     ] = ComplexFilters.build_owner_name_query(filter)
                     search_obj["filters"].remove(filter)
+
+                if filter["field"] == "mission_id":
+                    complex_filter[
+                        "mission_id"
+                    ] = ComplexFilters.build_lot_mission_id_query(filter)
+                    search_obj["filters"].remove(filter)
+                    
         return complex_filter
+
 
     @staticmethod
     def build_syndic_name_query(filter):
@@ -45,6 +62,7 @@ class ComplexFilters:
             .filter(Syndic.name == filter["values"][0])
             .label("syndicName")
         )
+    
 
     @staticmethod
     def build_owner_name_query(filter):
@@ -68,3 +86,34 @@ class ComplexFilters:
             )
             .label("owners")
         )
+
+
+
+    @staticmethod
+    def build_lot_mission_id_query(filter):
+        """
+        Lot: Build query manually when searching by mission_id
+        """
+        return (
+            Lot.query.with_entities(Lot.id)
+            .join(Copro, Copro.id == Lot.copro_id)
+            .filter(
+                Copro.mission_id == filter["values"][0]
+            )
+            .label("lotMissionId")
+        )
+
+    @staticmethod
+    def build_building_mission_id_query(filter):
+        """
+        Building: Build query manually when searching by mission_id
+        """
+        return (
+            Building.query.with_entities(Building.id)
+            .join(Copro, Copro.id == Building.copro_id)
+            .filter(
+                Copro.mission_id == filter["values"][0]
+            )
+            .label("buildingMissionId")
+        )
+    
