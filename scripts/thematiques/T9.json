@@ -251,15 +251,6 @@
 														],
 														"value": []
 													},
-													"type_aide_demande_subvention_financement_projet": {
-														"type": "select",
-														"endpoint": "TODO",
-														"multiple": false,
-														"scopes": [
-															"lot"
-														],
-														"value": []
-													},
 													"montant_primes_demande_subvention_financement_projet": {
 														"type": "currency",
 														"multiple": false,
