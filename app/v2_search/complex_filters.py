@@ -1,3 +1,4 @@
+from copy import copy
 from sqlalchemy.sql.elements import and_, or_
 from app.building.model import Building
 from app.copro.copros.model import Copro
@@ -16,7 +17,9 @@ class ComplexFilters:
         Add a key for each complex relation tosearch in (ie. Many to One, Many to Many...)
         """
         complex_filter = {}
-        for filter in search_obj["filters"]:
+        # Copy original search_obj to avoid side effect
+        filters_copy = copy(search_obj["filters"])
+        for filter in filters_copy:
             # From combined_structure
             if entity == "combined_structure":
                 if filter["field"] == "syndic_name":
@@ -46,7 +49,7 @@ class ComplexFilters:
                         "mission_id"
                     ] = ComplexFilters.build_lot_mission_id_query(filter)
                     search_obj["filters"].remove(filter)
-                    
+        
         return complex_filter
 
 
@@ -78,9 +81,9 @@ class ComplexFilters:
                     LotOwner.c.owner_id == Person.id,
                     LotOwner.c.lot_id == Lot.id,
                     or_(
-                        Person.first_name == filter["values"][0],
-                        Person.last_name == filter["values"][0],
-                        Person.company_name == filter["values"][0],
+                        Person.first_name.ilike(filter["values"][0]),
+                        Person.last_name.ilike(filter["values"][0]),
+                        Person.company_name.ilike(filter["values"][0]),
                     ),
                 )
             )
