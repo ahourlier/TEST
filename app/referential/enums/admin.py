@@ -744,3 +744,21 @@ class BuyerSales(EnumBaseAdminView):
     ENUM_KIND = "BuyerSales"
     FIELD_MODEL = None
     FIELD_REF = None
+
+
+class NatureSuivi(EnumBaseAdminView):
+    ENUM_KIND = "NatureSuivi"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class FSLType(EnumBaseAdminView):
+    ENUM_KIND = "FSLType"
+    FIELD_MODEL = None
+    FIELD_REF = None
+
+
+class AccompaniementClosing(EnumBaseAdminView):
+    ENUM_KIND = "AccompaniementClosing"
+    FIELD_MODEL = None
+    FIELD_REF = None
