@@ -1,3 +1,12 @@
+# [1.3.0-rc.6](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.5...v1.3.0-rc.6) (2022-05-19)
+
+
+### Bug Fixes
+
+* **SEARCH:** Add mission_id to lot and building search ([d9b2490](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/d9b24902dffd4656331a34949a8cc71998b2cfb3))
+* **SEARCH:** fix owner_name filter on lot + multiple complex filters ([543e462](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/543e4625d2b742d5213d69258627aef2764c16d9))
+* **THEMATICS:** Minor fixes ([283b0e0](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/283b0e0091b61036ceb4436ef3ee47e908c72323))
+
 # [1.3.0-rc.5](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.4...v1.3.0-rc.5) (2022-05-13)
 
 
