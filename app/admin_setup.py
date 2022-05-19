@@ -1,6 +1,7 @@
 from app.referential.enums import AppEnum
 from app.referential.enums.admin import (
     AGType,
+    AccompaniementClosing,
     ActionResponsible,
     ActionResponsibleCommunication,
     ActionResponsibleFormation,
@@ -17,6 +18,7 @@ from app.referential.enums.admin import (
     ContractType,
     DebtOrigin,
     EnergeticPrecariousnessCause,
+    FSLType,
     FormationType,
     Former,
     FunderOrganism,
@@ -38,6 +40,7 @@ from app.referential.enums.admin import (
     MeetingTheme,
     MovingHouseProject,
     NatureDysfunction,
+    NatureSuivi,
     OtherActionUrbanis,
     Overoccupation,
     PreLitigationAction,
@@ -1044,5 +1047,32 @@ def register_admin_views(admin, db):
             endpoint="manage_buyer_sales",
         )
     )
+    admin.add_view(
+        NatureSuivi(
+            AppEnum,
+            db.session,
+            "Nature du suivi",
+            url="nature-suivi",
+            endpoint="manage_nature_suivi",
+        )
+    )
+    admin.add_view(
+        FSLType(
+            AppEnum,
+            db.session,
+            "Type de FSL",
+            url="fsl-type",
+            endpoint="manage_fsl_type",
+        )
+    )
+    admin.add_view(
+        AccompaniementClosing(
+            AppEnum,
+            db.session,
+            "Clôture de l'accompagnement",
+            url="accompaniement-closing",
+            endpoint="manage_accompaniement_closing",
+        )
+    )
     
-    
+

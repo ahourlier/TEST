@@ -3,6 +3,8 @@ import json
 
 from sqlalchemy import inspect
 
+from app.building.model import Building
+
 from .config_structure import (
     ENTITY_TO_MODEL_MAPPING,
     ENTITY_TO_DEFAULT_MAPPING,
@@ -303,8 +305,13 @@ class SearchV2Service:
         q = SearchService.search_into_model(ENTITY_TO_MODEL_MAPPING[entity], search_obj)
         # Pass a subquery to perform more filters
         if "syndic_name" in complex_filter:
-            return q.filter(CombinedStructure.id.in_([complex_filter["syndic_name"]]))
+            q = q.filter(CombinedStructure.id.in_([complex_filter["syndic_name"]]))
         if "owner_name" in complex_filter:
-            return q.filter(Lot.id.in_([complex_filter["owner_name"]]))
+            q = q.filter(Lot.id.in_([complex_filter["owner_name"]]))
+        if "mission_id" in complex_filter:
+            if entity == "lot":
+                q = q.filter(Lot.id.in_([complex_filter["mission_id"]]))
+            if entity == "building":
+                q = q.filter(Building.id.in_([complex_filter["mission_id"]]))
 
         return q.all()

@@ -58,7 +58,7 @@ def get_fields(fields, thematique_name, step_name, scope):
 thematique_files = [
     "T1",
     "T2",
-    # "T3",
+    "T3",
     "T4",
     "T5",
     "T6",
