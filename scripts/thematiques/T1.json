@@ -52,7 +52,7 @@
 									{
 										"localisation_copropriete": {
 											"type": "select",
-											"endpoint": "/referential/enums/?enums=Localisation",
+											"endpoint": "/referential/enums/?enums=LocalisationCopropriete",
 											"multiple": false,
 											"value": [],
 											"scopes": [

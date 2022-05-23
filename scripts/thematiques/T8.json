@@ -402,8 +402,7 @@
 								"value": [
 									{
 										"financeur_financeur_subventions_et_primes": {
-											"type": "autocomplete",
-											"endpoint": "/funder/funders/",
+											"type": "string",
 											"multiple": false,
 											"scopes": [
 												"sc",

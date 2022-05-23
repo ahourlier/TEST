@@ -161,10 +161,19 @@ class ThematiqueService:
             scope=version.get("scope"),
             resource_id=version.get("resource_id"),
         )
+        # Not duplicable if version comes from parent
+        # and function is not called from parent scope
+        # 
         if (
             extend_parent == True
-            and (create_from_parent == False or versionnable == True)
+            and create_from_parent == False
+            and versionnable == False
         ) or (
+        # Not duplicable if version doesn't comes from parent
+        # and (
+        #   function is called from parent scope or
+        #   there is already one version created from parent
+        #)
             extend_parent == False
             and (
                 create_from_parent == True
