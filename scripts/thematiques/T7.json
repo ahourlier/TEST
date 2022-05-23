@@ -989,6 +989,7 @@
 									{
 										"postes_travaux_nature_travaux_t7": {
 											"type": "select",
+											"lg": 12,
 											"endpoint": "/referential/enums/?enums=WorkNatureAssetPlan",
 											"multiple": true,
 											"scopes": [

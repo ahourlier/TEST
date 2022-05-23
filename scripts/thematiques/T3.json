@@ -62,6 +62,7 @@
 				"order": 2,
 				"scopes": [
 					"copro",
+					"building",
 					"lot"
 				],
 				"status": ""
@@ -72,6 +73,7 @@
 					"multiple": false,
 					"scopes": [
 						"copro",
+						"building",
 						"lot"
 					],
 					"value": [

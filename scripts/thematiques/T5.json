@@ -76,7 +76,7 @@
 							"eau_froide_depense_lot_principal_donnees_cadrage_t5": {
 								"type": "currency",
 								"multiple": false,
-								"formula": "eau_froide/(total_lots_principaux || 1 )",
+								"formula": "eau_froide_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1 )",
 								"scopes": [
 									"copro",
 									"building"
@@ -96,7 +96,7 @@
 							"electricite_depense_lot_principal_donnees_cadrage_t5": {
 								"type": "currency",
 								"multiple": false,
-								"formula": "electricite/(total_lots_principaux || 1)",
+								"formula": "electricite_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
 								"scopes": [
 									"sc",
 									"copro",
@@ -117,7 +117,7 @@
 							"chauffage_depense_lot_principal_donnees_cadrage_t5": {
 								"type": "currency",
 								"multiple": false,
-								"formula": "chauffage/(total_lots_principaux || 1)",
+								"formula": "chauffage_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
 								"scopes": [
 									"sc",
 									"copro",
@@ -138,7 +138,7 @@
 							"eau_chaude_sanitaire_depense_lot_principal_donnees_cadrage_t5": {
 								"type": "currency",
 								"multiple": false,
-								"formula": "eau_chaude_sanitaire/(total_lots_principaux || 1)",
+								"formula": "eau_chaude_sanitaire_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
 								"scopes": [
 									"sc",
 									"copro",
@@ -159,7 +159,7 @@
 							"assurance_depense_lot_principal_donnees_cadrage_t5": {
 								"type": "currency",
 								"multiple": false,
-								"formula": "assurance/(total_lots_principaux || 1)",
+								"formula": "assurance_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
 								"scopes": [
 									"sc",
 									"copro",
@@ -180,7 +180,7 @@
 							"frais_gestion_et_honoraires_syndic_depense_lot_principal_donnees_cadrage_t5": {
 								"type": "currency",
 								"multiple": false,
-								"formula": "frais_gestion_et_honoraires_syndic/(total_lots_principaux || 1)",
+								"formula": "frais_gestion_et_honoraires_syndic_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
 								"scopes": [
 									"sc",
 									"copro",
@@ -200,7 +200,7 @@
 							"frais_contentieux_depense_lot_principal_donnees_cadrage_t5": {
 								"type": "currency",
 								"multiple": false,
-								"formula": "frais_contentieux/(total_lots_principaux || 1)",
+								"formula": "frais_contentieux_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
 								"scopes": [
 									"copro",
 									"building"
@@ -219,7 +219,7 @@
 							"impots_taxes_depense_lot_principal_donnees_cadrage_t5": {
 								"type": "currency",
 								"multiple": false,
-								"formula": "impots_taxes/(total_lots_principaux || 1)",
+								"formula": "impots_taxes_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
 								"scopes": [
 									"copro",
 									"building"
@@ -238,7 +238,7 @@
 							"nettoyage_locaux_depense_lot_principal_donnees_cadrage_t5": {
 								"type": "currency",
 								"multiple": false,
-								"formula": "nettoyage_locaux/(total_lots_principaux || 1)",
+								"formula": "nettoyage_locaux_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
 								"scopes": [
 									"copro",
 									"building"
@@ -257,7 +257,7 @@
 							"entretien_et_petites_reparations_depense_lot_principal_donnees_cadrage_t5": {
 								"type": "currency",
 								"multiple": false,
-								"formula": "entretien_et_petites_reparations/(total_lots_principaux || 1)",
+								"formula": "entretien_et_petites_reparations_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
 								"scopes": [
 									"copro",
 									"building"
@@ -276,7 +276,7 @@
 							"contrats_entretien_depense_lot_principal_donnees_cadrage_t5": {
 								"type": "currency",
 								"multiple": false,
-								"formula": "contrats_entretien/(total_lots_principaux || 1)",
+								"formula": "contrats_entretien_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
 								"scopes": [
 									"copro",
 									"building"
@@ -295,7 +295,7 @@
 							"frais_personnel_depense_lot_principal_donnees_cadrage_t5": {
 								"type": "currency",
 								"multiple": false,
-								"formula": "frais_personnel/(total_lots_principaux || 1)",
+								"formula": "frais_personnel_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
 								"scopes": [
 									"copro",
 									"building"
@@ -314,7 +314,7 @@
 							"ascenseurs_depense_lot_principal_donnees_cadrage_t5": {
 								"type": "currency",
 								"multiple": false,
-								"formula": "ascenseurs/(total_lots_principaux || 1)",
+								"formula": "ascenseurs_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
 								"scopes": [
 									"copro",
 									"building"
@@ -333,7 +333,7 @@
 							"produits_materiel_fournitures_depense_lot_principal_donnees_cadrage_t5": {
 								"type": "currency",
 								"multiple": false,
-								"formula": "produits_materiel_fournitures/(total_lots_principaux || 1)",
+								"formula": "produits_materiel_fournitures_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
 								"scopes": [
 									"copro",
 									"building"
@@ -352,7 +352,7 @@
 							"tiers_intervenants_depense_lot_principal_donnees_cadrage_t5": {
 								"type": "currency",
 								"multiple": false,
-								"formula": "tiers_intervenants/(total_lots_principaux || 1)",
+								"formula": "tiers_intervenants_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
 								"scopes": [
 									"copro",
 									"building"
@@ -371,7 +371,7 @@
 							"frais_conseil_syndical_depense_lot_principal_donnees_cadrage_t5": {
 								"type": "currency",
 								"multiple": false,
-								"formula": "frais_conseil_syndical/(total_lots_principaux || 1)",
+								"formula": "frais_conseil_syndical_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
 								"scopes": [
 									"copro",
 									"building"
@@ -390,7 +390,7 @@
 							"divers_depense_lot_principal_donnees_cadrage_t5": {
 								"type": "currency",
 								"multiple": false,
-								"formula": "divers/(total_lots_principaux || 1)",
+								"formula": "divers_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
 								"scopes": [
 									"copro",
 									"building"
@@ -409,7 +409,7 @@
 							"charges_pour_travaux_et_operations_exceptionnelles_depense_lot_principal_donnees_cadrage_t5": {
 								"type": "currency",
 								"multiple": false,
-								"formula": "charges_pour_travaux_et_operations_exceptionnelles/(total_lots_principaux || 1)",
+								"formula": "charges_pour_travaux_et_operations_exceptionnelles_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
 								"scopes": [
 									"copro",
 									"building"
