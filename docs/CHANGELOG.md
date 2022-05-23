@@ -1,3 +1,12 @@
+# [1.3.0-rc.7](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.6...v1.3.0-rc.7) (2022-05-23)
+
+
+### Bug Fixes
+
+* **T3:** Forgotten scope ([ee4610f](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/ee4610f5f00561348417c3475edf897ea46a1458))
+* **T5:** update fields name in formula ([5f3b2be](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/5f3b2be86da7cf79db09d9aae6a61e4c5399e87c))
+* **THEMATICS:** Duplication fail on specific case ([b2f5f4e](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/b2f5f4edb641d420a520be2f5f76ce27f2532846))
+
 # [1.3.0-rc.6](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.5...v1.3.0-rc.6) (2022-05-19)
 
 
