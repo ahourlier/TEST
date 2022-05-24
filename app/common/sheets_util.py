@@ -77,11 +77,13 @@ class SheetsUtils:
 
         sheet_formatted_values = {}
         for sheet in sheets_raw_file.get("sheets"):
-            sheet_formatted_values[
-                sheet.get("properties").get("title")
-            ] = SheetsUtils.extract_values_from_sheet_rows(
-                sheet.get("data")[0].get("rowData")
-            )
+            # Check that the sheet is not empty
+            if sheet.get("data")[0].get("rowData") is not None:
+                sheet_formatted_values[
+                    sheet.get("properties").get("title")
+                ] = SheetsUtils.extract_values_from_sheet_rows(
+                    sheet.get("data")[0].get("rowData")
+                )
         return sheet_formatted_values
 
     @staticmethod
