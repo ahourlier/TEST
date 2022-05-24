@@ -164,7 +164,7 @@ class LotImport:
                 building_obj = {
                     "name": lot_object.get("building_name"),
                     "copro_id": copro.id,
-                    "address": building_address
+                    "address": building_address,
                 }
                 building_created = True
                 if not dry_run:

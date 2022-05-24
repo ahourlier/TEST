@@ -43,7 +43,9 @@ class ImportRunView(InternalAPIView):
                     sheet_found = True
                     data = data[key]
             if not sheet_found:
-                raise Exception("No sheet with 'DATA' name found... Please rename the sheet")
+                raise Exception(
+                    "No sheet with 'DATA' name found... Please rename the sheet"
+                )
         except Exception as e:
             print(traceback.format_exc())
             running_import.status = ImportStatus.ERROR.value
