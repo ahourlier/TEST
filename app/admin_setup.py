@@ -1074,5 +1074,3 @@ def register_admin_views(admin, db):
             endpoint="manage_accompaniement_closing",
         )
     )
-    
-

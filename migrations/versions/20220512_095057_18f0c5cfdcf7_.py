@@ -212,7 +212,7 @@ enums = {
         "Autre"
     ],
     "WorkNatureAssetPlan": [
-        "Travaux préparatoires"
+        "Travaux préparatoires",
         "Gros oeuvre",
         "Toiture, charpente, couverture",
         "Réseaux, équipements sanitaires",

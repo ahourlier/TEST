@@ -33,12 +33,19 @@ class ImportRunView(InternalAPIView):
         try:
             data = SheetsUtils.get_spreadsheet_by_datafilter(
                 spreasheet_id=running_import.import_sheet_id,
-                A1_notation_filters=[A1_notation_filters],
+                A1_notation_filters=[],
                 user_email=payload.get("email"),
             )
             data = SheetsUtils.format_sheet(data)
-            first_sheet = list(data.keys())[0]
-            data = data[first_sheet]
+            sheet_found = False
+            for key in data:
+                if key == "DATA":
+                    sheet_found = True
+                    data = data[key]
+            if not sheet_found:
+                raise Exception(
+                    "No sheet with 'DATA' name found... Please rename the sheet"
+                )
         except Exception as e:
             print(traceback.format_exc())
             running_import.status = ImportStatus.ERROR.value
