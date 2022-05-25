@@ -314,6 +314,7 @@
 										},
 										"taux_defaillance_commission_impayes": {
 											"type": "number",
+											"suffix": "%",
 											"multiple": false,
 											"formula": "(debiteurs_inferieur_2t + debiteurs_entre_2t_et_4t + debiteurs_superieur_4t)/(nombre_coproprietaires_commission_impayes || 1)",
 											"scopes": [

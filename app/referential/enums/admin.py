@@ -614,6 +614,7 @@ class ActionType(EnumBaseAdminView):
     FIELD_MODEL = None
     FIELD_REF = None
 
+
 class CommunicationActionType(EnumBaseAdminView):
     ENUM_KIND = "CommunicationActionType"
     FIELD_MODEL = None

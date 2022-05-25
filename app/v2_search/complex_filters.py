@@ -32,9 +32,9 @@ class ComplexFilters:
 
             if entity == "building":
                 if filter["field"] == "mission_id":
-                    complex_filter["mission_id"] = ComplexFilters.build_building_mission_id_query(
-                        filter
-                    )
+                    complex_filter[
+                        "mission_id"
+                    ] = ComplexFilters.build_building_mission_id_query(filter)
                     search_obj["filters"].remove(filter)
 
             if entity == "lot":
@@ -49,9 +49,8 @@ class ComplexFilters:
                         "mission_id"
                     ] = ComplexFilters.build_lot_mission_id_query(filter)
                     search_obj["filters"].remove(filter)
-        
-        return complex_filter
 
+        return complex_filter
 
     @staticmethod
     def build_syndic_name_query(filter):
@@ -65,7 +64,6 @@ class ComplexFilters:
             .filter(Syndic.name == filter["values"][0])
             .label("syndicName")
         )
-    
 
     @staticmethod
     def build_owner_name_query(filter):
@@ -90,8 +88,6 @@ class ComplexFilters:
             .label("owners")
         )
 
-
-
     @staticmethod
     def build_lot_mission_id_query(filter):
         """
@@ -100,9 +96,7 @@ class ComplexFilters:
         return (
             Lot.query.with_entities(Lot.id)
             .join(Copro, Copro.id == Lot.copro_id)
-            .filter(
-                Copro.mission_id == filter["values"][0]
-            )
+            .filter(Copro.mission_id == filter["values"][0])
             .label("lotMissionId")
         )
 
@@ -114,9 +108,6 @@ class ComplexFilters:
         return (
             Building.query.with_entities(Building.id)
             .join(Copro, Copro.id == Building.copro_id)
-            .filter(
-                Copro.mission_id == filter["values"][0]
-            )
+            .filter(Copro.mission_id == filter["values"][0])
             .label("buildingMissionId")
         )
-    

@@ -153,9 +153,18 @@ class LotImport:
                 lot_object.get("building_name"), copro
             )
             if not building:
+                building_address = {
+                    "full_address": copro.address_1.full_address,
+                    "number": copro.address_1.number,
+                    "street": copro.address_1.street,
+                    "postal_code": copro.address_1.postal_code,
+                    "additional_info": copro.address_1.additional_info,
+                    "city": copro.address_1.city,
+                }
                 building_obj = {
                     "name": lot_object.get("building_name"),
                     "copro_id": copro.id,
+                    "address": building_address,
                 }
                 building_created = True
                 if not dry_run:
