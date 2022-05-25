@@ -1,3 +1,11 @@
+# [1.3.0-rc.8](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.7...v1.3.0-rc.8) (2022-05-25)
+
+
+### Bug Fixes
+
+* **migrations:** Forgotten coma + black ([a7259e7](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/a7259e7473d5a03bc9f5adcb5ed6f37dd68d3477))
+* **Thematiques:** Multiples fixes ([6eae9f7](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/6eae9f7e700bc3ea4ea15f3e8686f3b0daec3185))
+
 # [1.3.0-rc.7](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.6...v1.3.0-rc.7) (2022-05-23)
 
 
