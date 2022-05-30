@@ -921,6 +921,16 @@
 								],
 								"value": []
 							},
+							"commentaires_mise_en_place_commission_travaux": {
+								"type": "textArea",
+								"lg": 12,
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
 							"reunions_successives_group": {
 								"type": "group",
 								"multiple": true,
