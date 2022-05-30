@@ -42,7 +42,7 @@
 									{
 										"travaux_decides_nature_travaux": {
 											"type": "select",
-											"endpoint": "/referential/enums/?enums=NatureWorkPrivateParts",
+											"endpoint": "/referential/enums/?enums=WorkNaturePrivateParts",
 											"multiple": false,
 											"scopes": [
 												"lot"

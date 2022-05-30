@@ -705,8 +705,8 @@ class WorkNatureCommonParts(EnumBaseAdminView):
     FIELD_REF = None
 
 
-class WorkNatureCollectivInterestPrivateParts(EnumBaseAdminView):
-    ENUM_KIND = "WorkNaturePrivateParts"
+class WorkNatureCollectiveInterestPrivateParts(EnumBaseAdminView):
+    ENUM_KIND = "WorkNatureCollectiveInterestPrivateParts"
     FIELD_MODEL = None
     FIELD_REF = None
 
