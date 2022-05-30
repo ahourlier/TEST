@@ -516,6 +516,7 @@
 								"type": "date",
 								"multiple": false,
 								"scopes": [
+									"sc",
 									"copro"
 								],
 								"value": []
@@ -525,6 +526,7 @@
 								"lg": 12,
 								"multiple": false,
 								"scopes": [
+									"sc",
 									"copro"
 								],
 								"value": []
