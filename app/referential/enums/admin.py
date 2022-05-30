@@ -375,8 +375,8 @@ class TypePretIndividuel(EnumBaseAdminView):
     FIELD_REF = None
 
 
-class Prefinanceurs(EnumBaseAdminView):
-    ENUM_KIND = "Prefinanceurs"
+class PreFunderOrganism(EnumBaseAdminView):
+    ENUM_KIND = "PreFunderOrganism"
     FIELD_MODEL = None
     FIELD_REF = None
 

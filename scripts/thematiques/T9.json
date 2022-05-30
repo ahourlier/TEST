@@ -554,7 +554,7 @@
 										"organisme_prefinanceur_prefinancements_t9": {
 											"type": "select",
 											"multiple": false,
-											"endpoint": "/referential/enums/?enums=Prefinanceurs",
+											"endpoint": "/referential/enums/?enums=PreFunderOrganism",
 											"scopes": [
 												"lot"
 											],

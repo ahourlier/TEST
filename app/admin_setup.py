@@ -96,7 +96,7 @@ from app.referential.enums.admin import (
     TypePretCollectif,
     NatureTravauxInteretCollectifsPP,
     TypePretIndividuel,
-    Prefinanceurs,
+    PreFunderOrganism,
     NatureTravauxPartieCommune,
     UrbanisAction,
     MonthlyRessourcesType,
@@ -490,12 +490,12 @@ def register_admin_views(admin, db):
         )
     )
     admin.add_view(
-        Prefinanceurs(
+        PreFunderOrganism(
             AppEnum,
             db.session,
-            "Prefinanceurs",
-            url="prefinanceurs",
-            endpoint="manage_prefinanceurs",
+            "PreFunderOrganism",
+            url="prefunder-organism",
+            endpoint="manage_prefunder_organism",
         )
     )
     admin.add_view(

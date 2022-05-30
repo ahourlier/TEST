@@ -756,7 +756,7 @@
 										"prefinanceur_prefinancements_t8": {
 											"type": "select",
 											"multiple": false,
-											"endpoint": "/referential/enums/?enums=Prefinanceurs",
+											"endpoint": "/referential/enums/?enums=PreFunderOrganism",
 											"scopes": [
 												"sc",
 												"copro"
@@ -773,6 +773,36 @@
 											"value": []
 										},
 										"coordonnees_mail_prefinanceur_prefinancements_t8": {
+											"type": "email",
+											"rules": "email",
+											"prepend-inner-icon": "mdi-email",
+											"email-link": true,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"banque_prefinanceur_prefinancements_t8": {
+											"type": "string",
+											"multiple": true,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"coordonnees_banque_tel_prefinanceur_prefinancements_t8": {
+											"type": "phone",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"coordonnees_banque_mail_prefinanceur_prefinancements_t8": {
 											"type": "email",
 											"rules": "email",
 											"prepend-inner-icon": "mdi-email",
