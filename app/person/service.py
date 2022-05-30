@@ -77,11 +77,10 @@ class PersonService:
 
         if db_user is not None:
             if db_user.groups and len(db_user.groups) > 0:
-                antenna_id = None
                 for group in db_user.groups:
-                    antenna_id = group.antenna.id
-                if antenna_id is not None:
-                    new_person.antenna_id = antenna_id
+                    antenna = group.antenna
+                if antenna is not None:
+                    new_person.antenna_id = antenna.id
         else:
             print(
                 "Creating a person: no user found with this email: Skipping antenna_id setup"
