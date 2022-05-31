@@ -1108,6 +1108,7 @@
 																},
 																"total_ressources_mois_autre_membre_menage": {
 																	"type": "currency",
+																	"formula": "montant_ressources_mensuelles_ressources_autre_membre_menage",
 																	"multiple": false,
 																	"scopes": [
 																		"lot"
