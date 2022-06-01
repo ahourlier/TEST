@@ -71,6 +71,6 @@ class CoproInterface(TypedDict, total=False):
     rcu: Optional[bool]
     heritage_classification: Optional[bool]
     external_spaces: Optional[bool]
-    underground_parking: Optional[bool]
-    aerial_parking: Optional[bool]
+    nb_underground_parking_spaces: Optional[int]
+    nb_aerial_parking_spaces: Optional[int]
     cadastres: List[dict]
