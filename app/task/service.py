@@ -1,4 +1,4 @@
-from sqlalchemy import or_
+from sqlalchemy import String, cast, or_
 from flask import g
 from datetime import date
 
@@ -38,6 +38,11 @@ class TaskService:
         if not task or task.is_deleted:
             raise TaskNotFoundException
         return task
+
+    @staticmethod
+    def get_by_entity(entity_id, entity_key) -> Task:
+        q = Task.query.filter(entity_id == cast(Task.path[entity_key], String))
+        return q.all()
 
     @staticmethod
     def create(new_attrs: TaskInterface):
