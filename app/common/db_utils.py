@@ -26,6 +26,7 @@ class DBUtils:
             )
             for copro in copros:
                 from app.copro.copros.service import CoproService
+
                 DBUtils.soft_delete_cascade(copro.id, CoproService)
 
         if type(existing_entity) == Copro:
@@ -42,6 +43,7 @@ class DBUtils:
             )
             for building in buildings:
                 from app.building.service import BuildingService
+
                 DBUtils.soft_delete_cascade(building.id, BuildingService)
 
         if type(existing_entity) == Building:

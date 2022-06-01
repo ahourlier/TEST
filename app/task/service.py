@@ -44,6 +44,10 @@ class TaskService:
         q = Task.query.filter(entity_id == cast(Task.path[entity_key], String))
         return q.all()
 
+    def get_by_thematique_version_id(version_id) -> Task:
+        q = Task.query.filter(version_id == Task.version_id)
+        return q.all()
+
     @staticmethod
     def create(new_attrs: TaskInterface):
 
