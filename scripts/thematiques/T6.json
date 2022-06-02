@@ -24,6 +24,271 @@
 		{
 			"metadata": {
 				"legendes": [],
+				"name": "DONNEES_CADRAGE",
+				"order": 1,
+				"scopes": [
+					"sc",
+					"lot"
+				],
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": true,
+					"scopes": [
+						"sc",
+						"lot"
+					],
+					"value": [
+						{
+							"budget_donnees_cadrage_impayes_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"sc",
+									"lot"
+								],
+								"value": [
+									{
+										"annee_reference_donnees_cadrage_impayes": {
+											"type": "date",
+											"multiple": false,
+											"format": "YYYY",
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"arrete_comptes_donnees_cadrage_impayes": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"budget_previsionnel_vote_donnees_cadrage_impayes": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"budget_operation_exceptionnelles_vote_donnees_cadrage_impayes": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"budget_realise_donnees_cadrage_impayes": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"total_lots_principaux_donnees_cadrage_impayes": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"trimestre_moyen_reference_donnees_cadrage_impayes": {
+											"type": "currency",
+											"formula": "(budget_previsionnel_vote_donnees_cadrage_impayes / 4) / total_lots_principaux_donnees_cadrage_impayes",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"dettes_fournisseurs_donnees_cadrage_impayes_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"lot"
+								],
+								"value": [
+									{
+										"dettes_fournisseurs_donnees_cadrage_impayes": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"taux_impayes_fournisseurs_donnees_cadrage_impayes": {
+											"type": "number",
+											"formula": "dettes_fournisseurs_donnees_cadrage_impayes / budget_previsionnel_vote_donnees_cadrage_impayes",
+											"suffix": "€",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"total_somme_appelees_donnees_cadrage_impayes": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"lot"
+								],
+								"value": []
+							},
+							"total_somme_recouvrees_donnees_cadrage_impayes": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"lot"
+								],
+								"value": []
+							},
+							"nombre_total_coproprietaires_donnees_cadrage_impayes": {
+								"type": "number",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"lot"
+								],
+								"value": []
+							},
+							"nombre_total_debiteurs_donnees_cadrage_impayes": {
+								"type": "number",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"lot"
+								],
+								"value": []
+							},
+							"impayes_date_arretee_comptes_donnees_cadrage_impayes": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"lot"
+								],
+								"value": []
+							},
+							"nombre_procedures_precontentieuses_donnees_cadrage_impayes": {
+								"type": "number",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"lot"
+								],
+								"value": []
+							},
+							"nombre_procedures_contentieuses_donnees_cadrage_impayes": {
+								"type": "number",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"lot"
+								],
+								"value": []
+							},
+							"taux_impayes_donnees_cadrage_impayes_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"sc",
+									"lot"
+								],
+								"value": [
+									{
+										"taux_impayes_alerte_donnees_cadrage_impayes": {
+											"type": "number",
+											"formula": "impayes_date_arretee_comptes_donnees_cadrage_impayes / (budget_previsionnel_vote_donnees_cadrage_impayes + budget_operation_exceptionnelles_vote_donnees_cadrage_impayes)",
+											"suffix": "%",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"taux_impayes_mpr_c_donnees_cadrage_impayes": {
+											"type": "number",
+											"formula": "impayes_date_arretee_comptes_donnees_cadrage_impayes / (budget_previsionnel_vote_donnees_cadrage_impayes + budget_operation_exceptionnelles_vote_donnees_cadrage_impayes)",
+											"suffix": "%",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"taux_impayes_operationnels_donnees_cadrage_impayes": {
+											"type": "number",
+											"formula": "impayes_date_arretee_comptes_donnees_cadrage_impayes / budget_previsionnel_vote_donnees_cadrage_impayes",
+											"suffix": "%",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"taux_defaillance_donnees_cadrage_impayes": {
+											"type": "number",
+											"formula": "nombre_total_debiteurs_donnees_cadrage_impayes / nombre_total_coproprietaires_donnees_cadrage_impayes",
+											"suffix": "%",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										},
+										"taux_recouvrement_donnees_cadrage_impayes": {
+											"type": "number",
+											"formula": "total_somme_recouvrees_donnees_cadrage_impayes / total_somme_appelees_donnees_cadrage_impayes",
+											"suffix": "%",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
 				"name": "RENCONTRE_COPROPRIETE_ET_PARTENAIRES",
 				"order": 1,
 				"scopes": [
