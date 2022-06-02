@@ -892,6 +892,105 @@
 												}
 											]
 										},
+										"other_majeur_reference_group": {
+											"type": "group",
+											"multiple": true,
+											"scopes": [
+												"lot"
+											],
+											"value": [
+												{
+													"other_majeur_reference_prenom": {
+														"type": "string",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"other_majeur_reference_nom": {
+														"type": "string",
+														"text_format": "uppercase",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"other_majeur_reference_telephone": {
+														"type": "telephone",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"other_majeur_reference_mail": {
+														"type": "email",
+														"rules": "email",
+														"prepend-inner-icon": "mdi-email",
+														"email-link": true,
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"other_majeur_reference_date_naissance": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"other_majeur_reference_situation_administrative": {
+														"type": "select",
+														"endpoint": "/referential/enums/?enums=AdministrativeSituation",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"other_majeur_reference_date_expiration_titre": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													}
+												}
+											]
+										},
+										"child_group": {
+											"type": "group",
+											"multiple": true,
+											"scopes": [
+												"lot"
+											],
+											"value": [
+												{
+													"child_firstname": {
+														"type": "string",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													},
+													"child_birth_date": {
+														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"lot"
+														],
+														"value": []
+													}
+												}
+											]
+										},
 										"parcours_residentiel_evaluation_sociale": {
 											"type": "group",
 											"multiple": false,
@@ -1108,6 +1207,7 @@
 																},
 																"total_ressources_mois_autre_membre_menage": {
 																	"type": "currency",
+																	"formula": "montant_ressources_mensuelles_ressources_autre_membre_menage",
 																	"multiple": false,
 																	"scopes": [
 																		"lot"
@@ -2330,6 +2430,14 @@
 								],
 								"value": [
 									{
+										"last_RDV_date_cloture_accompagnement": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
 										"motif_cloture_accompagnement": {
 											"type": "select",
 											"endpoint": "/referential/enums/?enums=AccompaniementClosing",
@@ -2356,9 +2464,16 @@
 											],
 											"value": []
 										},
-										"commentaires_cloture_accompagnement": {
-											"type": "textArea",
-											"lg": 12,
+										"date_passation_partenaires_cloture_accompagnement": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"courrier_rehabilitation_identite_menage": {
+											"type": "switch",
 											"multiple": false,
 											"scopes": [
 												"lot"
@@ -2367,19 +2482,8 @@
 										}
 									}
 								]
-							},
-							"commentaires_etape_cloture_accompagnement_social": {
-								"type": "textArea",
-								"lg": 12,
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"lot"
-								],
-								"value": []
 							}
 						}
-						
 					]
 				}
 			}

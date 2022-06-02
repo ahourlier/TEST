@@ -42,7 +42,7 @@
 									{
 										"travaux_decides_nature_travaux": {
 											"type": "select",
-											"endpoint": "/referential/enums/?enums=NatureWorkPrivateParts",
+											"endpoint": "/referential/enums/?enums=WorkNaturePrivateParts",
 											"multiple": false,
 											"scopes": [
 												"lot"
@@ -554,7 +554,7 @@
 										"organisme_prefinanceur_prefinancements_t9": {
 											"type": "select",
 											"multiple": false,
-											"endpoint": "/referential/enums/?enums=Prefinanceurs",
+											"endpoint": "/referential/enums/?enums=PreFunderOrganism",
 											"scopes": [
 												"lot"
 											],

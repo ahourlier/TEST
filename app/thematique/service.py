@@ -418,6 +418,14 @@ class ThematiqueService:
         version = firestore_service.get_version_by_id(version_id)
         if not version.exists:
             raise VersionNotFoundException
+
+        from app.task.service import TaskService
+
+        tasks = TaskService.get_by_thematique_version_id(version_id)
+        for task in tasks:
+            task.soft_delete()
+        db.session.commit()
+
         steps = version.reference.collection(
             current_app.config.get("FIRESTORE_STEPS_COLLECTION")
         ).get()

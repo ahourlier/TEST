@@ -516,6 +516,7 @@
 								"type": "date",
 								"multiple": false,
 								"scopes": [
+									"sc",
 									"copro"
 								],
 								"value": []
@@ -525,6 +526,7 @@
 								"lg": 12,
 								"multiple": false,
 								"scopes": [
+									"sc",
 									"copro"
 								],
 								"value": []
@@ -653,7 +655,8 @@
 								"value": []
 							},
 							"presents_assistance_renegociation": {
-								"type": "string",
+								"type": "textArea",
+								"lg": 12,
 								"multiple": false,
 								"scopes": [
 									"sc",

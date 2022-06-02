@@ -96,7 +96,7 @@ from app.referential.enums.admin import (
     TypePretCollectif,
     NatureTravauxInteretCollectifsPP,
     TypePretIndividuel,
-    Prefinanceurs,
+    PreFunderOrganism,
     NatureTravauxPartieCommune,
     UrbanisAction,
     MonthlyRessourcesType,
@@ -104,7 +104,7 @@ from app.referential.enums.admin import (
     WorkAxis,
     WorkEligibleSubsidiesHeritagePlan,
     WorkNatureAssetPlan,
-    WorkNatureCollectivInterestPrivateParts,
+    WorkNatureCollectiveInterestPrivateParts,
     WorkNatureCommonParts,
     WorkNaturePrivateParts,
 )
@@ -490,12 +490,12 @@ def register_admin_views(admin, db):
         )
     )
     admin.add_view(
-        Prefinanceurs(
+        PreFunderOrganism(
             AppEnum,
             db.session,
-            "Prefinanceurs",
-            url="prefinanceurs",
-            endpoint="manage_prefinanceurs",
+            "PreFunderOrganism",
+            url="prefunder-organism",
+            endpoint="manage_prefunder_organism",
         )
     )
     admin.add_view(
@@ -985,7 +985,7 @@ def register_admin_views(admin, db):
         )
     )
     admin.add_view(
-        WorkNatureCollectivInterestPrivateParts(
+        WorkNatureCollectiveInterestPrivateParts(
             AppEnum,
             db.session,
             "Nature des Travaux d'Intérêt Collectif sur Parties Privatives",

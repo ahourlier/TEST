@@ -127,8 +127,8 @@ class Copro(HasPhones, SoftDeletableMixin, BaseMixin, db.Model):
     rcu = Column(Boolean, nullable=True)
     heritage_classification = Column(Boolean, nullable=True)
     external_spaces = Column(Boolean, nullable=True, default=False)
-    underground_parking = Column(Boolean, nullable=True, default=False)
-    aerial_parking = Column(Boolean, nullable=True, default=False)
+    nb_aerial_parking_spaces = Column(Integer(), nullable=True)
+    nb_underground_parking_spaces = Column(Integer(), nullable=True)
 
     @hybrid_property
     def syndic_manager_phone_number(self):
