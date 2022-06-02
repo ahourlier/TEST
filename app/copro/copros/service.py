@@ -222,7 +222,11 @@ class CoproService:
 
     @staticmethod
     def get(copro_id) -> Copro:
-        db_copro = Copro.query.get(copro_id)
+        db_copro = (
+            Copro.query.filter(Copro.id == copro_id)
+            .filter(Copro.is_deleted == False)
+            .first()
+        )
 
         if db_copro is None:
             raise CoproNotFoundException

@@ -14,9 +14,7 @@ class DBUtils:
         existing_entity = service.get(entity_id)
         if type(existing_entity) == CombinedStructure:
             # First delete all associated tasks
-            tasks = TaskService.get_by_entity(str(existing_entity.id), "sc_id")
-            for task in tasks:
-                task.soft_delete()
+            TaskService.delete_from_entity_id(existing_entity.id, "sc_id")
             # Soft delete all copros
             copros = (
                 Copro.query.with_entities(Copro.id)
@@ -31,9 +29,7 @@ class DBUtils:
 
         if type(existing_entity) == Copro:
             # First delete all associated tasks
-            tasks = TaskService.get_by_entity(str(existing_entity.id), "copro_id")
-            for task in tasks:
-                task.soft_delete()
+            TaskService.delete_from_entity_id(existing_entity.id, "copro_id")
             # Soft delete all buildings
             buildings = (
                 Building.query.with_entities(Building.id)
@@ -48,9 +44,7 @@ class DBUtils:
 
         if type(existing_entity) == Building:
             # First delete all associated tasks
-            tasks = TaskService.get_by_entity(str(existing_entity.id), "building_id")
-            for task in tasks:
-                task.soft_delete()
+            TaskService.delete_from_entity_id(existing_entity.id, "building_id")
             # Soft delete all lots
             lots = lots = (
                 Lot.query.with_entities(Lot.id)
@@ -65,11 +59,27 @@ class DBUtils:
 
         if type(existing_entity) == Lot:
             # First delete all associated tasks
-            tasks = TaskService.get_by_entity(str(existing_entity.id), "lot_id")
-            for task in tasks:
-                task.soft_delete()
+            TaskService.delete_from_entity_id(existing_entity.id, "lot_id")
             existing_entity.soft_delete()
             db.session.commit()
 
         existing_entity.soft_delete()
         db.session.commit()
+
+    def delete_entity_from_mission_id(mission_id):
+        """Search each entity and applied cascade soft delete when found"""
+        from app.combined_structure.service import CombinedStructureService
+        from app.copro.copros.service import CoproService
+
+        q = CombinedStructure.query.filter(
+            CombinedStructure.mission_id == mission_id
+        ).all()
+        for cs in q:
+            DBUtils.soft_delete_cascade(cs.id, CombinedStructureService)
+
+        # Search also for copro, since link between sc and copro are not mandatory
+        q = Copro.query.filter(Copro.mission_id == mission_id).all()
+        for copro in q:
+            DBUtils.soft_delete_cascade(copro.id, CoproService)
+
+        # No need to search other entity: building are linked to copro, and lot to building

@@ -193,6 +193,12 @@ class TaskService:
         return task_id
 
     @staticmethod
+    def delete_from_entity_id(entity_id, entity_key):
+        tasks = TaskService.get_by_entity(str(entity_id), entity_key)
+        for task in tasks:
+            task.soft_delete()
+
+    @staticmethod
     def task_type_is_valid(value):
         if value in [v.value for v in TaskType]:
             return True
