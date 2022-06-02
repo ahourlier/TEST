@@ -1,4 +1,4 @@
-from sqlalchemy import or_
+from sqlalchemy import String, cast, or_
 from flask import g
 from datetime import date
 
@@ -38,6 +38,15 @@ class TaskService:
         if not task or task.is_deleted:
             raise TaskNotFoundException
         return task
+
+    @staticmethod
+    def get_by_entity(entity_id, entity_key) -> Task:
+        q = Task.query.filter(entity_id == cast(Task.path[entity_key], String))
+        return q.all()
+
+    def get_by_thematique_version_id(version_id) -> Task:
+        q = Task.query.filter(version_id == Task.version_id)
+        return q.all()
 
     @staticmethod
     def create(new_attrs: TaskInterface):
@@ -182,6 +191,12 @@ class TaskService:
         db_task.soft_delete()
         db.session.commit()
         return task_id
+
+    @staticmethod
+    def delete_from_entity_id(entity_id, entity_key):
+        tasks = TaskService.get_by_entity(str(entity_id), entity_key)
+        for task in tasks:
+            task.soft_delete()
 
     @staticmethod
     def task_type_is_valid(value):
