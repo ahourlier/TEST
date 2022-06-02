@@ -36,7 +36,7 @@
 			"fields": {
 				"default_group": {
 					"type": "group",
-					"multiple": true,
+					"multiple": false,
 					"scopes": [
 						"sc",
 						"copro",
