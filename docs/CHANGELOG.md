@@ -1,3 +1,24 @@
+# [1.3.0-rc.9](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.8...v1.3.0-rc.9) (2022-06-02)
+
+
+### Bug Fixes
+
+* **Copros:** Replace switch underground / aerial parking by number ([fa8d311](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/fa8d311a6d11c00249968fa83fa65c87c43b2dae))
+* **Person:** Fix error on creation when no antenna_id is specified in group ([b42e07d](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/b42e07d02e3817c382d525f01efeed1ebe0851fe))
+* **T3:** Add missing formula (Multiple sum to implement) ([a92c7fd](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/a92c7fd08928047bf75d31c35d954686a8b5d7b2))
+* **T3:** Repasse FM ([2e367b4](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/2e367b4ca42cca52741abbbc75ac892aba7854ff))
+* **T5:** Add 'presents' as textArea ([9ab0c2f](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/9ab0c2f325e7abfecfd98f25ccecf7323cedb70a))
+* **Thematics:** Add missing field ([e35801f](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/e35801f48c7a40e74282a66ce3dfba735367470b))
+* **Thematics:** Add two field in SC scope ([c49ca7c](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/c49ca7ccbd3a6448a22769fcde345c09e8fff8d8))
+* **Thematics:** Update Prefinanceurs Refstatus + add 'Banque' fields ([74bf51e](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/74bf51e6ea3d4e6f31624f27d2055efd4bd4cc93))
+
+
+### Features
+
+* **Delete:** Delete tasks and related entity when deleting a mission + fix get on copro ( was finding deleted copro) ([27f5d63](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/27f5d6382e75c199fc42efabbd01ce7a59fa080d))
+* **Tasks:** Soft delete all tasks associated to a deleted thematique version ([9588d29](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/9588d29c142fa72a8ab2f39f5f09784aeaff18e3))
+* **Tasks:** Soft delete all tasks associated to a soft deleted entity ([7e37f9e](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/7e37f9ed2e4049a3d7f18a8e3c0a14f336e7f5c4))
+
 # [1.3.0-rc.8](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.7...v1.3.0-rc.8) (2022-05-25)
 
 
