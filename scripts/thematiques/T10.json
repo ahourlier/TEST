@@ -291,7 +291,6 @@
 											"type": "currency",
 											"multiple": false,
 											"scopes": [
-												"copro",
 												"lot"
 											],
 											"value": []
@@ -300,7 +299,6 @@
 											"type": "currency",
 											"multiple": false,
 											"scopes": [
-												"copro",
 												"lot"
 											],
 											"value": []
@@ -309,7 +307,6 @@
 											"type": "date",
 											"multiple": false,
 											"scopes": [
-												"copro",
 												"lot"
 											],
 											"value": []
@@ -319,7 +316,6 @@
 											"lg": 12,
 											"multiple": false,
 											"scopes": [
-												"copro",
 												"lot"
 											],
 											"value": []
@@ -328,7 +324,6 @@
 											"type": "switch",
 											"multiple": false,
 											"scopes": [
-												"copro",
 												"lot"
 											],
 											"value": []
@@ -780,7 +775,6 @@
 											"type": "date",
 											"multiple": false,
 											"scopes": [
-												"copro",
 												"lot"
 											],
 											"value": []
@@ -790,7 +784,6 @@
 											"endpoint": "/referential/enums/?enums=BuyerSales",
 											"multiple": false,
 											"scopes": [
-												"copro",
 												"lot"
 											],
 											"value": []
