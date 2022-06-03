@@ -205,12 +205,14 @@ class MissionService:
 
         if mission.mission_type == App.INDIVIDUAL:
             import app.project.projects.service as projects_service
+
             projects_id = [project.id for project in mission.projects]
             projects_service.ProjectService.delete_list(projects_id)
 
         if mission.mission_type == App.COPRO:
             from app.task.service import TaskService
             from app.common.db_utils import DBUtils
+
             # Delete all related Tasks and Entity
             TaskService.delete_from_entity_id(mission_id, "mission_id")
             DBUtils.delete_entity_from_mission_id(mission_id)

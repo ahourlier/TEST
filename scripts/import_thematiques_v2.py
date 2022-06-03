@@ -23,6 +23,18 @@ i18n_keys = []
 
 thematique_template_collection = "thematiques_template"
 step_collection = "steps"
+thematique_files = [
+    "T1",
+    "T2",
+    "T3",
+    "T4",
+    "T5",
+    "T6",
+    "T7",
+    "T8",
+    "T9",
+    "T10",
+]
 
 
 def get_fields(fields, thematique_name, step_name, scope):
@@ -51,22 +63,14 @@ def get_fields(fields, thematique_name, step_name, scope):
                 )
                 if field_name != "default_group":
                     i18n_keys.append("")
+            elif "default_values" in field and scope in list(
+                field["default_values"].keys()
+            ):
+                field["value"] = field["default_values"][scope]
             fields_obj[field_name] = field
     return fields_obj
 
 
-thematique_files = [
-    "T1",
-    "T2",
-    "T3",
-    "T4",
-    "T5",
-    "T6",
-    "T7",
-    "T8",
-    "T9",
-    "T10",
-]
 for file_name in thematique_files:
     with open(f"thematiques/{file_name}.json") as f:
         thematique_data = json.load(f)

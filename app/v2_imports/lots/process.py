@@ -62,8 +62,9 @@ class LotImport:
                     row, copy.deepcopy(address_co_owner_indexes)
                 ),
                 "occupant_status": row[17],
-                "cles_repartition": row[18],
             }
+            if len(row) > 18 and row[18] != None:
+                current_lot["cles_repartition"] = row[18]
 
             json_data.append(current_lot)
 
@@ -214,13 +215,21 @@ class LotImport:
             del lot_object["company_name"]
 
             # Manage cle_repartition
-            lot_object = LotImport.get_cle_repartition_links(lot_object, copro)
+            if "cles_repartition" in lot_object:
+                lot_object = LotImport.get_cle_repartition_links(lot_object, copro)
+
             if not dry_run:
                 # Manage Lot
                 lot_object["copro_id"] = copro.id
                 lot_object["building_id"] = building.id
                 lot_object["owners"] = [PersonSchema().dump(associated_person)]
-                LotService.create(copy.deepcopy(lot_object))
+                lot_copy = copy.deepcopy(lot_object)
+                # Remove label to avoid error in creation
+                # and keep it for logs
+                if "cles_repartition" in lot_copy:
+                    for key in lot_copy["cles_repartition"]:
+                        del key["label"]
+                LotService.create(lot_copy)
 
             content = LotImport.build_log_content(
                 "CREATION",
@@ -312,13 +321,20 @@ class LotImport:
             del import_lot["company_name"]
 
             # Manage cle_repartition
-            import_lot = LotImport.get_cle_repartition_links(import_lot, copro)
+            if "cles_repartition" in import_lot:
+                import_lot = LotImport.get_cle_repartition_links(import_lot, copro)
             if not dry_run:
                 # Manage Lot
                 import_lot["copro_id"] = copro.id
                 import_lot["building_id"] = building.id
                 import_lot["owners"] = [PersonSchema().dump(associated_person)]
-                LotService.update(existing_lot, copy.deepcopy(import_lot))
+                import_lot_copy = copy.deepcopy(import_lot)
+                # Remove label to avoid error in creation
+                # and keep it for logs
+                if "cles_repartition" in import_lot_copy:
+                    for key in import_lot_copy["cles_repartition"]:
+                        del key["label"]
+                LotService.update(existing_lot, import_lot_copy)
 
             content = LotImport.build_log_content(
                 "UPDATE", copro, building_name, import_lot, person_log
@@ -358,7 +374,13 @@ class LotImport:
                 )
                 raise CleRepartitionNotFoundException
             # Get cle_repartition associated to label in current copro
-            links.append({"cle_repartition_id": found_key.id, "tantieme": tantieme})
+            links.append(
+                {
+                    "cle_repartition_id": found_key.id,
+                    "tantieme": tantieme,
+                    "label": label,
+                }
+            )
         lot_object["cles_repartition"] = links
         return lot_object
 
@@ -390,9 +412,16 @@ class LotImport:
                 current_logs.append(
                     f"Owner - {person_log['civility']} {person_log['last_name']}  with address '{person_log['address']['full_address']}' found"
                 )
-            current_logs.append(
-                f"Specified repartition key have been found and associated to lot n°{lot_object.get('lot_number')}"
-            )
+            if lot_object.get("cles_repartition"):
+                current_logs.append(
+                    f"Following key have been found and associated to lot n°{lot_object.get('lot_number')}:"
+                )
+                for key in lot_object.get("cles_repartition"):
+                    current_logs.append(f"{key['label']} - {key['tantieme']} tantiemes")
+            else:
+                current_logs.append(
+                    f"No repartition key found for lot n°{lot_object.get('lot_number')}"
+                )
             return [
                 [
                     "SUCCES",
@@ -411,9 +440,16 @@ class LotImport:
             current_logs.append(
                 f"Owner - {person_log['civility']} {person_log['last_name']}  with address '{person_log['address']['full_address']}' updated"
             )
-            current_logs.append(
-                f"Specified repartition key have been updated on lot n°{lot_object.get('lot_number')}"
-            )
+            if lot_object.get("cles_repartition"):
+                current_logs.append(
+                    f"Following key have been found and updated in lot n°{lot_object.get('lot_number')}:"
+                )
+                for key in lot_object.get("cles_repartition"):
+                    current_logs.append(f"{key['label']} - {key['tantieme']} tantiemes")
+            else:
+                current_logs.append(
+                    f"No repartition key found for lot n°{lot_object.get('lot_number')}"
+                )
             return [
                 [
                     "SUCCES",

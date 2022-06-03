@@ -41,7 +41,7 @@
 			"fields": {
 				"default_group": {
 					"type": "group",
-					"multiple": true,
+					"multiple": false,
 					"scopes": [
 						"sc",
 						"copro",
@@ -990,7 +990,7 @@
 						{
 							"nature_travaux_t7_group": {
 								"type": "group",
-								"multiple": true,
+								"multiple": false,
 								"scopes": [
 									"sc",
 									"copro"

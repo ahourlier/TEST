@@ -36,7 +36,7 @@
 			"fields": {
 				"default_group": {
 					"type": "group",
-					"multiple": true,
+					"multiple": false,
 					"scopes": [
 						"sc",
 						"copro",
@@ -467,6 +467,14 @@
 					],
 					"value": [
 						{
+							"date_reunion_accompagnement_controle_comptes": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"copro"
+								],
+								"value": []
+							},
 							"presents_accompagnement_controle_comptes": {
 								"type": "textArea",
 								"lg": 12,
