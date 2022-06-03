@@ -625,9 +625,6 @@
 												"building",
 												"lot"
 											],
-											"hidden": [
-												"building"
-											],
 											"value": []
 										}
 									}
@@ -699,9 +696,6 @@
 												"building",
 												"lot"
 											],
-											"hidden": [
-												"building"
-											],
 											"value": []
 										}
 									}
@@ -742,9 +736,6 @@
 												"building",
 												"lot"
 											],
-											"hidden": [
-												"building"
-											],
 											"value": []
 										},
 										"nombre_relogements_relogement": {
@@ -752,11 +743,15 @@
 											"multiple": false,
 											"scopes": [
 												"copro",
-												"building"
+												"building",
+												"lot"
 											],
 											"hidden": [
-												"building"
+												"lot"
 											],
+											"default_values": {
+												"lot": [1]
+											},
 											"value": []
 										}
 									}
