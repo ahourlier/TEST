@@ -1,3 +1,19 @@
+# [1.3.0-rc.10](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.9...v1.3.0-rc.10) (2022-06-03)
+
+
+### Bug Fixes
+
+* **Imports:** Fix error when no repartition key specified + add log with key labels ([31183ba](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/31183ba09faf36d30456e7afbbc6eebcdd1c6cf6))
+* **T10:** Remove scope copro ([1978703](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/1978703f9ff346007561b66535d04b3623135183))
+* **T5:** Add missing date field ([64aad25](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/64aad25c95c0f7f3df85cb050c0f512a7b5a9efc))
+* **T5:** Remove multiple on Donnees cadrage ([f3b2a3d](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/f3b2a3d0fd47f546c868bd2e3b7080d9635599ed))
+* **T7:** Remove multiple groups ([2352734](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/235273452c4a355daa834533249a80900fe73fa7))
+
+
+### Features
+
+* **THEMATICS:** T10 fix hidden fields ([d4eb751](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/d4eb751c596d55303312be171704b88d9001a8d7))
+
 # [1.3.0-rc.9](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.8...v1.3.0-rc.9) (2022-06-02)
 
 
