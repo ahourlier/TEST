@@ -374,7 +374,13 @@ class LotImport:
                 )
                 raise CleRepartitionNotFoundException
             # Get cle_repartition associated to label in current copro
-            links.append({"cle_repartition_id": found_key.id, "tantieme": tantieme, "label": label})
+            links.append(
+                {
+                    "cle_repartition_id": found_key.id,
+                    "tantieme": tantieme,
+                    "label": label,
+                }
+            )
         lot_object["cles_repartition"] = links
         return lot_object
 
@@ -408,12 +414,10 @@ class LotImport:
                 )
             if lot_object.get("cles_repartition"):
                 current_logs.append(
-                        f"Following key have been found and associated to lot n°{lot_object.get('lot_number')}:"
-                    )
-                for key in lot_object.get('cles_repartition'):
-                    current_logs.append(
-                        f"{key['label']} - {key['tantieme']} tantiemes"
-                    )
+                    f"Following key have been found and associated to lot n°{lot_object.get('lot_number')}:"
+                )
+                for key in lot_object.get("cles_repartition"):
+                    current_logs.append(f"{key['label']} - {key['tantieme']} tantiemes")
             else:
                 current_logs.append(
                     f"No repartition key found for lot n°{lot_object.get('lot_number')}"
@@ -438,12 +442,10 @@ class LotImport:
             )
             if lot_object.get("cles_repartition"):
                 current_logs.append(
-                        f"Following key have been found and updated in lot n°{lot_object.get('lot_number')}:"
-                    )
-                for key in lot_object.get('cles_repartition'):
-                    current_logs.append(
-                        f"{key['label']} - {key['tantieme']} tantiemes"
-                    )
+                    f"Following key have been found and updated in lot n°{lot_object.get('lot_number')}:"
+                )
+                for key in lot_object.get("cles_repartition"):
+                    current_logs.append(f"{key['label']} - {key['tantieme']} tantiemes")
             else:
                 current_logs.append(
                     f"No repartition key found for lot n°{lot_object.get('lot_number')}"
