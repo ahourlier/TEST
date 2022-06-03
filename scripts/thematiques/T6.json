@@ -124,27 +124,36 @@
 								"multiple": false,
 								"scopes": [
 									"sc",
-									"lot"
+									"copro"
 								],
 								"value": [
 									{
-										"dettes_fournisseurs_donnees_cadrage_impayes": {
+										"fournisseur_donnees_cadrage_impayes": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"dette_donnees_cadrage_impayes": {
 											"type": "currency",
 											"multiple": false,
 											"scopes": [
 												"sc",
-												"lot"
+												"copro"
 											],
 											"value": []
 										},
 										"taux_impayes_fournisseurs_donnees_cadrage_impayes": {
 											"type": "number",
-											"formula": "dettes_fournisseurs_donnees_cadrage_impayes / budget_previsionnel_vote_donnees_cadrage_impayes",
+											"formula": "dette_donnees_cadrage_impayes / budget_previsionnel_vote_donnees_cadrage_impayes",
 											"suffix": "€",
 											"multiple": false,
 											"scopes": [
 												"sc",
-												"lot"
+												"copro"
 											],
 											"value": []
 										}
@@ -465,7 +474,7 @@
 						{
 							"mise_en_place_group": {
 								"type": "group",
-								"multiple": true,
+								"multiple": false,
 								"scopes": [
 									"copro",
 									"lot"
@@ -579,7 +588,6 @@
 										},
 										"taux_defaillance_commission_impayes": {
 											"type": "number",
-											"suffix": "%",
 											"multiple": false,
 											"formula": "(debiteurs_inferieur_2t + debiteurs_entre_2t_et_4t + debiteurs_superieur_4t)/(nombre_coproprietaires_commission_impayes || 1)",
 											"scopes": [
