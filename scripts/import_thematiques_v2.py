@@ -11,8 +11,8 @@ cred = credentials.ApplicationDefault()
 firebase_admin.initialize_app(
     cred,
     {
-        # "projectId": "app-oslo-dev",
-        "projectId": "app-oslo-preprod",
+        "projectId": "app-oslo-dev",
+        # "projectId": "app-oslo-preprod",
     },
 )
 db = firestore.client()
