@@ -50,7 +50,8 @@ def get_fields(fields, thematique_name, step_name, scope):
             field["order"] = idx + 1
             label = f"thematic.{thematique_name}.{step_name}.fields.{field_name}"
             if field_name == "default_group":
-                label = f"thematic.{thematique_name}.{step_name}.name"
+                # label = f"thematic.{thematique_name}.{step_name}.name"
+                label = ""
             if label not in i18n_keys:
                 i18n_keys.append(label)
             field["label"] = label
