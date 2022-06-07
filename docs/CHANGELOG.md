@@ -1,3 +1,24 @@
+# [1.3.0-rc.11](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.10...v1.3.0-rc.11) (2022-06-07)
+
+
+### Bug Fixes
+
+* **Missions:** Apply mission filter from preffered app ([db38c10](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/db38c10f4ebe8f3239b62adfdefd2c5ee88217c7))
+* **Search:** Filter result from mission + refacto ([1e5e842](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/1e5e842c0dcfc5bd2e34fd52a8970d8924486e8e))
+* **Search:** Fix user_in_charge field + missions manager dissapearing ([efc287e](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/efc287e838d7a650dca0b80559d929727653ccad))
+* **Search:** Replace value name by id ([5957de4](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/5957de4836a98cdfdc5ffd0375f9d4c518560673))
+* **T5:** Add fields ([fe23681](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/fe236819fd0c9ff2f72f6c122ccf2347dfaca890))
+* **Tasks:** Add filter mission permission when listing ([4385d43](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/4385d43a48a6593034b3f902a96d3848b2b4bebe))
+* **THEMATICS:** fix T8 ([b966555](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/b966555016afbfd112c29fbf8544b66a1b10ecd3))
+* **THEMATICS:** fix thematic 10 ([20e1491](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/20e14918f4e0eff9cfb865d4b9668cce77f50052))
+* **THEMATICS:** review thematic 7 ([f933ec6](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/f933ec626845dbd1536b31aed121641d46492d85))
+
+
+### Features
+
+* **Missions:** Add dispositif financiers mobilisés + sqm ([003799b](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/003799b360ef44cb4cffb06b0518aa223bb1a37e))
+* **THEMATICS:** add filler ([290fb26](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/290fb26833df75586ce81a276598ab2838de6ec0))
+
 # [1.3.0-rc.10](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.9...v1.3.0-rc.10) (2022-06-03)
 
 
