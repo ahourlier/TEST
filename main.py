@@ -1,6 +1,7 @@
 import os
 from flask.cli import load_dotenv
 from app import create_app
+# from scripts.preferred_app_filler import fill_preferred_app
 
 # try:
 #     import googleclouddebugger
@@ -25,4 +26,6 @@ load_dotenv()
 
 app = create_app(os.getenv("FLASK_ENV") or "test")
 if __name__ == "__main__":
+    # with app.app_context():
+    #     fill_preferred_app()
     app.run(debug=os.getenv("DEV_SERVER"), use_reloader=False)

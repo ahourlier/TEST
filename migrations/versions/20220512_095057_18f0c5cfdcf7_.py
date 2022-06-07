@@ -266,7 +266,7 @@ enums = {
         "Travaux d''isolation thermique des parois vitrées donnant sur l''extérieur comprenant, le cas échéant, l''installation de systèmes d''occultation extérieurs",
         "Pose ou remplacement d''organes de régulation ou d''équilibrage sur les émetteurs de chaleur ou de froid",
         "Equilibrage des émetteurs de chaleur ou de froid",
-        "Mise en place d''équipements de comptage des quantités d'énergies consommées"
+        "Mise en place d''équipements de comptage des quantités d''énergies consommées"
     ],
     "HelpType": [
         "Aide au SDC",
