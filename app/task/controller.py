@@ -1,5 +1,5 @@
 from flask_accepts import accepts, responds
-from flask import request, Response, jsonify
+from flask import request, Response, jsonify, g
 from flask_allows import requires
 from flask_sqlalchemy import Pagination
 from .model import TaskType
@@ -75,6 +75,7 @@ class TaskResource(AuthenticatedApi):
             else None,
             task_type=get_task_type_from_url(request.path),
             merge=request.args.get("merge"),
+            user=g.user,
         )
 
     @accepts(schema=TaskSchema, api=api)
