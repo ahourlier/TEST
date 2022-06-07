@@ -3,12 +3,14 @@ from flask import g
 import json
 from app.auth.users.model import UserRole
 from app.building.model import Building
+from app.mission.teams.service import TeamService
 from app.v2_search.utils import (
     add_autocomplete_values,
     add_enums_values,
     add_is_default_fields,
     add_label_fields,
     add_many_to_x_fields,
+    add_mission_managers,
     add_one_to_one_fields,
     change_column_type,
     filter_by_mission_permission,
@@ -165,4 +167,9 @@ class SearchV2Service:
         if user is not None and user.role != UserRole.ADMIN:
             q = filter_by_mission_permission(q, model, user)
 
-        return q.all()
+        items = q.all()
+        # Add manager project on mission
+        if entity == "mission":
+            items = add_mission_managers(items)
+            
+        return items
