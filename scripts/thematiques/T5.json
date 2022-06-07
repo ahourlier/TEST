@@ -8,7 +8,7 @@
 	"versionnable": [
 		true,
 		true,
-		true
+		false
 	],
 	"heritable": [
 		false,
@@ -63,6 +63,12 @@
 									"building"
 								],
 								"value": []
+							},
+							"filler": {
+								"type": "filler",
+								"scopes": [
+									"sc"
+								]
 							},
 							"eau_froide_donnees_cadrage_t5": {
 								"type": "currency",

@@ -48,26 +48,27 @@ def get_fields(fields, thematique_name, step_name, scope):
             del field["scopes"]
             field["scope"] = scope
             field["order"] = idx + 1
-            label = f"thematic.{thematique_name}.{step_name}.fields.{field_name}"
-            if field_name == "default_group":
-                # label = f"thematic.{thematique_name}.{step_name}.name"
-                label = ""
-            if label not in i18n_keys:
-                i18n_keys.append(label)
-            field["label"] = label
-            if field["type"] == "group":
-                field["value"][0] = get_fields(
-                    field["value"][0],
-                    thematique_name,
-                    step_name,
-                    scope,
-                )
-                if field_name != "default_group":
-                    i18n_keys.append("")
-            elif "default_values" in field and scope in list(
-                field["default_values"].keys()
-            ):
-                field["value"] = field["default_values"][scope]
+            if field["type"] != "filler":
+                label = f"thematic.{thematique_name}.{step_name}.fields.{field_name}"
+                if field_name == "default_group":
+                    # label = f"thematic.{thematique_name}.{step_name}.name"
+                    label = ""
+                if label not in i18n_keys:
+                    i18n_keys.append(label)
+                field["label"] = label
+                if field["type"] == "group":
+                    field["value"][0] = get_fields(
+                        field["value"][0],
+                        thematique_name,
+                        step_name,
+                        scope,
+                    )
+                    if field_name != "default_group":
+                        i18n_keys.append("")
+                elif "default_values" in field and scope in list(
+                    field["default_values"].keys()
+                ):
+                    field["value"] = field["default_values"][scope]
             fields_obj[field_name] = field
     return fields_obj
 
