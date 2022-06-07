@@ -195,7 +195,7 @@ AUTOCOMPLETE_MISSION_CONFIG = {
 
 AUTOCOMPLETE_LOT_CONFIG = {
     "building_id": {
-        "endpointUrl": "/buildings/",
+        "endpointUrl": "/buildings",
         "fieldsMask": "name,copro,id",
         "itemValue": "id",
         "itemText": ["name"],

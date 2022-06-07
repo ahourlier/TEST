@@ -104,7 +104,7 @@ class MissionService:
                 raise UnknownMissionTypeException
             else:
                 q = q.filter(Mission.mission_type == mission_type)
-        
+
         q = q.filter(Mission.mission_type == g.user.preferred_app.preferred_app)
 
         if user is not None:
