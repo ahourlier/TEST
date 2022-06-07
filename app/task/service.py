@@ -15,6 +15,7 @@ from app.task.error_handlers import (
     InvalidTaskTypeException,
     StepOrVersionMissingException,
 )
+from app.mission.missions.model import Mission
 from app.task.interface import TaskInterface
 from app.thematique.exceptions import VersionNotFoundException, StepNotFoundException
 
@@ -100,7 +101,10 @@ class TaskService:
         version=None,
         task_type=None,
         merge=None,
+        user=None,
     ):
+        import app.mission.permissions as mission_permissions
+
         q = sort_query(
             Task.query.filter(or_(Task.is_deleted == False, Task.is_deleted == None)),
             sort_by,
@@ -144,6 +148,11 @@ class TaskService:
         if version:
             version = version.split(",")
             q = q.filter(Task.version_id.in_(version))
+
+        q = q.join(Mission)
+        q = mission_permissions.MissionPermission.filter_query_mission_by_user_permissions(
+            q, user
+        )
 
         count = q.count()
         tasks = q.all()
