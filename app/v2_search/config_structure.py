@@ -298,7 +298,7 @@ AUTOCOMPLETE_COPRO_CONFIG = {
         "deletableChips": True,
         "appendIcon": "mdi-magnify",
         "hideNoData": True,
-        "itemValue": "name",
+        "itemValue": "last_name",
         "returnObject": True,
     },
 }

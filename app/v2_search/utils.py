@@ -4,6 +4,7 @@ from app.copro.copros.model import Copro
 from app.lot.model import Lot
 import app.mission.permissions as mission_permissions
 from app.mission.missions import Mission
+from app.mission.teams.service import TeamService
 from app.referential.enums.service import AppEnumService
 from app.v2_search.config_sql_relations import (
     ENTITY_TO_COMPLEX_RELATION_MAPPING,
@@ -208,3 +209,14 @@ def filter_by_mission_permission(query, model, user):
             query, user
         )
     )
+
+
+# ADD MISSING INFO FUNCTIONS
+# --------------------------------------------------
+
+
+def add_mission_managers(items):
+    for item in items:
+        mission_managers = TeamService.get_all_mission_managers(mission_id=item.id)
+        item.managers = mission_managers.items
+    return items
