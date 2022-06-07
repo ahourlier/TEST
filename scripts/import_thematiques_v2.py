@@ -56,6 +56,9 @@ def get_fields(fields, thematique_name, step_name, scope):
                 if label not in i18n_keys:
                     i18n_keys.append(label)
                 field["label"] = label
+                if "formulas" in field and scope in list(field["formulas"].keys()):
+                    field["formula"] = field["formulas"][scope]
+                    del field["formulas"]
                 if field["type"] == "group":
                     field["value"][0] = get_fields(
                         field["value"][0],
