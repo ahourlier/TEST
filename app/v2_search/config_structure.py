@@ -171,7 +171,7 @@ AUTOCOMPLETE_MISSION_CONFIG = {
         "deletableChips": True,
         "appendIcon": "mdi-magnify",
         "hideNoData": True,
-        "itemValue": "name",
+        "itemValue": "id",
         "returnObject": True,
     },
     "client_id": {
@@ -188,7 +188,7 @@ AUTOCOMPLETE_MISSION_CONFIG = {
         "deletableChips": True,
         "appendIcon": "mdi-magnify",
         "hideNoData": True,
-        "itemValue": "name",
+        "itemValue": "id",
         "returnObject": True,
     },
 }
@@ -298,7 +298,7 @@ AUTOCOMPLETE_COPRO_CONFIG = {
         "deletableChips": True,
         "appendIcon": "mdi-magnify",
         "hideNoData": True,
-        "itemValue": "last_name",
+        "itemValue": "id",
         "returnObject": True,
     },
 }
