@@ -1,15 +1,15 @@
 # MAPPING ONE TO ONE RELATIONS
 
 MAPPING_MISSION_SIMPLE_RELATION_TO_FIELD = {
-    "agency_id": "agency.name",
-    "client_id": "client.name",
+    "agency_id": "agency.id",
+    "client_id": "client.id",
 }
 
 MAPPING_COPRO_SIMPLE_RELATION_TO_FIELD = {
     "commune": "address_1.city",
     "address_1_id": "address_1.full_address",
     "address_2_id": "address_2.full_address",
-    "user_in_charge_id": "user.name",
+    "user_in_charge_id": "user_in_charge.id",
 }
 
 ENTITY_TO_ONE_TO_ONE_RELATION_MAPPING = {

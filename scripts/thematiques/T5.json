@@ -8,7 +8,7 @@
 	"versionnable": [
 		true,
 		true,
-		true
+		false
 	],
 	"heritable": [
 		false,
@@ -63,6 +63,12 @@
 									"building"
 								],
 								"value": []
+							},
+							"filler": {
+								"type": "filler",
+								"scopes": [
+									"sc"
+								]
 							},
 							"eau_froide_donnees_cadrage_t5": {
 								"type": "currency",
@@ -372,6 +378,25 @@
 								"type": "currency",
 								"multiple": false,
 								"formula": "frais_conseil_syndical_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
+								"scopes": [
+									"copro",
+									"building"
+								],
+								"value": []
+							},
+							"structure_combinee_syndical_donnees_cadrage_t5": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"copro",
+									"building"
+								],
+								"value": []
+							},
+							"structure_combinee_syndical_depense_lot_principal_donnees_cadrage_t5": {
+								"type": "currency",
+								"multiple": false,
+								"formula": "structure_combinee_syndical_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
 								"scopes": [
 									"copro",
 									"building"

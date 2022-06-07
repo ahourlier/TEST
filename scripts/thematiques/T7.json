@@ -1188,17 +1188,6 @@
 								"lg": 12,
 								"multiple": false,
 								"scopes": [
-									"sc",
-									"copro"
-								],
-								"value": []
-							},
-							"commentaires_besoins_realisation_etudes": {
-								"type": "textArea",
-								"lg": 12,
-								"multiple": false,
-								"scopes": [
-									"sc",
 									"copro"
 								],
 								"value": []
@@ -1267,16 +1256,6 @@
 								"value": []
 							},
 							"moe_ou_cpe_retenu_a_issue_consultation": {
-								"type": "textArea",
-								"lg": 12,
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro"
-								],
-								"value": []
-							},
-							"precisions": {
 								"type": "textArea",
 								"lg": 12,
 								"multiple": false,

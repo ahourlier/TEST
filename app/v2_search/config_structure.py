@@ -171,7 +171,7 @@ AUTOCOMPLETE_MISSION_CONFIG = {
         "deletableChips": True,
         "appendIcon": "mdi-magnify",
         "hideNoData": True,
-        "itemValue": "name",
+        "itemValue": "id",
         "returnObject": True,
     },
     "client_id": {
@@ -188,14 +188,14 @@ AUTOCOMPLETE_MISSION_CONFIG = {
         "deletableChips": True,
         "appendIcon": "mdi-magnify",
         "hideNoData": True,
-        "itemValue": "name",
+        "itemValue": "id",
         "returnObject": True,
     },
 }
 
 AUTOCOMPLETE_LOT_CONFIG = {
     "building_id": {
-        "endpointUrl": "/buildings/",
+        "endpointUrl": "/buildings",
         "fieldsMask": "name,copro,id",
         "itemValue": "id",
         "itemText": ["name"],
@@ -298,7 +298,7 @@ AUTOCOMPLETE_COPRO_CONFIG = {
         "deletableChips": True,
         "appendIcon": "mdi-magnify",
         "hideNoData": True,
-        "itemValue": "name",
+        "itemValue": "id",
         "returnObject": True,
     },
 }
