@@ -130,4 +130,4 @@ deploy_prod:
     - gcloud auth activate-service-account --key-file $PROD_CI_SA_KEY
     - gcloud --quiet config set project $PROD_PROJECT_ID
     - gcloud secrets versions access latest --secret="$BACKEND_ENV_SECRET_KEY" > .env
-    - gcloud app deploy app.yaml manager.yaml dispatch.yaml queue.yaml --quiet
+    - gcloud app deploy app.yaml manager.yaml dispatch.yaml queue.yaml --quiet --no-promote
