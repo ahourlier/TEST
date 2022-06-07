@@ -3,6 +3,7 @@ from flask import g
 from datetime import date
 
 from app import db
+from app.auth.users.model import UserRole
 from app.common.exceptions import EnumException
 from app.common.firestore_utils import FirestoreUtils
 from app.common.search import sort_query
@@ -149,10 +150,11 @@ class TaskService:
             version = version.split(",")
             q = q.filter(Task.version_id.in_(version))
 
-        q = q.join(Mission)
-        q = mission_permissions.MissionPermission.filter_query_mission_by_user_permissions(
-            q, user
-        )
+        if user is not None and user.role != UserRole.ADMIN:
+            q = q.join(Mission)
+            q = mission_permissions.MissionPermission.filter_query_mission_by_user_permissions(
+                q, user
+            )
 
         count = q.count()
         tasks = q.all()

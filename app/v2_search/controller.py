@@ -43,6 +43,10 @@ class SearchEntityResource(AuthenticatedApi):
 
 @api.route("/<entity>/structure")
 class SearchEntityStructure(AuthenticatedApi):
+    """
+    Return fields structure, aka. order and type of fields to display
+    """
+
     @responds(schema=SearchItemsStructureSchema(), api=api)
     def get(self, entity):
         structure = []
