@@ -210,7 +210,8 @@
 														"value": []
 													},
 													"description_succincte_poste_poste_nature_travaux_interet_collectif_sur_parties_privatives": {
-														"type": "string",
+														"type": "textArea",
+														"lg": 12,
 														"multiple": false,
 														"scopes": [
 															"sc",
@@ -397,7 +398,8 @@
 								"multiple": true,
 								"scopes": [
 									"sc",
-									"copro"
+									"copro",
+									"lot"
 								],
 								"value": [
 									{
@@ -406,7 +408,8 @@
 											"multiple": false,
 											"scopes": [
 												"sc",
-												"copro"
+												"copro",
+												"lot"
 											],
 											"value": []
 										},
@@ -415,7 +418,8 @@
 											"multiple": false,
 											"scopes": [
 												"sc",
-												"copro"
+												"copro",
+												"lot"
 											],
 											"value": []
 										},
@@ -427,7 +431,8 @@
 											"multiple": false,
 											"scopes": [
 												"sc",
-												"copro"
+												"copro",
+												"lot"
 											],
 											"value": []
 										},
@@ -436,7 +441,8 @@
 											"multiple": true,
 											"scopes": [
 												"sc",
-												"copro"
+												"copro",
+												"lot"
 											],
 											"value": [
 												{
@@ -446,7 +452,8 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													},
@@ -455,7 +462,8 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													},
@@ -464,12 +472,32 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													},
 													"montant_aide_demande_primes_demande_aide_financeur": {
 														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro",
+															"lot"
+														],
+														"value": []
+													},
+													"nombre_po_aides_demande_aide_financeur": {
+														"type": "number",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro"
+														],
+														"value": []
+													},
+													"nombre_pb_aides_demande_aide_financeur": {
+														"type": "number",
 														"multiple": false,
 														"scopes": [
 															"sc",
@@ -482,7 +510,8 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													},
@@ -491,7 +520,8 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													},
@@ -500,7 +530,8 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													},
@@ -509,7 +540,8 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													},
@@ -518,7 +550,8 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													},
@@ -527,7 +560,8 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													}
@@ -548,7 +582,8 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													},
@@ -557,7 +592,8 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													},
@@ -566,7 +602,8 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													},
@@ -575,7 +612,8 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													}
@@ -596,7 +634,8 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													},
@@ -605,7 +644,8 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													},
@@ -614,7 +654,8 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													},
@@ -623,7 +664,8 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													}
@@ -644,7 +686,8 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													},
@@ -653,7 +696,8 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													},
@@ -662,7 +706,8 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													},
@@ -671,7 +716,8 @@
 														"multiple": false,
 														"scopes": [
 															"sc",
-															"copro"
+															"copro",
+															"lot"
 														],
 														"value": []
 													}
@@ -683,7 +729,8 @@
 											"multiple": true,
 											"scopes": [
 												"sc",
-												"copro"
+												"copro",
+												"lot"
 											],
 											"value": []
 										},
@@ -692,7 +739,8 @@
 											"multiple": false,
 											"scopes": [
 												"sc",
-												"copro"
+												"copro",
+												"lot"
 											],
 											"value": []
 										},
@@ -701,7 +749,8 @@
 											"multiple": false,
 											"scopes": [
 												"sc",
-												"copro"
+												"copro",
+												"lot"
 											],
 											"value": []
 										},
@@ -711,7 +760,8 @@
 											"multiple": false,
 											"scopes": [
 												"sc",
-												"copro"
+												"copro",
+												"lot"
 											],
 											"value": []
 										}
@@ -895,41 +945,53 @@
 														],
 														"value": []
 													},
-													"date_demande_decaissement_demande_deblocage_prefinanceur_prefinancements_t8": {
-														"type": "date",
-														"multiple": false,
+													"demande_decaissement_demande_deblocage_prefinanceur_prefinancements_t8_group": {
+														"type": "group",
+														"multiple": true,
 														"scopes": [
 															"sc",
 															"copro"
 														],
-														"value": []
-													},
-													"montant_demande_decaissement_demande_deblocage_prefinanceur_prefinancements_t8": {
-														"type": "currency",
-														"multiple": false,
-														"scopes": [
-															"sc",
-															"copro"
-														],
-														"value": []
-													},
-													"date_versement_demande_deblocage_prefinanceur_prefinancements_t8": {
-														"type": "date",
-														"multiple": false,
-														"scopes": [
-															"sc",
-															"copro"
-														],
-														"value": []
-													},
-													"montant_verse_demande_deblocage_prefinanceur_prefinancements_t8": {
-														"type": "currency",
-														"multiple": false,
-														"scopes": [
-															"sc",
-															"copro"
-														],
-														"value": []
+														"value": [
+															{
+																"date_demande_decaissement_demande_deblocage_prefinanceur_prefinancements_t8_group": {
+																	"type": "date",
+																	"multiple": false,
+																	"scopes": [
+																		"sc",
+																		"copro"
+																	],
+																	"value": []
+																},
+																"montant_demande_decaissement_demande_deblocage_prefinanceur_prefinancements_t8": {
+																	"type": "currency",
+																	"multiple": false,
+																	"scopes": [
+																		"sc",
+																		"copro"
+																	],
+																	"value": []
+																},
+																"date_versement_demande_deblocage_prefinanceur_prefinancements_t8": {
+																	"type": "date",
+																	"multiple": false,
+																	"scopes": [
+																		"sc",
+																		"copro"
+																	],
+																	"value": []
+																},
+																"montant_verse_demande_deblocage_prefinanceur_prefinancements_t8": {
+																	"type": "currency",
+																	"multiple": false,
+																	"scopes": [
+																		"sc",
+																		"copro"
+																	],
+																	"value": []
+																}
+															}
+														]
 													}
 												}
 											]
