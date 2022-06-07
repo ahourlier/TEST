@@ -11,14 +11,14 @@
 		false
 	],
 	"heritable": [
-		false,
-		false,
+		true,
+		true,
 		false
 	],
 	"extend_parent": [
 		false,
-		false,
-		false
+		true,
+		true
 	],
 	"steps": [
 		{
@@ -532,7 +532,6 @@
 								"type": "group",
 								"multiple": false,
 								"scopes": [
-									"copro",
 									"lot"
 								],
 								"value": [
@@ -542,7 +541,6 @@
 											"format": "YYYY",
 											"multiple": false,
 											"scopes": [
-												"copro",
 												"lot"
 											],
 											"value": []
@@ -551,7 +549,6 @@
 											"type": "currency",
 											"multiple": false,
 											"scopes": [
-												"copro",
 												"lot"
 											],
 											"value": []
@@ -750,7 +747,9 @@
 												"lot"
 											],
 											"default_values": {
-												"lot": [1]
+												"lot": [
+													1
+												]
 											},
 											"value": []
 										}
