@@ -171,5 +171,5 @@ class SearchV2Service:
         # Add manager project on mission
         if entity == "mission":
             items = add_mission_managers(items)
-            
+
         return items

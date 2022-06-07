@@ -62,4 +62,3 @@ class MissionDetail(BaseMixin, db.Model):
     smq_internal_audit_date = Column(db.Date, nullable=True)
     smq_external_audit_date = Column(db.Date, nullable=True)
     sqm_commentary = Column(String(500), nullable=True)
-
