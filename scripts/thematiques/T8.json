@@ -43,6 +43,7 @@
 					"frais_sur_pc_ht_campagne_travaux",
 					"frais_sur_pc_ttc_campagne_travaux",
 					"depense_subventionnable_pc_ht_campagne_travaux",
+					"depense_totale_ppic_ttc_campagne_travaux",
 					"travaux_sur_ppic_ttc_campagne_travaux",
 					"frais_sur_ppic_ttc_campagne_travaux"
 				]
@@ -281,7 +282,9 @@
 										},
 										"depense_totale_ppic_ttc_campagne_travaux": {
 											"type": "string",
-											"formula": "travaux_sur_ppic_ttc_campagne_travaux + frais_sur_ppic_ttc_campagne_travaux",
+											"formulas": {
+												"lot": "travaux_sur_ppic_ttc_campagne_travaux + frais_sur_ppic_ttc_campagne_travaux"
+											},
 											"suffix": "€",
 											"multiple": false,
 											"scopes": [
@@ -380,7 +383,8 @@
 				"status": "",
 				"scopes": [
 					"sc",
-					"copro"
+					"copro",
+					"lot"
 				]
 			},
 			"fields": {
@@ -389,7 +393,8 @@
 					"multiple": false,
 					"scopes": [
 						"sc",
-						"copro"
+						"copro",
+						"lot"
 					],
 					"value": [
 						{
@@ -459,6 +464,16 @@
 													},
 													"date_demande_aide_financeur": {
 														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro",
+															"lot"
+														],
+														"value": []
+													},
+													"depense_subventionnable_pour_ce_financeur_demande_aide_financeur": {
+														"type": "currency",
 														"multiple": false,
 														"scopes": [
 															"sc",
@@ -573,7 +588,8 @@
 											"multiple": true,
 											"scopes": [
 												"sc",
-												"copro"
+												"copro",
+												"lot"
 											],
 											"value": [
 												{
@@ -625,7 +641,8 @@
 											"multiple": true,
 											"scopes": [
 												"sc",
-												"copro"
+												"copro",
+												"lot"
 											],
 											"value": [
 												{
@@ -677,7 +694,8 @@
 											"multiple": true,
 											"scopes": [
 												"sc",
-												"copro"
+												"copro",
+												"lot"
 											],
 											"value": [
 												{
@@ -834,7 +852,7 @@
 											],
 											"value": []
 										},
-										"banque_prefinanceur_prefinancements_t8": {
+										"organisme_bancaire_prefinanceur_prefinancements_t8": {
 											"type": "string",
 											"multiple": true,
 											"scopes": [
@@ -843,7 +861,7 @@
 											],
 											"value": []
 										},
-										"coordonnees_banque_tel_prefinanceur_prefinancements_t8": {
+										"coordonnees_tel_organisme_bancaire_prefinanceur_prefinancements_t8": {
 											"type": "phone",
 											"multiple": false,
 											"scopes": [
@@ -852,7 +870,7 @@
 											],
 											"value": []
 										},
-										"coordonnees_banque_mail_prefinanceur_prefinancements_t8": {
+										"coordonnees_mail_organisme_bancaire_prefinanceur_prefinancements_t8": {
 											"type": "email",
 											"rules": "email",
 											"prepend-inner-icon": "mdi-email",
@@ -920,7 +938,7 @@
 										},
 										"demande_deblocage_prefinanceur_prefinancements_t8_group": {
 											"type": "group",
-											"multiple": true,
+											"multiple": false,
 											"scopes": [
 												"sc",
 												"copro"
@@ -1353,6 +1371,7 @@
 						{
 							"taux_financement_sur_depense_subventionnable_pc_plus_ppic": {
 								"type": "number",
+								"formula_todo": "(montant_aide_engage_subventions_demande_aide_financeur + montant_aide_engage_primes_demande_aide_financeur) / (depense_totale_sur_pc_plus_ppic_ttc_campagne_travaux || 1)",
 								"suffix": "%",
 								"multiple": false,
 								"scopes": [
@@ -1363,6 +1382,7 @@
 							},
 							"taux_financement_sur_depense_total_pc_plus_ppic": {
 								"type": "number",
+								"formula_todo": "montant_verse_demande_solde_financeur / (depense_totale_sur_pc_plus_ppic_ttc_campagne_travaux || 1)",
 								"suffix": "%",
 								"multiple": false,
 								"scopes": [
