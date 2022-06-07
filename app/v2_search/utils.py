@@ -200,7 +200,7 @@ def filter_by_mission_permission(query, model, user):
         query = query.join(Copro, Copro.id == Building.copro_id)
         query = query.join(Mission, Mission.id == Copro.mission_id)
     elif model == Lot:
-        query = query.join(Lot, Building.id == Lot.building_id)
+        query = query.join(Building, Building.id == Lot.building_id)
         query = query.join(Copro, Copro.id == Building.copro_id)
         query = query.join(Mission, Mission.id == Copro.mission_id)
     return (
