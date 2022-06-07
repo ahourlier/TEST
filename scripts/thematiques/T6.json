@@ -1,0 +1,718 @@
+{
+	"thematique_name": "IMPAYES",
+	"scopes": [
+		"sc",
+		"copro",
+		"lot"
+	],
+	"versionnable": [
+		true,
+		true,
+		false
+	],
+	"heritable": [
+		false,
+		true,
+		false
+	],
+	"extend_parent": [
+		false,
+		false,
+		true
+	],
+	"steps": [
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "RENCONTRE_COPROPRIETE_ET_PARTENAIRES",
+				"order": 1,
+				"scopes": [
+					"sc",
+					"copro"
+				],
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": false,
+					"scopes": [
+						"sc",
+						"copro"
+					],
+					"value": [
+						{
+							"rencontres_copropriete_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": [
+									{
+										"date_rencontres_copropriete": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"objet_rencontres_copropriete": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"personnes_presentes_rencontres_copropriete": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"commentaires_rencontres_copropriete": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"rencontres_partenaires_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": [
+									{
+										"nom_organisme_partenaire_rencontres_partenaires": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"date_rencontres_partenaires": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"objet_rencontres_partenaires": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"interlocuteurs_presentes_rencontres_partenaires": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"coordonnees_tel_rencontres_partenaires": {
+											"type": "phone",
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"coordonnees_mail_rencontres_partenaires": {
+											"type": "email",
+											"rules": "email",
+											"prepend-inner-icon": "mdi-email",
+											"email-link": true,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										},
+										"commentaires_rencontres_partenaires": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"sc",
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"metadata": {
+				"legendes": [],
+				"name": "COMMISSION_IMPAYES",
+				"order": 2,
+				"scopes": [
+					"copro",
+					"lot"
+				],
+				"status": ""
+			},
+			"fields": {
+				"default_group": {
+					"type": "group",
+					"multiple": true,
+					"scopes": [
+						"copro",
+						"lot"
+					],
+					"value": [
+						{
+							"mise_en_place_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"copro",
+									"lot"
+								],
+								"value": [
+									{
+										"adhesion_copropriete_a_demarche_mise_en_place": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"date_commission_initiale_mise_en_place": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"frequence_prevue_commission_mise_en_place": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"participants_prevus_mise_en_place": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"commentaires_mise_en_place": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"commission_impayes_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"copro",
+									"lot"
+								],
+								"value": [
+									{
+										"date_commission_impayes": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"presence_cs_commission_impayes": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"presence_tiers_commission_impayes": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"montant_impayes_commission_impayes": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"nombre_coproprietaires_commission_impayes": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"taux_defaillance_commission_impayes": {
+											"type": "number",
+											"suffix": "%",
+											"multiple": false,
+											"formula": "(debiteurs_inferieur_2t + debiteurs_entre_2t_et_4t + debiteurs_superieur_4t)/(nombre_coproprietaires_commission_impayes || 1)",
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"nombre_protocoles_amiables_signes": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"nombre_procedures_precontentieuses_en_cours": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"nombre_procedures_contentieuses_en_cours": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"debiteurs_inferieur_2t": {
+											"type": "number",
+											"multiple": false,
+											"formula": "nombre_po_avec_dette_inferieur_2t + nombre_pb_avec_dette_inferieur_2t + nombre_autre_statut_avec_dette_inferieur_2t",
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"debiteurs_entre_2t_et_4t": {
+											"type": "number",
+											"multiple": false,
+											"formula": "nombre_po_avec_dette_entre_2t_et_4t + nombre_pb_avec_dette_entre_2t_et_4t + nombre_autre_statut_avec_dette_entre_2t_et_4t",
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"debiteurs_superieur_4t": {
+											"type": "number",
+											"multiple": false,
+											"formula": "nombre_po_avec_dette_superieur_4t + nombre_pb_avec_dette_superieur_4t + nombre_autre_statut_avec_dette_superieur_4t",
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"nombre_po_avec_dette_inferieur_2t": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"dette_cumulee_po_inferieur_2t": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"nombre_po_avec_dette_entre_2t_et_4t": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"dette_cumulee_po_entre_2t_et_4t": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"nombre_po_avec_dette_superieur_4t": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"dette_cumulee_po_superieur_4t": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"nombre_pb_avec_dette_inferieur_2t": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"dette_cumulee_pb_inferieur_2t": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"nombre_pb_avec_dette_entre_2t_et_4t": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"dette_cumulee_pb_entre_2t_et_4t": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"nombre_pb_avec_dette_superieur_4t": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"dette_cumulee_pb_superieur_4t": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"nombre_autre_statut_avec_dette_inferieur_2t": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"dette_cumulee_autre_statut_inferieur_2t": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"nombre_autre_statut_avec_dette_entre_2t_et_4t": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"dette_cumulee_autre_statut_entre_2t_et_4t": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"nombre_autre_statut_avec_dette_superieur_4t": {
+											"type": "number",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										},
+										"dette_cumulee_autre_statut_superieur_4t": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"copro",
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"impayes_lot_group": {
+								"type": "group",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": [
+									{
+										"numero_client_chez_syndic_impayes_lot": {
+											"type": "string",
+											"multiple": false,
+											"rules": "alpha_num",
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"annee_achat_bien_impayes_lot": {
+											"type": "date",
+											"multiple": false,
+											"format": "YYYY",
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"annee_vente_bien_impayes_lot": {
+											"type": "date",
+											"multiple": false,
+											"format": "YYYY",
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"impayes_charges_courantes_impayes_lot": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"impayes_charges_travaux_impayes_lot": {
+											"type": "currency",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"total_impayes_impayes_lot": {
+											"type": "currency",
+											"multiple": false,
+											"formula": "impayes_charges_courantes_impayes_lot + impayes_charges_travaux_impayes_lot",
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"dette_inferieur_2t_impayes_lot": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"dette_entre_2t_et_4t_impayes_lot": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"dette_superieur_4t_impayes_lot": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"cotation_syndic_impayes_lot": {
+											"type": "string",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"action_precontentieuse_impayes_lot": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=PreLitigationAction",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"decision_engagement_action_precontentieuse_impayes_lot": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"action_urbanis_impayes_lot": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=UrbanisAction",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"decision_engagement_action_urbanis_impayes_lot": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"action_contentieuse_impayes_lot": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=LitigationAction",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"decision_engagement_impayes_lot": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"annee_premier_vote_saisie_immobiliere_impayes_lot": {
+											"type": "date",
+											"multiple": false,
+											"format": "YYYY",
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										},
+										"commentaires_impayes_lot": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"lot"
+											],
+											"value": []
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		}
+	]
+}

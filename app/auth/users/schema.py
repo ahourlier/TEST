@@ -5,6 +5,7 @@ from marshmallow.fields import String
 
 from . import UserGroup
 from .model import User
+from ..preferred_app import PreferredAppSchema
 from ...admin.agencies import AgencySchema
 from ...admin.antennas import AntennaSchema
 from ...common.schemas import PaginatedSchema
@@ -20,11 +21,23 @@ class UserGroupSchema(SQLAlchemyAutoSchema):
 
 class UserSchema(SQLAlchemyAutoSchema):
     groups = fields.List(fields.Nested(UserGroupSchema()), dump_only=True)
+    # preferred_app = fields.Nested(PreferredAppSchema())
 
     class Meta:
         model = User
         include_fk = True
         unknown = EXCLUDE
+
+
+class UserLightSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = User
+        include_fk = True
+        unknown = EXCLUDE
+
+
+class UsersInItemsSchema(SQLAlchemyAutoSchema):
+    items = fields.Nested(UserLightSchema, many=True, dump_only=True)
 
 
 class UserPermissionSchema(Schema):
@@ -36,6 +49,7 @@ class UserAuthSchema(SQLAlchemyAutoSchema):
     groups = fields.List(fields.Nested(UserGroupSchema()), dump_only=True)
     permissions = fields.List(fields.Nested(UserPermissionSchema), dump_only=True)
     projects_id = fields.List(fields.Integer, dump_only=True)
+    preferred_app = fields.Nested(PreferredAppSchema())
 
     class Meta:
         model = User
@@ -45,3 +59,12 @@ class UserAuthSchema(SQLAlchemyAutoSchema):
 
 class UserPaginatedSchema(PaginatedSchema):
     items = fields.Nested(UserSchema, many=True, dump_only=True)
+
+
+class UserInChargeSchema(SQLAlchemyAutoSchema):
+    full_name = fields.Function(lambda obj: f"{obj.first_name} {obj.last_name}")
+
+    class Meta:
+        model = User
+        include_fk = True
+        unknown = EXCLUDE

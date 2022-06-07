@@ -1,26 +1,185 @@
+# [1.3.0-rc.11](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.10...v1.3.0-rc.11) (2022-06-07)
+
+
+### Bug Fixes
+
+* **Missions:** Apply mission filter from preffered app ([db38c10](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/db38c10f4ebe8f3239b62adfdefd2c5ee88217c7))
+* **Search:** Filter result from mission + refacto ([1e5e842](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/1e5e842c0dcfc5bd2e34fd52a8970d8924486e8e))
+* **Search:** Fix user_in_charge field + missions manager dissapearing ([efc287e](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/efc287e838d7a650dca0b80559d929727653ccad))
+* **Search:** Replace value name by id ([5957de4](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/5957de4836a98cdfdc5ffd0375f9d4c518560673))
+* **T5:** Add fields ([fe23681](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/fe236819fd0c9ff2f72f6c122ccf2347dfaca890))
+* **Tasks:** Add filter mission permission when listing ([4385d43](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/4385d43a48a6593034b3f902a96d3848b2b4bebe))
+* **THEMATICS:** fix T8 ([b966555](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/b966555016afbfd112c29fbf8544b66a1b10ecd3))
+* **THEMATICS:** fix thematic 10 ([20e1491](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/20e14918f4e0eff9cfb865d4b9668cce77f50052))
+* **THEMATICS:** review thematic 7 ([f933ec6](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/f933ec626845dbd1536b31aed121641d46492d85))
+
+
+### Features
+
+* **Missions:** Add dispositif financiers mobilisés + sqm ([003799b](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/003799b360ef44cb4cffb06b0518aa223bb1a37e))
+* **THEMATICS:** add filler ([290fb26](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/290fb26833df75586ce81a276598ab2838de6ec0))
+
+# [1.3.0-rc.10](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.9...v1.3.0-rc.10) (2022-06-03)
+
+
+### Bug Fixes
+
+* **Imports:** Fix error when no repartition key specified + add log with key labels ([31183ba](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/31183ba09faf36d30456e7afbbc6eebcdd1c6cf6))
+* **T10:** Remove scope copro ([1978703](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/1978703f9ff346007561b66535d04b3623135183))
+* **T5:** Add missing date field ([64aad25](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/64aad25c95c0f7f3df85cb050c0f512a7b5a9efc))
+* **T5:** Remove multiple on Donnees cadrage ([f3b2a3d](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/f3b2a3d0fd47f546c868bd2e3b7080d9635599ed))
+* **T7:** Remove multiple groups ([2352734](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/235273452c4a355daa834533249a80900fe73fa7))
+
+
+### Features
+
+* **THEMATICS:** T10 fix hidden fields ([d4eb751](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/d4eb751c596d55303312be171704b88d9001a8d7))
+
+# [1.3.0-rc.9](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.8...v1.3.0-rc.9) (2022-06-02)
+
+
+### Bug Fixes
+
+* **Copros:** Replace switch underground / aerial parking by number ([fa8d311](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/fa8d311a6d11c00249968fa83fa65c87c43b2dae))
+* **Person:** Fix error on creation when no antenna_id is specified in group ([b42e07d](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/b42e07d02e3817c382d525f01efeed1ebe0851fe))
+* **T3:** Add missing formula (Multiple sum to implement) ([a92c7fd](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/a92c7fd08928047bf75d31c35d954686a8b5d7b2))
+* **T3:** Repasse FM ([2e367b4](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/2e367b4ca42cca52741abbbc75ac892aba7854ff))
+* **T5:** Add 'presents' as textArea ([9ab0c2f](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/9ab0c2f325e7abfecfd98f25ccecf7323cedb70a))
+* **Thematics:** Add missing field ([e35801f](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/e35801f48c7a40e74282a66ce3dfba735367470b))
+* **Thematics:** Add two field in SC scope ([c49ca7c](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/c49ca7ccbd3a6448a22769fcde345c09e8fff8d8))
+* **Thematics:** Update Prefinanceurs Refstatus + add 'Banque' fields ([74bf51e](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/74bf51e6ea3d4e6f31624f27d2055efd4bd4cc93))
+
+
+### Features
+
+* **Delete:** Delete tasks and related entity when deleting a mission + fix get on copro ( was finding deleted copro) ([27f5d63](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/27f5d6382e75c199fc42efabbd01ce7a59fa080d))
+* **Tasks:** Soft delete all tasks associated to a deleted thematique version ([9588d29](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/9588d29c142fa72a8ab2f39f5f09784aeaff18e3))
+* **Tasks:** Soft delete all tasks associated to a soft deleted entity ([7e37f9e](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/7e37f9ed2e4049a3d7f18a8e3c0a14f336e7f5c4))
+
+# [1.3.0-rc.8](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.7...v1.3.0-rc.8) (2022-05-25)
+
+
+### Bug Fixes
+
+* **migrations:** Forgotten coma + black ([a7259e7](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/a7259e7473d5a03bc9f5adcb5ed6f37dd68d3477))
+* **Thematiques:** Multiples fixes ([6eae9f7](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/6eae9f7e700bc3ea4ea15f3e8686f3b0daec3185))
+
+# [1.3.0-rc.7](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.6...v1.3.0-rc.7) (2022-05-23)
+
+
+### Bug Fixes
+
+* **T3:** Forgotten scope ([ee4610f](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/ee4610f5f00561348417c3475edf897ea46a1458))
+* **T5:** update fields name in formula ([5f3b2be](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/5f3b2be86da7cf79db09d9aae6a61e4c5399e87c))
+* **THEMATICS:** Duplication fail on specific case ([b2f5f4e](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/b2f5f4edb641d420a520be2f5f76ce27f2532846))
+
+# [1.3.0-rc.6](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.5...v1.3.0-rc.6) (2022-05-19)
+
+
+### Bug Fixes
+
+* **SEARCH:** Add mission_id to lot and building search ([d9b2490](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/d9b24902dffd4656331a34949a8cc71998b2cfb3))
+* **SEARCH:** fix owner_name filter on lot + multiple complex filters ([543e462](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/543e4625d2b742d5213d69258627aef2764c16d9))
+* **THEMATICS:** Minor fixes ([283b0e0](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/283b0e0091b61036ceb4436ef3ee47e908c72323))
+
+# [1.3.0-rc.5](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.4...v1.3.0-rc.5) (2022-05-13)
+
+
+### Bug Fixes
+
+* **DELETE:** Add verification on children for cascade soft delete (+black applied) ([7d0c3de](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/7d0c3def12d85b44e78e61fbcbce5d3cc05d2f6c))
+* **PERMISSIONS:** Fix errors on listing buildings and sc from collaborator role ([a4c09e5](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/a4c09e5b785eff1db20057217979a00d0b30f54d))
+* **PHONES:** Allow nullable to always create phone numbers when creating a copro + fix syndic address not registered ([9ebfe6b](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/9ebfe6b66563d4c250735fbcc39afd33c8f03d6e))
+
+
+### Features
+
+* **TASKS:** Add mission info in task model ([fe8017b](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/fe8017b179851a60e35a83e6a544b4f43eb610ce))
+* **THEMATICS:** thematics etape 2/2 ([ea43ea2](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/ea43ea2088df688f399738c517eea07241263b5e))
+
+# [1.3.0-rc.4](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.3...v1.3.0-rc.4) (2022-05-09)
+
+
+### Features
+
+* **MISSIONS:** Added mission manager in listing ([f383ee3](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/f383ee3f70538eeb27e7c2e876c9e2193786bdac))
+
+# [1.3.0-rc.3](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.2...v1.3.0-rc.3) (2022-05-03)
+
+
+### Bug Fixes
+
+* **CI:** Fix black dependencies ([ee9c437](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/ee9c437930479a0c961faaaeaa2dd4b06c9e1579))
+* **COMBINED_STRUCTURES:** Add None value for key without tantieme specified + remove old tantieme key ([87f9df7](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/87f9df7409901fab3d4aaca76623917198ef7fb4))
+* **HISTORIC:** Added step_name in DB, add user info in get response, fix pagination parameters ([757f734](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/757f734121fe3d552781dac6282385fb47df2747))
+* **HISTORICS:** Fix filter on get ([2cc13ce](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/2cc13ce5ca0d61a48055bf90d505572ba6b7bf27))
+* **LOGIN:** Resolved fetched antenna problem when updating users groups ([224e6e7](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/224e6e7119d371b913a58afb811baca3911ff791))
+* **LOT:** Removed condition on mission_id not existing, because mission_id will always be send ([dfeb8cb](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/dfeb8cba4b60e6b8e283b6b3ff20837d57770784))
+* **MODELS:** Review models, schema, interface from form model ([73c53da](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/73c53dada7d89408ac52af6465b65e9af9b76a35))
+* **STRUCTURE:** Repass on missing enums/fields ([eb82f79](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/eb82f7980f5721c624803159c88e394621772412))
+
+
+### Features
+
+* **COMBINED_STRUCTURES:** add sum of tantiemes for cs by label ([7bb4847](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/7bb4847713caea320bb421bef08ecdb82ac1de34))
+* **GLOBAL:** thematics and search fields ([66a1723](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/66a172396cd4e47a3d6076ee2f2a1fc6f56cfadb))
+* **PERMISSIONS:** Split permissions by version of application ([ad7945e](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/ad7945ed2ac657301c1b3e007d8e603f2709d4f9))
+
+# [1.3.0-rc.3](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.2...v1.3.0-rc.3) (2022-04-26)
+
+
+### Bug Fixes
+
+* **LOGIN:** Resolved fetched antenna problem when updating users groups ([224e6e7](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/224e6e7119d371b913a58afb811baca3911ff791))
+
+# [1.3.0-rc.2](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0-rc.1...v1.3.0-rc.2) (2022-04-20)
+
+
+### Bug Fixes
+
+* **THEMATICS:** update thematic ([fedad72](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/fedad721394b4d274aad2cd4979cac404955ae1f))
+
+
+### Features
+
+* **DELETE:** update all soft delete in a recursiv way ([45275c9](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/45275c95e3c83ced63d4bcf1520e2d76b7cad027))
+* **HISTORIC:** Refactor directory structure + change fields types + create when update thematique step ([8258d8d](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/8258d8df24d8d4f6bc5c993203df7b7d27ad83ce))
+* **SEARCH:** Search on 5 primary entity works ([6c0bd07](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/6c0bd076d253bf5f360119908eb0f97e63498d65))
+* **THEMATICS:** Templating 1/2 + REF_STATUS + Update de versions ([2dbc24e](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/2dbc24e8ddad50ef70b016166a37e6b881646b85))
+
+# [1.3.0-rc.1](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.2.4-rc.1...v1.3.0-rc.1) (2022-04-07)
+
+
+### Features
+
+* **IMPORTS:** Added Lot import from spreadsheet: timesheet ([a6ff197](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/a6ff1978f8b4d43b054e5239cba32492b68af34c))
+
+## [1.2.4-rc.1](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.2.3...v1.2.4-rc.1) (2021-12-06)
+
 ## [1.2.2](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.1...v1.2.2) (2021-09-20)
 
 
 ### Bug Fixes
 
+* **search_building:** fixed searching building that has no address ([8485a80](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/8485a80efc435444e140747afd59d591dbf1ba43))
+
 * custom select filter ([4e40eaf](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/4e40eaf3591de434161c4b6e129ea10aa3f73128))
 * project drive init ([2d83abc](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/2d83abcc580d5b29716706cf8f5f01404df6fef1))
 * reqs ([7efc9ee](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/7efc9eeb66a498c92b3cdd3e6095a6f77ada6276))
 
-<<<<<<< HEAD
+
 ## [1.2.1](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.0...v1.2.1) (2021-07-19)
-=======
+
+
 ## [1.2.1-rc.3](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.1-rc.2...v1.2.1-rc.3) (2021-09-10)
->>>>>>> next
 
 
 ### Bug Fixes
 
-<<<<<<< HEAD
 * api url ([0aa2d26](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/0aa2d26fe4071bd217abf7d4c8b1d64f4b1f9113))
 * api url for tasks ([ebc33fb](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/ebc33fb01cc47ec28d00d8ac3aa976203ebe5ec7))
 * init drive + memory exceeded ([480ca74](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/480ca74318ef29cfc584a3802ae0cfd09a5d8309))
-=======
+
 * custom select filter ([4e40eaf](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/commit/4e40eaf3591de434161c4b6e129ea10aa3f73128))
 
 ## [1.2.1-rc.2](https://gitlab.com/devoteam-g-cloud/urbanis/urbanis-oslo-back/compare/v1.2.1-rc.1...v1.2.1-rc.2) (2021-09-06)

@@ -11,3 +11,4 @@ class UserInterface(TypedDict, total=False):
     role: str
     kind: str
     active: bool
+    preferred_app_id: int

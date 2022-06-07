@@ -18,33 +18,6 @@ from app.common.base_model import BaseMixin
 from app.mission.missions import Mission
 from app.project.requesters.model import RequesterTypes
 
-# FIELDS_MAPPING = {
-#     "address_number": '',
-#     "notes": '',
-#     "work_type": '',
-#     "address_street": '',
-#     "description": '',
-#     "address_complement": '',
-#     "active": '',
-#     "created_at": '',
-#     "closed": '',
-#     "monitoring_commentary": '',
-#     "address_code": '',
-#     "anonymized": '',
-#     "closure_motive": '',
-#     "no_advance_request": '',
-#     "address_location": '',
-#     "id": '',
-#     "urgent_visit": '',
-#     "drive_init": '',
-#     "address_latitude": '',
-#     "status": '',
-#     "address_longitude": '',
-#     "address": '',
-#     "type": '',
-#     "secondary_case_type": ''
-# }
-
 
 class ProjectTypes(Enum):
     SERENITY = "Habiter Mieux Sérénité"

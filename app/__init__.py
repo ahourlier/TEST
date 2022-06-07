@@ -1,12 +1,10 @@
 import os
-
 import firebase_admin
 from firebase_admin import credentials
 from flask import Flask, jsonify, g
 from flask_admin import Admin
 from flask_allows import Allows
 from flask_babelex import Babel
-
 from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
@@ -53,10 +51,13 @@ def create_app(env=None):
     allows.init_app(app)
     allows.identity_loader(lambda: g.user)
     babel.init_app(app)
-    creds = credentials.Certificate(
-        app.config.get("FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY_PATH")
-    )
-    firebase_admin.initialize_app(creds)
+    if env != "test" and not firebase_admin._apps:
+        creds = credentials.Certificate(
+            app.config.get("FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY_PATH")
+        )
+        firebase_admin.initialize_app(
+            creds, options={"projectId": app.config.get("GOOGLE_CLOUD_PROJECT")}
+        )
     fa = Admin(name="OSLO", template_mode="bootstrap3", url="/_/manage")
     fa.init_app(app)
 

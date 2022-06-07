@@ -1,5 +1,7 @@
+from inspect import trace
 import logging
 import os
+import traceback
 from typing import List
 
 from googleapiclient.errors import HttpError
@@ -27,6 +29,7 @@ class SheetsUtils:
             return resp
         except HttpError as e:
             logging.error(f"Unable to get file {spreasheet_id}: {e}")
+            print(traceback.format_exc())
             return None
 
     @staticmethod
@@ -55,6 +58,7 @@ class SheetsUtils:
             return resp
         except HttpError as e:
             logging.error(f"Unable to get file {spreasheet_id}: {e}")
+            print(traceback.format_exc())
             return None
 
     @staticmethod
@@ -73,11 +77,13 @@ class SheetsUtils:
 
         sheet_formatted_values = {}
         for sheet in sheets_raw_file.get("sheets"):
-            sheet_formatted_values[
-                sheet.get("properties").get("title")
-            ] = SheetsUtils.extract_values_from_sheet_rows(
-                sheet.get("data")[0].get("rowData")
-            )
+            # Check that the sheet is not empty
+            if sheet.get("data")[0].get("rowData") is not None:
+                sheet_formatted_values[
+                    sheet.get("properties").get("title")
+                ] = SheetsUtils.extract_values_from_sheet_rows(
+                    sheet.get("data")[0].get("rowData")
+                )
         return sheet_formatted_values
 
     @staticmethod
@@ -134,4 +140,91 @@ class SheetsUtils:
             return resp
         except HttpError as e:
             logging.error(f"Unable to update file {spreadsheet_id}: {e}")
+            print(traceback.format_exc())
+            return None
+
+    @staticmethod
+    def create_sheet(payload, user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL")):
+        """Create a spreadsheet"""
+        client = SheetsService(user_email).get()
+
+        try:
+            resp = client.spreadsheets().create(body=payload).execute(num_retries=3)
+            return resp
+        except HttpError as e:
+            logging.error(f"Unable to create spreadsheet with payload {payload}: {e}")
+            print(traceback.format_exc())
+            return None
+
+    @staticmethod
+    def delete_sheet(
+        spreadsheet_id, sheet_id, user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL")
+    ):
+        client = SheetsService(user_email).get()
+        delete_request = {"requests": {"deleteSheet": {"sheetId": sheet_id}}}
+        try:
+            resp = (
+                client.spreadsheets()
+                .batchUpdate(spreadsheetId=spreadsheet_id, body=delete_request)
+                .execute(num_retries=3)
+            )
+            return resp
+        except HttpError as e:
+            logging.error(
+                f"Unable to delete sheet with ID {sheet_id} within speadsheet {spreadsheet_id}: {e}"
+            )
+            print(traceback.format_exc())
+            return None
+
+    @staticmethod
+    def add_values(
+        sheet_id,
+        range,
+        array_values,
+        client=None,
+        user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL"),
+    ):
+        """Concat values to a spreadsheet"""
+        if not client:
+            client = SheetsService(user_email).get()
+
+        try:
+            resp = (
+                client.spreadsheets()
+                .values()
+                .append(
+                    spreadsheetId=sheet_id,
+                    range=range,
+                    body={"values": array_values},
+                    valueInputOption="RAW",
+                )
+                .execute(num_retries=3)
+            )
+            return resp
+        except HttpError as e:
+            logging.error(f"Unable to add values to spreadsheet {sheet_id} : {e}")
+            logging.error(array_values)
+            print(traceback.format_exc())
+            return None
+
+    @staticmethod
+    def create_tab_on_existing_sheet(
+        sheet_id, tab_name, user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL")
+    ):
+        client = SheetsService(user_email).get()
+        add_tab_request = {
+            "requests": {"addSheet": {"properties": {"title": tab_name}}}
+        }
+        try:
+            resp = (
+                client.spreadsheets()
+                .batchUpdate(spreadsheetId=sheet_id, body=add_tab_request)
+                .execute(num_retries=3)
+            )
+            return resp
+        except HttpError as e:
+            logging.error(
+                f"Unable to add tab {tab_name} to spreadsheet {sheet_id}: {e}"
+            )
+            print(traceback.format_exc())
             return None

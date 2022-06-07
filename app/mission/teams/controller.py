@@ -3,8 +3,7 @@ from flask_accepts import accepts, responds
 from flask_sqlalchemy import Pagination
 
 from . import api, Team
-from .interface import TeamInterface
-from .schema import TeamPaginatedSchema, TeamSchema, TeamMultipleSchema
+from .schema import TeamSchema, TeamMultipleSchema
 from .service import (
     TeamService,
     MISSION_MANAGERS_DEFAULT_PAGE,
@@ -80,4 +79,5 @@ class MissionManagerResource(AuthenticatedApi):
             direction=request.args.get(
                 "sortDirection", MISSION_MANAGERS_DEFAULT_SORT_DIRECTION
             ),
+            mission_id=int(request.args.get("mission_id")),
         )

@@ -15,6 +15,8 @@ class BaseMixin(object):
 
     def update(self, changes: TypedDict):
         for key, val in changes.items():
+            if key == "id":
+                continue
             setattr(self, key, val)
 
         return self

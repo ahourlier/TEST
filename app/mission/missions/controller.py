@@ -8,10 +8,14 @@ from flask_restx import inputs
 
 from . import api, Mission
 from .interface import MissionInterface
+from .mission_details.interface import MissionDetailInterface
+from .mission_details.schema import MissionDetailSchema
+from .mission_details.service import MissionDetailService
 from .schema import (
     MissionPaginatedSchema,
     MissionSchema,
     MissionDocumentSchema,
+    MissionCreateSchema,
 )
 from .service import (
     MissionService,
@@ -22,8 +26,10 @@ from .service import (
     MISSION_INIT_QUEUE_NAME,
 )
 from ... import db
+from ...admin.subcontractor.service import SubcontractorService
 from ...auth.users.service import UserService
 from ...common.api import AuthenticatedApi
+from ...common.app_name import App
 from ...common.permissions import (
     is_manager,
     is_contributor,
@@ -48,6 +54,7 @@ class MissionResource(AuthenticatedApi):
         dict(name="agency_id", type=int),
         dict(name="antenna_id", type=int),
         dict(name="client_id", type=int),
+        dict(name="missionType", type=str),
         api=api,
     )
     @responds(schema=MissionPaginatedSchema(), api=api)
@@ -71,9 +78,12 @@ class MissionResource(AuthenticatedApi):
             if request.args.get("client_id") not in [None, ""]
             else None,
             user=g.user,
+            mission_type=request.args.get("missionType")
+            if request.args.get("missionType") not in [None, ""]
+            else None,
         )
 
-    @accepts(schema=MissionSchema(), api=api)
+    @accepts(schema=MissionCreateSchema(), api=api)
     @responds(schema=MissionSchema(), api=api)
     @requires(is_manager)
     def post(self) -> Mission:
@@ -86,46 +96,47 @@ class MissionResource(AuthenticatedApi):
 class MissionIdResource(AuthenticatedApi):
     @responds(schema=MissionSchema(), api=api)
     @accepts(dict(name="check_drive_structure", type=inputs.boolean))
-    @requires(is_contributor)
+    @requires(is_contributor, has_mission_permission)
     def get(self, mission_id: int) -> Mission:
         """Get single mission"""
         db_mission = MissionService.get_by_id(mission_id)
 
-        check_drive_structure = (
-            True
-            if request.args.get("check_drive_structure", "true").lower() == "true"
-            else False
-        )
+        if db_mission.mission_type == App.INDIVIDUAL:
+            check_drive_structure = (
+                True
+                if request.args.get("check_drive_structure", "true").lower() == "true"
+                else False
+            )
 
-        if (
-            db_mission.drive_init not in ["IN PROGRESS", "DONE"]
-            and check_drive_structure
-        ):
             if (
-                db_mission.sd_root_folder_id
-                and db_mission.sd_projects_folder_id
-                and db_mission.sd_document_templates_folder_id
-                and db_mission.sd_information_documents_folder_id
-                and db_mission.google_group_id
+                db_mission.drive_init not in ["IN PROGRESS", "DONE"]
+                and check_drive_structure
             ):
-                db_mission.drive_init = "DONE"
-                db.session.commit()
-            else:
-                db_mission.drive_init = "IN PROGRESS"
-                db.session.commit()
-                create_task(
-                    project=os.getenv("GOOGLE_CLOUD_PROJECT"),
-                    location=os.getenv("QUEUES_LOCATION"),
-                    queue=MISSION_INIT_QUEUE_NAME,
-                    uri=f"{os.getenv('API_URL')}/_internal/missions/init-drive",
-                    method="POST",
-                    payload={
-                        "mission_id": db_mission.id,
-                    },
-                )
+                if (
+                    db_mission.sd_root_folder_id
+                    and db_mission.sd_projects_folder_id
+                    and db_mission.sd_document_templates_folder_id
+                    and db_mission.sd_information_documents_folder_id
+                    and db_mission.google_group_id
+                ):
+                    db_mission.drive_init = "DONE"
+                    db.session.commit()
+                else:
+                    db_mission.drive_init = "IN PROGRESS"
+                    db.session.commit()
+                    create_task(
+                        project=os.getenv("GOOGLE_CLOUD_PROJECT"),
+                        location=os.getenv("QUEUES_LOCATION"),
+                        queue=MISSION_INIT_QUEUE_NAME,
+                        uri=f"{os.getenv('API_URL')}/_internal/missions/init-drive",
+                        method="POST",
+                        payload={
+                            "mission_id": db_mission.id,
+                        },
+                    )
         return db_mission
 
-    @requires(has_mission_permission)
+    @requires(is_manager, has_mission_permission)
     def delete(self, mission_id: int) -> Response:
         """Delete single mission"""
 
@@ -134,7 +145,7 @@ class MissionIdResource(AuthenticatedApi):
 
     @accepts(schema=MissionSchema(), api=api)
     @responds(schema=MissionSchema(), api=api)
-    @requires(has_mission_permission)
+    @requires(has_mission_permission, is_contributor)
     def put(self, mission_id: int) -> Mission:
         """Update single mission"""
 
@@ -151,6 +162,7 @@ class MissionByUserResource(AuthenticatedApi):
         dict(name="agency_id", type=int),
         dict(name="antenna_id", type=int),
         dict(name="client_id", type=int),
+        dict(name="missionType", type=str),
         api=api,
     )
     @responds(schema=MissionPaginatedSchema(), api=api)
@@ -176,6 +188,9 @@ class MissionByUserResource(AuthenticatedApi):
             if request.args.get("client_id") not in [None, ""]
             else None,
             user=user,
+            mission_type=request.args.get("missionType")
+            if request.args.get("missionType") not in [None, ""]
+            else None,
         )
 
 
@@ -191,3 +206,45 @@ class MissionDocumentResource(AuthenticatedApi):
             db_mission, data.get("files_id"), data.get("kind"), g.user.email
         )
         return jsonify(resp)
+
+
+@api.route("/<int:mission_id>/details")
+@api.param("missionId", "Mission unique ID")
+class MissionDetailsResource(AuthenticatedApi):
+    @responds(api=api)
+    def get(self, mission_id: int):
+        return MissionService.get_details_by_mission_id(mission_id)
+
+    @responds(schema=MissionDetailSchema, api=api)
+    @accepts(schema=MissionDetailSchema, api=api)
+    def put(self, mission_id):
+        changes: MissionDetailInterface = request.parsed_obj
+        db_mission_details = MissionDetailService.get_by_mission_id(mission_id)
+        return MissionDetailService.update(db_mission_details, changes)
+
+
+@api.route("/<int:mission_id>/subcontractor/<int:subcontractor_id>")
+@api.param("missionId", "Mission unique ID")
+@api.param("subcontractorId", "Subcontractor ID")
+class SubcontractorMissionResource(AuthenticatedApi):
+    @responds(api=api)
+    def post(self, mission_id, subcontractor_id):
+        SubcontractorService.link(mission_id, subcontractor_id)
+        return jsonify(
+            dict(
+                status="Success",
+                mission_id=mission_id,
+                subcontractor_id=subcontractor_id,
+            )
+        )
+
+    @responds(api=api)
+    def delete(self, mission_id, subcontractor_id):
+        SubcontractorService.unlink(mission_id, subcontractor_id)
+        return jsonify(
+            dict(
+                status="Success",
+                mission_id=mission_id,
+                subcontractor_id=subcontractor_id,
+            )
+        )

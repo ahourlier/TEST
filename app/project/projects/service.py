@@ -9,7 +9,6 @@ from flask_sqlalchemy import Pagination
 from sqlalchemy import or_, and_
 
 import app.mission.missions.service as mission_service
-import app.auth.users.service as user_service
 import app.project.requesters.service as requester_service
 import app.project.project_leads.service as project_lead_service
 

@@ -11,6 +11,9 @@ from app import db
 from app.admin.agencies.exceptions import AgencyNotFoundException
 from app.admin.antennas.exceptions import AntennaNotFoundException
 from app.admin.clients.exceptions import ClientNotFoundException
+from app.admin.clients.referents.schema import ReferentSchema
+from app.admin.clients.schema import ClientSchema
+from app.common.app_name import App
 from app.common.config_error_messages import (
     KEY_SHARED_DRIVE_CREATION_EXCEPTION,
     KEY_SHARED_DRIVE_FOLDER_CREATION_EXCEPTION,
@@ -29,10 +32,21 @@ from app.common.google_apis import DriveService, DirectoryService, GroupsSetting
 from app.common.group_utils import GroupUtils
 from app.common.tasks import create_task
 from app.common.search import sort_query
-from app.mission.missions import Mission
+from app.mission.missions import Mission, MissionSchema
 from app.mission.missions.error_handlers import MissionNotFoundException
+from app.mission.missions.exceptions import UnknownMissionTypeException
 from app.mission.missions.interface import MissionInterface
+
+from app.admin.clients.referents.service import ReferentService
+from app.mission.missions.mission_details.exceptions import (
+    MissionDetailNotFoundException,
+)
+from app.mission.missions.mission_details.model import MissionDetail
+from app.mission.missions.mission_details.schema import MissionDetailSchema
+from app.mission.missions.schema import MissionLightSchema
+
 from app.mission.teams import Team
+
 
 import app.auth.users.service as users_service
 
@@ -62,8 +76,10 @@ class MissionService:
         antenna_id=None,
         client_id=None,
         user=None,
+        mission_type=None,
     ) -> Pagination:
         import app.mission.permissions as mission_permissions
+        from app.mission.teams.service import TeamService
 
         q = sort_query(Mission.query, sort_by, direction)
         q = q.filter(or_(Mission.is_deleted == False, Mission.is_deleted == None))
@@ -83,11 +99,24 @@ class MissionService:
             q = q.filter(Mission.antenna_id == antenna_id)
         if client_id is not None:
             q = q.filter(Mission.client_id == client_id)
+        if mission_type is not None:
+            if mission_type not in [App.INDIVIDUAL, App.COPRO]:
+                raise UnknownMissionTypeException
+            else:
+                q = q.filter(Mission.mission_type == mission_type)
+
+        q = q.filter(Mission.mission_type == g.user.preferred_app.preferred_app)
 
         if user is not None:
             q = mission_permissions.MissionPermission.filter_query_mission_by_user_permissions(
                 q, user
             )
+
+        pagination = q.paginate(page=page, per_page=size)
+
+        for item in pagination.items:
+            mission_managers = TeamService.get_all_mission_managers(mission_id=item.id)
+            item.managers = mission_managers.items
 
         return q.paginate(page=page, per_page=size)
 
@@ -115,25 +144,46 @@ class MissionService:
         except ClientNotFoundException as e:
             raise e
         else:
+            referents = None
+            if new_attrs.get("referents"):
+                referents = new_attrs.get("referents")
+                del new_attrs["referents"]
+
             mission = Mission(**new_attrs, creator=g.user.email)
             db.session.add(mission)
             db.session.commit()
-            create_task(
-                project=os.getenv("GOOGLE_CLOUD_PROJECT"),
-                location=os.getenv("QUEUES_LOCATION"),
-                queue=MISSION_INIT_QUEUE_NAME,
-                uri=f"{os.getenv('API_URL')}/_internal/missions/init-drive",
-                method="POST",
-                payload={
-                    "mission_id": mission.id,
-                },
-            )
+
+            if mission.mission_type == App.COPRO:
+                mission_details = MissionDetail()
+                mission_details.mission_id = mission.id
+                db.session.add(mission_details)
+                db.session.commit()
+
+            if referents:
+                for r in referents:
+                    r["mission_id"] = mission.id
+                    ReferentService.create(r)
+
+            if mission.mission_type == App.INDIVIDUAL:
+                create_task(
+                    project=os.getenv("GOOGLE_CLOUD_PROJECT"),
+                    location=os.getenv("QUEUES_LOCATION"),
+                    queue=MISSION_INIT_QUEUE_NAME,
+                    uri=f"{os.getenv('API_URL')}/_internal/missions/init-drive",
+                    method="POST",
+                    payload={
+                        "mission_id": mission.id,
+                    },
+                )
             return mission
 
     @staticmethod
     def update(
         mission: Mission, changes: MissionInterface, force_update: bool = False
     ) -> Mission:
+        # if we find referents, remove them (supposed to used the referent WS)
+        if changes.get("referents"):
+            del changes["referents"]
         if force_update or MissionService.has_changed(mission, changes):
             # If one tries to update entity id, a error must be raised
             if changes.get("id") and changes.get("id") != mission.id:
@@ -151,13 +201,24 @@ class MissionService:
 
     @staticmethod
     def delete_by_id(mission_id: int) -> int:
-        import app.project.projects.service as projects_service
-
         mission = Mission.query.filter(Mission.id == mission_id).first()
         if not mission:
             raise MissionNotFoundException
-        projects_id = [project.id for project in mission.projects]
-        projects_service.ProjectService.delete_list(projects_id)
+
+        if mission.mission_type == App.INDIVIDUAL:
+            import app.project.projects.service as projects_service
+
+            projects_id = [project.id for project in mission.projects]
+            projects_service.ProjectService.delete_list(projects_id)
+
+        if mission.mission_type == App.COPRO:
+            from app.task.service import TaskService
+            from app.common.db_utils import DBUtils
+
+            # Delete all related Tasks and Entity
+            TaskService.delete_from_entity_id(mission_id, "mission_id")
+            DBUtils.delete_entity_from_mission_id(mission_id)
+
         mission.soft_delete()
         db.session.commit()
         MissionService.rename_sd(
@@ -276,3 +337,35 @@ class MissionService:
                     response.append(resp)
 
         return response
+
+    @staticmethod
+    def get_details_by_mission_id(mission_id):
+        mission_detail = MissionDetail.query.filter(
+            MissionDetail.mission_id == mission_id
+        ).first()
+
+        if not mission_detail:
+            raise MissionDetailNotFoundException
+
+        mission_detail_dump = MissionDetailSchema().dump(mission_detail)
+
+        mission = MissionService.get_by_id(mission_id)
+
+        if not mission:
+            raise MissionNotFoundException
+
+        dumped_mission = MissionLightSchema().dump(mission)
+
+        mission_detail_dump["referents"] = (
+            [ReferentSchema().dump(r) for r in mission.referents]
+            if mission.referents
+            else None
+        )
+        mission_detail_dump["name"] = mission.name
+        mission_detail_dump["client"] = (
+            ClientSchema().dump(mission.client) if mission.client else None
+        )
+        mission_detail_dump["mission_start_date"] = dumped_mission["mission_start_date"]
+        mission_detail_dump["mission_end_date"] = dumped_mission["mission_end_date"]
+
+        return jsonify(mission_detail_dump)

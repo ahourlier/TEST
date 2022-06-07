@@ -1,10 +1,14 @@
 import copy
 import logging
+from typing import List
+
+from app.common.exceptions import EnumException
+from app.referential.enums.service import AppEnumService
 
 
 class ServicesUtils:
     @staticmethod
-    def clean_attrs(attrs: dict, excluded_fields: []):
+    def clean_attrs(attrs: dict, excluded_fields: List):
         """Remove excluded fields from entring attrs and return them"""
 
         extracted_fields = {}
@@ -63,3 +67,28 @@ class ServicesUtils:
             copy_item = copy.deepcopy(li)
             copy_list.append(copy_item)
         return copy_list
+
+    @staticmethod
+    def check_enums(payload, key_mapping):
+        enum_list = list(map(lambda x: key_mapping[x]["enum_key"], key_mapping))
+        enums = AppEnumService.get_enums(enum_list)
+        for key in key_mapping:
+            if payload.get(key) is not None and payload.get(key) not in enums.get(
+                key_mapping[key]["enum_key"], []
+            ):
+                exception = EnumException(
+                    enum=key_mapping[key]["enum_key"],
+                    value=payload.get(key),
+                    allowed_values=", ".join(
+                        enums.get(key_mapping[key]["enum_key"], [])
+                    ),
+                    details={
+                        "enum": key_mapping[key]["enum_key"],
+                        "value": payload.get(key),
+                        "allowed_values": ", ".join(
+                            enums.get(key_mapping[key]["enum_key"], [])
+                        ),
+                    },
+                )
+                raise exception
+        return
