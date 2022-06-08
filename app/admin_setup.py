@@ -19,6 +19,7 @@ from app.referential.enums.admin import (
     DebtOrigin,
     EnergeticPrecariousnessCause,
     FSLType,
+    FinancialDeviceType,
     FormationType,
     Former,
     FunderOrganism,
@@ -1072,5 +1073,14 @@ def register_admin_views(admin, db):
             "Clôture de l'accompagnement",
             url="accompaniement-closing",
             endpoint="manage_accompaniement_closing",
+        )
+    )
+    admin.add_view(
+        FinancialDeviceType(
+            AppEnum,
+            db.session,
+            "Type de dispositif financier",
+            url="financial-device-type",
+            endpoint="manage_financial_device_type",
         )
     )

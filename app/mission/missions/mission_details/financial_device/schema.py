@@ -13,6 +13,10 @@ class FinancialDeviceSchema(SQLAlchemyAutoSchema):
         unknown = EXCLUDE
 
 
+class FinancialDevicesSchema(FinancialDeviceSchema):
+    financial_devices = fields.List(fields.Nested(FinancialDeviceSchema))
+
+
 class FinancialDeviceUpdateSchema(SQLAlchemyAutoSchema):
     mission_details_id = fields.Integer(required=False)
 

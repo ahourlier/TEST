@@ -24,7 +24,9 @@ class FinancialDeviceService:
 
     @staticmethod
     def get_by_mission_detail_id(mission_detail_id: int):
-        financial_device = FinancialDevice.query.filter(FinancialDevice.mission_details_id == mission_detail_id).first()
+        financial_device = FinancialDevice.query.filter(
+            FinancialDevice.mission_details_id == mission_detail_id
+        ).all()
         if not financial_device:
             raise FinancialDeviceNotFoundException
         return financial_device
@@ -40,7 +42,9 @@ class FinancialDeviceService:
 
     @staticmethod
     def delete(financial_device_id):
-        financial_device = FinancialDevice.query.filter(FinancialDevice.id == financial_device_id).first()
+        financial_device = FinancialDevice.query.filter(
+            FinancialDevice.id == financial_device_id
+        ).first()
 
         if not financial_device:
             raise FinancialDeviceNotFoundException

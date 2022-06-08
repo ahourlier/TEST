@@ -33,7 +33,9 @@ class MissionDetail(BaseMixin, db.Model):
         backref=db.backref("mission_detail", lazy="joined"),
     )
     elects = relationship("Elect", backref="mission_details")
-    financial_device = relationship("FinancialDevice", backref="mission_details_financial_device")
+    financial_device = relationship(
+        "FinancialDevice", backref="mission_details_financial_device"
+    )
     # smq
     smq_starting_meeting = Column(db.Date, nullable=True)
     smq_engagement_meeting = Column(db.Date, nullable=True)

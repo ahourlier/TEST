@@ -763,3 +763,9 @@ class AccompaniementClosing(EnumBaseAdminView):
     ENUM_KIND = "AccompaniementClosing"
     FIELD_MODEL = None
     FIELD_REF = None
+
+
+class FinancialDeviceType(EnumBaseAdminView):
+    ENUM_KIND = "FinancialDeviceType"
+    FIELD_MODEL = None
+    FIELD_REF = None

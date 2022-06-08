@@ -41,8 +41,15 @@ from app.admin.clients.referents.service import ReferentService
 from app.mission.missions.mission_details.exceptions import (
     MissionDetailNotFoundException,
 )
-from app.mission.missions.mission_details.financial_device.schema import FinancialDeviceSchema
-from app.mission.missions.mission_details.financial_device.service import FinancialDeviceService
+from app.mission.missions.mission_details.financial_device.exceptions import (
+    FinancialDeviceNotFoundException,
+)
+from app.mission.missions.mission_details.financial_device.schema import (
+    FinancialDeviceSchema,
+)
+from app.mission.missions.mission_details.financial_device.service import (
+    FinancialDeviceService,
+)
 from app.mission.missions.mission_details.model import MissionDetail
 from app.mission.missions.mission_details.schema import MissionDetailSchema
 from app.mission.missions.schema import MissionLightSchema
@@ -370,7 +377,15 @@ class MissionService:
         mission_detail_dump["mission_start_date"] = dumped_mission["mission_start_date"]
         mission_detail_dump["mission_end_date"] = dumped_mission["mission_end_date"]
 
-        financial_device = FinancialDeviceService.get_by_mission_detail_id(mission_detail.id)
-        mission_detail_dump["financial_device"] = FinancialDeviceSchema().dump(financial_device)
+        try:
+            financial_devices = FinancialDeviceService.get_by_mission_detail_id(
+                mission_detail.id
+            )
+            mission_detail_dump["financial_devices"] = []
+            for device in financial_devices:
+                obj = FinancialDeviceSchema().dump(device)
+                mission_detail_dump["financial_devices"].append(obj)
+        except FinancialDeviceNotFoundException:
+            pass
 
         return jsonify(mission_detail_dump)

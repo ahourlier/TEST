@@ -18,7 +18,6 @@ class FinancialDeviceResource(AuthenticatedApi):
 @api.route("/<int:financial_device_id>")
 @api.param("financial_deviceId", "FinancialDevice unique ID")
 class FinancialDeviceResource(AuthenticatedApi):
-
     @accepts(schema=FinancialDeviceSchema, api=api)
     @responds(schema=FinancialDeviceSchema, api=api)
     def get_by_mission_detail_id(self, mission_detail_id):
