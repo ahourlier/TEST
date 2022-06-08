@@ -1,8 +1,9 @@
 from typing import Optional
 from datetime import date
 
+
 class FinancialDeviceInterface:
-    
+
     mandate_account_type: Optional[str]
     organization_funds_provider: Optional[str]
     bank_account_name: Optional[str]

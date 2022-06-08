@@ -21,7 +21,9 @@ def register_routes(api, app, root="api"):
     )
     from .missions.mission_details.partner.controller import api as partner_api
     from .missions.mission_details.elect.controller import api as elect_api
-    from .missions.mission_details.financial_device.controller import api as financial_device_api
+    from .missions.mission_details.financial_device.controller import (
+        api as financial_device_api,
+    )
 
     api.add_namespace(missions_api, path=f"/{root}/{BASE_ROUTE}/missions")
     api.add_namespace(teams_api, path=f"/{root}/{BASE_ROUTE}/teams")
