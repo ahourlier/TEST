@@ -5,6 +5,7 @@ from sqlalchemy.orm import relationship
 
 from app.admin.subcontractor import MissionDetailSubcontractor
 from .elect import Elect
+from .financial_device import FinancialDevice
 
 
 class MissionDetail(BaseMixin, db.Model):
@@ -32,24 +33,7 @@ class MissionDetail(BaseMixin, db.Model):
         backref=db.backref("mission_detail", lazy="joined"),
     )
     elects = relationship("Elect", backref="mission_details")
-    # dispositif financiers mobilisés
-    financial_device_used = Column(Boolean(), nullable=True)
-    mandate_account_type = Column(String(255), nullable=True)
-    organization_funds_provider = Column(String(255), nullable=True)
-    bank_account_name = Column(String(255), nullable=True)
-    bank_name = Column(String(255), nullable=True)
-    agreement_signature_date = Column(db.Date, nullable=True)
-    amendment_signature_date = Column(db.Date, nullable=True)
-    convention_number = Column(String(255), nullable=True)
-    initiale_envelop = Column(Integer(), nullable=True)
-    complementary_envelop = Column(Integer(), nullable=True)
-    internal_audit_date = Column(db.Date, nullable=True)
-    external_audit_date = Column(db.Date, nullable=True)
-    funds_return_date = Column(db.Date, nullable=True)
-    amount_returned = Column(Integer(), nullable=True)
-    closing_date = Column(db.Date, nullable=True)
-    transfer_circuit_validation = Column(String(500), nullable=True)
-    operating_details = Column(String(500), nullable=True)
+    financial_device = relationship("FinancialDevice", backref="mission_details_financial_device")
     # smq
     smq_starting_meeting = Column(db.Date, nullable=True)
     smq_engagement_meeting = Column(db.Date, nullable=True)
