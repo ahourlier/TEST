@@ -1,3 +1,25 @@
+# [1.4.0-rc.1](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0...v1.4.0-rc.1) (2022-06-09)
+
+
+### Bug Fixes
+
+* **Copro:** Correct wrong enum name in service ([85329d4](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/85329d4652a41a4afc7b5569586b3c7ee9af655f))
+* **Delete:** missing filter + wrong model ([ddf3325](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/ddf33255d26ea0541f360a8bb81c891c3f2dd917))
+* **T1:** Review FM ([469547d](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/469547d04166d92aecd276cf8a33f12615aa594f))
+* **T3:** Review FM ([7c79a92](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/7c79a9251a8976eb7d64671488b54da537f34266))
+* **T4:** Review FM ([7260eed](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/7260eed9d5567588964f695280a27f6800227894))
+* **T6:** Multiples fixes ([ec07121](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/ec071213c4571a0814ded95ecdb8692d16e6dc41))
+* **T6:** Re-add donnees_cadrage step (WIP: waiting Urb for questions) ([08ea9cc](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/08ea9cc6eeae83f3b37cc02b153f89e526a2880c))
+* **T9:** Repasse FM ([df1e290](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/df1e2900e4d1f5a71d2b5bd089adea7374bb2a31))
+* **Tasks:** Add specific join on sort by assignee ([89b6a16](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/89b6a16189c4c14adfd7d5cdf1d1eee4869975d1))
+* **THEMATICS:** T8 ([48feecf](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/48feecf3fc46dea99dcc6918f943fc437f93bf61))
+
+
+### Features
+
+* **Missions:** Add Financial Device Table ([918fef7](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/918fef7106fda974161acd49970bcf6744b37667))
+* **Missions:** Update financialDevice service to return array of object + add enum ([86d8196](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/86d819651bb5aa10a9f3d1041fcba0a44eadb757))
+
 # [1.3.0](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.2.3...v1.3.0) (2022-06-07)
 
 
