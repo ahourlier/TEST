@@ -474,155 +474,122 @@
 								],
 								"value": []
 							},
-							"travaux_et_operations_exceptionnelles_clotures_group": {
-								"type": "group",
+							"travaux_et_operations_exceptionnelles_clotures": {
+								"type": "string",
 								"multiple": false,
 								"scopes": [
 									"sc",
 									"copro"
 								],
-								"value": [
-									{
-										"travaux_et_operations_exceptionnelles_clotures": {
-											"type": "string",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"vote_travaux_et_operations_exceptionnelles_clotures": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"montant_vote_travaux_et_operations_exceptionnelles_clotures": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"provisions_appelees_travaux_et_operations_exceptionnelles_clotures": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"produits_exceptionnels_travaux_et_operations_exceptionnelles_clotures": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"montant_realise_travaux_et_operations_exceptionnelles_clotures": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"solde_travaux_et_operations_exceptionnelles_clotures": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										}
-									}
-								]
+								"value": []
 							},
-							"travaux_et_operations_exceptionnelles_non_clotures_group": {
-								"type": "group",
+							"vote_travaux_et_operations_exceptionnelles_clotures": {
+								"type": "date",
 								"multiple": false,
 								"scopes": [
 									"sc",
 									"copro"
 								],
-								"value": [
-									{
-										"travaux_et_operations_exceptionnelles_non_clotures": {
-											"type": "string",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"vote_travaux_et_operations_exceptionnelles_non_clotures": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"montant_vote_travaux_et_operations_exceptionnelles_non_clotures": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"provisions_appelees_travaux_et_operations_exceptionnelles_non_clotures": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"travaux_payes_travaux_et_operations_exceptionnelles_non_clotures": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"travaux_realise_travaux_et_operations_exceptionnelles_non_clotures": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"solde_travaux_et_operations_exceptionnelles_non_clotures": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										}
-									}
-								]
+								"value": []
+							},
+							"montant_vote_travaux_et_operations_exceptionnelles_clotures": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"provisions_appelees_travaux_et_operations_exceptionnelles_clotures": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"produits_exceptionnels_travaux_et_operations_exceptionnelles_clotures": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"montant_realise_travaux_et_operations_exceptionnelles_clotures": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"solde_travaux_et_operations_exceptionnelles_clotures": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"travaux_et_operations_exceptionnelles_non_clotures": {
+								"type": "string",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"vote_travaux_et_operations_exceptionnelles_non_clotures": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"montant_vote_travaux_et_operations_exceptionnelles_non_clotures": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"provisions_appelees_travaux_et_operations_exceptionnelles_non_clotures": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"travaux_realise_travaux_et_operations_exceptionnelles_non_clotures": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
+							},
+							"solde_travaux_et_operations_exceptionnelles_non_clotures": {
+								"type": "currency",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro"
+								],
+								"value": []
 							}
 						}
 					]
@@ -729,15 +696,6 @@
 								],
 								"value": [
 									{
-										"sujets_gestion_courante": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
 										"approbation_comptes_exercice_ecoule_sujets_gestion_courante": {
 											"type": "switch",
 											"multiple": false,
@@ -829,15 +787,6 @@
 											"value": []
 										},
 										"saisies_immobilieres_votees_sujets_gestion_courante": {
-											"type": "number",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"engagements_poursuites_hors_saisies_immobilieres_sujets_gestion_courante": {
 											"type": "number",
 											"multiple": false,
 											"scopes": [
@@ -995,7 +944,7 @@
 							},
 							"demande_paiement_group": {
 								"type": "group",
-								"multiple": false,
+								"multiple": true,
 								"scopes": [
 									"copro"
 								],
