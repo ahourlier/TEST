@@ -377,11 +377,11 @@ class MissionService:
         mission_detail_dump["mission_start_date"] = dumped_mission["mission_start_date"]
         mission_detail_dump["mission_end_date"] = dumped_mission["mission_end_date"]
 
+        mission_detail_dump["financial_devices"] = []
         try:
             financial_devices = FinancialDeviceService.get_by_mission_detail_id(
                 mission_detail.id
             )
-            mission_detail_dump["financial_devices"] = []
             for device in financial_devices:
                 obj = FinancialDeviceSchema().dump(device)
                 mission_detail_dump["financial_devices"].append(obj)
