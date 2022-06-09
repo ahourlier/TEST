@@ -758,7 +758,6 @@
 								"type": "group",
 								"multiple": true,
 								"scopes": [
-									"sc",
 									"copro",
 									"building"
 								],
@@ -768,7 +767,6 @@
 											"type": "date",
 											"multiple": false,
 											"scopes": [
-												"sc",
 												"copro",
 												"building"
 											],
@@ -779,7 +777,6 @@
 											"endpoint": "/referential/enums/?enums=NatureDysfunction",
 											"multiple": true,
 											"scopes": [
-												"sc",
 												"copro",
 												"building"
 											],
@@ -789,7 +786,6 @@
 											"type": "string",
 											"multiple": false,
 											"scopes": [
-												"sc",
 												"copro",
 												"building"
 											],
@@ -799,7 +795,6 @@
 											"type": "string",
 											"multiple": false,
 											"scopes": [
-												"sc",
 												"copro",
 												"building"
 											],
@@ -809,7 +804,6 @@
 											"type": "string",
 											"multiple": false,
 											"scopes": [
-												"sc",
 												"copro",
 												"building"
 											],
@@ -819,7 +813,6 @@
 											"type": "string",
 											"multiple": false,
 											"scopes": [
-												"sc",
 												"copro",
 												"building"
 											],
@@ -829,7 +822,6 @@
 											"type": "string",
 											"multiple": false,
 											"scopes": [
-												"sc",
 												"copro",
 												"building"
 											],
@@ -839,7 +831,6 @@
 											"type": "switch",
 											"multiple": false,
 											"scopes": [
-												"sc",
 												"copro",
 												"building"
 											],
@@ -851,7 +842,6 @@
 											"lg": 12,
 											"multiple": false,
 											"scopes": [
-												"sc",
 												"copro",
 												"building"
 											],
@@ -862,7 +852,6 @@
 											"showIf": "besoin_validation_suivi_dysfonctionnements",
 											"multiple": false,
 											"scopes": [
-												"sc",
 												"copro",
 												"building"
 											],
@@ -873,7 +862,6 @@
 											"showIf": "constat_resolution_suivi_dysfonctionnements",
 											"multiple": false,
 											"scopes": [
-												"sc",
 												"copro",
 												"building"
 											],
