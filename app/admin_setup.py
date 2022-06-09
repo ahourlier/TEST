@@ -1094,4 +1094,3 @@ def register_admin_views(admin, db):
             endpoint="manage_height_classification",
         )
     )
-

@@ -16,9 +16,13 @@ SEARCH_PARAMS = [
 ]
 
 
-def sort_query(query, field=None, direction="asc"):
+def sort_query(query, field=None, direction="asc", sub_model=None):
     if field is not None:
-        model = next(query._mapper_entities).type
+        model = None
+        if sub_model:
+            model = sub_model
+        else:
+            model = next(query._mapper_entities).type
         if hasattr(model, field):
             col = getattr(model, field)
             query = query.order_by(col.asc() if direction == "asc" else col.desc())
