@@ -3,7 +3,7 @@ from flask import g
 from datetime import date
 
 from app import db
-from app.auth.users.model import UserRole
+from app.auth.users.model import User, UserRole
 from app.common.exceptions import EnumException
 from app.common.firestore_utils import FirestoreUtils
 from app.common.search import sort_query
@@ -106,11 +106,27 @@ class TaskService:
     ):
         import app.mission.permissions as mission_permissions
 
-        q = sort_query(
-            Task.query.filter(or_(Task.is_deleted == False, Task.is_deleted == None)),
-            sort_by,
-            direction,
-        )
+        q = None
+        # Use submodel User to sort by assignee.first_name property
+        if sort_by == "assignee":
+            sort_by = "first_name"
+            q = sort_query(
+                Task.query.join(User, User.id == Task.assignee_id).filter(
+                    or_(Task.is_deleted == False, Task.is_deleted == None)
+                ),
+                sort_by,
+                direction,
+                User,
+            )
+        else:
+            q = sort_query(
+                Task.query.filter(
+                    or_(Task.is_deleted == False, Task.is_deleted == None)
+                ),
+                sort_by,
+                direction,
+            )
+
         if term is not None:
             search_term = f"%{term}%"
             q = q.filter(
