@@ -21,8 +21,10 @@ class Building(SoftDeletableMixin, BaseMixin, db.Model):
     # generalites du batiment
     construction_time = Column(String(255), nullable=True)
     igh = Column(Boolean(), nullable=True)
+    imh = Column(Boolean(), nullable=True)
     r_plus = Column(String(255), nullable=True)
     r_minus = Column(String(255), nullable=True)
+    height_classification = Column(String(255), nullable=True)
     erp = Column(Boolean(), nullable=True)
     erp_category = Column(String(255), nullable=True)
     last_security_commission_date = Column(db.Date, nullable=True)
