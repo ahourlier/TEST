@@ -5,24 +5,26 @@ from firebase_admin import firestore
 # Use the application default credentials
 
 GCP_PROJECT = {
-        "projectId": "app-oslo-dev",
-        # "projectId": "app-oslo-preprod",
-        # "projectId": "app-oslo-prod",
+    "projectId": "app-oslo-dev",
+    # "projectId": "app-oslo-preprod",
+    # "projectId": "app-oslo-prod",
 }
 
 cred = credentials.ApplicationDefault()
-firebase_admin.initialize_app(
-    cred,
-    GCP_PROJECT
-)
+firebase_admin.initialize_app(cred, GCP_PROJECT)
 db = firestore.client()
 
 if __name__ == "__main__":
     delete = True
 
-    if GCP_PROJECT['projectId'] == 'app-oslo-prod' or GCP_PROJECT['projectId'] == 'app-oslo-preprod':
+    if (
+        GCP_PROJECT["projectId"] == "app-oslo-prod"
+        or GCP_PROJECT["projectId"] == "app-oslo-preprod"
+    ):
         delete = False
-        resp = input(f"WARNING: You're going to delete all firestore data inside {GCP_PROJECT['projectId']}:\n\nConfirm? [y/N] ")
+        resp = input(
+            f"WARNING: You're going to delete all firestore data inside {GCP_PROJECT['projectId']}:\n\nConfirm? [y/N] "
+        )
         if resp == "y" or resp == "Y":
             delete = True
         else:

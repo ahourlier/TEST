@@ -1,6 +1,7 @@
 import os
 from flask.cli import load_dotenv
 from app import create_app
+
 # from scripts.preferred_app_filler import fill_preferred_app
 
 # try:
