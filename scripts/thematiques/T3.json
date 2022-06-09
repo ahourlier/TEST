@@ -332,7 +332,7 @@
 													"cause_precarite_energetique": {
 														"type": "select",
 														"endpoint": "/referential/enums/?enums=EnergeticPrecariousnessCause",
-														"multiple": false,
+														"multiple": true,
 														"scopes": [
 															"lot"
 														],
