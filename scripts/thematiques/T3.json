@@ -2408,7 +2408,6 @@
 				"name": "CLOTURE_ACCOMPAGNEMENT_SOCIAL",
 				"order": 4,
 				"scopes": [
-					"copro",
 					"lot"
 				],
 				"status": ""
