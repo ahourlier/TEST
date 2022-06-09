@@ -9,8 +9,8 @@
 	"versionnable": [
 		true,
 		true,
-		true,
-		true
+		false,
+		false
 	],
 	"heritable": [
 		false,
@@ -38,11 +38,11 @@
 					"lot"
 				],
 				"vertical_dependencies": [
-					"travaux_sur_pc_ht_campagne_travaux",
-					"travaux_sur_pc_ttc_campagne_travaux",
-					"frais_sur_pc_ht_campagne_travaux",
-					"frais_sur_pc_ttc_campagne_travaux",
-					"depense_subventionnable_pc_ht_campagne_travaux",
+					"travaux_sur_pc_ht_campagne_travaux_depense_totale_pc_ttc_campagne_travaux",
+					"travaux_sur_pc_ttc_campagne_travaux_depense_totale_pc_ttc_campagne_travaux",
+					"frais_sur_pc_ht_campagne_travaux_depense_totale_pc_ttc_campagne_travaux",
+					"frais_sur_pc_ttc_campagne_travaux_depense_totale_pc_ttc_campagne_travaux",
+					"depense_subventionnable_pc_ht_campagne_travaux_depense_totale_pc_ttc_campagne_travaux",
 					"depense_totale_ppic_ttc_campagne_travaux",
 					"travaux_sur_ppic_ttc_campagne_travaux",
 					"frais_sur_ppic_ttc_campagne_travaux"
@@ -125,67 +125,80 @@
 												}
 											]
 										},
-										"travaux_sur_pc_ht_campagne_travaux": {
-											"type": "currency",
+										"depense_totale_pc_ttc_campagne_travaux_group": {
+											"type": "group",
 											"multiple": false,
 											"scopes": [
 												"sc",
 												"copro",
 												"building"
 											],
-											"value": []
-										},
-										"travaux_sur_pc_ttc_campagne_travaux": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
-										},
-										"frais_sur_pc_ht_campagne_travaux": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
-										},
-										"frais_sur_pc_ttc_campagne_travaux": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
-										},
-										"depense_subventionnable_pc_ht_campagne_travaux": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
-										},
-										"depense_totale_pc_ttc_campagne_travaux": {
-											"type": "string",
-											"formula": "travaux_sur_pc_ttc_campagne_travaux + frais_sur_pc_ttc_campagne_travaux",
-											"suffix": "€",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
+											"value": [
+												{
+													"travaux_sur_pc_ht_campagne_travaux_depense_totale_pc_ttc_campagne_travaux": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro",
+															"building"
+														],
+														"value": []
+													},
+													"travaux_sur_pc_ttc_campagne_travaux_depense_totale_pc_ttc_campagne_travaux": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro",
+															"building"
+														],
+														"value": []
+													},
+													"frais_sur_pc_ht_campagne_travaux_depense_totale_pc_ttc_campagne_travaux": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro",
+															"building"
+														],
+														"value": []
+													},
+													"frais_sur_pc_ttc_campagne_travaux_depense_totale_pc_ttc_campagne_travaux": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro",
+															"building"
+														],
+														"value": []
+													},
+													"depense_subventionnable_pc_ht_campagne_travaux_depense_totale_pc_ttc_campagne_travaux": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro",
+															"building"
+														],
+														"value": []
+													},
+													"depense_totale_pc_ttc_campagne_travaux": {
+														"type": "string",
+														"formula": "travaux_sur_pc_ttc_campagne_travaux_depense_totale_pc_ttc_campagne_travaux + frais_sur_pc_ttc_campagne_travaux_depense_totale_pc_ttc_campagne_travaux",
+														"suffix": "€",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro",
+															"building"
+														],
+														"value": []
+													}
+												}
+											]
 										},
 										"nature_travaux_interet_collectif_sur_parties_privatives_group": {
 											"type": "group",
@@ -297,7 +310,7 @@
 										},
 										"travaux_cumules_sur_pc_plus_ppic_ht_campagne_travaux": {
 											"type": "string",
-											"formula": "travaux_sur_pc_ht_campagne_travaux + travaux_sur_ppic_ht_campagne_travaux",
+											"formula": "travaux_sur_pc_ht_campagne_travaux_depense_totale_pc_ttc_campagne_travaux + travaux_sur_ppic_ht_campagne_travaux",
 											"suffix": "€",
 											"multiple": false,
 											"scopes": [
@@ -309,7 +322,7 @@
 										},
 										"travaux_cumules_sur_pc_plus_ppic_ttc_campagne_travaux": {
 											"type": "string",
-											"formula": "travaux_sur_pc_ttc_campagne_travaux + travaux_sur_ppic_ttc_campagne_travaux",
+											"formula": "travaux_sur_pc_ttc_campagne_travaux_depense_totale_pc_ttc_campagne_travaux + travaux_sur_ppic_ttc_campagne_travaux",
 											"suffix": "€",
 											"multiple": false,
 											"scopes": [
@@ -321,7 +334,7 @@
 										},
 										"frais_cumules_sur_pc_plus_ppic_ht_campagne_travaux": {
 											"type": "string",
-											"formula": "frais_sur_pc_ht_campagne_travaux + frais_sur_ppic_ht_campagne_travaux",
+											"formula": "frais_sur_pc_ht_campagne_travaux_depense_totale_pc_ttc_campagne_travaux + frais_sur_ppic_ht_campagne_travaux",
 											"suffix": "€",
 											"multiple": false,
 											"scopes": [
@@ -333,7 +346,7 @@
 										},
 										"frais_cumules_sur_pc_plus_ppic_ttc_campagne_travaux": {
 											"type": "string",
-											"formula": "frais_sur_pc_ttc_campagne_travaux + frais_sur_ppic_ttc_campagne_travaux",
+											"formula": "frais_sur_pc_ttc_campagne_travaux_depense_totale_pc_ttc_campagne_travaux + frais_sur_ppic_ttc_campagne_travaux",
 											"suffix": "€",
 											"multiple": false,
 											"scopes": [
@@ -345,7 +358,7 @@
 										},
 										"depense_subventionnable_sur_pc_plus_ppic_ht_campagne_travaux": {
 											"type": "string",
-											"formula": "depense_subventionnable_pc_ht_campagne_travaux + depense_subventionnable_ppic_ht_campagne_travaux",
+											"formula": "depense_subventionnable_pc_ht_campagne_travaux_depense_totale_pc_ttc_campagne_travaux + depense_subventionnable_ppic_ht_campagne_travaux",
 											"suffix": "€",
 											"multiple": false,
 											"scopes": [
@@ -711,6 +724,7 @@
 													},
 													"montant_demande_solde_financeur": {
 														"type": "currency",
+														"formula": "(montant_aide_engage_subventions_demande_aide_financeur + montant_aide_engage_primes_demande_aide_financeur) - montant_verse_demande_avance_financeur - montant_verse_demande_acompte_financeur",
 														"multiple": false,
 														"scopes": [
 															"sc",
@@ -744,6 +758,7 @@
 										},
 										"delta_total_engage_total_verse_financeur": {
 											"type": "currency",
+											"formula": "(montant_aide_engage_subventions_demande_aide_financeur + montant_aide_engage_primes_demande_aide_financeur) - montant_verse_demande_solde_financeur",
 											"multiple": true,
 											"scopes": [
 												"sc",
