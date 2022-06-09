@@ -48,7 +48,7 @@ COPRO_DEFAULT_SORT_DIRECTION = "desc"
 
 ENUM_MAPPING = {
     "copro_type": {"enum_key": "CoproType"},
-    "construction_time": {"enum_key": "ConstructionTime"},
+    "construction_time": {"enum_key": "CoproConstructionTime"},
 }
 
 
