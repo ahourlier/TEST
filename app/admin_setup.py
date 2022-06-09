@@ -24,6 +24,7 @@ from app.referential.enums.admin import (
     Former,
     FunderOrganism,
     HeaterBillingType,
+    HeightClassification,
     HelpType,
     HouseholdAccompaniedStatusAndPreviousStatus,
     HouseholdDebtRate,
@@ -1084,3 +1085,13 @@ def register_admin_views(admin, db):
             endpoint="manage_financial_device_type",
         )
     )
+    admin.add_view(
+        HeightClassification(
+            AppEnum,
+            db.session,
+            "Classification (cf.hauteur)",
+            url="height-classification",
+            endpoint="manage_height_classification",
+        )
+    )
+
