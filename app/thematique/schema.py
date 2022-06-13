@@ -39,6 +39,12 @@ class ThematiqueSchema(SQLAlchemyAutoSchema):
 class VersionSchema(ThematiqueSchema):
     version_name = fields.String(allow_none=False, required=True)
     version_date = fields.String(allow_none=False, required=True)
+    
+
+class VersionSchemaCreated(VersionSchema):
+    creation_date = fields.Date(allow_none=False, required=True)
+    updated_date = fields.Date(allow_none=False, required=True)
+    author_email = fields.String(allow_none=False, required=True)
 
 
 class ThematiqueMissionSchema(SQLAlchemyAutoSchema):
