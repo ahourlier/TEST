@@ -1,5 +1,5 @@
 import base64
-from sqlalchemy import or_, and_
+from sqlalchemy import or_, and_, func
 
 from app import db
 from app.auth.users.model import UserRole
@@ -190,7 +190,7 @@ class BuildingService:
     def get_building_from_unique_name(building_name: str, copro: Copro):
         # Building name is unique across copro
         return Building.query.filter(Building.copro_id == copro.id) \
-                             .filter(Building.name == building_name) \
+                             .filter(func.lower(Building.name) == func.lower(building_name)) \
                              .filter(Building.is_deleted == False) \
                              .first()
                             
