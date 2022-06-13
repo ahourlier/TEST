@@ -4,7 +4,7 @@ from flask_allows import requires
 
 from app.common.permissions import has_thematic_permissions, has_version_permissions
 from . import api
-from .schema import ThematiqueSchema, VersionSchema, StepSchema
+from .schema import ThematiqueSchema, VersionSchema, StepSchema, VersionSchemaCreated
 from .service import ThematiqueService
 from ..common.api import AuthenticatedApi
 
@@ -30,6 +30,7 @@ class ThematiqueForObjectResource(AuthenticatedApi):
             scope=request.args.get("scope"),
             resource_id=request.args.get("resourceId"),
             thematique_name=request.args.get("thematiqueName"),
+            user=g.user,
         )
 
 
@@ -53,7 +54,7 @@ class ThematiqueResource(AuthenticatedApi):
 @api.route("/<string:version_id>/step/<string:step_id>")
 class ThematiqueStepResource(AuthenticatedApi):
     @accepts(schema=StepSchema, api=api)
-    @responds(schema=VersionSchema, api=api)
+    @responds(schema=VersionSchemaCreated, api=api)
     @requires(has_version_permissions)
     def put(self, version_id: str, step_id: str):
         return ThematiqueService.update_step(
@@ -67,15 +68,16 @@ class ThematiqueStepResource(AuthenticatedApi):
 @api.route("/duplicate")
 class ThematiqueIdResource(AuthenticatedApi):
     @accepts(schema=VersionSchema, api=api)
-    @responds(schema=VersionSchema, api=api)
+    @responds(schema=VersionSchemaCreated, api=api)
     @requires(has_thematic_permissions)
     def post(self):
-        return ThematiqueService.duplicate_thematique(request.parsed_obj)
+        return ThematiqueService.duplicate_thematique(request.parsed_obj, user=g.user)
 
 
 @api.route("/<string:version_id>")
 class ThematiqueIdResource(AuthenticatedApi):
     @accepts(schema=VersionSchema, api=api)
+    @responds(schema=VersionSchemaCreated, api=api)
     @requires(has_version_permissions)
     def put(self, version_id):
         ThematiqueService.update_version(
