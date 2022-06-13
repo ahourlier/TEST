@@ -1,6 +1,6 @@
 import base64
 from flask_sqlalchemy import Pagination
-from sqlalchemy import or_, and_
+from sqlalchemy import or_, and_, func
 
 from app import db
 from app.auth.users.model import UserRole
@@ -436,13 +436,14 @@ class CoproService:
     def search_by_address(address_obj, mission_id):
         try:
             return (
+                
                 Copro.query.join(Address, Copro.address_1_id == Address.id)
                 .filter(
                     and_(
                         Address.number == str(address_obj.get("number")),
-                        Address.street == str(address_obj.get("street")),
+                        func.lower(Address.street) == func.lower(str(address_obj.get("street"))),
                         Address.postal_code == str(address_obj.get("postal_code")),
-                        Address.city == str(address_obj.get("city")),
+                        func.lower(Address.city) == func.lower(str(address_obj.get("city"))),
                         Copro.mission_id == mission_id,
                         Copro.is_deleted == False,
                     )

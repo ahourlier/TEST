@@ -398,7 +398,7 @@ class LotImport:
 
             current_logs = [
                 f"Lot n°{lot_object.get('lot_number')}",
-                f"Copro: '{copro.name}' found",
+                f"Copro: '{copro.name or 'without name'}' found",
             ]
             if building_created:
                 current_logs.append(f"Building - '{building_name}' created")

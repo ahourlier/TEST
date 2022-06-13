@@ -1,4 +1,4 @@
-from sqlalchemy import or_, and_
+from sqlalchemy import or_, and_, func
 
 from flask import g
 
@@ -175,11 +175,11 @@ class PersonService:
                 .filter(
                     and_(
                         Address.number == str(address_obj.get("number")),
-                        Address.street == str(address_obj.get("street")),
+                        func.lower(Address.street) == func.lower(str(address_obj.get("street"))),
                         Address.postal_code == str(address_obj.get("postal_code")),
-                        Address.city == str(address_obj.get("city")),
-                        Person.first_name == firstname,
-                        Person.last_name == lastname,
+                        func.lower(Address.city) == func.lower(str(address_obj.get("city"))),
+                        func.lower(Person.first_name) == func.lower(firstname),
+                        func.lower(Person.last_name) == func.lower(lastname),
                         Person.is_deleted == False,
                     )
                 )

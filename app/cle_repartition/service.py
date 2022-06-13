@@ -1,4 +1,4 @@
-from sqlalchemy import or_, exc
+from sqlalchemy import or_, exc, func
 from flask import g
 from app import db
 from app.cle_repartition.interface import (
@@ -16,7 +16,7 @@ from app.lot.error_handlers import LotNotFoundException, IncorrectKeyException
 class CleRepartitionService:
     def get(cle_label: str, copro_id: int) -> CleRepartition:
         return (
-            CleRepartition.query.filter(CleRepartition.label == cle_label)
+            CleRepartition.query.filter(func.lower(CleRepartition.label) == func.lower(cle_label))
             .filter(CleRepartition.copro_id == copro_id)
             .first()
         )
