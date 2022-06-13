@@ -74,6 +74,7 @@
 										"nature_travaux_campagne_travaux": {
 											"type": "select",
 											"endpoint": "/referential/enums/?enums=WorkNatureCommonParts",
+											"lg": 12,
 											"multiple": true,
 											"scopes": [
 												"sc",
@@ -182,6 +183,7 @@
 													"nature_travaux_interet_collectif_sur_parties_privatives": {
 														"type": "select",
 														"endpoint": "/referential/enums/?enums=WorkNaturePrivateParts",
+														"lg": 12,
 														"multiple": true,
 														"scopes": [
 															"sc",
