@@ -113,7 +113,8 @@
 														"value": []
 													},
 													"description_succincte_poste_poste_nature_travaux_sur_parties_communes": {
-														"type": "string",
+														"type": "textArea",
+														"lg": 12,
 														"multiple": false,
 														"scopes": [
 															"sc",
