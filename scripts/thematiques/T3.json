@@ -664,16 +664,6 @@
 										}
 									}
 								]
-							},
-							"commentaire_accompagnement_collectif": {
-								"type": "textArea",
-								"lg": 12,
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"lot"
-								],
-								"value": []
 							}
 						}
 					]
@@ -2417,66 +2407,55 @@
 					],
 					"value": [
 						{
-							"cloture_accompagnement_social_group": {
-								"type": "group",
+							"last_RDV_date_cloture_accompagnement": {
+								"type": "date",
 								"multiple": false,
 								"scopes": [
 									"lot"
 								],
-								"value": [
-									{
-										"last_RDV_date_cloture_accompagnement": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"motif_cloture_accompagnement": {
-											"type": "select",
-											"endpoint": "/referential/enums/?enums=AccompaniementClosing",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"courrier_cloture_accompagnement": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"organisme_orientation_menage_accompagnement": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"date_passation_partenaires_cloture_accompagnement": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"courrier_rehabilitation_identite_menage": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										}
-									}
-								]
+								"value": []
+							},
+							"motif_cloture_accompagnement": {
+								"type": "select",
+								"endpoint": "/referential/enums/?enums=AccompaniementClosing",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": []
+							},
+							"courrier_cloture_accompagnement": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": []
+							},
+							"organisme_orientation_menage_accompagnement": {
+								"type": "textArea",
+								"lg": 12,
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": []
+							},
+							"date_passation_partenaires_cloture_accompagnement": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": []
+							},
+							"courrier_rehabilitation_identite_menage": {
+								"type": "switch",
+								"multiple": false,
+								"scopes": [
+									"lot"
+								],
+								"value": []
 							}
 						}
 					]
