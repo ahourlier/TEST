@@ -327,16 +327,6 @@
 												"lot"
 											],
 											"value": []
-										},
-										"commentaires_animation_suivi_dia": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"lot"
-											],
-											"value": []
 										}
 									}
 								]
