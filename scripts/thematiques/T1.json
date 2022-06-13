@@ -1,22 +1,18 @@
 {
 	"thematique_name": "ENVIRONNEMENT_URBAIN_CADRE_VIE",
 	"scopes": [
-		"sc",
 		"copro",
 		"building"
 	],
 	"versionnable": [
 		false,
-		false,
 		false
 	],
 	"heritable": [
 		false,
-		false,
 		false
 	],
 	"extend_parent": [
-		false,
 		false,
 		false
 	],
@@ -444,101 +440,88 @@
 							},
 							"demarches_gup_dans_quartier_group": {
 								"type": "group",
-								"multiple": true,
-								"scopes": [
-									"copro"
-								],
-								"value": [
-									{
-										"demarches_gup_dans_quartier": {
-											"type": "switch",
-											"multiple": false,
-											"value": [],
-											"scopes": [
-												"copro"
-											]
-										},
-										"themes_demarches_gup_dans_quartier": {
-											"type": "textArea",
-											"showIf": "demarches_gup_dans_quartier",
-											"lg": 12,
-											"multiple": false,
-											"value": [],
-											"scopes": [
-												"copro"
-											]
-										},
-										"structures_porteuses_demarches_gup_dans_quartier": {
-											"type": "textArea",
-											"showIf": "demarches_gup_dans_quartier",
-											"lg": 12,
-											"multiple": false,
-											"value": [],
-											"scopes": [
-												"copro"
-											]
-										}
-									}
-								]
-							},
-							"autres_actions_sur_terrain_group": {
-								"type": "group",
-								"multiple": true,
-								"scopes": [
-									"copro"
-								],
-								"value": [
-									{
-										"autres_actions_sur_terrain": {
-											"type": "switch",
-											"multiple": false,
-											"value": [],
-											"scopes": [
-												"copro"
-											]
-										},
-										"themes_autres_actions_sur_terrain": {
-											"type": "textArea",
-											"showIf": "autres_actions_sur_terrain",
-											"lg": 12,
-											"multiple": false,
-											"value": [],
-											"scopes": [
-												"copro"
-											]
-										},
-										"structures_porteuses_autres_actions_sur_terrain": {
-											"type": "textArea",
-											"showIf": "autres_actions_sur_terrain",
-											"lg": 12,
-											"multiple": false,
-											"value": [],
-											"scopes": [
-												"copro"
-											]
-										}
-									}
-								]
-							},
-							"coordinations_existantes_group": {
-								"type": "group",
 								"multiple": false,
 								"scopes": [
 									"copro"
 								],
 								"value": [
 									{
-										"coordinations_existantes": {
+										"gup_publique_dans_quartier_demarches_gup_dans_quartier": {
 											"type": "switch",
 											"multiple": false,
-											"value": [],
 											"scopes": [
 												"copro"
-											]
+											],
+											"value": []
 										},
+										"commentaires_gup_publique_dans_quartier_demarches_gup_dans_quartier": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"autre_gup_sur_copropriete_quartier_demarches_gup_dans_quartier": {
+											"type": "switch",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"commentaires_autre_gup_sur_copropriete_quartier_demarches_gup_dans_quartier": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"autres_acteurs_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
+										"structures_autres_acteurs": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"champ_action_autres_acteurs": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"coordinations_existantes_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
 										"themes_coordinations_existantes": {
 											"type": "textArea",
-											"showIf": "coordinations_existantes",
 											"lg": 12,
 											"multiple": false,
 											"value": [],
@@ -547,26 +530,8 @@
 											]
 										},
 										"pilotage_coordinations_existantes": {
-											"type": "string",
-											"showIf": "coordinations_existantes",
-											"multiple": false,
-											"value": [],
-											"scopes": [
-												"copro"
-											]
-										},
-										"rapport_visite_site": {
-											"type": "date",
-											"showIf": "coordinations_existantes",
-											"multiple": false,
-											"value": [],
-											"scopes": [
-												"copro"
-											]
-										},
-										"rapport_diagnostic": {
-											"type": "date",
-											"showIf": "coordinations_existantes",
+											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"value": [],
 											"scopes": [
@@ -575,6 +540,14 @@
 										}
 									}
 								]
+							},
+							"visite_sur_site_diagnostic_initial_gup": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"copro"
+								],
+								"value": []
 							},
 							"restitution_notre_mission_moa_group": {
 								"type": "group",
@@ -587,18 +560,18 @@
 										"restitution_notre_mission_moa": {
 											"type": "date",
 											"multiple": false,
-											"value": [],
 											"scopes": [
 												"copro"
-											]
+											],
+											"value": []
 										},
 										"validation_plan_actions_par_moa": {
 											"type": "date",
 											"multiple": false,
-											"value": [],
 											"scopes": [
 												"copro"
-											]
+											],
+											"value": []
 										}
 									}
 								]
@@ -623,7 +596,6 @@
 				"order": 4,
 				"status": "",
 				"scopes": [
-					"sc",
 					"copro",
 					"building"
 				]
@@ -633,13 +605,12 @@
 					"type": "group",
 					"multiple": false,
 					"scopes": [
-						"sc",
 						"copro",
 						"building"
 					],
 					"value": [
 						{
-							"reunion_group": {
+							"reunion_prevue_au_marche_group": {
 								"type": "group",
 								"multiple": true,
 								"scopes": [
@@ -647,22 +618,50 @@
 								],
 								"value": [
 									{
-										"date_reunion": {
+										"date_reunion_prevue_au_marche": {
 											"type": "date",
 											"multiple": false,
-											"value": [],
 											"scopes": [
 												"copro"
-											]
+											],
+											"value": []
 										},
-										"themes_reunion": {
+										"themes_reunion_prevue_au_marche": {
 											"type": "select",
 											"endpoint": "/referential/enums/?enums=MeetingTheme",
 											"multiple": true,
-											"value": [],
 											"scopes": [
 												"copro"
-											]
+											],
+											"value": []
+										}
+									}
+								]
+							},
+							"autre_reunion_importante_group": {
+								"type": "group",
+								"multiple": true,
+								"scopes": [
+									"copro"
+								],
+								"value": [
+									{
+										"date_autre_reunion_importante": {
+											"type": "date",
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
+										},
+										"themes_autre_reunion_importante": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=MeetingTheme",
+											"multiple": true,
+											"scopes": [
+												"copro"
+											],
+											"value": []
 										}
 									}
 								]
@@ -675,17 +674,8 @@
 								],
 								"value": [
 									{
-										"action_urbanis_titre_gup": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
 										"themes_action_urbanis_titre_gup": {
 											"type": "select",
-											"showIf": "action_urbanis_titre_gup",
 											"endpoint": "/referential/enums/?enums=ActionUrbanisThemeGUP",
 											"multiple": true,
 											"scopes": [
@@ -695,7 +685,6 @@
 										},
 										"partenaires_action_urbanis_titre_gup": {
 											"type": "textArea",
-											"showIf": "action_urbanis_titre_gup",
 											"lg": 12,
 											"multiple": false,
 											"scopes": [
@@ -714,17 +703,17 @@
 								],
 								"value": [
 									{
-										"autres_actions_avec_participation_urbanis": {
-											"type": "switch",
+										"porteur_action_et_partenaires_autres_actions_avec_participation_urbanis": {
+											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"scopes": [
 												"copro"
 											],
 											"value": []
 										},
-										"date_actions_avec_participation_urbanis": {
+										"date_autres_actions_avec_participation_urbanis": {
 											"type": "date",
-											"showIf": "autres_actions_avec_participation_urbanis",
 											"multiple": false,
 											"scopes": [
 												"copro"
@@ -733,7 +722,6 @@
 										},
 										"themes_autres_actions_avec_participation_urbanis": {
 											"type": "select",
-											"showIf": "autres_actions_avec_participation_urbanis",
 											"endpoint": "/referential/enums/?enums=OtherActionUrbanis",
 											"multiple": true,
 											"scopes": [
@@ -741,9 +729,8 @@
 											],
 											"value": []
 										},
-										"partenaires_autres_actions_avec_participation_urbanis": {
+										"actions_urbanis_autres_actions_avec_participation_urbanis": {
 											"type": "textArea",
-											"showIf": "autres_actions_avec_participation_urbanis",
 											"lg": 12,
 											"multiple": false,
 											"scopes": [
@@ -763,7 +750,7 @@
 								],
 								"value": [
 									{
-										"suivi_dysfonctionnements": {
+										"date_suivi_dysfonctionnements": {
 											"type": "date",
 											"multiple": false,
 											"scopes": [
