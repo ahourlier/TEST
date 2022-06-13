@@ -1,3 +1,19 @@
+# [1.4.0-rc.2](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.4.0-rc.1...v1.4.0-rc.2) (2022-06-13)
+
+
+### Bug Fixes
+
+* **Imports:** Remove Case sensitiv on search by address, repartition key.. ([2543fca](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/2543fcaf01fdcf2d3b3953f69a59220a031d7e9b))
+* **T3:** Review FM ([861d728](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/861d7289edc9e5510725d0cbe0ea58098b49dfa7))
+* **Thematics:** Add creation_date, updated_date, author_email in version of thematics ([7000e52](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/7000e521d4a32c13288f80b861520d1dc69990ba))
+* **THEMATICS:** fix T8 ([2311202](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/2311202a9c6cbd782138359ff87d6ce20f0af6e0))
+* **THEMATICS:** fix T8 ([2ca45e0](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/2ca45e08fb9dc84ac231b7848ed2daf3fb54dd9e))
+
+
+### Features
+
+* **THEMATICS:** add btn (show/hide password) && fix T1 && T8 ([b2653a1](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/b2653a1d59c3004305b28387536033ab178bff22))
+
 # [1.4.0-rc.1](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0...v1.4.0-rc.1) (2022-06-09)
 
 
