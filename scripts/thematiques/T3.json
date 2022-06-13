@@ -4,7 +4,6 @@
 		"lot",
 		"copro",
 		"building"
-		
 	],
 	"versionnable": [
 		false,
@@ -1680,9 +1679,7 @@
 														"scopes": [
 															"lot"
 														],
-														"value": [
-															
-														]
+														"value": []
 													},
 													"telephone_mise_a_disposition_accompagnement_social_preparation": {
 														"type": "phone",
@@ -1909,7 +1906,6 @@
 																				],
 																				"value": []
 																			}
-
 																		}
 																	]
 																}
@@ -2384,7 +2380,7 @@
 													"prestataire_mous_identite_coordonnees": {
 														"type": "textArea",
 														"lg": 12,
-														"showIf":"menage_accompagnee_dans_cadre_mous",
+														"showIf": "menage_accompagnee_dans_cadre_mous",
 														"multiple": false,
 														"scopes": [
 															"lot"
