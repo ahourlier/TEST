@@ -810,7 +810,7 @@
 													},
 													"demande_prorogation_demande_solde_financeur": {
 														"type": "date",
-														"multiple": false,
+														"multiple": true,
 														"scopes": [
 															"sc",
 															"copro",
@@ -820,7 +820,7 @@
 													},
 													"nouvelle_forclusion_demande_solde_financeur": {
 														"type": "date",
-														"multiple": false,
+														"multiple": true,
 														"scopes": [
 															"sc",
 															"copro",
