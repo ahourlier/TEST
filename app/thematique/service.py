@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import current_app
 from app.auth.users.model import User
 
@@ -82,7 +83,7 @@ class ThematiqueService:
         raise VersionNotFoundException
 
     @staticmethod
-    def list_versions(scope, resource_id, thematique_name):
+    def list_versions(scope, resource_id, thematique_name, user=None):
 
         if scope in ["", None]:
             raise InvalidScopeException
@@ -117,12 +118,12 @@ class ThematiqueService:
                     thematique_name=thematique_name,
                     firestore_utils=firestore_service,
                     list_docs=list_docs,
+                    user=user,
                 )
         return sorted(list_docs, key=lambda d: d["version_date"], reverse=True)
 
     @staticmethod
-    def duplicate_thematique(version, create_from_parent=False):
-
+    def duplicate_thematique(version, create_from_parent=False, user=None):
         # chek duplication authorization
         ThematiqueService.check_duplication_authorization(version, create_from_parent)
 
@@ -140,6 +141,12 @@ class ThematiqueService:
         del version["steps"]
         if "id" in version:
             del version["id"]
+
+        version["created_date"] = datetime.now()
+        version["updated_date"] = datetime.now()
+        if user:
+            version["author_email"] = user.email
+
         document = collection.document()
         document.set(version)
 
@@ -256,6 +263,8 @@ class ThematiqueService:
         else:
             new_attrs["status_changed"] = False
 
+        ThematiqueService.update_version(version_id, {"updated_date": datetime.now()})
+
         step.reference.set(payload, merge=True)
 
         HistoricService.create(new_attrs, commit=True)
@@ -288,6 +297,8 @@ class ThematiqueService:
         # check if the name and date are unique
         payload["thematique_name"] = thematique_name
         ThematiqueService.check_date_and_name_version(payload, scope, resource_id)
+
+        payload["updated_date"] = datetime.now()
 
         # update current version
         version.reference.set(payload, merge=True)
@@ -324,6 +335,7 @@ class ThematiqueService:
                     )
                     # Update all inherited versions version with the same version_name and version_date
                     if len(matching_versions):
+                        payload["updated_date"] = datetime.now()
                         matching_versions[0].reference.set(payload, merge=True)
                         if template_dic.get("heritable", None):
                             ThematiqueService.update_sub_versions_recursively(
@@ -360,6 +372,7 @@ class ThematiqueService:
         thematique_name,
         firestore_utils: FirestoreUtils,
         list_docs,
+        user=None,
     ):
         db_object = child_model.query.get(child_id)
         if not db_object:
@@ -387,7 +400,7 @@ class ThematiqueService:
                 template["version_date"] = doc.get("version_date")
                 template["resource_id"] = int(child_id)
                 version_created = ThematiqueService.duplicate_thematique(
-                    template, create_from_parent=True
+                    template, create_from_parent=True, user=user
                 )
                 list_docs.append(version_created)
         return list_docs

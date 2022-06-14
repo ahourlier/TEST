@@ -273,7 +273,7 @@
 										},
 										"notification_decision_financement_projet_group": {
 											"type": "group",
-											"multiple": false,
+											"multiple": true,
 											"scopes": [
 												"lot"
 											],
@@ -342,7 +342,7 @@
 										},
 										"forclusion_financement_projet_group": {
 											"type": "group",
-											"multiple": false,
+											"multiple": true,
 											"scopes": [
 												"lot"
 											],

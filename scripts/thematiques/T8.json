@@ -9,8 +9,8 @@
 	"versionnable": [
 		true,
 		true,
-		true,
-		true
+		false,
+		false
 	],
 	"heritable": [
 		false,
@@ -38,11 +38,11 @@
 					"lot"
 				],
 				"vertical_dependencies": [
-					"travaux_sur_pc_ht_campagne_travaux",
-					"travaux_sur_pc_ttc_campagne_travaux",
-					"frais_sur_pc_ht_campagne_travaux",
-					"frais_sur_pc_ttc_campagne_travaux",
-					"depense_subventionnable_pc_ht_campagne_travaux",
+					"travaux_sur_pc_ht_campagne_travaux_depense_totale_pc_ttc_campagne_travaux",
+					"travaux_sur_pc_ttc_campagne_travaux_depense_totale_pc_ttc_campagne_travaux",
+					"frais_sur_pc_ht_campagne_travaux_depense_totale_pc_ttc_campagne_travaux",
+					"frais_sur_pc_ttc_campagne_travaux_depense_totale_pc_ttc_campagne_travaux",
+					"depense_subventionnable_pc_ht_campagne_travaux_depense_totale_pc_ttc_campagne_travaux",
 					"depense_totale_ppic_ttc_campagne_travaux",
 					"travaux_sur_ppic_ttc_campagne_travaux",
 					"frais_sur_ppic_ttc_campagne_travaux"
@@ -71,8 +71,21 @@
 								],
 								"value": [
 									{
-										"nom_campagne_travaux": {
-											"type": "string",
+										"nature_travaux_campagne_travaux": {
+											"type": "select",
+											"endpoint": "/referential/enums/?enums=WorkNatureCommonParts",
+											"lg": 12,
+											"multiple": true,
+											"scopes": [
+												"sc",
+												"copro",
+												"building"
+											],
+											"value": []
+										},
+										"description_succincte_poste_poste_campagne_travaux": {
+											"type": "textArea",
+											"lg": 12,
 											"multiple": false,
 											"scopes": [
 												"sc",
@@ -81,17 +94,7 @@
 											],
 											"value": []
 										},
-										"date_vote_en_ag": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
-										},
-										"nature_travaux_sur_parties_communes_group": {
+										"depense_totale_pc_ttc_campagne_travaux_group": {
 											"type": "group",
 											"multiple": false,
 											"scopes": [
@@ -101,10 +104,9 @@
 											],
 											"value": [
 												{
-													"nature_travaux_sur_parties_communes": {
-														"type": "select",
-														"endpoint": "/referential/enums/?enums=WorkNatureCommonParts",
-														"multiple": true,
+													"travaux_sur_pc_ht_campagne_travaux_depense_totale_pc_ttc_campagne_travaux": {
+														"type": "currency",
+														"multiple": false,
 														"scopes": [
 															"sc",
 															"copro",
@@ -112,8 +114,50 @@
 														],
 														"value": []
 													},
-													"description_succincte_poste_poste_nature_travaux_sur_parties_communes": {
+													"travaux_sur_pc_ttc_campagne_travaux_depense_totale_pc_ttc_campagne_travaux": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro",
+															"building"
+														],
+														"value": []
+													},
+													"frais_sur_pc_ht_campagne_travaux_depense_totale_pc_ttc_campagne_travaux": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro",
+															"building"
+														],
+														"value": []
+													},
+													"frais_sur_pc_ttc_campagne_travaux_depense_totale_pc_ttc_campagne_travaux": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro",
+															"building"
+														],
+														"value": []
+													},
+													"depense_subventionnable_pc_ht_campagne_travaux_depense_totale_pc_ttc_campagne_travaux": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro",
+															"building"
+														],
+														"value": []
+													},
+													"depense_totale_pc_ttc_campagne_travaux": {
 														"type": "string",
+														"formula": "travaux_sur_pc_ttc_campagne_travaux_depense_totale_pc_ttc_campagne_travaux + frais_sur_pc_ttc_campagne_travaux_depense_totale_pc_ttc_campagne_travaux",
+														"suffix": "€",
 														"multiple": false,
 														"scopes": [
 															"sc",
@@ -124,68 +168,6 @@
 													}
 												}
 											]
-										},
-										"travaux_sur_pc_ht_campagne_travaux": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
-										},
-										"travaux_sur_pc_ttc_campagne_travaux": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
-										},
-										"frais_sur_pc_ht_campagne_travaux": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
-										},
-										"frais_sur_pc_ttc_campagne_travaux": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
-										},
-										"depense_subventionnable_pc_ht_campagne_travaux": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
-										},
-										"depense_totale_pc_ttc_campagne_travaux": {
-											"type": "string",
-											"formula": "travaux_sur_pc_ttc_campagne_travaux + frais_sur_pc_ttc_campagne_travaux",
-											"suffix": "€",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
 										},
 										"nature_travaux_interet_collectif_sur_parties_privatives_group": {
 											"type": "group",
@@ -201,6 +183,7 @@
 													"nature_travaux_interet_collectif_sur_parties_privatives": {
 														"type": "select",
 														"endpoint": "/referential/enums/?enums=WorkNaturePrivateParts",
+														"lg": 12,
 														"multiple": true,
 														"scopes": [
 															"sc",
@@ -297,7 +280,7 @@
 										},
 										"travaux_cumules_sur_pc_plus_ppic_ht_campagne_travaux": {
 											"type": "string",
-											"formula": "travaux_sur_pc_ht_campagne_travaux + travaux_sur_ppic_ht_campagne_travaux",
+											"formula": "travaux_sur_pc_ht_campagne_travaux_depense_totale_pc_ttc_campagne_travaux + travaux_sur_ppic_ht_campagne_travaux",
 											"suffix": "€",
 											"multiple": false,
 											"scopes": [
@@ -309,7 +292,7 @@
 										},
 										"travaux_cumules_sur_pc_plus_ppic_ttc_campagne_travaux": {
 											"type": "string",
-											"formula": "travaux_sur_pc_ttc_campagne_travaux + travaux_sur_ppic_ttc_campagne_travaux",
+											"formula": "travaux_sur_pc_ttc_campagne_travaux_depense_totale_pc_ttc_campagne_travaux + travaux_sur_ppic_ttc_campagne_travaux",
 											"suffix": "€",
 											"multiple": false,
 											"scopes": [
@@ -321,7 +304,7 @@
 										},
 										"frais_cumules_sur_pc_plus_ppic_ht_campagne_travaux": {
 											"type": "string",
-											"formula": "frais_sur_pc_ht_campagne_travaux + frais_sur_ppic_ht_campagne_travaux",
+											"formula": "frais_sur_pc_ht_campagne_travaux_depense_totale_pc_ttc_campagne_travaux + frais_sur_ppic_ht_campagne_travaux",
 											"suffix": "€",
 											"multiple": false,
 											"scopes": [
@@ -333,7 +316,7 @@
 										},
 										"frais_cumules_sur_pc_plus_ppic_ttc_campagne_travaux": {
 											"type": "string",
-											"formula": "frais_sur_pc_ttc_campagne_travaux + frais_sur_ppic_ttc_campagne_travaux",
+											"formula": "frais_sur_pc_ttc_campagne_travaux_depense_totale_pc_ttc_campagne_travaux + frais_sur_ppic_ttc_campagne_travaux",
 											"suffix": "€",
 											"multiple": false,
 											"scopes": [
@@ -345,7 +328,7 @@
 										},
 										"depense_subventionnable_sur_pc_plus_ppic_ht_campagne_travaux": {
 											"type": "string",
-											"formula": "depense_subventionnable_pc_ht_campagne_travaux + depense_subventionnable_ppic_ht_campagne_travaux",
+											"formula": "depense_subventionnable_pc_ht_campagne_travaux_depense_totale_pc_ttc_campagne_travaux + depense_subventionnable_ppic_ht_campagne_travaux",
 											"suffix": "€",
 											"multiple": false,
 											"scopes": [
@@ -369,6 +352,26 @@
 										}
 									}
 								]
+							},
+							"nom_campagne_travaux": {
+								"type": "string",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro",
+									"building"
+								],
+								"value": []
+							},
+							"date_vote_en_ag": {
+								"type": "date",
+								"multiple": false,
+								"scopes": [
+									"sc",
+									"copro",
+									"building"
+								],
+								"value": []
 							}
 						}
 					]
@@ -482,6 +485,17 @@
 														],
 														"value": []
 													},
+													"aide_memoire_de_depense_subventionnable_demande_aide_financeur": {
+														"type": "textArea",
+														"lg": 12,
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro",
+															"lot"
+														],
+														"value": []
+													},
 													"montant_aide_demande_subventions_demande_aide_financeur": {
 														"type": "currency",
 														"multiple": false,
@@ -543,6 +557,7 @@
 													"numero_notification_decision_demande_aide_financeur": {
 														"type": "string",
 														"multiple": false,
+														"rules": "alpha_num",
 														"scopes": [
 															"sc",
 															"copro",
@@ -570,8 +585,39 @@
 														],
 														"value": []
 													},
+													"subvention_prefinancee_demande_aide_financeur": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro",
+															"lot"
+														],
+														"value": []
+													},
+													"primes_prefinanceess_demande_aide_financeur": {
+														"type": "currency",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro",
+															"lot"
+														],
+														"value": []
+													},
 													"forclusion_demande_aide_financeur": {
 														"type": "date",
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro",
+															"lot"
+														],
+														"value": []
+													},
+													"aide_memoire_demande_aide_financeur": {
+														"type": "textArea",
+														"lg": 12,
 														"multiple": false,
 														"scopes": [
 															"sc",
@@ -585,7 +631,7 @@
 										},
 										"demande_avance_financeur_group": {
 											"type": "group",
-											"multiple": true,
+											"multiple": false,
 											"scopes": [
 												"sc",
 												"copro",
@@ -685,13 +731,24 @@
 															"lot"
 														],
 														"value": []
+													},
+													"aide_memoire_demande_acompte_financeur": {
+														"type": "textArea",
+														"lg": 12,
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro",
+															"lot"
+														],
+														"value": []
 													}
 												}
 											]
 										},
 										"demande_solde_financeur_group": {
 											"type": "group",
-											"multiple": true,
+											"multiple": false,
 											"scopes": [
 												"sc",
 												"copro",
@@ -711,6 +768,7 @@
 													},
 													"montant_demande_solde_financeur": {
 														"type": "currency",
+														"formula": "(montant_aide_engage_subventions_demande_aide_financeur + montant_aide_engage_primes_demande_aide_financeur) - montant_verse_demande_avance_financeur - montant_verse_demande_acompte_financeur",
 														"multiple": false,
 														"scopes": [
 															"sc",
@@ -738,50 +796,51 @@
 															"lot"
 														],
 														"value": []
+													},
+													"delta_total_engage_total_verse_demande_solde_financeur": {
+														"type": "currency",
+														"formula": "(montant_aide_engage_subventions_demande_aide_financeur + montant_aide_engage_primes_demande_aide_financeur) - montant_verse_demande_solde_financeur",
+														"multiple": true,
+														"scopes": [
+															"sc",
+															"copro",
+															"lot"
+														],
+														"value": []
+													},
+													"demande_prorogation_demande_solde_financeur": {
+														"type": "date",
+														"multiple": true,
+														"scopes": [
+															"sc",
+															"copro",
+															"lot"
+														],
+														"value": []
+													},
+													"nouvelle_forclusion_demande_solde_financeur": {
+														"type": "date",
+														"multiple": true,
+														"scopes": [
+															"sc",
+															"copro",
+															"lot"
+														],
+														"value": []
+													},
+													"commentaires_demande_solde_financeur": {
+														"type": "textArea",
+														"lg": 12,
+														"multiple": false,
+														"scopes": [
+															"sc",
+															"copro",
+															"lot"
+														],
+														"value": []
 													}
 												}
 											]
-										},
-										"delta_total_engage_total_verse_financeur": {
-											"type": "currency",
-											"multiple": true,
-											"scopes": [
-												"sc",
-												"copro",
-												"lot"
-											],
-											"value": []
-										},
-										"demande_prorogation_financeur": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"lot"
-											],
-											"value": []
-										},
-										"nouvelle_forclusion_financeur": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"lot"
-											],
-											"value": []
-										},
-										"commentaires_financeur": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"lot"
-											],
-											"value": []
 										}
 									}
 								]

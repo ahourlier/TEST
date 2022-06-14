@@ -1,4 +1,4 @@
-from sqlalchemy import or_
+from sqlalchemy import and_, or_
 from app import db
 from app.combined_structure.model import CombinedStructure
 from app.copro.copros.model import Copro
@@ -72,13 +72,18 @@ class DBUtils:
         from app.copro.copros.service import CoproService
 
         q = CombinedStructure.query.filter(
-            CombinedStructure.mission_id == mission_id
+            and_(
+                CombinedStructure.mission_id == mission_id,
+                CombinedStructure.is_deleted == False,
+            )
         ).all()
         for cs in q:
             DBUtils.soft_delete_cascade(cs.id, CombinedStructureService)
 
         # Search also for copro, since link between sc and copro are not mandatory
-        q = Copro.query.filter(Copro.mission_id == mission_id).all()
+        q = Copro.query.filter(
+            and_(Copro.mission_id == mission_id, Copro.is_deleted == False)
+        ).all()
         for copro in q:
             DBUtils.soft_delete_cascade(copro.id, CoproService)
 

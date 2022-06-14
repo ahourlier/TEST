@@ -1,6 +1,6 @@
 import base64
 from flask_sqlalchemy import Pagination
-from sqlalchemy import or_, and_
+from sqlalchemy import or_, and_, func
 
 from app import db
 from app.auth.users.model import UserRole
@@ -48,7 +48,7 @@ COPRO_DEFAULT_SORT_DIRECTION = "desc"
 
 ENUM_MAPPING = {
     "copro_type": {"enum_key": "CoproType"},
-    "construction_time": {"enum_key": "ConstructionTime"},
+    "construction_time": {"enum_key": "CoproConstructionTime"},
 }
 
 
@@ -440,9 +440,11 @@ class CoproService:
                 .filter(
                     and_(
                         Address.number == str(address_obj.get("number")),
-                        Address.street == str(address_obj.get("street")),
+                        func.lower(Address.street)
+                        == func.lower(str(address_obj.get("street"))),
                         Address.postal_code == str(address_obj.get("postal_code")),
-                        Address.city == str(address_obj.get("city")),
+                        func.lower(Address.city)
+                        == func.lower(str(address_obj.get("city"))),
                         Copro.mission_id == mission_id,
                         Copro.is_deleted == False,
                     )
