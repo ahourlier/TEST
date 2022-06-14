@@ -436,14 +436,15 @@ class CoproService:
     def search_by_address(address_obj, mission_id):
         try:
             return (
-                
                 Copro.query.join(Address, Copro.address_1_id == Address.id)
                 .filter(
                     and_(
                         Address.number == str(address_obj.get("number")),
-                        func.lower(Address.street) == func.lower(str(address_obj.get("street"))),
+                        func.lower(Address.street)
+                        == func.lower(str(address_obj.get("street"))),
                         Address.postal_code == str(address_obj.get("postal_code")),
-                        func.lower(Address.city) == func.lower(str(address_obj.get("city"))),
+                        func.lower(Address.city)
+                        == func.lower(str(address_obj.get("city"))),
                         Copro.mission_id == mission_id,
                         Copro.is_deleted == False,
                     )
