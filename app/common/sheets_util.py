@@ -94,14 +94,16 @@ class SheetsUtils:
         for row in rows:
             row_data = []
             row_is_empty = True
-            # Add this check to avoid error when some formatting 
+            # Add this check to avoid error when some formatting
             # has been put on random cells in the sheet
             if "values" in row:
                 for value in row.get("values"):
                     effective_value = value.get("effectiveValue")
                     if effective_value:
                         row_is_empty = False
-                        row_data.append(effective_value.get(next(iter(effective_value))))
+                        row_data.append(
+                            effective_value.get(next(iter(effective_value)))
+                        )
                     else:
                         row_data.append(None)
                 if not row_is_empty:

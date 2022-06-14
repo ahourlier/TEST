@@ -101,7 +101,7 @@
 								],
 								"value": []
 							},
-							"commentaires": {
+							"commentaires_donnees_cadrage_t2": {
 								"type": "textArea",
 								"lg": 12,
 								"multiple": false,
@@ -249,6 +249,15 @@
 												"copro"
 											],
 											"value": []
+										},
+										"specificites_syndicat_principal_syndicat_principal": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"copro"
+											],
+											"value": []
 										}
 									}
 								]
@@ -303,6 +312,15 @@
 												"building"
 											],
 											"value": []
+										},
+										"specificites_syndicat_secondaire_syndicats_secondaires": {
+											"type": "textArea",
+											"lg": 12,
+											"multiple": false,
+											"scopes": [
+												"building"
+											],
+											"value": []
 										}
 									}
 								]
@@ -315,15 +333,6 @@
 								"multiple": false,
 								"value": [
 									{
-										"structure_combinee": {
-											"TODO": "CHAMP RAPPELE",
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"sc"
-											],
-											"value": []
-										},
 										"nature_structure_combinee": {
 											"TODO": "CHAMP RAPPELE",
 											"type": "select",
@@ -410,6 +419,7 @@
 										},
 										"date_publication_statuts_structure_combinee": {
 											"type": "date",
+											"showIf": "statuts_structure_combinee",
 											"multiple": false,
 											"scopes": [
 												"sc"

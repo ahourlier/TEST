@@ -175,9 +175,11 @@ class PersonService:
                 .filter(
                     and_(
                         Address.number == str(address_obj.get("number")),
-                        func.lower(Address.street) == func.lower(str(address_obj.get("street"))),
+                        func.lower(Address.street)
+                        == func.lower(str(address_obj.get("street"))),
                         Address.postal_code == str(address_obj.get("postal_code")),
-                        func.lower(Address.city) == func.lower(str(address_obj.get("city"))),
+                        func.lower(Address.city)
+                        == func.lower(str(address_obj.get("city"))),
                         func.lower(Person.first_name) == func.lower(firstname),
                         func.lower(Person.last_name) == func.lower(lastname),
                         Person.is_deleted == False,
