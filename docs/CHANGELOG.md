@@ -1,3 +1,11 @@
+# [1.4.0-rc.3](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.4.0-rc.2...v1.4.0-rc.3) (2022-06-14)
+
+
+### Bug Fixes
+
+* **SC:** Add election date in interface ([146b429](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/146b429f69455459ad8bd3990a2b43f4ca690346))
+* **THEMATICS:** fix T2 && T8 ([e640326](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/e640326218112fbbbf34e681f5ed24d0a5d4c029))
+
 # [1.4.0-rc.2](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.4.0-rc.1...v1.4.0-rc.2) (2022-06-13)
 
 
