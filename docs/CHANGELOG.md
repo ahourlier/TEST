@@ -1,3 +1,33 @@
+# [1.4.0](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0...v1.4.0) (2022-06-14)
+
+
+### Bug Fixes
+
+* **Copro:** Correct wrong enum name in service ([85329d4](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/85329d4652a41a4afc7b5569586b3c7ee9af655f))
+* **Delete:** missing filter + wrong model ([ddf3325](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/ddf33255d26ea0541f360a8bb81c891c3f2dd917))
+* **Imports:** Remove Case sensitiv on search by address, repartition key.. ([2543fca](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/2543fcaf01fdcf2d3b3953f69a59220a031d7e9b))
+* **SC:** Add election date in interface ([146b429](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/146b429f69455459ad8bd3990a2b43f4ca690346))
+* **T1:** Review FM ([469547d](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/469547d04166d92aecd276cf8a33f12615aa594f))
+* **T3:** Review FM ([861d728](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/861d7289edc9e5510725d0cbe0ea58098b49dfa7))
+* **T3:** Review FM ([7c79a92](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/7c79a9251a8976eb7d64671488b54da537f34266))
+* **T4:** Review FM ([7260eed](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/7260eed9d5567588964f695280a27f6800227894))
+* **T6:** Multiples fixes ([ec07121](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/ec071213c4571a0814ded95ecdb8692d16e6dc41))
+* **T6:** Re-add donnees_cadrage step (WIP: waiting Urb for questions) ([08ea9cc](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/08ea9cc6eeae83f3b37cc02b153f89e526a2880c))
+* **T9:** Repasse FM ([df1e290](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/df1e2900e4d1f5a71d2b5bd089adea7374bb2a31))
+* **Tasks:** Add specific join on sort by assignee ([89b6a16](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/89b6a16189c4c14adfd7d5cdf1d1eee4869975d1))
+* **Thematics:** Add creation_date, updated_date, author_email in version of thematics ([7000e52](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/7000e521d4a32c13288f80b861520d1dc69990ba))
+* **THEMATICS:** fix T2 && T8 ([e640326](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/e640326218112fbbbf34e681f5ed24d0a5d4c029))
+* **THEMATICS:** fix T8 ([2311202](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/2311202a9c6cbd782138359ff87d6ce20f0af6e0))
+* **THEMATICS:** fix T8 ([2ca45e0](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/2ca45e08fb9dc84ac231b7848ed2daf3fb54dd9e))
+* **THEMATICS:** T8 ([48feecf](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/48feecf3fc46dea99dcc6918f943fc437f93bf61))
+
+
+### Features
+
+* **Missions:** Add Financial Device Table ([918fef7](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/918fef7106fda974161acd49970bcf6744b37667))
+* **Missions:** Update financialDevice service to return array of object + add enum ([86d8196](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/86d819651bb5aa10a9f3d1041fcba0a44eadb757))
+* **THEMATICS:** add btn (show/hide password) && fix T1 && T8 ([b2653a1](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/b2653a1d59c3004305b28387536033ab178bff22))
+
 # [1.4.0-rc.3](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.4.0-rc.2...v1.4.0-rc.3) (2022-06-14)
 
 
