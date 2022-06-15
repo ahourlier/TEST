@@ -15,6 +15,7 @@ class BuildingInterface(TypedDict):
     # generalites du batiment
     construction_time: Optional[str]
     igh: Optional[bool]
+    imh: Optional[bool]
     r_plus: Optional[str]
     r_minus: Optional[str]
     erp: Optional[bool]
