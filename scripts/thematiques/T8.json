@@ -1430,7 +1430,7 @@
 						{
 							"taux_financement_sur_depense_subventionnable_pc_plus_ppic": {
 								"type": "number",
-								"formula_todo": "(montant_aide_engage_subventions_demande_aide_financeur + montant_aide_engage_primes_demande_aide_financeur) / (depense_totale_sur_pc_plus_ppic_ttc_campagne_travaux || 1)",
+								"formula_todo": "((montant_aide_engage_subventions_demande_aide_financeur + montant_aide_engage_primes_demande_aide_financeur) / (depense_totale_sur_pc_plus_ppic_ttc_campagne_travaux || 1)) * 100",
 								"suffix": "%",
 								"multiple": false,
 								"scopes": [
@@ -1441,7 +1441,7 @@
 							},
 							"taux_financement_sur_depense_total_pc_plus_ppic": {
 								"type": "number",
-								"formula_todo": "montant_verse_demande_solde_financeur / (depense_totale_sur_pc_plus_ppic_ttc_campagne_travaux || 1)",
+								"formula_todo": "(montant_verse_demande_solde_financeur / (depense_totale_sur_pc_plus_ppic_ttc_campagne_travaux || 1)) * 100",
 								"suffix": "%",
 								"multiple": false,
 								"scopes": [

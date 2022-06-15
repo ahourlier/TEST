@@ -279,14 +279,6 @@
 											],
 											"value": [
 												{
-													"notification_decision_financement_projet": {
-														"type": "string",
-														"multiple": false,
-														"scopes": [
-															"lot"
-														],
-														"value": []
-													},
 													"date_notification_decision_financement_projet": {
 														"type": "date",
 														"multiple": false,
