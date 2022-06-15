@@ -1,3 +1,11 @@
+## [1.4.1](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.4.0...v1.4.1) (2022-06-15)
+
+
+### Bug Fixes
+
+* **Building:** Add IMH in interface ([c488bd1](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/c488bd1ce94f50663ab66f31eab55189bb2d999b))
+* **THEMATICS:** T_6 && T_8 && T_9 ([3151a8a](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/3151a8a0e02f2b905e28f6b0dff09798fc4d8501))
+
 # [1.4.0](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.3.0...v1.4.0) (2022-06-14)
 
 
