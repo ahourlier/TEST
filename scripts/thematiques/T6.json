@@ -148,8 +148,8 @@
 										},
 										"taux_impayes_fournisseurs_donnees_cadrage_impayes": {
 											"type": "number",
-											"formula": "dette_donnees_cadrage_impayes / budget_previsionnel_vote_donnees_cadrage_impayes",
-											"suffix": "€",
+											"formula": "(dette_donnees_cadrage_impayes / budget_previsionnel_vote_donnees_cadrage_impayes) * 100",
+											"suffix": "%",
 											"multiple": false,
 											"scopes": [
 												"sc",
@@ -234,7 +234,7 @@
 									{
 										"taux_impayes_alerte_donnees_cadrage_impayes": {
 											"type": "number",
-											"formula": "impayes_date_arretee_comptes_donnees_cadrage_impayes / (budget_previsionnel_vote_donnees_cadrage_impayes + budget_operation_exceptionnelles_vote_donnees_cadrage_impayes)",
+											"formula": "(impayes_date_arretee_comptes_donnees_cadrage_impayes / (budget_previsionnel_vote_donnees_cadrage_impayes + budget_operation_exceptionnelles_vote_donnees_cadrage_impayes)) * 100",
 											"suffix": "%",
 											"multiple": false,
 											"scopes": [
@@ -245,7 +245,7 @@
 										},
 										"taux_impayes_mpr_c_donnees_cadrage_impayes": {
 											"type": "number",
-											"formula": "impayes_date_arretee_comptes_donnees_cadrage_impayes / (budget_previsionnel_vote_donnees_cadrage_impayes + budget_operation_exceptionnelles_vote_donnees_cadrage_impayes)",
+											"formula": "(impayes_date_arretee_comptes_donnees_cadrage_impayes / (budget_previsionnel_vote_donnees_cadrage_impayes + budget_operation_exceptionnelles_vote_donnees_cadrage_impayes)) * 100",
 											"suffix": "%",
 											"multiple": false,
 											"scopes": [
@@ -256,7 +256,7 @@
 										},
 										"taux_impayes_operationnels_donnees_cadrage_impayes": {
 											"type": "number",
-											"formula": "impayes_date_arretee_comptes_donnees_cadrage_impayes / budget_previsionnel_vote_donnees_cadrage_impayes",
+											"formula": "(impayes_date_arretee_comptes_donnees_cadrage_impayes / budget_previsionnel_vote_donnees_cadrage_impayes) * 100",
 											"suffix": "%",
 											"multiple": false,
 											"scopes": [
@@ -267,7 +267,7 @@
 										},
 										"taux_defaillance_donnees_cadrage_impayes": {
 											"type": "number",
-											"formula": "nombre_total_debiteurs_donnees_cadrage_impayes / nombre_total_coproprietaires_donnees_cadrage_impayes",
+											"formula": "(nombre_total_debiteurs_donnees_cadrage_impayes / nombre_total_coproprietaires_donnees_cadrage_impayes) * 100",
 											"suffix": "%",
 											"multiple": false,
 											"scopes": [
@@ -278,7 +278,7 @@
 										},
 										"taux_recouvrement_donnees_cadrage_impayes": {
 											"type": "number",
-											"formula": "total_somme_recouvrees_donnees_cadrage_impayes / total_somme_appelees_donnees_cadrage_impayes",
+											"formula": "(total_somme_recouvrees_donnees_cadrage_impayes / total_somme_appelees_donnees_cadrage_impayes) * 100",
 											"suffix": "%",
 											"multiple": false,
 											"scopes": [
@@ -589,7 +589,8 @@
 										"taux_defaillance_commission_impayes": {
 											"type": "number",
 											"multiple": false,
-											"formula": "(debiteurs_inferieur_2t + debiteurs_entre_2t_et_4t + debiteurs_superieur_4t)/(nombre_coproprietaires_commission_impayes || 1)",
+											"suffix": "%",
+											"formula": "((debiteurs_inferieur_2t + debiteurs_entre_2t_et_4t + debiteurs_superieur_4t)/(nombre_coproprietaires_commission_impayes || 1)) * 100",
 											"scopes": [
 												"copro",
 												"lot"
