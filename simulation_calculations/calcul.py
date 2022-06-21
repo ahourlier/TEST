@@ -39,16 +39,16 @@ def get_total_quotes_eligible_amount(simulation):
 
 def subvention_for_po_sdc_loc(simulation, sf):
     """
-    WHEN (demandeur.type = 'PO' OR demandeur.type = 'TENANT') AND simulationfinanceur.subventioned_expense IS NOT NULL AND simulationfinanceur.rate IS NOT NULL 
+    WHEN (demandeur.type = 'PO' OR demandeur.type = 'TENANT' OR demandeur.type = 'SDC') AND simulationfinanceur.subventioned_expense IS NOT NULL AND simulationfinanceur.rate IS NOT NULL 
       THEN (simulationfinanceur.rate / 100) * MAX(simulationfinanceur.subventioned_expense)
     
-    WHEN (demandeur.type = 'PO' OR demandeur.type = 'TENANT') AND simulationfinanceur.subventioned_expense IS NOT NULL AND simulationfinanceur.rate IS NULL 
+    WHEN (demandeur.type = 'PO' OR demandeur.type = 'TENANT' OR demandeur.type = 'SDC') AND simulationfinanceur.subventioned_expense IS NOT NULL AND simulationfinanceur.rate IS NULL 
       THEN (financeurscenario.rate / 100) * MAX(simulationfinanceur.subventioned_expense)
 
-    WHEN (demandeur.type = 'PO' OR demandeur.type = 'TENANT') AND simulationfinanceur.subventioned_expense IS NULL AND simulationfinanceur.rate IS NOT NULL 
+    WHEN (demandeur.type = 'PO' OR demandeur.type = 'TENANT' OR demandeur.type = 'SDC') AND simulationfinanceur.subventioned_expense IS NULL AND simulationfinanceur.rate IS NOT NULL 
     (financeurlogement.rate / 100) * LEAST(SUM(devis.eligible_amount), financeurscenario.upper_limit)
 
-    WHEN (demandeur.type = 'PO' OR demandeur.type = 'TENANT') AND simulationfinanceur.subventioned_expense IS NULL 
+    WHEN (demandeur.type = 'PO' OR demandeur.type = 'TENANT' OR demandeur.type = 'SDC') AND simulationfinanceur.subventioned_expense IS NULL 
       THEN (financeurscenario.rate / 100) * LEAST(SUM(devis.eligible_amount), financeurscenario.upper_limit)
     ELSE NULL
     """
@@ -83,6 +83,29 @@ def subvention_for_po_sdc_loc(simulation, sf):
         else:
             print(f'Can\'t calculate subventions: No rate, no subventioned_expense AND no matching funding scenario from sf n°{sf.id}, simulation n°{simulation.id}')
             return 0
+
+
+
+def advances_for_po_sdc_loc(simulation, sf):
+    """
+    WHEN (demandeur.type = 'PO' OR demandeur.type = 'TENANT' OR demandeur.type = 'SDC') AND simulationfinanceur.advance IS NOT NULL
+      THEN simulationfinanceur.advance
+
+    WHEN (demandeur.type = 'PO' OR demandeur.type = 'TENANT' OR demandeur.type = 'SDC') AND simulationfinanceur.advance IS NULL
+    (financeurscenario.advance / 100) * simulationfinanceur.subvention
+    """
+    from app.funder.funding_scenarios.model import FundingScenario
+
+    if sf.advance:
+        return sf.advance
+    if not sf.advance:
+        # Get FundingScenario
+        fs = FundingScenario.query.filter(FundingScenario.id == sf.match_scenario_id).first()
+        if not fs: 
+            print(f'Can\'t calculate advances: No matching funding scenario from sf n°{sf.id}, simulation n°{simulation.id}')
+            return 0
+        return (fs.advance / 100) * sf.subvention
+    return 0
 
 
 def get_total_quotes_accommodations_eligible_amount(simulation):

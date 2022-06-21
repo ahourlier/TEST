@@ -234,7 +234,9 @@ def handle_po_tenant_sdc(project):
                 total_subventions += sf.subvention
 
                 # Total advances
-                total_advances += sf.advance if sf.advance else 0
+                total_advances += advances_for_po_sdc_loc(s, sf)
+
+            print(f"Total advances calculated: {total_advances}\n")
 
             # Total work price (from quotes)
             total_work_price = get_total_price_incl_tax(s)
@@ -324,7 +326,7 @@ if __name__ == '__main__':
         # Get all projects
         projects = Project.query.all()
         # Test
-        # projects = [Project.query.filter(Project.id == 514).first()]
+        # projects = [Project.query.filter(Project.id == 29).first()]
         # Write Body
         projects_treated, unknown = parse_projects_and_write(projects)
         print(f"Total numbers of project treated: {projects_treated}")
