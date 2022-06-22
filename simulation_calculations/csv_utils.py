@@ -6,11 +6,16 @@ def write_csv_headers():
         [
             "ID de projet",
             "Nom de simulation",
-            "Total travaux TTC",
-            "Total subventions",
-            "Reste à charge",
-            "% \subvention sur le TTC",
-            "Total avances",
+            "Total travaux TTC (OLD)",
+            "Total travaux TTC (NEW)",
+            "Total subventions (OLD)",
+            "Total subventions (NEW)",
+            "Reste à charge (OLD)",
+            "Reste à charge (NEW)",
+            "% \subvention sur le TTC (OLD)",
+            "% \subvention sur le TTC (NEW)",
+            "Total avances (OLD)",
+            "Total avances (NEW)",
         ],
         append=False
     )

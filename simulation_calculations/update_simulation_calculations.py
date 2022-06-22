@@ -33,9 +33,16 @@ def handle_pb(project, failing_accommodations):
     simulations = project.simulations
     if len(simulations) == 0:
         return
+    
 
     for s in simulations:
         if needs_calculation(s):
+            # Get OLD values
+            old_total_work_price = s.total_work_price
+            old_total_subventions = s.total_subventions
+            old_remaining_costs = s.remaining_costs 
+            old_subvention_on_TTC = s.subvention_on_TTC
+            
             print(f"\n\n========== PB: Simulation {s.id}: recalculating...\n")
             sub_results = {}
             sub_results["common_area"] = {}
@@ -63,6 +70,8 @@ def handle_pb(project, failing_accommodations):
                 else:
                     pass
             
+            print("\n")
+
             # Find quote associated to simulation
             associated_quotes = []
             for quote in s.quotes:
@@ -134,18 +143,22 @@ def handle_pb(project, failing_accommodations):
                 [
                     project.id,
                     s.name,
+                    old_total_work_price,
                     functools.reduce(
                         lambda a, b: a + b,
                         total_work_prices
                     ),
+                    old_total_subventions,
                     functools.reduce(
                         lambda a, b: a + b,
                         total_subventions
                     ),
+                    old_remaining_costs,
                     functools.reduce(
                         lambda a, b: a + b,
                         remaining_costs
                     ),
+                    old_subvention_on_TTC,
                     functools.reduce(
                         lambda a, b: a + b,
                         subventions_on_ttc
@@ -220,6 +233,13 @@ def handle_po_tenant_sdc(project):
 
     for s in simulations:
         if needs_calculation(s):
+            # Get OLD values
+            old_total_work_price = s.total_work_price
+            old_total_subventions = s.total_subventions
+            old_remaining_costs = s.remaining_costs 
+            old_subvention_on_TTC = s.subvention_on_TTC
+            old_total_advances = s.total_advances
+
             print(f"\n\n========== PO: Simulation {s.id}: recalculating...\n")
             total_subventions = 0
             total_advances = 0
@@ -258,10 +278,15 @@ def handle_po_tenant_sdc(project):
                 [
                     project.id,
                     s.name,
+                    old_total_work_price,
                     total_work_price,
+                    old_total_subventions,
                     total_subventions,
+                    old_remaining_costs,
                     remaining_cost,
+                    old_subvention_on_TTC,
                     subvention_on_ttc,
+                    old_total_advances,
                     total_advances,
                 ]
             )
@@ -326,7 +351,7 @@ if __name__ == '__main__':
         # Get all projects
         projects = Project.query.all()
         # Test
-        # projects = [Project.query.filter(Project.id == 29).first()]
+        # projects = [Project.query.filter(Project.id == 128).first()]
         # Write Body
         projects_treated, unknown = parse_projects_and_write(projects)
         print(f"Total numbers of project treated: {projects_treated}")
