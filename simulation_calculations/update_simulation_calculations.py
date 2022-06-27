@@ -86,12 +86,13 @@ def handle_pb(project, failing_accommodations):
                 if len(associated_quote.accommodations) == 0:
                     # Quote with no quotes_accommodations (old useless quote)
                     continue
-                print("Found quotes_acc", associated_quote.accommodations)
+
+                sub_results["common_area"]["total_work_price"] += (
+                    associated_quote.common_price_incl_tax if associated_quote.common_price_incl_tax else 0
+                )
                 for qa in associated_quote.accommodations:
-                    sub_results["common_area"]["total_work_price"] += (
-                        associated_quote.common_price_incl_tax if associated_quote.common_price_incl_tax else 0
-                    )
-                    
+                    print(f"Acc n°{qa['quote_accommodation_id']} found:\n{qa}\n")
+
                     if qa['accommodation'].id not in sub_results:
                         failing_accommodations.append(qa['accommodation'].id)
                         continue
@@ -100,6 +101,8 @@ def handle_pb(project, failing_accommodations):
                         sub_results[qa['accommodation'].id]["total_work_price"] = 0
 
                     sub_results[qa['accommodation'].id]["total_work_price"] += qa['price_incl_tax']
+
+                    print(f"Sub result calculated:\n{sub_results}\n")
             
 
             for accommodation in sub_results:
@@ -349,9 +352,9 @@ if __name__ == '__main__':
         # Write headers
         write_csv_headers()
         # Get all projects
-        projects = Project.query.all()
+        # projects = Project.query.all()
         # Test
-        # projects = [Project.query.filter(Project.id == 128).first()]
+        projects = [Project.query.filter(Project.id == 345).first()]
         # Write Body
         projects_treated, unknown = parse_projects_and_write(projects)
         print(f"Total numbers of project treated: {projects_treated}")
