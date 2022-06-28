@@ -23,9 +23,7 @@ def create_task(
     sync_id=None,
 ):
 
-    task = {
-        "http_request": {"http_method": method, "url": uri}
-    }
+    task = {"http_request": {"http_method": method, "url": uri}}
     if payload is not None:
         if isinstance(payload, dict):
             payload = json.dumps(payload)
