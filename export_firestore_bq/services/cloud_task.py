@@ -26,7 +26,9 @@ def create_task(
         "service_account_email": "app-oslo-dev@appspot.gserviceaccount.com",
         "audience": "791703651725-7830vr66l8h6si8g9a2q04ln5hsjhigd.apps.googleusercontent.com",
     }
-    task = {"http_request": {"http_method": method, "url": uri, 'oidc_token': oidc_token}}
+    task = {
+        "http_request": {"http_method": method, "url": uri, "oidc_token": oidc_token}
+    }
     if payload is not None:
         if isinstance(payload, dict):
             payload = json.dumps(payload)

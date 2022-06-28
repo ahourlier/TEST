@@ -5,8 +5,8 @@ VERSIONS_COLLECTION = "thematiques"
 STEPS_COLLECTION = "steps"
 TEMPLATES_COLLECTION = "thematiques_template"
 
-class FirestoreUtils:
 
+class FirestoreUtils:
     def __init__(self):
         self.client = firestore.Client(project=os.getenv("GOOGLE_CLOUD_PROJECT"))
 
@@ -24,9 +24,7 @@ class FirestoreUtils:
         version_name=None,
         version_date=None,
     ):
-        query = self.client.collection(
-            VERSIONS_COLLECTION
-        )
+        query = self.client.collection(VERSIONS_COLLECTION)
         if thematique_name:
             query = query.where("thematique_name", "==", thematique_name)
         if resource_id:
@@ -41,26 +39,19 @@ class FirestoreUtils:
         return query.get()
 
     def get_version_by_id(self, version_id):
-        return (
-            self.client.collection(
-                VERSIONS_COLLECTION
-            )
-            .document(version_id)
-            .get()
-        )
-    
+        return self.client.collection(VERSIONS_COLLECTION).document(version_id).get()
+
     def get_steps_by_version_id(self, version_id):
         return (
             self.client.collection(VERSIONS_COLLECTION)
             .document(version_id)
-            .collection(STEPS_COLLECTION).get()
+            .collection(STEPS_COLLECTION)
+            .get()
         )
 
     def get_step_by_id(self, version_id, step_id):
         return (
-            self.client.collection(
-                VERSIONS_COLLECTION
-            )
+            self.client.collection(VERSIONS_COLLECTION)
             .document(version_id)
             .collection(STEPS_COLLECTION)
             .document(step_id)

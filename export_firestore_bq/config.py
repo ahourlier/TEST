@@ -25,7 +25,7 @@ FIELDS_MAPPING = {
     "autocomplete": "RECORD",
     "autocomplete_multiple": "RECORD",
     "password": "STRING",
-    "address": "RECORD"
+    "address": "RECORD",
 }
 
 BQ_DATASET = "firestore_export"
@@ -45,7 +45,7 @@ BQ_SCHEMA_ADDRESS = [
     {"name": "number", "type": "STRING", "mode": "NULLABLE"},
     {"name": "postal_code", "type": "STRING", "mode": "NULLABLE"},
     {"name": "street", "type": "STRING", "mode": "NULLABLE"},
-    {"name": "updated_at", "type": "DATETIME", "mode": "NULLABLE"}
+    {"name": "updated_at", "type": "DATETIME", "mode": "NULLABLE"},
 ]
 
 BQ_SCHEMA_FINANCEUR = [
