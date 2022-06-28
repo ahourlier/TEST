@@ -1,0 +1,11 @@
+runtime: python38
+service: firestore-export
+instance_class: B2
+basic_scaling:  
+  max_instances: 1  
+  idle_timeout: 1m
+entrypoint: gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app --timeout 0
+env_variables:
+  GOOGLE_CLOUD_PROJECT: "app-oslo-dev"
+  QUEUES_LOCATION: "europe-west1"
+  API_URL: "https://app-oslo-dev.appspot.com"
