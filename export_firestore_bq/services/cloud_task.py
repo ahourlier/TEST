@@ -22,12 +22,9 @@ def create_task(
     task_name=None,
     sync_id=None,
 ):
-    oidc_token = {
-        "service_account_email": "app-oslo-dev@appspot.gserviceaccount.com",
-        "audience": "791703651725-7830vr66l8h6si8g9a2q04ln5hsjhigd.apps.googleusercontent.com",
-    }
+
     task = {
-        "http_request": {"http_method": method, "url": uri, "oidc_token": oidc_token}
+        "http_request": {"http_method": method, "url": uri}
     }
     if payload is not None:
         if isinstance(payload, dict):
