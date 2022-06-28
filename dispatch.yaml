@@ -1,4 +1,6 @@
 dispatch:
+  - url: "*/api/firestore_export*"
+    service: firestore-export
   - url: "*/api/*"
     service: api
   - url: "*/_/manage/*"
