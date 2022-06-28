@@ -87,10 +87,11 @@ deploy_dev:
   script:
     - cp $DEV_GSUITE_SA_KEY app/sa-key.json
     - cp $DEV_FIREBASE_SA_KEY app/firebase-key.json
+    - cp $DEV_EXPORT_APP_YAML export_firestore_bq/app.yaml
     - gcloud auth activate-service-account --key-file $DEV_CI_SA_KEY
     - gcloud --quiet config set project $DEV_PROJECT_ID
     - gcloud secrets versions access latest --secret="$BACKEND_ENV_SECRET_KEY" > .env
-    - gcloud app deploy app.yaml manager.yaml dispatch.yaml queue.yaml --quiet
+    - gcloud app deploy app.yaml manager.yaml queue.yaml export_firestore_bq/app.yaml export_firestore_bq/cron.yaml dispatch.yaml --quiet
 
 deploy_preprod:
   stage: Deploy
@@ -107,10 +108,11 @@ deploy_preprod:
   script:
     - cp $PREPROD_GSUITE_SA_KEY app/sa-key.json
     - cp $PREPROD_FIREBASE_SA_KEY app/firebase-key.json
+    - cp $PREPROD_EXPORT_APP_YAML export_firestore_bq/app.yaml
     - gcloud auth activate-service-account --key-file $PREPROD_CI_SA_KEY
     - gcloud --quiet config set project $PREPROD_PROJECT_ID
     - gcloud secrets versions access latest --secret="$BACKEND_ENV_SECRET_KEY" > .env
-    - gcloud app deploy app.yaml manager.yaml dispatch.yaml queue.yaml --quiet
+    - gcloud app deploy app.yaml manager.yaml queue.yaml export_firestore_bq/app.yaml export_firestore_bq/cron.yaml dispatch.yaml --quiet
 
 deploy_prod:
   stage: Deploy
