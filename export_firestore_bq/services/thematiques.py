@@ -1,5 +1,5 @@
 from copy import deepcopy
-import json
+import logging
 from typing import List
 from config import (
     BQ_SCHEMA_ADDRESS,
@@ -8,8 +8,8 @@ from config import (
     DEFAULT_FIELDS,
     FIELDS_MAPPING,
 )
-from services.bq import BQService
-from services.firestore import FirestoreUtils
+from services import BQService
+from services import FirestoreUtils
 import unidecode
 
 
@@ -25,7 +25,7 @@ def process_template(template, firestore_utils: FirestoreUtils):
     # ):
     #     return
 
-    print(
+    logging.info(
         f"fetching all versions for thematique {template.get('thematique_name')} and scope {template.get('scope')}"
     )
     versions = firestore_utils.query_version(
@@ -52,8 +52,8 @@ def process_template(template, firestore_utils: FirestoreUtils):
         # update data
         data.extend(steps_data)
     # DEBUG create file with data
-    with open('current_data.json', 'w') as f:
-        json.dump(data, f)
+    # with open("current_data.json", "w") as f:
+    #     json.dump(data, f)
     # instantiate BigQuery service
     bq_service = BQService()
     # create table
@@ -63,11 +63,11 @@ def process_template(template, firestore_utils: FirestoreUtils):
     try:
         # try to load data
         bq_service.load_data_from_json(table, data, bq_columns)
-        print(f"done with {table.table_id}")
+        logging.info(f"done with {table.table_id}")
     except Exception as e:
         # if not working, just logging to keep the script running
-        print(f"FAILED TO LOAD TABLE FOR {table.table_id}")
-        print(e)
+        logging.error(f"FAILED TO LOAD TABLE FOR {table.table_id}")
+        logging.error(e)
 
 
 def process_steps(steps: List, bq_columns: List[dict]):
@@ -142,15 +142,15 @@ def process_data_from_step(data: dict, bq_columns: List[dict], current_data):
             # remove all NULL values to avoid BQ errors
             field_settings["value"] = clear_all_none_values(field_settings.get("value"))
             # custom check for financeurs
-            if "financeur" in field_name and "autocomplete" in field_settings.get("type"):
+            if "financeur" in field_name and "autocomplete" in field_settings.get(
+                "type"
+            ):
                 # remove all financeurs that are not dict
-                field_settings["value"] = (
-                    [
-                        financeur
-                        for financeur in field_settings.get("value")
-                        if type(financeur) == dict
-                    ]
-                )
+                field_settings["value"] = [
+                    financeur
+                    for financeur in field_settings.get("value")
+                    if type(financeur) == dict
+                ]
                 # remove funding scenarios because not to be exported
                 for financeur in field_settings["value"]:
                     del financeur["funding_scenarios"]
@@ -168,7 +168,11 @@ def process_data_from_step(data: dict, bq_columns: List[dict], current_data):
             new_field["fields"] = deepcopy(BQ_SCHEMA_TEL)
         if field_settings.get("type") == "address":
             new_field["fields"] = deepcopy(BQ_SCHEMA_ADDRESS)
-        if "financeur" in field_name and new_field.get("type") == "RECORD":
+        if (
+            "financeur" in field_name
+            and "autocomplete" in field_settings.get("type")
+            and new_field.get("type") == "RECORD"
+        ):
             new_field["fields"] = deepcopy(BQ_SCHEMA_FINANCEUR)
         # if field was never added to schema, add it
         if idx == -1:

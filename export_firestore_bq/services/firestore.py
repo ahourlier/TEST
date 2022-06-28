@@ -1,3 +1,4 @@
+import os
 from google.cloud import firestore
 
 VERSIONS_COLLECTION = "thematiques"
@@ -7,7 +8,7 @@ TEMPLATES_COLLECTION = "thematiques_template"
 class FirestoreUtils:
 
     def __init__(self):
-        self.client = firestore.Client()
+        self.client = firestore.Client(project=os.getenv("GOOGLE_CLOUD_PROJECT"))
 
     def list_items(self, collection):
         return self.client.collection(collection).get()

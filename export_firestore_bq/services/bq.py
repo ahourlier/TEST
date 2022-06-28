@@ -2,13 +2,14 @@
 from google.cloud import bigquery
 import time
 from google.cloud.exceptions import Conflict
+import os
 
 from config import BQ_DATASET
 
 class BQService: 
 
     def __init__(self) -> None:
-        self.client = bigquery.Client()
+        self.client = bigquery.Client(project=os.getenv("GOOGLE_CLOUD_PROJECT"))
         self.dataset = self.client.dataset(BQ_DATASET)
     
     def create_table(self, table_name, schema):
