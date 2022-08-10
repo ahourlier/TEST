@@ -88,10 +88,11 @@ from app.referential.enums.admin import (
     BuildingAccessType,
     BuildingCollectiveHeater,
     BuildingAsbestosDiagnosisResult,
+    BuildingLeadDiagnosisResult,
     LotType,
     LotHabitationType,
-    LotOccupantStatus,
     LotLeaseType,
+    LotOccupantStatus,
     LotConventionRentType,
     PersonStatus,
     TaskStatus,
@@ -399,6 +400,15 @@ def register_admin_views(admin, db):
             "Résultat diagnostic amiante",
             url="asbestos-result-building",
             endpoint="manage_asbestos_results",
+        )
+    )
+    admin.add_view(
+        BuildingLeadDiagnosisResult(
+            AppEnum,
+            db.session,
+            "Résultat diagnostic plomb",
+            url="lead-result-building",
+            endpoint="manage_lead_results",
         )
     )
     admin.add_view(

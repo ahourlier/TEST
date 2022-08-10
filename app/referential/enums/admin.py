@@ -314,6 +314,11 @@ class BuildingAsbestosDiagnosisResult(EnumBaseAdminView):
     FIELD_MODEL = Building
     FIELD_REF = "asbestos_diagnosis_result"
 
+class BuildingLeadDiagnosisResult(EnumBaseAdminView):
+    ENUM_KIND = "LeadDiagnosisResult"
+    FIELD_MODEL = Building
+    FIELD_REF = "lead_diagnosis_result"
+
 
 class LotType(EnumBaseAdminView):
     ENUM_KIND = "LotType"
