@@ -8,14 +8,23 @@ from sqlalchemy import (
     Float,
     Date,
     Text,
+    Table,
 )
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.hybrid import hybrid_property
 
-from app import db
+from app import db, metadata
 from app.common.address.model import Address
 from app.common.base_model import SoftDeletableMixin, BaseMixin
 from app.common.phone_number.model import PhoneNumber, HasPhones
+
+UrbanisCollaborators = Table(
+    "urbanis_collaborators",
+    metadata,
+    Column("id", Integer, primary_key=True),
+    Column("user_in_charge_id", Integer, ForeignKey("user.id")),
+    Column("copro_id", Integer, ForeignKey("copro.id")),
+)
 
 
 class Copro(HasPhones, SoftDeletableMixin, BaseMixin, db.Model):
@@ -51,8 +60,7 @@ class Copro(HasPhones, SoftDeletableMixin, BaseMixin, db.Model):
         foreign_keys=[address_2_id],
         primaryjoin=address_2_id == Address.id,
     )
-    user_in_charge_id = Column(Integer, ForeignKey("user.id"), nullable=True)
-    user_in_charge = relationship("User", backref="copro")
+
     mixed_copro = Column(Boolean, nullable=True, default=False)
     priority_copro = Column(Boolean, nullable=True, default=False)
     horizontal_copro = Column(Boolean, nullable=True, default=False)
@@ -60,6 +68,13 @@ class Copro(HasPhones, SoftDeletableMixin, BaseMixin, db.Model):
     copro_creation_date = Column(db.Date, nullable=True)
     is_member_s1_s2 = Column(Boolean, nullable=True, default=False)
     is_member_association = Column(Boolean, nullable=True, default=False)
+
+    # Collaborators
+    urbanis_collaborators = relationship(
+        "User",
+        secondary=UrbanisCollaborators,
+        backref=db.backref("urbanis_collaborator", lazy="joined"),
+    )
 
     # syndic & CS
     syndic_name = Column(String(255), nullable=True)

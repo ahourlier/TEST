@@ -3,6 +3,7 @@ from flask import g
 import json
 from app.auth.users.model import UserRole
 from app.building.model import Building
+from app.copro.copros.model import Copro
 from app.mission.teams.service import TeamService
 from app.v2_search.utils import (
     add_autocomplete_values,
@@ -160,6 +161,9 @@ class SearchV2Service:
                 q = q.filter(Lot.id.in_([complex_filter["mission_id"]]))
             if entity == "building":
                 q = q.filter(Building.id.in_([complex_filter["mission_id"]]))
+        if "collaborator_name" in complex_filter:
+            if entity == "copro":
+                q = q.filter(Copro.id.in_([complex_filter["collaborator_name"]]))
 
         # Filter final result by mission permission
         user = g.user
