@@ -50,6 +50,11 @@ ENUM_MAPPING = {
     }
 }
 
+MODEL_MAPPING = {
+    "copro": Copro,
+    "address": Address
+}
+
 
 class BuildingService:
 
@@ -69,8 +74,14 @@ class BuildingService:
         from app.mission.missions import Mission
         import app.mission.permissions as mission_permissions
 
-        q = sort_query(Building.query, sort_by, direction)
+        q = Building.query
+        if "." in sort_by:
+            q = BuildingService.sort_from_sub_model(q, sort_by, direction)
+        else:
+            q = sort_query(q, sort_by, direction)
+
         q = q.filter(or_(Building.is_deleted == False, Building.is_deleted == None))
+
         if term not in [None, '']:
             search_term = f"%{term}%"
             q = q.outerjoin(
@@ -193,4 +204,11 @@ class BuildingService:
                              .filter(func.lower(Building.name) == func.lower(building_name)) \
                              .filter(Building.is_deleted == False) \
                              .first()
-                            
+    
+    def sort_from_sub_model(query, sort_by, direction):
+        values = sort_by.split(".")
+        sub_model = MODEL_MAPPING[values[0]]
+        query = query.join(sub_model, isouter=True)
+        sort_by = values[1]
+        return sort_query(query, sort_by, direction, sub_model)
+        

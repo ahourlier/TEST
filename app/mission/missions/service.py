@@ -13,6 +13,7 @@ from app.admin.antennas.exceptions import AntennaNotFoundException
 from app.admin.clients.exceptions import ClientNotFoundException
 from app.admin.clients.referents.schema import ReferentSchema
 from app.admin.clients.schema import ClientSchema
+from app.auth.users.model import UserGroup
 from app.common.app_name import App
 from app.common.config_error_messages import (
     KEY_SHARED_DRIVE_CREATION_EXCEPTION,
@@ -56,6 +57,10 @@ from app.mission.missions.schema import MissionLightSchema
 
 from app.mission.teams import Team
 
+from app.admin.antennas import Antenna
+from app.admin.agencies import Agency
+from app.admin.clients import Client
+from app.auth.users.model import User
 
 import app.auth.users.service as users_service
 
@@ -71,6 +76,13 @@ SD_MISSION_PROJECTS_FOLDER_NAME = "Projets"
 MISSION_INIT_QUEUE_NAME = "mission-queue"
 
 MISSION_DELETE_SD_PREFIX = "ZZ - [ARCHIVE]"
+
+MODEL_MAPPING = {
+    "agency": Agency,
+    "antenna": Antenna,
+    "client": Client,
+    "user": User
+}
 
 
 class MissionService:
@@ -90,7 +102,15 @@ class MissionService:
         import app.mission.permissions as mission_permissions
         from app.mission.teams.service import TeamService
 
-        q = sort_query(Mission.query, sort_by, direction)
+        q = Mission.query
+        
+        if "." in sort_by:
+            q = MissionService.sort_from_sub_model(q, sort_by, direction)
+        elif sort_by == "mission_managers":
+            q = MissionService.sort_from_sub_model(q, "user.first_name", direction)
+        else:
+            q = sort_query(q, sort_by, direction)
+
         q = q.filter(or_(Mission.is_deleted == False, Mission.is_deleted == None))
         if term is not None:
             search_term = f"%{term}%"
@@ -389,3 +409,12 @@ class MissionService:
             pass
 
         return jsonify(mission_detail_dump)
+
+    def sort_from_sub_model(query, sort_by, direction):
+        values = sort_by.split(".")
+        sub_model = MODEL_MAPPING[values[len(values) - 2]]
+        if sub_model == User:
+            query = query.join(Team, isouter=True)
+        sort_by = values[len(values) - 1]
+        query = query.join(sub_model, isouter=True)
+        return sort_query(query, sort_by, direction, sub_model)
