@@ -4,12 +4,16 @@ from sqlalchemy import or_
 
 from app import db
 from app.auth.users.model import UserRole
+from app.building.model import Building
 from app.cle_repartition.service import CleRepartitionService
 from app.common.exceptions import EnumException
+from app.common.phone_number.model import PhoneNumber
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
 from app.common.db_utils import DBUtils
 from app.copro.copros.model import Copro
+from app.common.address.model import Address
+from app.auth.users.model import User
 from app.lot import Lot
 from app.lot.error_handlers import (
     LotNotFoundException,
@@ -17,6 +21,7 @@ from app.lot.error_handlers import (
     lot_not_found,
 )
 from app.lot.interface import LotInterface
+from app.person.model import LotOwner, Person
 from app.person.service import PersonService
 from app.thematique.service import ThematiqueService
 
@@ -31,6 +36,16 @@ ENUM_MAPPING = {
     "occupant_status": {"enum_key": "LotOccupantStatus"},
     "lease_type": {"enum_key": "LotLeaseType"},
     "convention_rent_type": {"enum_key": "LotConventionRentType"},
+}
+
+MODEL_MAPPING = {
+    "address": Address,
+    "copro": Copro,
+    "building": Building,
+    "user_in_charge": User,
+    "user": User,
+    "person": Person,
+    "phone_number": PhoneNumber,
 }
 
 
@@ -50,7 +65,17 @@ class LotService:
         from app.mission.missions import Mission
         import app.mission.permissions as mission_permissions
 
-        q = sort_query(Lot.query, sort_by, direction)
+        q = Lot.query
+        if "." in sort_by:
+            q = LotService.sort_from_sub_model(q, sort_by, direction)
+        elif sort_by == "owners":
+            q = LotService.sort_from_sub_model(q, "person.last_name", direction)
+        else:
+            q = sort_query(q, sort_by, direction)
+            # Here to avoid multi join on Copro
+            if mission_id:
+                q = q.join(Copro).filter(Copro.mission_id == mission_id)
+
         q = q.filter(or_(Lot.is_deleted == False, Lot.is_deleted == None))
 
         if copro_id:
@@ -58,9 +83,6 @@ class LotService:
 
         if building_id:
             q = q.filter(Lot.building_id == building_id)
-
-        if mission_id:
-            q = q.join(Copro).filter(Copro.mission_id == mission_id)
 
         if cs_id:
             if not mission_id:
@@ -177,3 +199,34 @@ class LotService:
             .filter(Lot.is_deleted == False)
             .first()
         )
+
+    def sort_from_sub_model(query, sort_by, direction):
+        values = sort_by.split(".")
+        sub_model = MODEL_MAPPING[values[len(values) - 2]]
+        if sub_model == Address:
+            query = query.join(Copro)
+            query = query.join(
+                sub_model,
+                or_(Copro.address_1_id == Address.id, Copro.address_2_id == Address.id),
+                isouter=True
+            )
+        elif sub_model == User:
+            query = query.join(Copro)
+            query = query.join(
+                User,
+                Copro.user_in_charge_id == User.id,
+                isouter=True
+            )
+        elif sub_model == Person:
+            query = query.join(LotOwner)
+            query = query.join(Person, LotOwner.c.owner_id == Person.id, isouter=True)
+        elif sub_model == PhoneNumber:
+            query = query.join(LotOwner)
+            query = query.join(Person, LotOwner.c.owner_id == Person.id)
+            query = query.join(PhoneNumber, Person.id == PhoneNumber.resource_id, isouter=True)
+        else:
+            query = query.join(sub_model, isouter=True)
+
+        sort_by = values[len(values) - 1]
+
+        return sort_query(query, sort_by, direction, sub_model)

@@ -3,7 +3,7 @@ from flask_sqlalchemy import Pagination
 from sqlalchemy import or_, and_, func
 
 from app import db
-from app.auth.users.model import UserRole
+from app.auth.users.model import User, UserRole
 from app.building.service import BuildingService
 from app.cle_repartition.service import CleRepartitionService
 from app.common.address.model import Address
@@ -34,6 +34,7 @@ from app.copro.fire_safety_personnel.service import FireSafetyPersonnelService
 from app.copro.moe.model import Moe
 from app.copro.moe.service import MoeService
 from app.copro.president import President
+from app.auth.users import User
 from app.copro.president.service import PresidentService
 from app.copro.syndic.service import SyndicService
 from app.mission.missions.service import MissionService
@@ -51,6 +52,8 @@ ENUM_MAPPING = {
     "construction_time": {"enum_key": "CoproConstructionTime"},
 }
 
+MODEL_MAPPING = {"address_1": Address, "address": Address, "user_in_charge": User}
+
 
 class CoproService:
     @staticmethod
@@ -67,7 +70,12 @@ class CoproService:
         import app.mission.permissions as mission_permissions
         from app.mission.missions import Mission
 
-        q = sort_query(Copro.query, sort_by, direction)
+        q = Copro.query
+        if "." in sort_by:
+            q = CoproService.sort_from_sub_model(q, sort_by, direction)
+        else:
+            q = sort_query(q, sort_by, direction)
+
         q = q.filter(or_(Copro.is_deleted == False, Copro.is_deleted == None))
         if term is not None:
             search_term = f"%{term}%"
@@ -453,3 +461,9 @@ class CoproService:
             )
         except Exception as e:
             print(e)
+
+    def sort_from_sub_model(query, sort_by, direction):
+        values = sort_by.split(".")
+        sub_model = MODEL_MAPPING[values[0]]
+        sort_by = values[1]
+        return sort_query(query, sort_by, direction, sub_model)
