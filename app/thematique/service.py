@@ -179,7 +179,7 @@ class ThematiqueService:
             # Not duplicable if version doesn't comes from parent
             # and (
             #   function is called from parent scope or
-            #   there is already one version created from parent
+            #   there is already one version created
             # )
             extend_parent == False
             and (
@@ -263,7 +263,9 @@ class ThematiqueService:
         else:
             new_attrs["status_changed"] = False
 
-        ThematiqueService.update_version(version_id, {"updated_date": datetime.now()})
+        ThematiqueService.update_version(
+            version_id, {"updated_date": datetime.now(), "bypassAuth": True}
+        )
 
         step.reference.set(payload, merge=True)
 
@@ -291,7 +293,10 @@ class ThematiqueService:
             raise InvalidScopeException
 
         # check if the parent is not extended
-        if version_dict.get("extend_parent", None):
+        # to avoid heritable child/parent link loss
+        if (
+            version_dict.get("extend_parent", None) and "bypassAuth" not in payload
+        ):  # bypassAuth allows to update only updated_at field from update_step
             raise UnauthorizedToUpdateException
 
         # check if the name and date are unique
@@ -341,6 +346,11 @@ class ThematiqueService:
                             ThematiqueService.update_sub_versions_recursively(
                                 version, payload
                             )
+                    elif scope != "lot":
+                        # No version from direct child, check next child
+                        ThematiqueService.update_sub_versions_recursively(
+                            version, payload
+                        )
             else:
                 # in case it is not a direct child
                 ThematiqueService.update_sub_versions_recursively(version, payload)

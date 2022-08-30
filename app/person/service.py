@@ -30,6 +30,10 @@ ENUM_MAPPING = {
     "status": {"enum_key": "PersonStatus"},
 }
 
+MODEL_MAPPING = {
+    "phone_number": PhoneNumber,
+}
+
 
 class PersonService:
     @staticmethod
@@ -98,13 +102,14 @@ class PersonService:
         direction=PERSON_DEFAULT_SORT_DIRECTION,
         antenna_id=None,
     ):
-        q = sort_query(
-            Person.query.filter(
-                or_(Person.is_deleted == False, Person.is_deleted == None)
-            ),
-            sort_by,
-            direction,
-        )
+        q = Person.query
+        if "." in sort_by:
+            q = PersonService.sort_from_sub_model(q, sort_by, direction)
+        else:
+            q = sort_query(q, sort_by, direction)
+
+        q = q.filter(or_(Person.is_deleted == False, Person.is_deleted == None))
+
         if term not in [None, ""]:
             search_term = f"%{term}%"
             q = q.filter(
@@ -219,3 +224,11 @@ class PersonService:
             )
             db.session.execute(stmt)
         db.session.commit()
+
+    def sort_from_sub_model(query, sort_by, direction):
+        values = sort_by.split(".")
+        sub_model = MODEL_MAPPING[values[len(values) - 2]]
+        sort_by = values[len(values) - 1]
+        if sub_model == PhoneNumber:
+            query = query.join(PhoneNumber, Person.id == PhoneNumber.resource_id, isouter=True)
+        return sort_query(query, sort_by, direction, sub_model)
