@@ -36,6 +36,14 @@
 * **Missions:** Update financialDevice service to return array of object + add enum ([86d8196](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/86d819651bb5aa10a9f3d1041fcba0a44eadb757))
 * **THEMATICS:** add btn (show/hide password) && fix T1 && T8 ([b2653a1](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/b2653a1d59c3004305b28387536033ab178bff22))
 
+# [1.4.0-rc.4](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.4.0-rc.3...v1.4.0-rc.4) (2022-06-15)
+
+
+### Bug Fixes
+
+* **Building:** Add IMH in interface ([c488bd1](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/c488bd1ce94f50663ab66f31eab55189bb2d999b))
+* **THEMATICS:** T_6 && T_8 && T_9 ([3151a8a](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/3151a8a0e02f2b905e28f6b0dff09798fc4d8501))
+
 # [1.4.0-rc.3](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.4.0-rc.2...v1.4.0-rc.3) (2022-06-14)
 
 

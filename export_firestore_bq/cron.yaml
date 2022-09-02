@@ -1,0 +1,4 @@
+cron:
+- description: "export firestore"
+  url: /api/firestore_export/launch
+  schedule: every 9999 hours
