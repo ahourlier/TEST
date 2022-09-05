@@ -6,7 +6,7 @@ stages:
 # Change pip's cache directory to be inside the project directory since we can
 # only cache local items.
 variables:
-    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
 
 # Pip's cache doesn't store the python packages
 # https://pip.pypa.io/en/stable/reference/pip_install/#caching
@@ -32,10 +32,10 @@ black:
   image: python:3.7.12-slim
   allow_failure: true
   before_script:
-  - python --version
-  - pip install black==22.3.0
+    - python --version
+    - pip install black==22.3.0
   script:
-  - black . --check
+    - black . --check
 
 # mypy:
 #   stage: Test
@@ -75,7 +75,7 @@ release:
 deploy_dev:
   stage: Deploy
   image: google/cloud-sdk:alpine
-  environment: 
+  environment:
     name: dev
     url: https://api-dot-$DEV_PROJECT_ID.appspot.com/
   rules:
@@ -96,7 +96,7 @@ deploy_dev:
 deploy_preprod:
   stage: Deploy
   image: google/cloud-sdk:alpine
-  environment: 
+  environment:
     name: preprod
     url: https://api-dot-$PREPROD_PROJECT_ID.appspot.com/
   rules:
@@ -117,7 +117,7 @@ deploy_preprod:
 deploy_prod:
   stage: Deploy
   image: google/cloud-sdk:alpine
-  environment: 
+  environment:
     name: prod
     url: https://api-dot-$PROD_PROJECT_ID.appspot.com/
   rules:
@@ -132,4 +132,4 @@ deploy_prod:
     - gcloud auth activate-service-account --key-file $PROD_CI_SA_KEY
     - gcloud --quiet config set project $PROD_PROJECT_ID
     - gcloud secrets versions access latest --secret="$BACKEND_ENV_SECRET_KEY" > .env
-    - gcloud app deploy app.yaml manager.yaml dispatch.yaml queue.yaml --quiet --no-promote
+    - gcloud app deploy app.yaml manager.yaml export_firestore_bq/app.yaml dispatch.yaml queue.yaml --quiet --no-promote

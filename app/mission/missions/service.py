@@ -77,12 +77,7 @@ MISSION_INIT_QUEUE_NAME = "mission-queue"
 
 MISSION_DELETE_SD_PREFIX = "ZZ - [ARCHIVE]"
 
-MODEL_MAPPING = {
-    "agency": Agency,
-    "antenna": Antenna,
-    "client": Client,
-    "user": User
-}
+MODEL_MAPPING = {"agency": Agency, "antenna": Antenna, "client": Client, "user": User}
 
 
 class MissionService:
@@ -103,7 +98,7 @@ class MissionService:
         from app.mission.teams.service import TeamService
 
         q = Mission.query
-        
+
         if "." in sort_by:
             q = MissionService.sort_from_sub_model(q, sort_by, direction)
         elif sort_by == "mission_managers":

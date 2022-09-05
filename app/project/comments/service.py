@@ -124,7 +124,7 @@ class CommentService:
             changes.get("content") and changes.get("content") != comment.content
         )
         # If content is modified, user must be the original author (or at least admin or manager)
-        if content_changed and comment.author_id is not g.user.id:
+        if content_changed and comment.author_id != g.user.id:
             if g.user.role != UserRole.ADMIN and g.user.role != UserRole.MANAGER:
                 raise ForbiddenException()
             comment.author_id = g.user.id
@@ -153,7 +153,7 @@ class CommentService:
 
         # Only the author (or an admin/manager can modify the comment)
         if (
-            comment.author_id is not g.user.id
+            comment.author_id != g.user.id
             and g.user.role != UserRole.ADMIN
             and g.user.role != UserRole.MANAGER
         ):
