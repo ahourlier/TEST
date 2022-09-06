@@ -125,9 +125,13 @@ class CommentService:
         )
         # If content is modified, user must be the original author (or at least admin or manager)
         print("content_changed", content_changed)
+        print(type(content_changed))
         print("comment.author_id", comment.author_id)
+        print(type(comment.author_id))
         print("g.user.id", g.user.id)
+        print(type(g.user.id))
         print("g.user.role", g.user.role)
+        print(type(g.user.role))
         print(
             "content_changed and comment.author_id is not g.user.id",
             content_changed and comment.author_id is not g.user.id,
