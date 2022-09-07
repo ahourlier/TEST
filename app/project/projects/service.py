@@ -126,8 +126,6 @@ class ProjectService:
             remove_unauthorized=True,
         )
 
-        q = q.filter(Project.status != "Sans suite")
-
         if unique_page:
             # Retrieve all projects in one unique page
             size = q.count()
