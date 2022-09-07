@@ -1,9 +1,11 @@
 import base64
+from typing import List
 from flask_sqlalchemy import Pagination
 from sqlalchemy import or_, and_, func
 
 from app import db
 from app.auth.users.model import User, UserRole
+from app.auth.users.service import UserService
 from app.building.service import BuildingService
 from app.cle_repartition.service import CleRepartitionService
 from app.common.address.model import Address
@@ -206,6 +208,11 @@ class CoproService:
         if "cles_repartition" in new_attrs:
             cles_repartition = new_attrs.get("cles_repartition")
             del new_attrs["cles_repartition"]
+
+        if "urbanis_collaborators" in new_attrs:
+            new_attrs["urbanis_collaborators"] = CoproService.handle_collaborators(
+                new_attrs.get("urbanis_collaborators", [])
+            )
 
         try:
             new_copro = Copro(**new_attrs)
@@ -425,6 +432,12 @@ class CoproService:
                 changes.get("access_code")
             )
 
+        if changes.get("urbanis_collaborators") is not None:
+            db_copro.urbanis_collaborators = CoproService.handle_collaborators(
+                changes.get("urbanis_collaborators", [])
+            )
+            del changes["urbanis_collaborators"]
+
         db_copro.update(changes)
         db.session.commit()
 
@@ -434,6 +447,12 @@ class CoproService:
     def delete(copro_id: int):
         DBUtils.soft_delete_cascade(copro_id, CoproService)
         return copro_id
+
+    def handle_collaborators(list_dict_collaborators: List[dict]):
+        table = []
+        for p in list_dict_collaborators:
+            table.append(UserService.get(p.get("id")))
+        return table
 
     @staticmethod
     def get_thematiques(copro_id: int):
