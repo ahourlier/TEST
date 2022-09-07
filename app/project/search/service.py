@@ -281,7 +281,7 @@ class ProjectRegisterSearchService:
         db_search = Search.query.get(search_id)
         if db_search is None:
             raise SearchNotFoundException
-        if db_search.user_id is not g.user.id:
+        if db_search.user_id != g.user.id:
             raise ForbiddenException()
         return db_search
 
@@ -309,7 +309,7 @@ class ProjectRegisterSearchService:
         search = Search.query.filter(Search.id == search_id).first()
         if not search:
             raise SearchNotFoundException
-        if search.user_id is not g.user.id:
+        if search.user_id != g.user.id:
             raise ForbiddenException()
         db.session.delete(search)
         db.session.commit()
