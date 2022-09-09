@@ -82,6 +82,13 @@ class UserService:
         return q.paginate(page=page, per_page=size)
 
     @staticmethod
+    def get(user_id: int):
+        user = User.query.get(user_id)
+        if not user:
+            raise UserNotFoundException
+        return user
+
+    @staticmethod
     def create(new_attrs: UserInterface) -> User:
         if new_attrs.get("kind") == UserKind.OTHER:
             new_attrs = UserService.signup_new_user(new_attrs)

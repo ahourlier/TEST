@@ -24,11 +24,11 @@ from app.copro.fire_safety_personnel.schema import (
     FireSafetyPersonnelUpdateSchema,
 )
 
-from .model import Copro
+from .model import Copro, UrbanisCollaborators
 from ..cadastre.schema import CadastreSchema
 from ..moe.schema import MoeSchema, MoeUpdateSchema, MoeCreateSchema
 from ..president.schema import PresidentSchema, PresidentCreateSchema
-from ...auth.users.schema import UserInChargeSchema
+from ...auth.users.schema import UserSchema
 from ...common.phone_number.schema import PhoneNumberSchema
 from ...cle_repartition.schema import CleRepartitionSchema, CleRepartitionCreateSchema
 from ...common.address.schema import AddressSchema
@@ -54,7 +54,9 @@ class CoproSchema(SQLAlchemyAutoSchema):
     syndic_manager_phone_number = fields.Nested(PhoneNumberSchema(), dump_only=True)
     admin_manager_address = fields.Nested(AddressSchema(), dump_only=True)
     admin_manager_phone_number = fields.Nested(PhoneNumberSchema(), dump_only=True)
-    user_in_charge = fields.Nested(UserInChargeSchema(), dump_only=True)
+
+    urbanis_collaborators = fields.List(fields.Nested(UserSchema()), dump_only=True)
+
     moe = fields.Nested(MoeSchema(), dump_only=True)
     architect = fields.Nested(ArchitectSchema(), required=False, allow_none=True)
     caretaker = fields.Nested(CareTakerSchema(), required=False, allow_none=True)
@@ -94,6 +96,7 @@ class CoproUpdateSchema(SQLAlchemyAutoSchema):
         FireSafetyPersonnelUpdateSchema(), required=False, allow_none=True
     )
     cles_repartition = fields.List(fields.Nested(CleRepartitionCreateSchema()))
+    urbanis_collaborators = fields.List(fields.Nested(UserSchema()))
 
     class Meta:
         model = Copro
@@ -123,6 +126,7 @@ class CoproCreateSchema(SQLAlchemyAutoSchema):
         FireSafetyPersonnelCreateSchema(), required=False, allow_none=True
     )
     cles_repartition = fields.List(fields.Nested(CleRepartitionCreateSchema()))
+    urbanis_collaborators = fields.List(fields.Nested(UserSchema()))
 
     class Meta:
         model = Copro
@@ -132,7 +136,7 @@ class CoproCreateSchema(SQLAlchemyAutoSchema):
 
 class CoproForLotsSchema(SQLAlchemyAutoSchema):
     address_1 = fields.Nested(AddressSchema())
-    user_in_charge = fields.Nested(UserInChargeSchema(), dump_only=True)
+    urbanis_collaborators = fields.List(fields.Nested(UserSchema()))
 
     class Meta:
         model = Copro

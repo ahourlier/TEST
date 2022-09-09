@@ -1,5 +1,6 @@
 from copy import copy
 from sqlalchemy.sql.elements import and_, or_
+from app.auth.users.model import User
 from app.building.model import Building
 from app.copro.copros.model import Copro
 
@@ -7,6 +8,7 @@ from app.copro.syndic.model import Syndic
 from app.combined_structure.model import CombinedStructure
 from app.lot.model import Lot
 from app.lot.model import LotOwner
+from app.copro.copros.model import UrbanisCollaborators
 from app.person.model import Person
 
 
@@ -48,6 +50,12 @@ class ComplexFilters:
                     complex_filter[
                         "mission_id"
                     ] = ComplexFilters.build_lot_mission_id_query(filter)
+                    search_obj["filters"].remove(filter)
+            if entity == "copro":
+                if filter["field"] == "collaborator_name":
+                    complex_filter[
+                        "collaborator_name"
+                    ] = ComplexFilters.build_collaborator_name_query(filter)
                     search_obj["filters"].remove(filter)
 
         return complex_filter
@@ -110,4 +118,26 @@ class ComplexFilters:
             .join(Copro, Copro.id == Building.copro_id)
             .filter(Copro.mission_id == filter["values"][0])
             .label("buildingMissionId")
+        )
+
+    @staticmethod
+    def build_collaborator_name_query(filter):
+        """
+        Copro: Build query manually when searching by collaborator_name
+        """
+        return (
+            Copro.query.with_entities(Copro.id)
+            .join(UrbanisCollaborators)
+            .join(User)
+            .filter(
+                and_(
+                    UrbanisCollaborators.c.copro_id == Copro.id,
+                    UrbanisCollaborators.c.user_in_charge_id == User.id,
+                    or_(
+                        User.first_name.ilike(filter["values"][0]),
+                        User.last_name.ilike(filter["values"][0]),
+                    ),
+                )
+            )
+            .label("collaborators")
         )

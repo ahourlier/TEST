@@ -19,7 +19,6 @@
 * **T3:** Review FM ([861d728](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/861d7289edc9e5510725d0cbe0ea58098b49dfa7))
 * **T3:** Review FM ([7c79a92](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/7c79a9251a8976eb7d64671488b54da537f34266))
 * **T4:** Review FM ([7260eed](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/7260eed9d5567588964f695280a27f6800227894))
-* **T6:** Multiples fixes ([ec07121](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/ec071213c4571a0814ded95ecdb8692d16e6dc41))
 * **T6:** Re-add donnees_cadrage step (WIP: waiting Urb for questions) ([08ea9cc](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/08ea9cc6eeae83f3b37cc02b153f89e526a2880c))
 * **T9:** Repasse FM ([df1e290](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/df1e2900e4d1f5a71d2b5bd089adea7374bb2a31))
 * **Tasks:** Add specific join on sort by assignee ([89b6a16](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/89b6a16189c4c14adfd7d5cdf1d1eee4869975d1))
@@ -36,6 +35,14 @@
 * **Missions:** Update financialDevice service to return array of object + add enum ([86d8196](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/86d819651bb5aa10a9f3d1041fcba0a44eadb757))
 * **THEMATICS:** add btn (show/hide password) && fix T1 && T8 ([b2653a1](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/b2653a1d59c3004305b28387536033ab178bff22))
 
+# [1.4.0-rc.5](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.4.0-rc.4...v1.4.0-rc.5) (2022-09-08)
+
+
+### Features
+
+* **copro:** change urbanis collaborator as Many to many ([4d37896](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/4d37896e46c247c993d4e727b7b9ac8aa8d1bb57))
+
+* **T6:** Multiples fixes ([ec07121](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/ec071213c4571a0814ded95ecdb8692d16e6dc41))
 # [1.4.0-rc.4](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.4.0-rc.3...v1.4.0-rc.4) (2022-06-15)
 
 
