@@ -109,7 +109,7 @@ def advances_for_po_sdc_loc(simulation, sf):
     return 0
 
 
-def get_total_quotes_accommodations_eligible_amount(simulation):
+def get_total_quotes_accommodations_eligible_amount(simulation, fa):
     """
         Find quote associated to simulation,
         then quotes_accommodations associated to found quotes
@@ -128,7 +128,8 @@ def get_total_quotes_accommodations_eligible_amount(simulation):
     
     for quote in associated_quotes:
         for qa in quote.accommodations:
-            total_quote_accommodations_eligible_amount += qa['eligible_amount']
+            if fa.accommodation_id == qa['accommodation'].id:
+                total_quote_accommodations_eligible_amount += qa['eligible_amount']
     
     return total_quote_accommodations_eligible_amount
 
@@ -218,7 +219,7 @@ def subvention_for_pb(simulation, sf, fa):
 
     if not fa.subventioned_expense and not fa.rate:
         # Get total eligible amount from quotes_accommodations
-        total_quotes_accommodations_eligible_amount = get_total_quotes_accommodations_eligible_amount(simulation)
+        total_quotes_accommodations_eligible_amount = get_total_quotes_accommodations_eligible_amount(simulation, fa)
         # Get Funding Scenario
         if fa.scenario_id:
             fs = FundingScenario.query.filter(FundingScenario.id == fa.scenario_id).first()
