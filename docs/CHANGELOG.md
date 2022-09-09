@@ -1,3 +1,10 @@
+# [1.5.0](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.4.1...v1.5.0) (2022-09-09)
+
+
+### Features
+
+* **copro:** change urbanis collaborator as Many to many ([4d37896](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/4d37896e46c247c993d4e727b7b9ac8aa8d1bb57))
+
 ## [1.4.1](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.4.0...v1.4.1) (2022-06-15)
 
 
