@@ -1,5 +1,8 @@
 from . import api
-from .exceptions import MissionNotFoundException, UnknownMissionTypeException
+from .exceptions import (
+    MissionNotFoundException,
+    UnknownMissionTypeException,
+)
 from app.common.error_handlers import parse_exception
 from app.common.exceptions import SharedDriveException, GoogleGroupsException
 

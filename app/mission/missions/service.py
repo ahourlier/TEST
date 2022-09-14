@@ -35,7 +35,9 @@ from app.common.tasks import create_task
 from app.common.search import sort_query
 from app.mission.missions import Mission, MissionSchema
 from app.mission.missions.error_handlers import MissionNotFoundException
-from app.mission.missions.exceptions import UnknownMissionTypeException
+from app.mission.missions.exceptions import (
+    UnknownMissionTypeException,
+)
 from app.mission.missions.interface import MissionInterface
 
 from app.admin.clients.referents.service import ReferentService
@@ -178,14 +180,48 @@ class MissionService:
                 referents = new_attrs.get("referents")
                 del new_attrs["referents"]
 
-            mission = Mission(**new_attrs, creator=g.user.email)
-            db.session.add(mission)
-            db.session.commit()
+            mission = None
 
-            if mission.mission_type == App.COPRO:
-                mission_details = MissionDetail()
-                mission_details.mission_id = mission.id
-                db.session.add(mission_details)
+            if new_attrs["mission_type"] == App.COPRO:
+                operational_folders = DriveUtils.list_folders(
+                    new_attrs["sdv2_operationel_drive"], g.user.email, None
+                )
+                if len(operational_folders) == 0:
+                    (
+                        structure,
+                        shared_drive_name,
+                    ) = MissionService.create_operational_drive_structure(
+                        new_attrs["sdv2_operationel_drive"]
+                    )
+                    sdv2_administratif_folder_id = DriveUtils.list_folders(
+                        new_attrs["sdv2_administratif_drive"], g.user.email, None
+                    )[0]["id"]
+
+                    mission = Mission(**new_attrs, creator=g.user.email)
+
+                    MissionService.link_drive_ids(
+                        mission,
+                        new_attrs["sdv2_operationel_drive"],
+                        new_attrs["sdv2_administratif_drive"],
+                        sdv2_administratif_folder_id,
+                        structure,
+                        shared_drive_name,
+                    )
+
+                    db.session.add(mission)
+                    db.session.commit()
+
+                    mission_details = MissionDetail()
+                    mission_details.mission_id = mission.id
+                    db.session.add(mission_details)
+                    db.session.commit()
+                else:
+                    raise Exception(
+                        "Specified drive has already been linked to a mission"
+                    )
+            else:
+                mission = Mission(**new_attrs, creator=g.user.email)
+                db.session.add(mission)
                 db.session.commit()
 
             if referents:
@@ -418,3 +454,52 @@ class MissionService:
         sort_by = values[len(values) - 1]
         query = query.join(sub_model, isouter=True)
         return sort_query(query, sort_by, direction, sub_model)
+
+    def create_operational_drive_structure(sdv2_operationel_drive_id):
+        shared_drive_name = DriveUtils.get_shared_drive_name(
+            sdv2_operationel_drive_id, g.user.email, None
+        )
+
+        operational_folder_id = DriveUtils.create_folder(
+            shared_drive_name, sdv2_operationel_drive_id, g.user.email, None, False
+        )
+
+        folders = {
+            "10 Suivi animation": None,
+            "20 Outils animation": None,
+            "30 Equipe et Local": None,
+            "40 BDD": None,
+            "_10 Imports": None,
+            "_20 Exports": None,
+        }
+        for folder_name in folders.keys():
+            if folder_name == "_10 Imports" or folder_name == "_20 Exports":
+                folders[folder_name] = DriveUtils.create_folder(
+                    folder_name, folders["40 BDD"], g.user.email, None, False
+                )
+            else:
+                folders[folder_name] = DriveUtils.create_folder(
+                    folder_name, operational_folder_id, g.user.email, None, False
+                )
+
+        folders[shared_drive_name] = operational_folder_id
+        return folders, shared_drive_name
+
+    def link_drive_ids(
+        mission,
+        sdv2_operationel_drive_id,
+        sdv2_administratif_drive_id,
+        sdv2_administratif_folder_id,
+        structure,
+        shared_drive_name,
+    ):
+        mission.sdv2_operationel_drive = sdv2_operationel_drive_id
+        mission.sdv2_administratif_drive = sdv2_administratif_drive_id
+        mission.sdv2_operationel_folder = structure[shared_drive_name]
+        mission.sdv2_administratif_folder = sdv2_administratif_folder_id
+        mission.sdv2_suivi_animation_folder = structure["10 Suivi animation"]
+        mission.sdv2_outils_animation_folder = structure["20 Outils animation"]
+        mission.sdv2_equipes_locales_folder = structure["30 Equipe et Local"]
+        mission.sdv2_bdd_folder = structure["40 BDD"]
+        mission.sdv2_exports_folder = structure["_10 Imports"]
+        mission.sdv2_imports_folder = structure["_20 Exports"]
