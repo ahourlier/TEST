@@ -37,6 +37,7 @@ from app.mission.missions import Mission, MissionSchema
 from app.mission.missions.error_handlers import MissionNotFoundException
 from app.mission.missions.exceptions import (
     UnknownMissionTypeException,
+    WrongSharedDriveSelectionException,
 )
 from app.mission.missions.interface import MissionInterface
 
@@ -79,12 +80,7 @@ MISSION_INIT_QUEUE_NAME = "mission-queue"
 
 MISSION_DELETE_SD_PREFIX = "ZZ - [ARCHIVE]"
 
-MODEL_MAPPING = {
-    "agency": Agency,
-    "antenna": Antenna,
-    "client": Client,
-    "user": User
-}
+MODEL_MAPPING = {"agency": Agency, "antenna": Antenna, "client": Client, "user": User}
 
 
 class MissionService:
@@ -105,7 +101,7 @@ class MissionService:
         from app.mission.teams.service import TeamService
 
         q = Mission.query
-        
+
         if "." in sort_by:
             q = MissionService.sort_from_sub_model(q, sort_by, direction)
         elif sort_by == "mission_managers":
@@ -186,39 +182,36 @@ class MissionService:
                 operational_folders = DriveUtils.list_folders(
                     new_attrs["sdv2_operationel_drive"], g.user.email, None
                 )
-                if len(operational_folders) == 0:
-                    (
-                        structure,
-                        shared_drive_name,
-                    ) = MissionService.create_operational_drive_structure(
-                        new_attrs["sdv2_operationel_drive"]
-                    )
-                    sdv2_administratif_folder_id = DriveUtils.list_folders(
-                        new_attrs["sdv2_administratif_drive"], g.user.email, None
-                    )[0]["id"]
 
-                    mission = Mission(**new_attrs, creator=g.user.email)
+                (
+                    structure,
+                    shared_drive_name,
+                ) = MissionService.create_operational_drive_structure(
+                    new_attrs["sdv2_operationel_drive"], operational_folders
+                )
+                sdv2_administratif_folder_id = DriveUtils.list_folders(
+                    new_attrs["sdv2_administratif_drive"], g.user.email, None
+                )[0]["id"]
 
-                    MissionService.link_drive_ids(
-                        mission,
-                        new_attrs["sdv2_operationel_drive"],
-                        new_attrs["sdv2_administratif_drive"],
-                        sdv2_administratif_folder_id,
-                        structure,
-                        shared_drive_name,
-                    )
+                mission = Mission(**new_attrs, creator=g.user.email)
 
-                    db.session.add(mission)
-                    db.session.commit()
+                MissionService.link_drive_ids(
+                    mission,
+                    new_attrs["sdv2_operationel_drive"],
+                    new_attrs["sdv2_administratif_drive"],
+                    sdv2_administratif_folder_id,
+                    structure,
+                    shared_drive_name,
+                )
 
-                    mission_details = MissionDetail()
-                    mission_details.mission_id = mission.id
-                    db.session.add(mission_details)
-                    db.session.commit()
-                else:
-                    raise Exception(
-                        "Specified drive has already been linked to a mission"
-                    )
+                db.session.add(mission)
+                db.session.commit()
+
+                mission_details = MissionDetail()
+                mission_details.mission_id = mission.id
+                db.session.add(mission_details)
+                db.session.commit()
+
             else:
                 mission = Mission(**new_attrs, creator=g.user.email)
                 db.session.add(mission)
@@ -455,15 +448,24 @@ class MissionService:
         query = query.join(sub_model, isouter=True)
         return sort_query(query, sort_by, direction, sub_model)
 
-    def create_operational_drive_structure(sdv2_operationel_drive_id):
+    def create_operational_drive_structure(sdv2_operationel_drive_id, folders_list):
         shared_drive_name = DriveUtils.get_shared_drive_name(
             sdv2_operationel_drive_id, g.user.email, None
         )
 
-        operational_folder_id = DriveUtils.create_folder(
-            shared_drive_name, sdv2_operationel_drive_id, g.user.email, None, False
-        )
+        # Check if root folder with same name as shared drive exists
+        found = False
+        for file in folders_list:
+            if file["name"] == shared_drive_name:
+                found = True
+                operational_folder_id = file["id"]
+                break
 
+        # If not, bad shared drive selection
+        if not found:
+            raise WrongSharedDriveSelectionException()
+
+        # Then check that shared drive is not already filled
         folders = {
             "10 Suivi animation": None,
             "20 Outils animation": None,
