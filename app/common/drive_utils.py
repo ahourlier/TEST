@@ -23,6 +23,20 @@ GOOGLE_DRIVE_MIMETYPES = [
 
 class DriveUtils:
     @staticmethod
+    def get_shared_drive_name(
+        driveId, user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL"), client=None
+    ):
+        """Gets a shared drive using provided driveId and user_email"""
+        if not client:
+            client = DriveService(user_email).get()
+        try:
+            resp = client.drives().get(driveId=driveId).execute(num_retries=3)
+            return resp.get("name")
+        except HttpError as e:
+            logging.error(f"Unable to create shared drive with name {name}: {e}")
+            return None
+
+    @staticmethod
     def create_shared_drive(
         name, user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL"), client=None
     ):
@@ -227,6 +241,32 @@ class DriveUtils:
                 client.files()
                 .list(
                     q=q,
+                    includeItemsFromAllDrives=True,
+                    supportsAllDrives=True,
+                    fields="files(id,name,appProperties)",
+                )
+                .execute(num_retries=3)
+            )
+            return resp.get("files")
+        except HttpError as e:
+            logging.error(f"Unable to list files with provided requirements: {e}")
+            return None
+
+    @staticmethod
+    def list_folders(
+        parent_folder,
+        user_email=os.getenv("TECHNICAL_ACCOUNT_EMAIL"),
+        client=None,
+    ):
+        """List files"""
+        if not client:
+            client = DriveService(user_email).get()
+        try:
+            resp = (
+                client.files()
+                .list(
+                    driveId=parent_folder,
+                    corpora="drive",
                     includeItemsFromAllDrives=True,
                     supportsAllDrives=True,
                     fields="files(id,name,appProperties)",
