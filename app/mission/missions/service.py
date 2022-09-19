@@ -19,6 +19,7 @@ from app.common.config_error_messages import (
     KEY_SHARED_DRIVE_CREATION_EXCEPTION,
     KEY_SHARED_DRIVE_FOLDER_CREATION_EXCEPTION,
     KEY_GOOGLE_GROUP_CREATION_EXCEPTION,
+    KEY_SHARED_DRIVE_PERMISSION_EXCEPTION,
     KEY_SHARED_DRIVE_RENAME_EXCEPTION,
     KEY_SHARED_DRIVE_COPY_EXCEPTION,
     KEY_GOOGLE_GROUP_VISIBILITY_CHANGE_EXCEPTION,
@@ -521,22 +522,52 @@ class MissionService:
                 name=f"{os.getenv('GROUP_NAME_ENV_PREFIX')}OSLO V2 - Mission {mission.name}",
                 client=client,
             )
-            DriveUtils.insert_permission(
+            # Set permissions on drives for created mission group
+            permission = DriveUtils.insert_permission(
+                operational_drive,
+                "fileOrganizer",
+                "group",
+                group_email,
+                g.user.email,
+                None,
+            )
+            if not permission:
+                raise SharedDriveException(KEY_SHARED_DRIVE_PERMISSION_EXCEPTION)
+
+            permission = DriveUtils.insert_permission(
+                administrative_drive,
+                "fileOrganizer",
+                "group",
+                group_email,
+                g.user.email,
+                None,
+            )
+            if not permission:
+                raise SharedDriveException(KEY_SHARED_DRIVE_PERMISSION_EXCEPTION)
+
+            # Set permissions on drives for admin group
+            permission = DriveUtils.insert_permission(
                 operational_drive,
                 "organizer",
                 "group",
-                group_email,
+                os.getenv("APPLICATION_ADMINS_GOOGLE_GROUP"),
                 g.user.email,
                 None,
             )
-            DriveUtils.insert_permission(
+            if not permission:
+                raise SharedDriveException(KEY_SHARED_DRIVE_PERMISSION_EXCEPTION)
+
+            permission = DriveUtils.insert_permission(
                 administrative_drive,
                 "organizer",
                 "group",
-                group_email,
+                os.getenv("APPLICATION_ADMINS_GOOGLE_GROUP"),
                 g.user.email,
                 None,
             )
+            if not permission:
+                raise SharedDriveException(KEY_SHARED_DRIVE_PERMISSION_EXCEPTION)
+
         if group_id:
             mission.google_group_id = group_id
             db.session.commit()
