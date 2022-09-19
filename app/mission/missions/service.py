@@ -179,26 +179,28 @@ class MissionService:
             mission = None
 
             if new_attrs["mission_type"] == App.COPRO:
+                operational_drive_id = new_attrs["sdv2_operationel_drive"]
+                administrative_drive_id = new_attrs["sdv2_administratif_drive"]
                 operational_folders = DriveUtils.list_folders(
-                    new_attrs["sdv2_operationel_drive"], g.user.email, None
+                    operational_drive_id, g.user.email, None
                 )
 
                 (
                     structure,
                     shared_drive_name,
                 ) = MissionService.create_operational_drive_structure(
-                    new_attrs["sdv2_operationel_drive"], operational_folders
+                    operational_drive_id, operational_folders
                 )
                 sdv2_administratif_folder_id = DriveUtils.list_folders(
-                    new_attrs["sdv2_administratif_drive"], g.user.email, None
+                    administrative_drive_id, g.user.email, None
                 )[0]["id"]
 
                 mission = Mission(**new_attrs, creator=g.user.email)
 
                 MissionService.link_drive_ids(
                     mission,
-                    new_attrs["sdv2_operationel_drive"],
-                    new_attrs["sdv2_administratif_drive"],
+                    operational_drive_id,
+                    administrative_drive_id,
                     sdv2_administratif_folder_id,
                     structure,
                     shared_drive_name,
@@ -206,6 +208,9 @@ class MissionService:
 
                 db.session.add(mission)
                 db.session.commit()
+                MissionService.associate_google_group(
+                    mission, operational_drive_id, administrative_drive_id
+                )
 
                 mission_details = MissionDetail()
                 mission_details.mission_id = mission.id
@@ -505,3 +510,36 @@ class MissionService:
         mission.sdv2_bdd_folder = structure["40 BDD"]
         mission.sdv2_exports_folder = structure["_10 Imports"]
         mission.sdv2_imports_folder = structure["_20 Exports"]
+
+    def associate_google_group(mission, operational_drive, administrative_drive):
+        client = DirectoryService(os.getenv("TECHNICAL_ACCOUNT_EMAIL")).get()
+        group_email = f"{os.getenv('GROUP_EMAIL_ENV_PREFIX', '')}oslov2-mission-{mission.code_name}@{os.getenv('GSUITE_DOMAIN')}"
+        group_id = GroupUtils.get_google_group(group_email, client=client)
+        if not group_id:
+            group_id = GroupUtils.create_google_group(
+                email=group_email,
+                name=f"{os.getenv('GROUP_NAME_ENV_PREFIX')}OSLO V2 - Mission {mission.name}",
+                client=client,
+            )
+            DriveUtils.insert_permission(
+                operational_drive,
+                "organizer",
+                "group",
+                group_email,
+                g.user.email,
+                None,
+            )
+            DriveUtils.insert_permission(
+                administrative_drive,
+                "organizer",
+                "group",
+                group_email,
+                g.user.email,
+                None,
+            )
+        if group_id:
+            mission.google_group_id = group_id
+            db.session.commit()
+
+        else:
+            raise GoogleGroupsException(KEY_GOOGLE_GROUP_CREATION_EXCEPTION)
