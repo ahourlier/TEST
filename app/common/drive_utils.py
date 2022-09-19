@@ -2,6 +2,7 @@ import io
 import logging
 import os
 from uuid import uuid4
+from functools import partial
 
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaIoBaseDownload, MediaIoBaseUpload, MediaFileUpload
@@ -33,7 +34,7 @@ class DriveUtils:
             resp = client.drives().get(driveId=driveId).execute(num_retries=3)
             return resp.get("name")
         except HttpError as e:
-            logging.error(f"Unable to create shared drive with name {name}: {e}")
+            logging.error(f"Unable to get shared drive from {driveId}: {e}")
             return None
 
     @staticmethod
@@ -412,3 +413,25 @@ class DriveUtils:
         except HttpError as e:
             logging.error(f"Unable to upload file {filename} : {e}")
             return None
+
+    @staticmethod
+    def batch_request(requests_info, user_email, client=None):
+        """Send a batch request from request infos dictionary
+
+        { <unique_request_name>: <HttpRequest> }
+        """
+
+        def callback_response(request_id, response, exception, name):
+            if "id" in response:
+                requests_info[name] = response["id"]
+
+        if not client:
+            client = DriveService(user_email).get()
+        try:
+            batch = client.new_batch_http_request()
+            for name, request in requests_info.items():
+                batch.add(request, callback=partial(callback_response, name=name))
+
+            batch.execute()
+        except Exception as e:
+            print(e)

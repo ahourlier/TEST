@@ -516,8 +516,10 @@ class CoproService:
         }
         for folder_name in folders:
             folders[folder_name] = DriveUtils.create_folder(
-                folder_name, copro_folder_id, g.user.email, None, False
+                folder_name, copro_folder_id, g.user.email, None, True
             )
+        DriveUtils.batch_request(folders, g.user.email)
+
         new_copro.sdv2_environement_urbain_folder_id = folders[
             "Environnement urbain et cadre de vie"
         ]
