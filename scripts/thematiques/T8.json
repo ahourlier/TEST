@@ -224,6 +224,13 @@
                 "multiple": false,
                 "scopes": ["sc", "copro", "building"],
                 "value": []
+              },
+              "aide_memoire_de_depense_subventionable": {
+                "type": "textArea",
+                "lg": 12,
+                "multiple": false,
+                "scopes": ["sc", "copro", "lot"],
+                "value": []
               }
             }
           ]
