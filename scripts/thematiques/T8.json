@@ -501,7 +501,7 @@
                           "delta_total_engage_total_verse_demande_solde_financeur": {
                             "type": "currency",
                             "formula": "(montant_aide_engage_subventions_demande_aide_financeur + montant_aide_engage_primes_demande_aide_financeur) - montant_verse_demande_solde_financeur",
-                            "multiple": true,
+                            "multiple": false,
                             "scopes": ["sc", "copro", "lot"],
                             "value": []
                           },
