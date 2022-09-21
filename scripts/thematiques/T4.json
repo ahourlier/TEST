@@ -20,6 +20,12 @@
           "scopes": ["sc", "copro"],
           "value": [
             {
+              "indice_fragilité_coproprietes": {
+                "type": "number",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": []
+              },
               "date_cloture_comptes": {
                 "type": "date",
                 "multiple": false,
