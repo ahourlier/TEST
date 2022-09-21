@@ -1,1501 +1,1011 @@
 {
-	"thematique_name": "EQUIPEMENT_ET_BATI",
-	"scopes": [
-		"sc",
-		"copro",
-		"building",
-		"lot"
-	],
-	"versionnable": [
-		false,
-		false,
-		false,
-		false
-	],
-	"heritable": [
-		false,
-		false,
-		false,
-		false
-	],
-	"extend_parent": [
-		false,
-		false,
-		false,
-		false
-	],
-	"steps": [
-		{
-			"metadata": {
-				"legendes": [],
-				"name": "DONNEES_CADRAGE",
-				"order": 1,
-				"status": "",
-				"scopes": [
-					"sc",
-					"copro",
-					"building",
-					"lot"
-				]
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": false,
-					"scopes": [
-						"sc",
-						"copro",
-						"building",
-						"lot"
-					],
-					"value": [
-						{
-							"servitudes_urbanisme_group": {
-								"type": "group",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro"
-								],
-								"value": [
-									{
-										"servitudes_urbanisme": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"commentaires_servitudes_urbanisme": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										}
-									}
-								]
-							},
-							"existence_carnet_entretien_group": {
-								"type": "group",
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": [
-									{
-										"existence_carnet_entretien": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"date_realisation_existence_carnet_entretien": {
-											"type": "date",
-											"showIf": "existence_carnet_entretien",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"commentaires_existence_carnet_entretien": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										}
-									}
-								]
-							},
-							"existence_audit_energetique_group": {
-								"type": "group",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building",
-									"lot"
-								],
-								"value": [
-									{
-										"existence_audit_energetique": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"date_realisation_existence_audit_energetique": {
-											"type": "date",
-											"showIf": "existence_audit_energetique",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"commentaires_existence_audit_energetique": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										}
-									}
-								]
-							},
-							"existence_dtg_group": {
-								"type": "group",
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": [
-									{
-										"existence_dtg": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"date_realisation_existence_dtg": {
-											"type": "date",
-											"showIf": "existence_dtg",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"commentaires_existence_dtg": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										}
-									}
-								]
-							},
-							"existence_ppt_group": {
-								"type": "group",
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": [
-									{
-										"existence_ppt": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"date_realisation_existence_ppt": {
-											"type": "date",
-											"showIf": "existence_ppt",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"commentaires_realisation_existence_ppt": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"autre_element_existence_ppt": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"commentaires_existence_ppt": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										}
-									}
-								]
-							},
-							"grille_evaluation_degradation_habitat_group": {
-								"type": "group",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building",
-									"lot"
-								],
-								"value": [
-									{
-										"indicateur_degradation": {
-											"type": "number",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"date_realisation_grille_evaluation_degradation_habitat": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										}
-									}
-								]
-							},
-							"diagnostics_techniques_group": {
-								"type": "group",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building",
-									"lot"
-								],
-								"value": [
-									{
-										"thermique_diagnostics_techniques_group": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"thermique_commentaires": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"plomb_dans_peintures_diagnostics_techniques_group": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"plomb_dans_peintures_commentaires": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"plomb_dans_arrivees_eau_diagnostics_techniques_group": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"plomb_dans_arrivees_eau_commentaires": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"termites_diagnostics_techniques_group": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"termites_commentaires": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"merule_diagnostics_techniques_group": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"merule_commentaires": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"amiante_diagnostics_techniques_group": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"amiante_commentaires": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"ascenseur_diagnostics_techniques_group": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"ascenseur_commentaires": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"pcb_diagnostics_techniques_group": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"pcb_commentaires": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"radon_diagnostics_techniques_group": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"radon_commentaires": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"autres_diagnostics": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"commentaires_diagnostics_techniques": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										}
-									}
-								]
-							},
-							"bilan_energetique_avant_apres_travaux_group": {
-								"type": "group",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building",
-									"lot"
-								],
-								"value": [
-									{
-										"etiquette_consommation_group": {
-											"type": "group",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": [
-												{
-													"au_demarrage_notre_accompagnement": {
-														"type": "select",
-														"endpoint": "/referential/enums/?enums=ConsumptionLabel",
-														"multiple": false,
-														"scopes": [
-															"copro",
-															"building",
-															"lot"
-														],
-														"value": []
-													},
-													"projetee_apres_travaux": {
-														"type": "select",
-														"endpoint": "/referential/enums/?enums=ConsumptionLabel",
-														"multiple": false,
-														"scopes": [
-															"copro",
-															"building",
-															"lot"
-														],
-														"value": []
-													},
-													"reelle_apres_travaux": {
-														"type": "select",
-														"endpoint": "/referential/enums/?enums=ConsumptionLabel",
-														"multiple": false,
-														"scopes": [
-															"copro",
-															"building",
-															"lot"
-														],
-														"value": []
-													},
-													"nombre_classes_gagnees_apres_travaux": {
-														"type": "number",
-														"multiple": false,
-														"scopes": [
-															"copro",
-															"building",
-															"lot"
-														],
-														"value": []
-													}
-												}
-											]
-										},
-										"consommation_kwhep_m2_group": {
-											"type": "group",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": [
-												{
-													"avant_travaux_consommation_kwhep_m2": {
-														"type": "number",
-														"multiple": false,
-														"scopes": [
-															"copro",
-															"building",
-															"lot"
-														],
-														"value": []
-													},
-													"apres_travaux_consommation_kwhep_m2": {
-														"type": "number",
-														"multiple": false,
-														"scopes": [
-															"copro",
-															"building",
-															"lot"
-														],
-														"value": []
-													},
-													"reduction_consommation_energie_estimee_apres_travaux": {
-														"type": "number",
-														"multiple": false,
-														"scopes": [
-															"copro",
-															"building",
-															"lot"
-														],
-														"value": []
-													}
-												}
-											]
-										},
-										"total_kwh_an_group": {
-											"type": "group",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": [
-												{
-													"avant_travaux_total_kwh_an": {
-														"type": "number",
-														"multiple": false,
-														"scopes": [
-															"copro",
-															"building",
-															"lot"
-														],
-														"value": []
-													},
-													"apres_travaux_total_kwh_an": {
-														"type": "number",
-														"multiple": false,
-														"scopes": [
-															"copro",
-															"building",
-															"lot"
-														],
-														"value": []
-													}
-												}
-											]
-										},
-										"total_kgeqco2_an_group": {
-											"type": "group",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": [
-												{
-													"avant_travaux_total_kgeqco2_an": {
-														"type": "number",
-														"multiple": false,
-														"scopes": [
-															"copro",
-															"building",
-															"lot"
-														],
-														"value": []
-													},
-													"apres_travaux_total_kgeqco2_an": {
-														"type": "number",
-														"multiple": false,
-														"scopes": [
-															"copro",
-															"building",
-															"lot"
-														],
-														"value": []
-													}
-												}
-											]
-										},
-										"total_kwh_an_production_enr_group": {
-											"type": "group",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building"
-											],
-											"value": [
-												{
-													"avant_travaux_total_kwh_an_production_enr": {
-														"type": "number",
-														"multiple": false,
-														"scopes": [
-															"copro",
-															"building"
-														],
-														"value": []
-													},
-													"apres_travaux_total_kwh_an_production_enr": {
-														"type": "number",
-														"multiple": false,
-														"scopes": [
-															"copro",
-															"building"
-														],
-														"value": []
-													}
-												}
-											]
-										}
-									}
-								]
-							}
-						}
-					]
-				}
-			}
-		},
-		{
-			"metadata": {
-				"legendes": [],
-				"name": "PROCEDURES_ADMINISTRATIVES",
-				"order": 2,
-				"status": "",
-				"scopes": [
-					"sc",
-					"copro",
-					"building",
-					"lot"
-				]
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": false,
-					"scopes": [
-						"sc",
-						"copro",
-						"building",
-						"lot"
-					],
-					"value": [
-						{
-							"en_parties_communes_group": {
-								"type": "group",
-								"multiple": true,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": [
-									{
-										"type_en_parties_communes": {
-											"type": "select",
-											"endpoint": "/referential/enums/?enums=ProcedureCommonParts",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
-										},
-										"date_procedure_en_parties_communes": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
-										},
-										"equipement_concerne_en_parties_communes": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
-										},
-										"levee_procedure_en_parties_communes": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
-										},
-										"commentaires_en_parties_communes": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
-										}
-									}
-								]
-							},
-							"en_parties_privatives_group": {
-								"type": "group",
-								"multiple": true,
-								"scopes": [
-									"copro",
-									"lot"
-								],
-								"value": [
-									{
-										"existence_procedures_en_pp_en_parties_privatives": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"type_en_parties_privatives": {
-											"type": "select",
-											"endpoint": "/referential/enums/?enums=ProcedurePrivateParts",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"date_procedure_en_parties_privatives": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"equipement_concerne_en_parties_privatives": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"suspension_loyers_en_parties_privatives": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"levee_procedure_en_parties_privatives": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"commentaires_en_parties_privatives": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										}
-									}
-								]
-							}
-						}
-					]
-				}
-			}
-		},
-		{
-			"metadata": {
-				"legendes": [],
-				"name": "MISE_EN_PLACE_COMMISSION_TRAVAUX",
-				"order": 3,
-				"status": "",
-				"scopes": [
-					"sc",
-					"copro"
-				]
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": false,
-					"scopes": [
-						"sc",
-						"copro"
-					],
-					"value": [
-						{
-							"reunion_initiale": {
-								"type": "date",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro"
-								],
-								"value": []
-							},
-							"commentaires_mise_en_place_commission_travaux": {
-								"type": "textArea",
-								"lg": 12,
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro"
-								],
-								"value": []
-							},
-							"reunions_successives_group": {
-								"type": "group",
-								"multiple": true,
-								"scopes": [
-									"sc",
-									"copro"
-								],
-								"value": [
-									{
-										"date_reunions_successives": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"commentaires_reunions_successives": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										}
-									}
-								]
-							}
-						}
-					]
-				}
-			}
-		},
-		{
-			"metadata": {
-				"legendes": [],
-				"name": "REALISATION_PLAN_PATRIMOINE",
-				"order": 4,
-				"status": "",
-				"scopes": [
-					"sc",
-					"copro"
-				]
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": false,
-					"scopes": [
-						"sc",
-						"copro"
-					],
-					"value": [
-						{
-							"nature_travaux_t7_group": {
-								"type": "group",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro"
-								],
-								"value": [
-									{
-										"postes_travaux_nature_travaux_t7": {
-											"type": "select",
-											"lg": 12,
-											"endpoint": "/referential/enums/?enums=WorkNatureAssetPlan",
-											"multiple": true,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"description_succincte_poste_poste_nature_travaux_t7": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"annee_chiffrage_nature_travaux_t7": {
-											"type": "date",
-											"format": "YYYY",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"chiffrage_estimatif_ht_travaux_nature_travaux_t7": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"chiffrage_estimatif_ttc_travaux_nature_travaux_t7": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"travaux_realisables_par_tranches_nature_travaux_t7": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"travaux_recevables_aux_subventions_nature_travaux_t7": {
-											"type": "select",
-											"endpoint": "/referential/enums/?enums=WorkEligibleSubsidiesHeritagePlan",
-											"multiple": true,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"priorite_realisation_travaux_chiffres_nature_travaux_t7": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"commentaires_nature_travaux_t7": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										}
-									}
-								]
-							},
-							"travaux_votes_non_realises_t7_group": {
-								"type": "group",
-								"multiple": true,
-								"scopes": [
-									"sc",
-									"copro"
-								],
-								"value": [
-									{
-										"annee_travaux_votes_non_realises_t7": {
-											"type": "date",
-											"format": "YYYY",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"batiment_concerne_travaux_votes_non_realises_t7": {
-											"type": "string",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"montant_ttc_tfc_travaux_votes_non_realises_t7": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										},
-										"nature_travaux_votes_non_realises_travaux_votes_non_realises_t7": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro"
-											],
-											"value": []
-										}
-									}
-								]
-							}
-						}
-					]
-				}
-			}
-		},
-		{
-			"metadata": {
-				"legendes": [],
-				"name": "BESOINS_REALISATION_ETUDES",
-				"order": 5,
-				"status": "",
-				"scopes": [
-					"sc",
-					"copro"
-				]
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": true,
-					"scopes": [
-						"sc",
-						"copro"
-					],
-					"value": [
-						{
-							"nature_etude_a_conduire": {
-								"type": "textArea",
-								"lg": 12,
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro"
-								],
-								"value": []
-							},
-							"date_besoins_realisation_etudes": {
-								"type": "date",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro"
-								],
-								"value": []
-							},
-							"batiment_ou_equipement_concerne_par_etudes": {
-								"type": "textArea",
-								"lg": 12,
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": []
-							}
-						}
-					]
-				}
-			}
-		},
-		{
-			"metadata": {
-				"legendes": [],
-				"name": "APPUI_A_SELECTION_EQUIPE_MOE_CPE",
-				"order": 6,
-				"status": "",
-				"scopes": [
-					"sc",
-					"copro"
-				]
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": true,
-					"scopes": [
-						"sc",
-						"copro"
-					],
-					"value": [
-						{
-							"reunion_presentation_demarche": {
-								"type": "date",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro"
-								],
-								"value": []
-							},
-							"cep_default_moe": {
-								"type": "switch",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro"
-								],
-								"value": []
-							},
-							
-							"diffusion_cahier_charges_selection_moe_cpe": {
-								"type": "date",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro"
-								],
-								"value": []
-							},
-							"reunion_presentation_offres_recues": {
-								"type": "date",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro"
-								],
-								"value": []
-							},
-							"moe_ou_cpe_retenu_a_issue_consultation": {
-								"type": "textArea",
-								"lg": 12,
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro"
-								],
-								"value": []
-							}
-						}
-					]
-				}
-			}
-		},
-		{
-			"metadata": {
-				"legendes": [],
-				"name": "APPUI_AUX_ACTIONS_COMMUNICATION_TRAVAUX",
-				"order": 7,
-				"status": "",
-				"scopes": [
-					"sc",
-					"copro",
-					"building"
-				]
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": true,
-					"scopes": [
-						"sc",
-						"copro",
-						"building"
-					],
-					"value": [
-						{
-							"nature_action": {
-								"type": "select",
-								"endpoint": "/referential/enums/?enums=ActionType",
-								"multiple": true,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"date_appui_aux_actions_communication_travaux": {
-								"type": "date",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"nombre_presents_appui_aux_actions_communication_travaux": {
-								"type": "number",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"public_vise": {
-								"type": "textArea",
-								"lg": 12,
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"responsable_action_appui_aux_actions_communication_travaux": {
-								"type": "select",
-								"endpoint": "/referential/enums/?enums=ActionResponsible",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"commentaires_appui_aux_actions_communication_travaux": {
-								"type": "textArea",
-								"lg": 12,
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							}
-						}
-					]
-				}
-			}
-		},
-		{
-			"metadata": {
-				"legendes": [],
-				"name": "SUIVI_CHANTIER",
-				"order": 8,
-				"status": "",
-				"scopes": [
-					"sc",
-					"copro",
-					"lot"
-				]
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": false,
-					"scopes": [
-						"sc",
-						"copro",
-						"lot"
-					],
-					"value": [
-						{
-							"campagne_travaux_concernee_group": {
-								"type": "group",
-								"multiple": true,
-								"scopes": [
-									"sc",
-									"copro",
-									"lot"
-								],
-								"value": [
-									{
-										"description_campagne_travaux_concernee": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"lot"
-											],
-											"value": []
-										},
-										"reunions_chantier_avec_presence_urbanis": {
-											"type": "date",
-											"multiple": true,
-											"scopes": [
-												"sc",
-												"copro",
-												"lot"
-											],
-											"value": []
-										},
-										"date_lancement_opr": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"lot"
-											],
-											"value": []
-										},
-										"date_reception_travaux": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"lot"
-											],
-											"value": []
-										},
-										"presence_urbanis_a_reception": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"lot"
-											],
-											"value": []
-										},
-										"levee_dernieres_reserves": {
-											"type": "date",
-											"multiple": true,
-											"scopes": [
-												"sc",
-												"copro",
-												"lot"
-											],
-											"value": []
-										},
-										"fin_garantie_parfait_achevement": {
-											"type": "date",
-											"format": "MM/YYYY",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"lot"
-											],
-											"value": []
-										},
-										"fin_garantie_decennale": {
-											"type": "date",
-											"format": "YYYY",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"lot"
-											],
-											"value": []
-										},
-										"commentaires_campagne_travaux_concernee": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"lot"
-											],
-											"value": []
-										}
-									}
-								]
-							}
-						}
-					]
-				}
-			}
-		}
-	]
+  "thematique_name": "EQUIPEMENT_ET_BATI",
+  "scopes": ["sc", "copro", "building", "lot"],
+  "versionnable": [false, false, false, false],
+  "heritable": [false, false, false, false],
+  "extend_parent": [false, false, false, false],
+  "steps": [
+    {
+      "metadata": {
+        "legendes": [],
+        "name": "DONNEES_CADRAGE",
+        "order": 1,
+        "status": "",
+        "scopes": ["sc", "copro", "building", "lot"]
+      },
+      "fields": {
+        "default_group": {
+          "type": "group",
+          "multiple": false,
+          "scopes": ["sc", "copro", "building", "lot"],
+          "value": [
+            {
+              "servitudes_urbanisme_group": {
+                "type": "group",
+                "multiple": false,
+                "scopes": ["sc", "copro"],
+                "value": [
+                  {
+                    "servitudes_urbanisme": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["sc", "copro"],
+                      "value": []
+                    },
+                    "commentaires_servitudes_urbanisme": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["sc", "copro"],
+                      "value": []
+                    }
+                  }
+                ]
+              },
+              "existence_carnet_entretien_group": {
+                "type": "group",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": [
+                  {
+                    "existence_carnet_entretien": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "date_realisation_existence_carnet_entretien": {
+                      "type": "date",
+                      "showIf": "existence_carnet_entretien",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "commentaires_existence_carnet_entretien": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    }
+                  }
+                ]
+              },
+              "existence_audit_energetique_group": {
+                "type": "group",
+                "multiple": false,
+                "scopes": ["copro", "building", "lot"],
+                "value": [
+                  {
+                    "existence_audit_energetique": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "date_realisation_existence_audit_energetique": {
+                      "type": "date",
+                      "showIf": "existence_audit_energetique",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "commentaires_existence_audit_energetique": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    }
+                  }
+                ]
+              },
+              "existence_dtg_group": {
+                "type": "group",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": [
+                  {
+                    "existence_dtg": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "date_realisation_existence_dtg": {
+                      "type": "date",
+                      "showIf": "existence_dtg",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "commentaires_existence_dtg": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    }
+                  }
+                ]
+              },
+              "existence_ppt_group": {
+                "type": "group",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": [
+                  {
+                    "existence_ppt": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "date_realisation_existence_ppt": {
+                      "type": "date",
+                      "showIf": "existence_ppt",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "commentaires_realisation_existence_ppt": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "autre_element_existence_ppt": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "commentaires_existence_ppt": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    }
+                  }
+                ]
+              },
+              "grille_evaluation_degradation_habitat_group": {
+                "type": "group",
+                "multiple": false,
+                "scopes": ["copro", "building", "lot"],
+                "value": [
+                  {
+                    "indicateur_degradation": {
+                      "type": "number",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "date_realisation_grille_evaluation_degradation_habitat": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    }
+                  }
+                ]
+              },
+              "diagnostics_techniques_group": {
+                "type": "group",
+                "multiple": false,
+                "scopes": ["copro", "building", "lot"],
+                "value": [
+                  {
+                    "thermique_diagnostics_techniques_group": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "thermique_commentaires": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "plomb_dans_peintures_diagnostics_techniques_group": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "plomb_dans_peintures_commentaires": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "plomb_dans_arrivees_eau_diagnostics_techniques_group": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "plomb_dans_arrivees_eau_commentaires": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "termites_diagnostics_techniques_group": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "termites_commentaires": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "merule_diagnostics_techniques_group": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "merule_commentaires": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "amiante_diagnostics_techniques_group": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "amiante_commentaires": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "ascenseur_diagnostics_techniques_group": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "ascenseur_commentaires": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "pcb_diagnostics_techniques_group": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "pcb_commentaires": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "radon_diagnostics_techniques_group": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "radon_commentaires": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "autres_diagnostics": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "commentaires_diagnostics_techniques": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    }
+                  }
+                ]
+              },
+              "bilan_energetique_avant_apres_travaux_group": {
+                "type": "group",
+                "multiple": false,
+                "scopes": ["copro", "building", "lot"],
+                "value": [
+                  {
+                    "etiquette_consommation_group": {
+                      "type": "group",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": [
+                        {
+                          "au_demarrage_notre_accompagnement": {
+                            "type": "select",
+                            "endpoint": "/referential/enums/?enums=ConsumptionLabel",
+                            "multiple": false,
+                            "scopes": ["copro", "building", "lot"],
+                            "value": []
+                          },
+                          "projetee_apres_travaux": {
+                            "type": "select",
+                            "endpoint": "/referential/enums/?enums=ConsumptionLabel",
+                            "multiple": false,
+                            "scopes": ["copro", "building", "lot"],
+                            "value": []
+                          },
+                          "reelle_apres_travaux": {
+                            "type": "select",
+                            "endpoint": "/referential/enums/?enums=ConsumptionLabel",
+                            "multiple": false,
+                            "scopes": ["copro", "building", "lot"],
+                            "value": []
+                          },
+                          "nombre_classes_gagnees_apres_travaux": {
+                            "type": "number",
+                            "multiple": false,
+                            "scopes": ["copro", "building", "lot"],
+                            "value": []
+                          }
+                        }
+                      ]
+                    },
+                    "consommation_kwhep_m2_group": {
+                      "type": "group",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": [
+                        {
+                          "avant_travaux_consommation_kwhep_m2": {
+                            "type": "number",
+                            "multiple": false,
+                            "scopes": ["copro", "building", "lot"],
+                            "value": []
+                          },
+                          "apres_travaux_consommation_kwhep_m2": {
+                            "type": "number",
+                            "multiple": false,
+                            "scopes": ["copro", "building", "lot"],
+                            "value": []
+                          },
+                          "reduction_consommation_energie_estimee_apres_travaux": {
+                            "type": "number",
+                            "multiple": false,
+                            "scopes": ["copro", "building", "lot"],
+                            "value": []
+                          }
+                        }
+                      ]
+                    },
+                    "total_kwh_an_group": {
+                      "type": "group",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": [
+                        {
+                          "avant_travaux_total_kwh_an": {
+                            "type": "number",
+                            "multiple": false,
+                            "scopes": ["copro", "building", "lot"],
+                            "value": []
+                          },
+                          "apres_travaux_total_kwh_an": {
+                            "type": "number",
+                            "multiple": false,
+                            "scopes": ["copro", "building", "lot"],
+                            "value": []
+                          }
+                        }
+                      ]
+                    },
+                    "total_kgeqco2_an_group": {
+                      "type": "group",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": [
+                        {
+                          "avant_travaux_total_kgeqco2_an": {
+                            "type": "number",
+                            "multiple": false,
+                            "scopes": ["copro", "building", "lot"],
+                            "value": []
+                          },
+                          "apres_travaux_total_kgeqco2_an": {
+                            "type": "number",
+                            "multiple": false,
+                            "scopes": ["copro", "building", "lot"],
+                            "value": []
+                          }
+                        }
+                      ]
+                    },
+                    "total_kwh_an_production_enr_group": {
+                      "type": "group",
+                      "multiple": false,
+                      "scopes": ["copro", "building"],
+                      "value": [
+                        {
+                          "avant_travaux_total_kwh_an_production_enr": {
+                            "type": "number",
+                            "multiple": false,
+                            "scopes": ["copro", "building"],
+                            "value": []
+                          },
+                          "apres_travaux_total_kwh_an_production_enr": {
+                            "type": "number",
+                            "multiple": false,
+                            "scopes": ["copro", "building"],
+                            "value": []
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "metadata": {
+        "legendes": [],
+        "name": "PROCEDURES_ADMINISTRATIVES",
+        "order": 2,
+        "status": "",
+        "scopes": ["sc", "copro", "building", "lot"]
+      },
+      "fields": {
+        "default_group": {
+          "type": "group",
+          "multiple": false,
+          "scopes": ["sc", "copro", "building", "lot"],
+          "value": [
+            {
+              "en_parties_communes_group": {
+                "type": "group",
+                "multiple": true,
+                "scopes": ["sc", "copro", "building"],
+                "value": [
+                  {
+                    "type_en_parties_communes": {
+                      "type": "select",
+                      "endpoint": "/referential/enums/?enums=ProcedureCommonParts",
+                      "multiple": false,
+                      "scopes": ["sc", "copro", "building"],
+                      "value": []
+                    },
+                    "date_procedure_en_parties_communes": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["sc", "copro", "building"],
+                      "value": []
+                    },
+                    "equipement_concerne_en_parties_communes": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["sc", "copro", "building"],
+                      "value": []
+                    },
+                    "levee_procedure_en_parties_communes": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["sc", "copro", "building"],
+                      "value": []
+                    },
+                    "commentaires_en_parties_communes": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["sc", "copro", "building"],
+                      "value": []
+                    }
+                  }
+                ]
+              },
+              "en_parties_privatives_group": {
+                "type": "group",
+                "multiple": true,
+                "scopes": ["copro", "lot"],
+                "value": [
+                  {
+                    "existence_procedures_en_pp_en_parties_privatives": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "type_en_parties_privatives": {
+                      "type": "select",
+                      "endpoint": "/referential/enums/?enums=ProcedurePrivateParts",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "date_procedure_en_parties_privatives": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "equipement_concerne_en_parties_privatives": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "suspension_loyers_en_parties_privatives": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "levee_procedure_en_parties_privatives": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "commentaires_en_parties_privatives": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "metadata": {
+        "legendes": [],
+        "name": "MISE_EN_PLACE_COMMISSION_TRAVAUX",
+        "order": 3,
+        "status": "",
+        "scopes": ["sc", "copro"]
+      },
+      "fields": {
+        "default_group": {
+          "type": "group",
+          "multiple": false,
+          "scopes": ["sc", "copro"],
+          "value": [
+            {
+              "reunion_initiale": {
+                "type": "date",
+                "multiple": false,
+                "scopes": ["sc", "copro"],
+                "value": []
+              },
+              "commentaires_mise_en_place_commission_travaux": {
+                "type": "textArea",
+                "lg": 12,
+                "multiple": false,
+                "scopes": ["sc", "copro"],
+                "value": []
+              },
+              "reunions_successives_group": {
+                "type": "group",
+                "multiple": true,
+                "scopes": ["sc", "copro"],
+                "value": [
+                  {
+                    "date_reunions_successives": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["sc", "copro"],
+                      "value": []
+                    },
+                    "commentaires_reunions_successives": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["sc", "copro"],
+                      "value": []
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "metadata": {
+        "legendes": [],
+        "name": "REALISATION_PLAN_PATRIMOINE",
+        "order": 4,
+        "status": "",
+        "scopes": ["sc", "copro"]
+      },
+      "fields": {
+        "default_group": {
+          "type": "group",
+          "multiple": false,
+          "scopes": ["sc", "copro"],
+          "value": [
+            {
+              "nature_travaux_t7_group": {
+                "type": "group",
+                "multiple": false,
+                "scopes": ["sc", "copro"],
+                "value": [
+                  {
+                    "postes_travaux_nature_travaux_t7": {
+                      "type": "select",
+                      "lg": 12,
+                      "endpoint": "/referential/enums/?enums=WorkNatureAssetPlan",
+                      "multiple": true,
+                      "scopes": ["sc", "copro"],
+                      "value": []
+                    },
+                    "description_succincte_poste_poste_nature_travaux_t7": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["sc", "copro"],
+                      "value": []
+                    },
+                    "annee_chiffrage_nature_travaux_t7": {
+                      "type": "date",
+                      "format": "YYYY",
+                      "multiple": false,
+                      "scopes": ["sc", "copro"],
+                      "value": []
+                    },
+                    "chiffrage_estimatif_ht_travaux_nature_travaux_t7": {
+                      "type": "currency",
+                      "multiple": false,
+                      "scopes": ["sc", "copro"],
+                      "value": []
+                    },
+                    "chiffrage_estimatif_ttc_travaux_nature_travaux_t7": {
+                      "type": "currency",
+                      "multiple": false,
+                      "scopes": ["sc", "copro"],
+                      "value": []
+                    },
+                    "travaux_realisables_par_tranches_nature_travaux_t7": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["sc", "copro"],
+                      "value": []
+                    },
+                    "travaux_recevables_aux_subventions_nature_travaux_t7": {
+                      "type": "select",
+                      "endpoint": "/referential/enums/?enums=WorkEligibleSubsidiesHeritagePlan",
+                      "multiple": true,
+                      "scopes": ["sc", "copro"],
+                      "value": []
+                    },
+                    "priorite_realisation_travaux_chiffres_nature_travaux_t7": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["sc", "copro"],
+                      "value": []
+                    },
+                    "commentaires_nature_travaux_t7": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["sc", "copro"],
+                      "value": []
+                    }
+                  }
+                ]
+              },
+              "travaux_votes_non_realises_t7_group": {
+                "type": "group",
+                "multiple": true,
+                "scopes": ["sc", "copro"],
+                "value": [
+                  {
+                    "annee_travaux_votes_non_realises_t7": {
+                      "type": "date",
+                      "format": "YYYY",
+                      "multiple": false,
+                      "scopes": ["sc", "copro"],
+                      "value": []
+                    },
+                    "batiment_concerne_travaux_votes_non_realises_t7": {
+                      "type": "string",
+                      "multiple": false,
+                      "scopes": ["sc", "copro"],
+                      "value": []
+                    },
+                    "montant_ttc_tfc_travaux_votes_non_realises_t7": {
+                      "type": "currency",
+                      "multiple": false,
+                      "scopes": ["sc", "copro"],
+                      "value": []
+                    },
+                    "nature_travaux_votes_non_realises_travaux_votes_non_realises_t7": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["sc", "copro"],
+                      "value": []
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "metadata": {
+        "legendes": [],
+        "name": "BESOINS_REALISATION_ETUDES",
+        "order": 5,
+        "status": "",
+        "scopes": ["sc", "copro"]
+      },
+      "fields": {
+        "default_group": {
+          "type": "group",
+          "multiple": true,
+          "scopes": ["sc", "copro"],
+          "value": [
+            {
+              "nature_etude_a_conduire": {
+                "type": "textArea",
+                "lg": 12,
+                "multiple": false,
+                "scopes": ["sc", "copro"],
+                "value": []
+              },
+              "date_besoins_realisation_etudes": {
+                "type": "date",
+                "multiple": false,
+                "scopes": ["sc", "copro"],
+                "value": []
+              },
+              "batiment_ou_equipement_concerne_par_etudes": {
+                "type": "textArea",
+                "lg": 12,
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": []
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "metadata": {
+        "legendes": [],
+        "name": "APPUI_A_SELECTION_EQUIPE_MOE_CPE",
+        "order": 6,
+        "status": "",
+        "scopes": ["sc", "copro"]
+      },
+      "fields": {
+        "default_group": {
+          "type": "group",
+          "multiple": true,
+          "scopes": ["sc", "copro"],
+          "value": [
+            {
+              "reunion_presentation_demarche": {
+                "type": "date",
+                "multiple": false,
+                "scopes": ["sc", "copro"],
+                "value": []
+              },
+              "cep_default_moe": {
+                "type": "switch",
+                "multiple": false,
+                "scopes": ["sc", "copro"],
+                "value": []
+              },
+
+              "diffusion_cahier_charges_selection_moe_cpe": {
+                "type": "date",
+                "multiple": false,
+                "scopes": ["sc", "copro"],
+                "value": []
+              },
+              "reunion_presentation_offres_recues": {
+                "type": "date",
+                "multiple": false,
+                "scopes": ["sc", "copro"],
+                "value": []
+              },
+              "moe_ou_cpe_retenu_a_issue_consultation": {
+                "type": "textArea",
+                "lg": 12,
+                "multiple": false,
+                "scopes": ["sc", "copro"],
+                "value": []
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "metadata": {
+        "legendes": [],
+        "name": "APPUI_AUX_ACTIONS_COMMUNICATION_TRAVAUX",
+        "order": 7,
+        "status": "",
+        "scopes": ["sc", "copro", "building"]
+      },
+      "fields": {
+        "default_group": {
+          "type": "group",
+          "multiple": true,
+          "scopes": ["sc", "copro", "building"],
+          "value": [
+            {
+              "nature_action": {
+                "type": "select",
+                "endpoint": "/referential/enums/?enums=ActionType",
+                "multiple": true,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "date_appui_aux_actions_communication_travaux": {
+                "type": "date",
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "nombre_presents_appui_aux_actions_communication_travaux": {
+                "type": "number",
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "public_vise": {
+                "type": "textArea",
+                "lg": 12,
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "responsable_action_appui_aux_actions_communication_travaux": {
+                "type": "select",
+                "endpoint": "/referential/enums/?enums=ActionResponsible",
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "commentaires_appui_aux_actions_communication_travaux": {
+                "type": "textArea",
+                "lg": 12,
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "metadata": {
+        "legendes": [],
+        "name": "SUIVI_CHANTIER",
+        "order": 8,
+        "status": "",
+        "scopes": ["sc", "copro", "lot"]
+      },
+      "fields": {
+        "default_group": {
+          "type": "group",
+          "multiple": false,
+          "scopes": ["sc", "copro", "lot"],
+          "value": [
+            {
+              "campagne_travaux_concernee_group": {
+                "type": "group",
+                "multiple": true,
+                "scopes": ["sc", "copro", "lot"],
+                "value": [
+                  {
+                    "description_campagne_travaux_concernee": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["sc", "copro", "lot"],
+                      "value": []
+                    },
+                    "reunions_chantier_avec_presence_urbanis": {
+                      "type": "date",
+                      "multiple": true,
+                      "scopes": ["sc", "copro", "lot"],
+                      "value": []
+                    },
+                    "date_lancement_opr": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["sc", "copro", "lot"],
+                      "value": []
+                    },
+                    "date_reception_travaux": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["sc", "copro", "lot"],
+                      "value": []
+                    },
+                    "presence_urbanis_a_reception": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["sc", "copro", "lot"],
+                      "value": []
+                    },
+                    "levee_dernieres_reserves": {
+                      "type": "date",
+                      "multiple": true,
+                      "scopes": ["sc", "copro", "lot"],
+                      "value": []
+                    },
+                    "fin_garantie_parfait_achevement": {
+                      "type": "date",
+                      "format": "MM/YYYY",
+                      "multiple": false,
+                      "scopes": ["sc", "copro", "lot"],
+                      "value": []
+                    },
+                    "fin_garantie_decennale": {
+                      "type": "date",
+                      "format": "YYYY",
+                      "multiple": false,
+                      "scopes": ["sc", "copro", "lot"],
+                      "value": []
+                    },
+                    "commentaires_campagne_travaux_concernee": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["sc", "copro", "lot"],
+                      "value": []
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
 }

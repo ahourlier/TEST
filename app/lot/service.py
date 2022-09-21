@@ -208,22 +208,20 @@ class LotService:
             query = query.join(
                 sub_model,
                 or_(Copro.address_1_id == Address.id, Copro.address_2_id == Address.id),
-                isouter=True
+                isouter=True,
             )
         elif sub_model == User:
             query = query.join(Copro)
-            query = query.join(
-                User,
-                Copro.user_in_charge_id == User.id,
-                isouter=True
-            )
+            query = query.join(User, Copro.user_in_charge_id == User.id, isouter=True)
         elif sub_model == Person:
             query = query.join(LotOwner)
             query = query.join(Person, LotOwner.c.owner_id == Person.id, isouter=True)
         elif sub_model == PhoneNumber:
             query = query.join(LotOwner)
             query = query.join(Person, LotOwner.c.owner_id == Person.id)
-            query = query.join(PhoneNumber, Person.id == PhoneNumber.resource_id, isouter=True)
+            query = query.join(
+                PhoneNumber, Person.id == PhoneNumber.resource_id, isouter=True
+            )
         else:
             query = query.join(sub_model, isouter=True)
 

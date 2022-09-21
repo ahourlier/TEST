@@ -1,930 +1,617 @@
 {
-	"thematique_name": "CHARGES",
-	"scopes": [
-		"sc",
-		"copro",
-		"building"
-	],
-	"versionnable": [
-		true,
-		true,
-		false
-	],
-	"heritable": [
-		false,
-		true,
-		false
-	],
-	"extend_parent": [
-		false,
-		false,
-		true
-	],
-	"steps": [
-		{
-			"metadata": {
-				"legendes": [],
-				"name": "DONNEES_CADRAGE",
-				"order": 1,
-				"scopes": [
-					"sc",
-					"copro",
-					"building"
-				],
-				"status": ""
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": false,
-					"scopes": [
-						"sc",
-						"copro",
-						"building"
-					],
-					"value": [
-						{
-							"total_lots_principaux_donnees_cadrage_t5": {
-								"type": "number",
-								"TODO": "CHAMP RAPPELE",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"budget_realise_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"filler": {
-								"type": "filler",
-								"scopes": [
-									"sc"
-								]
-							},
-							"eau_froide_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"eau_froide_depense_lot_principal_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"formula": "eau_froide_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1 )",
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"electricite_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"electricite_depense_lot_principal_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"formula": "electricite_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"chauffage_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"chauffage_depense_lot_principal_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"formula": "chauffage_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"eau_chaude_sanitaire_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"eau_chaude_sanitaire_depense_lot_principal_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"formula": "eau_chaude_sanitaire_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"assurance_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"assurance_depense_lot_principal_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"formula": "assurance_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"frais_gestion_et_honoraires_syndic_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"frais_gestion_et_honoraires_syndic_depense_lot_principal_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"formula": "frais_gestion_et_honoraires_syndic_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"frais_contentieux_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"frais_contentieux_depense_lot_principal_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"formula": "frais_contentieux_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"impots_taxes_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"impots_taxes_depense_lot_principal_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"formula": "impots_taxes_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"nettoyage_locaux_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"nettoyage_locaux_depense_lot_principal_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"formula": "nettoyage_locaux_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"entretien_et_petites_reparations_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"entretien_et_petites_reparations_depense_lot_principal_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"formula": "entretien_et_petites_reparations_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"contrats_entretien_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"contrats_entretien_depense_lot_principal_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"formula": "contrats_entretien_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"frais_personnel_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"frais_personnel_depense_lot_principal_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"formula": "frais_personnel_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"ascenseurs_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"ascenseurs_depense_lot_principal_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"formula": "ascenseurs_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"produits_materiel_fournitures_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"produits_materiel_fournitures_depense_lot_principal_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"formula": "produits_materiel_fournitures_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"tiers_intervenants_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"tiers_intervenants_depense_lot_principal_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"formula": "tiers_intervenants_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"frais_conseil_syndical_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"frais_conseil_syndical_depense_lot_principal_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"formula": "frais_conseil_syndical_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"structure_combinee_syndical_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"structure_combinee_syndical_depense_lot_principal_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"formula": "structure_combinee_syndical_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"divers_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"divers_depense_lot_principal_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"formula": "divers_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"charges_pour_travaux_et_operations_exceptionnelles_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"charges_pour_travaux_et_operations_exceptionnelles_depense_lot_principal_donnees_cadrage_t5": {
-								"type": "currency",
-								"multiple": false,
-								"formula": "charges_pour_travaux_et_operations_exceptionnelles_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
-								"scopes": [
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"postes_concernes_donnees_cadrage_t5": {
-								"type": "textArea",
-								"lg": 12,
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"reunion_presentation_au_cs_donnees_cadrage_t5": {
-								"type": "date",
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": []
-							},
-							"adhesion_a_demarche_donnees_cadrage_t5": {
-								"type": "switch",
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": []
-							}
-						}
-					]
-				}
-			}
-		},
-		{
-			"metadata": {
-				"legendes": [],
-				"name": "ACCOMPAGNEMENT_CONTROLE_COMPTES",
-				"order": 2,
-				"scopes": [
-					"copro"
-				],
-				"status": ""
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": true,
-					"scopes": [
-						"copro"
-					],
-					"value": [
-						{
-							"date_reunion_accompagnement_controle_comptes": {
-								"type": "date",
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": []
-							},
-							"presents_accompagnement_controle_comptes": {
-								"type": "textArea",
-								"lg": 12,
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": []
-							},
-							"travail_engager_suite_controle_comptes": {
-								"type": "switch",
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": []
-							}
-						}
-					]
-				}
-			}
-		},
-		{
-			"metadata": {
-				"legendes": [],
-				"name": "MISE_EN_PLACE_COMMISSION_COMPTES_ET_CHARGES_ET_HIERARCHISATION",
-				"order": 3,
-				"scopes": [
-					"sc",
-					"copro",
-					"building"
-				],
-				"status": ""
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": false,
-					"scopes": [
-						"sc",
-						"copro",
-						"building"
-					],
-					"value": [
-						{
-							"creation_mise_en_place_commission_comptes_et_charges_et_hierarchisation": {
-								"type": "date",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro"
-								],
-								"value": []
-							},
-							"membres_mise_en_place_commission_comptes_et_charges_et_hierarchisation": {
-								"type": "textArea",
-								"lg": 12,
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro"
-								],
-								"value": []
-							},
-							"analyse_collegiale_contrats_cibles_group": {
-								"type": "group",
-								"multiple": true,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": [
-									{
-										"contrat_analyse_analyse_collegiale_contrats_cibles": {
-											"type": "string",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
-										},
-										"numero_contrat_analyse_collegiale_contrats_cibles": {
-											"type": "string",
-											"rules": "alpha_num",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
-										},
-										"montant_initial_ttc_analyse_collegiale_contrats_cibles": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
-										},
-										"montant_revise_ttc_analyse_collegiale_contrats_cibles": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
-										},
-										"gain_sur_contrat_ttc_analyse_collegiale_contrats_cibles": {
-											"type": "currency",
-											"formula": "montant_initial_ttc_analyse_collegiale_contrats_cibles - montant_revise_ttc_analyse_collegiale_contrats_cibles",
-											"multiple": false,
-											"scopes": [
-												"sc",
-												"copro",
-												"building"
-											],
-											"value": []
-										}
-									}
-								]
-							}
-						}
-					]
-				}
-			}
-		},
-		{
-			"metadata": {
-				"legendes": [],
-				"name": "ASSISTANCE_RENEGOCIATION",
-				"order": 4,
-				"scopes": [
-					"sc",
-					"copro",
-					"building"
-				],
-				"status": ""
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": true,
-					"scopes": [
-						"sc",
-						"copro",
-						"building"
-					],
-					"value": [
-						{
-							"poste_concerne_assistance_renegociation": {
-								"type": "string",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"renegociation_decidee_assistance_renegociation": {
-								"type": "switch",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"rencontre_prestataire_assistance_renegociation": {
-								"type": "date",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"presents_assistance_renegociation": {
-								"type": "textArea",
-								"lg": 12,
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"resultat_assistance_renegociation": {
-								"type": "select",
-								"endpoint": "/referential/enums/?enums=Renegociation",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							}
-						}
-					]
-				}
-			}
-		},
-		{
-			"metadata": {
-				"legendes": [],
-				"name": "ASSISTANCE_REMISE_EN_CONCURRENCE",
-				"order": 5,
-				"scopes": [
-					"sc",
-					"copro",
-					"building"
-				],
-				"status": ""
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": true,
-					"scopes": [
-						"sc",
-						"copro",
-						"building"
-					],
-					"value": [
-						{
-							"remise_en_concurrence_decidee_assistance_remise_en_concurrence": {
-								"type": "switch",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"lancement_consultation_assistance_remise_en_concurrence": {
-								"type": "date",
-								"multiple": false,
-								"showIf": "remise_en_concurrence_decidee_assistance_remise_en_concurrence",
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"reception_offres_assistance_remise_en_concurrence": {
-								"type": "date",
-								"multiple": false,
-								"showIf": "remise_en_concurrence_decidee_assistance_remise_en_concurrence",
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"reunion_restitution_analyse_assistance_remise_en_concurrence": {
-								"type": "date",
-								"multiple": false,
-								"showIf": "remise_en_concurrence_decidee_assistance_remise_en_concurrence",
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"rencontre_prestataire_assistance_remise_en_concurrence": {
-								"type": "date",
-								"multiple": false,
-								"showIf": "remise_en_concurrence_decidee_assistance_remise_en_concurrence",
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"presents_assistance_remise_en_concurrence": {
-								"type": "textArea",
-								"lg": 12,
-								"multiple": false,
-								"showIf": "remise_en_concurrence_decidee_assistance_remise_en_concurrence",
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"resultat_assistance_remise_en_concurrence": {
-								"type": "select",
-								"endpoint": "/referential/enums/?enums=CompetitionReopening",
-								"multiple": false,
-								"showIf": "remise_en_concurrence_decidee_assistance_remise_en_concurrence",
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							}
-						}
-					]
-				}
-			}
-		},
-		{
-			"metadata": {
-				"legendes": [],
-				"name": "COMPTE_RENDU_ACTIONS_ET_LEURS_RESULTATS",
-				"order": 6,
-				"scopes": [
-					"sc",
-					"copro",
-					"building"
-				],
-				"status": ""
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": true,
-					"scopes": [
-						"sc",
-						"copro",
-						"building"
-					],
-					"value": [
-						{
-							"poste_concerne_compte_rendu_actions_et_leurs_resultats": {
-								"type": "string",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"date_decision_compte_rendu_actions_et_leurs_resultats": {
-								"type": "date",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"nature_decision_compte_rendu_actions_et_leurs_resultats": {
-								"type": "string",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							}
-						}
-					]
-				}
-			}
-		},
-		{
-			"metadata": {
-				"legendes": [],
-				"name": "MISE_EN_PLACE_REPETITION_PERIODIQUE_ACTIONS",
-				"order": 7,
-				"scopes": [
-					"sc",
-					"copro",
-					"building"
-				],
-				"status": ""
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": false,
-					"scopes": [
-						"sc",
-						"copro",
-						"building"
-					],
-					"value": [
-						{
-							"date_decision_mise_en_place_repetition_periodique_actions": {
-								"type": "date",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							},
-							"nature_decision_mise_en_place_repetition_periodique_actions": {
-								"type": "string",
-								"multiple": false,
-								"scopes": [
-									"sc",
-									"copro",
-									"building"
-								],
-								"value": []
-							}
-						}
-					]
-				}
-			}
-		}
-	]
+  "thematique_name": "CHARGES",
+  "scopes": ["sc", "copro", "building"],
+  "versionnable": [true, true, false],
+  "heritable": [false, true, false],
+  "extend_parent": [false, false, true],
+  "steps": [
+    {
+      "metadata": {
+        "legendes": [],
+        "name": "DONNEES_CADRAGE",
+        "order": 1,
+        "scopes": ["sc", "copro", "building"],
+        "status": ""
+      },
+      "fields": {
+        "default_group": {
+          "type": "group",
+          "multiple": false,
+          "scopes": ["sc", "copro", "building"],
+          "value": [
+            {
+              "total_lots_principaux_donnees_cadrage_t5": {
+                "type": "number",
+                "TODO": "CHAMP RAPPELE",
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "budget_realise_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "filler": {
+                "type": "filler",
+                "scopes": ["sc"]
+              },
+              "eau_froide_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "eau_froide_depense_lot_principal_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "formula": "eau_froide_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1 )",
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "electricite_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "electricite_depense_lot_principal_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "formula": "electricite_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "chauffage_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "chauffage_depense_lot_principal_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "formula": "chauffage_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "eau_chaude_sanitaire_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "eau_chaude_sanitaire_depense_lot_principal_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "formula": "eau_chaude_sanitaire_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "assurance_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "assurance_depense_lot_principal_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "formula": "assurance_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "frais_gestion_et_honoraires_syndic_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "frais_gestion_et_honoraires_syndic_depense_lot_principal_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "formula": "frais_gestion_et_honoraires_syndic_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "frais_contentieux_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "frais_contentieux_depense_lot_principal_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "formula": "frais_contentieux_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "impots_taxes_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "impots_taxes_depense_lot_principal_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "formula": "impots_taxes_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "nettoyage_locaux_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "nettoyage_locaux_depense_lot_principal_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "formula": "nettoyage_locaux_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "entretien_et_petites_reparations_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "entretien_et_petites_reparations_depense_lot_principal_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "formula": "entretien_et_petites_reparations_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "contrats_entretien_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "contrats_entretien_depense_lot_principal_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "formula": "contrats_entretien_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "frais_personnel_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "frais_personnel_depense_lot_principal_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "formula": "frais_personnel_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "ascenseurs_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "ascenseurs_depense_lot_principal_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "formula": "ascenseurs_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "produits_materiel_fournitures_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "produits_materiel_fournitures_depense_lot_principal_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "formula": "produits_materiel_fournitures_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "tiers_intervenants_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "tiers_intervenants_depense_lot_principal_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "formula": "tiers_intervenants_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "frais_conseil_syndical_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "frais_conseil_syndical_depense_lot_principal_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "formula": "frais_conseil_syndical_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "structure_combinee_syndical_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "structure_combinee_syndical_depense_lot_principal_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "formula": "structure_combinee_syndical_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "divers_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "divers_depense_lot_principal_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "formula": "divers_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "charges_pour_travaux_et_operations_exceptionnelles_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "charges_pour_travaux_et_operations_exceptionnelles_depense_lot_principal_donnees_cadrage_t5": {
+                "type": "currency",
+                "multiple": false,
+                "formula": "charges_pour_travaux_et_operations_exceptionnelles_donnees_cadrage_t5/(total_lots_principaux_donnees_cadrage_t5 || 1)",
+                "scopes": ["copro", "building"],
+                "value": []
+              },
+              "postes_concernes_donnees_cadrage_t5": {
+                "type": "textArea",
+                "lg": 12,
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "reunion_presentation_au_cs_donnees_cadrage_t5": {
+                "type": "date",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": []
+              },
+              "adhesion_a_demarche_donnees_cadrage_t5": {
+                "type": "switch",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": []
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "metadata": {
+        "legendes": [],
+        "name": "ACCOMPAGNEMENT_CONTROLE_COMPTES",
+        "order": 2,
+        "scopes": ["copro"],
+        "status": ""
+      },
+      "fields": {
+        "default_group": {
+          "type": "group",
+          "multiple": true,
+          "scopes": ["copro"],
+          "value": [
+            {
+              "date_reunion_accompagnement_controle_comptes": {
+                "type": "date",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": []
+              },
+              "presents_accompagnement_controle_comptes": {
+                "type": "textArea",
+                "lg": 12,
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": []
+              },
+              "travail_engager_suite_controle_comptes": {
+                "type": "switch",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": []
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "metadata": {
+        "legendes": [],
+        "name": "MISE_EN_PLACE_COMMISSION_COMPTES_ET_CHARGES_ET_HIERARCHISATION",
+        "order": 3,
+        "scopes": ["sc", "copro", "building"],
+        "status": ""
+      },
+      "fields": {
+        "default_group": {
+          "type": "group",
+          "multiple": false,
+          "scopes": ["sc", "copro", "building"],
+          "value": [
+            {
+              "creation_mise_en_place_commission_comptes_et_charges_et_hierarchisation": {
+                "type": "date",
+                "multiple": false,
+                "scopes": ["sc", "copro"],
+                "value": []
+              },
+              "membres_mise_en_place_commission_comptes_et_charges_et_hierarchisation": {
+                "type": "textArea",
+                "lg": 12,
+                "multiple": false,
+                "scopes": ["sc", "copro"],
+                "value": []
+              },
+              "analyse_collegiale_contrats_cibles_group": {
+                "type": "group",
+                "multiple": true,
+                "scopes": ["sc", "copro", "building"],
+                "value": [
+                  {
+                    "contrat_analyse_analyse_collegiale_contrats_cibles": {
+                      "type": "string",
+                      "multiple": false,
+                      "scopes": ["sc", "copro", "building"],
+                      "value": []
+                    },
+                    "numero_contrat_analyse_collegiale_contrats_cibles": {
+                      "type": "string",
+                      "rules": "alpha_num",
+                      "multiple": false,
+                      "scopes": ["sc", "copro", "building"],
+                      "value": []
+                    },
+                    "montant_initial_ttc_analyse_collegiale_contrats_cibles": {
+                      "type": "currency",
+                      "multiple": false,
+                      "scopes": ["sc", "copro", "building"],
+                      "value": []
+                    },
+                    "montant_revise_ttc_analyse_collegiale_contrats_cibles": {
+                      "type": "currency",
+                      "multiple": false,
+                      "scopes": ["sc", "copro", "building"],
+                      "value": []
+                    },
+                    "gain_sur_contrat_ttc_analyse_collegiale_contrats_cibles": {
+                      "type": "currency",
+                      "formula": "montant_initial_ttc_analyse_collegiale_contrats_cibles - montant_revise_ttc_analyse_collegiale_contrats_cibles",
+                      "multiple": false,
+                      "scopes": ["sc", "copro", "building"],
+                      "value": []
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "metadata": {
+        "legendes": [],
+        "name": "ASSISTANCE_RENEGOCIATION",
+        "order": 4,
+        "scopes": ["sc", "copro", "building"],
+        "status": ""
+      },
+      "fields": {
+        "default_group": {
+          "type": "group",
+          "multiple": true,
+          "scopes": ["sc", "copro", "building"],
+          "value": [
+            {
+              "poste_concerne_assistance_renegociation": {
+                "type": "string",
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "renegociation_decidee_assistance_renegociation": {
+                "type": "switch",
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "rencontre_prestataire_assistance_renegociation": {
+                "type": "date",
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "presents_assistance_renegociation": {
+                "type": "textArea",
+                "lg": 12,
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "resultat_assistance_renegociation": {
+                "type": "select",
+                "endpoint": "/referential/enums/?enums=Renegociation",
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "metadata": {
+        "legendes": [],
+        "name": "ASSISTANCE_REMISE_EN_CONCURRENCE",
+        "order": 5,
+        "scopes": ["sc", "copro", "building"],
+        "status": ""
+      },
+      "fields": {
+        "default_group": {
+          "type": "group",
+          "multiple": true,
+          "scopes": ["sc", "copro", "building"],
+          "value": [
+            {
+              "remise_en_concurrence_decidee_assistance_remise_en_concurrence": {
+                "type": "switch",
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "lancement_consultation_assistance_remise_en_concurrence": {
+                "type": "date",
+                "multiple": false,
+                "showIf": "remise_en_concurrence_decidee_assistance_remise_en_concurrence",
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "reception_offres_assistance_remise_en_concurrence": {
+                "type": "date",
+                "multiple": false,
+                "showIf": "remise_en_concurrence_decidee_assistance_remise_en_concurrence",
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "reunion_restitution_analyse_assistance_remise_en_concurrence": {
+                "type": "date",
+                "multiple": false,
+                "showIf": "remise_en_concurrence_decidee_assistance_remise_en_concurrence",
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "rencontre_prestataire_assistance_remise_en_concurrence": {
+                "type": "date",
+                "multiple": false,
+                "showIf": "remise_en_concurrence_decidee_assistance_remise_en_concurrence",
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "presents_assistance_remise_en_concurrence": {
+                "type": "textArea",
+                "lg": 12,
+                "multiple": false,
+                "showIf": "remise_en_concurrence_decidee_assistance_remise_en_concurrence",
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "resultat_assistance_remise_en_concurrence": {
+                "type": "select",
+                "endpoint": "/referential/enums/?enums=CompetitionReopening",
+                "multiple": false,
+                "showIf": "remise_en_concurrence_decidee_assistance_remise_en_concurrence",
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "metadata": {
+        "legendes": [],
+        "name": "COMPTE_RENDU_ACTIONS_ET_LEURS_RESULTATS",
+        "order": 6,
+        "scopes": ["sc", "copro", "building"],
+        "status": ""
+      },
+      "fields": {
+        "default_group": {
+          "type": "group",
+          "multiple": true,
+          "scopes": ["sc", "copro", "building"],
+          "value": [
+            {
+              "poste_concerne_compte_rendu_actions_et_leurs_resultats": {
+                "type": "string",
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "date_decision_compte_rendu_actions_et_leurs_resultats": {
+                "type": "date",
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "nature_decision_compte_rendu_actions_et_leurs_resultats": {
+                "type": "string",
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "metadata": {
+        "legendes": [],
+        "name": "MISE_EN_PLACE_REPETITION_PERIODIQUE_ACTIONS",
+        "order": 7,
+        "scopes": ["sc", "copro", "building"],
+        "status": ""
+      },
+      "fields": {
+        "default_group": {
+          "type": "group",
+          "multiple": false,
+          "scopes": ["sc", "copro", "building"],
+          "value": [
+            {
+              "date_decision_mise_en_place_repetition_periodique_actions": {
+                "type": "date",
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              },
+              "nature_decision_mise_en_place_repetition_periodique_actions": {
+                "type": "string",
+                "multiple": false,
+                "scopes": ["sc", "copro", "building"],
+                "value": []
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
 }
