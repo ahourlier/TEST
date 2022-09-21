@@ -2243,8 +2243,7 @@
 																	"value": []
 																},
 																"date_accord_rachat_credits_volet_financier": {
-																	"type": "textArea",
-																	"lg": 12,
+																	"type": "date",
 																	"showIf": "rachat_de_credit_credits_volet_financier",
 																	"multiple": false,
 																	"scopes": [
