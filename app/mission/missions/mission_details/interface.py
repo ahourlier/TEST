@@ -12,11 +12,13 @@ class MissionDetailInterface(TypedDict, total=False):
     previous_running_meeting: date
     # marche et facturation
     market_number: str
-    os_signing_date: date
+    market_notification_date: date
+    market_price_revision: bool
     has_sub_contractor: bool
     billing_type_tf: str
     billing_type_tc: str
     purchase_order_market: bool
+    invoicing_terms_specifics: str
     # smq
     smq_starting_meeting: date
     smq_engagement_meeting: date

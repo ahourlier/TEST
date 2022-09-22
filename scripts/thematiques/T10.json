@@ -1,825 +1,612 @@
 {
-	"thematique_name": "POSITIONNEMENT_IMMOBILIER",
-	"scopes": [
-		"copro",
-		"building",
-		"lot"
-	],
-	"versionnable": [
-		false,
-		false,
-		false
-	],
-	"heritable": [
-		true,
-		true,
-		false
-	],
-	"extend_parent": [
-		false,
-		true,
-		true
-	],
-	"steps": [
-		{
-			"metadata": {
-				"legendes": [],
-				"name": "DONNEES_CADRAGE",
-				"order": 1,
-				"status": "",
-				"scopes": [
-					"copro"
-				]
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": false,
-					"scopes": [
-						"copro"
-					],
-					"value": [
-						{
-							"mobilisation_data_group": {
-								"type": "group",
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": [
-									{
-										"perval_mobilisation_data": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"dvf_mobilisation_data": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"fichiers_fonciers_mobilisation_data": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"patrim_mobilisation_data": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"autre_source_mobilisation_data": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"commentaires_mobilisation_data": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										}
-									}
-								]
-							},
-							"autres_informations_group": {
-								"type": "group",
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": [
-									{
-										"recours_a_voc_autres_informations": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"recours_a_observatoire_autres_informations": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"transmission_prevue_demandes_etat_date_par_syndic_autres_informations": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"dpur_autres_informations": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"instauration_autres_informations": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"analyse_immobiliere_produite_au_demarrage_operation_autres_informations": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"valeur_approximative_batiments_autres_informations": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										}
-									}
-								]
-							}
-						}
-					]
-				}
-			}
-		},
-		{
-			"metadata": {
-				"legendes": [],
-				"name": "MISE_EN_PLACE_ET_ANIMATION_VEILLE_FONCIERE_EN_LIEN_AVEC_ACTIONS_PORTAGE",
-				"order": 2,
-				"status": "",
-				"scopes": [
-					"copro",
-					"lot"
-				]
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": false,
-					"scopes": [
-						"copro",
-						"lot"
-					],
-					"value": [
-						{
-							"mise_en_place_group": {
-								"type": "group",
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": [
-									{
-										"methodologie_veille_fonciere_validee_avec_client_mise_en_place": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"date_methodologie_mise_en_place": {
-											"type": "date",
-											"showIf": "methodologie_veille_fonciere_validee_avec_client_mise_en_place",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"comite_acquisitions_et_relogement_car_mise_en_place": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"date_comite_acquisitions_mise_en_place": {
-											"type": "date",
-											"showIf": "comite_acquisitions_et_relogement_car_mise_en_place",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										}
-									}
-								]
-							},
-							"animation_suivi_dia_group": {
-								"type": "group",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"lot"
-								],
-								"value": [
-									{
-										"animation_par_urbanis_animation_suivi_dia": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"rythme_reception_dia_animation_suivi_dia": {
-											"type": "string",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"nombre_demandes_visites_biens_animation_suivi_dia": {
-											"type": "number",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"nombre_demandes_pieces_complementaires_animation_suivi_dia": {
-											"type": "number",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"nombre_logements_preemptes_animation_suivi_dia": {
-											"type": "number",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"montant_prix_dans_dia_animation_suivi_dia": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"montant_prix_dans_dia_au_m2_animation_suivi_dia": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"courrier_envoye_au_futur_acquereur_animation_suivi_dia": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"coordonnees_acquereur_potentiel_animation_suivi_dia": {
-											"type": "textArea",
-											"lg": 12,
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"rdv_propose_a_acquereur_potentiel_animation_suivi_dia": {
-											"type": "switch",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										}
-									}
-								]
-							}
-						}
-					]
-				}
-			}
-		},
-		{
-			"metadata": {
-				"legendes": [],
-				"name": "PREPARATION_PORTAGE_LOTS_ET_AIDE_AU_FINANCEMENT",
-				"order": 3,
-				"status": "",
-				"scopes": [
-					"copro"
-				]
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": false,
-					"scopes": [
-						"copro"
-					],
-					"value": [
-						{
-							"logements_a_porter": {
-								"type": "number",
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": []
-							},
-							"logements_financables_par_anah": {
-								"type": "number",
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": []
-							},
-							"logements_inscrits_dans_dispositif_portage": {
-								"type": "number",
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": []
-							},
-							"logements_effectivement_portes": {
-								"type": "number",
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": []
-							},
-							"delta_entre_logements_inscrits_et_logements_portes": {
-								"type": "number",
-								"formula": "logements_inscrits_dans_dispositif_portage + logements_effectivement_portes",
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": []
-							},
-							"convention_preparation_portage_lots_et_aide_au_financement": {
-								"type": "switch",
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": []
-							},
-							"concession_preparation_portage_lots_et_aide_au_financement": {
-								"type": "switch",
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": []
-							},
-							"ofs_preparation_portage_lots_et_aide_au_financement": {
-								"type": "switch",
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": []
-							},
-							"brs_preparation_portage_lots_et_aide_au_financement": {
-								"type": "switch",
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": []
-							},
-							"autre_structure_preparation_portage_lots_et_aide_au_financement": {
-								"type": "textArea",
-								"lg": 12,
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": []
-							},
-							"groupement_preparation_portage_lots_et_aide_au_financement": {
-								"type": "switch",
-								"multiple": false,
-								"scopes": [
-									"copro"
-								],
-								"value": []
-							},
-							"structure_porteuse_group": {
-								"type": "group",
-								"multiple": true,
-								"scopes": [
-									"copro"
-								],
-								"value": [
-									{
-										"structure_porteuse": {
-											"type": "select",
-											"multiple": false,
-											"endpoint": "/referential/enums/?enums=SupportingStructure",
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"coordonnees_tel_structure_porteuse": {
-											"type": "phone",
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										},
-										"coordonnees_mail_structure_porteuse": {
-											"type": "email",
-											"rules": "email",
-											"prepend-inner-icon": "mdi-email",
-											"email-link": true,
-											"multiple": false,
-											"scopes": [
-												"copro"
-											],
-											"value": []
-										}
-									}
-								]
-							}
-						}
-					]
-				}
-			}
-		},
-		{
-			"metadata": {
-				"legendes": [],
-				"name": "ACCOMPAGNEMENT_PORTAGE_LOTS_ET_ACTIONS_RELOGEMENT",
-				"order": 4,
-				"status": "",
-				"scopes": [
-					"copro",
-					"building",
-					"lot"
-				],
-				"vertical_dependencies": [
-					"montant_versement_demande_aide_au_portage_ingenierie",
-					"montant_versement_demande_aide_au_portage_travaux",
-					"duree_recherche_relogement_relogement",
-					"nombre_relogements_relogement"
-				]
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": false,
-					"scopes": [
-						"copro",
-						"building",
-						"lot"
-					],
-					"value": [
-						{
-							"achat_t10_group": {
-								"type": "group",
-								"multiple": false,
-								"scopes": [
-									"lot"
-								],
-								"value": [
-									{
-										"annee_acquisition_achat_t10": {
-											"type": "date",
-											"format": "YYYY",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"prix_achat_au_m2_achat_t10": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										}
-									}
-								]
-							},
-							"demande_aide_au_portage_ingenierie_group": {
-								"type": "group",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building",
-									"lot"
-								],
-								"value": [
-									{
-										"date_demande_aide_au_portage_ingenierie": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"accuse_reception_dossier_demande_aide_au_portage_ingenierie": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"notification_decision_demande_aide_au_portage_ingenierie": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"aide_accordee_demande_aide_au_portage_ingenierie": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"forclusion_demande_aide_au_portage_ingenierie": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"date_versement_demande_aide_au_portage_ingenierie": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"montant_versement_demande_aide_au_portage_ingenierie": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										}
-									}
-								]
-							},
-							"demande_aide_au_portage_travaux_group": {
-								"type": "group",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building",
-									"lot"
-								],
-								"value": [
-									{
-										"date_demande_aide_au_portage_travaux": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"accuse_reception_dossier_demande_aide_au_portage_travaux": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"notification_decision_demande_aide_au_portage_travaux": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"aide_accordee_demande_aide_au_portage_travaux": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"forclusion_demande_aide_au_portage_travaux": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"date_versement_demande_aide_au_portage_travaux": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"montant_versement_demande_aide_au_portage_travaux": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										}
-									}
-								]
-							},
-							"relogement_group": {
-								"type": "group",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"building",
-									"lot"
-								],
-								"value": [
-									{
-										"recherche_relogement_relogement": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"relogement_effectif_relogement": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"duree_recherche_relogement_relogement": {
-											"type": "number",
-											"suffix": "mois",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"value": []
-										},
-										"nombre_relogements_relogement": {
-											"type": "number",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"building",
-												"lot"
-											],
-											"hidden": [
-												"lot"
-											],
-											"default_values": {
-												"lot": [
-													1
-												]
-											},
-											"value": []
-										}
-									}
-								]
-							},
-							"vente_t10_group": {
-								"type": "group",
-								"multiple": false,
-								"scopes": [
-									"copro",
-									"lot"
-								],
-								"value": [
-									{
-										"date_vente_t10": {
-											"type": "date",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"acquereur_vente_t10": {
-											"type": "select",
-											"endpoint": "/referential/enums/?enums=BuyerSales",
-											"multiple": false,
-											"scopes": [
-												"lot"
-											],
-											"value": []
-										},
-										"prix_vente_au_m2_vente_t10": {
-											"type": "currency",
-											"multiple": false,
-											"scopes": [
-												"copro",
-												"lot"
-											],
-											"value": []
-										}
-									}
-								]
-							}
-						}
-					]
-				}
-			}
-		},
-		{
-			"metadata": {
-				"legendes": [],
-				"name": "MISE_A_JOUR_PERIODIQUE_ANALYSE_IMMOBILIERE",
-				"order": 5,
-				"status": "",
-				"scopes": [
-					"copro"
-				]
-			},
-			"fields": {
-				"default_group": {
-					"type": "group",
-					"multiple": false,
-					"scopes": [
-						"copro"
-					],
-					"value": [
-						{
-							"analyse_immobiliere_mise_a_jour_periodique_analyse_immobiliere": {
-								"type": "date",
-								"multiple": true,
-								"scopes": [
-									"copro"
-								],
-								"value": []
-							}
-						}
-					]
-				}
-			}
-		}
-	]
+  "thematique_name": "POSITIONNEMENT_IMMOBILIER",
+  "scopes": ["copro", "building", "lot"],
+  "versionnable": [false, false, false],
+  "heritable": [true, true, false],
+  "extend_parent": [false, true, true],
+  "steps": [
+    {
+      "metadata": {
+        "legendes": [],
+        "name": "DONNEES_CADRAGE",
+        "order": 1,
+        "status": "",
+        "scopes": ["copro"]
+      },
+      "fields": {
+        "default_group": {
+          "type": "group",
+          "multiple": false,
+          "scopes": ["copro"],
+          "value": [
+            {
+              "mobilisation_data_group": {
+                "type": "group",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": [
+                  {
+                    "perval_mobilisation_data": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "dvf_mobilisation_data": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "fichiers_fonciers_mobilisation_data": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "patrim_mobilisation_data": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "autre_source_mobilisation_data": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "commentaires_mobilisation_data": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    }
+                  }
+                ]
+              },
+              "autres_informations_group": {
+                "type": "group",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": [
+                  {
+                    "recours_a_voc_autres_informations": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "recours_a_observatoire_autres_informations": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "transmission_prevue_demandes_etat_date_par_syndic_autres_informations": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "dpur_autres_informations": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "instauration_autres_informations": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "analyse_immobiliere_produite_au_demarrage_operation_autres_informations": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "valeur_approximative_batiments_autres_informations": {
+                      "type": "currency",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "metadata": {
+        "legendes": [],
+        "name": "MISE_EN_PLACE_ET_ANIMATION_VEILLE_FONCIERE_EN_LIEN_AVEC_ACTIONS_PORTAGE",
+        "order": 2,
+        "status": "",
+        "scopes": ["copro", "lot"]
+      },
+      "fields": {
+        "default_group": {
+          "type": "group",
+          "multiple": false,
+          "scopes": ["copro", "lot"],
+          "value": [
+            {
+              "mise_en_place_group": {
+                "type": "group",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": [
+                  {
+                    "methodologie_veille_fonciere_validee_avec_client_mise_en_place": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "date_methodologie_mise_en_place": {
+                      "type": "date",
+                      "showIf": "methodologie_veille_fonciere_validee_avec_client_mise_en_place",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "comite_acquisitions_et_relogement_car_mise_en_place": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "date_comite_acquisitions_mise_en_place": {
+                      "type": "date",
+                      "showIf": "comite_acquisitions_et_relogement_car_mise_en_place",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    }
+                  }
+                ]
+              },
+              "animation_suivi_dia_group": {
+                "type": "group",
+                "multiple": false,
+                "scopes": ["copro", "lot"],
+                "value": [
+                  {
+                    "animation_par_urbanis_animation_suivi_dia": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "rythme_reception_dia_animation_suivi_dia": {
+                      "type": "string",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "nombre_demandes_visites_biens_animation_suivi_dia": {
+                      "type": "number",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "nombre_demandes_pieces_complementaires_animation_suivi_dia": {
+                      "type": "number",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "nombre_logements_preemptes_animation_suivi_dia": {
+                      "type": "number",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "montant_prix_dans_dia_animation_suivi_dia": {
+                      "type": "currency",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "montant_prix_dans_dia_au_m2_animation_suivi_dia": {
+                      "type": "currency",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "courrier_envoye_au_futur_acquereur_animation_suivi_dia": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "coordonnees_acquereur_potentiel_animation_suivi_dia": {
+                      "type": "textArea",
+                      "lg": 12,
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "rdv_propose_a_acquereur_potentiel_animation_suivi_dia": {
+                      "type": "switch",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "metadata": {
+        "legendes": [],
+        "name": "PREPARATION_PORTAGE_LOTS_ET_AIDE_AU_FINANCEMENT",
+        "order": 3,
+        "status": "",
+        "scopes": ["copro"]
+      },
+      "fields": {
+        "default_group": {
+          "type": "group",
+          "multiple": false,
+          "scopes": ["copro"],
+          "value": [
+            {
+              "logements_a_porter": {
+                "type": "number",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": []
+              },
+              "logements_financables_par_anah": {
+                "type": "number",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": []
+              },
+              "logements_inscrits_dans_dispositif_portage": {
+                "type": "number",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": []
+              },
+              "logements_effectivement_portes": {
+                "type": "number",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": []
+              },
+              "delta_entre_logements_inscrits_et_logements_portes": {
+                "type": "number",
+                "formula": "logements_inscrits_dans_dispositif_portage + logements_effectivement_portes",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": []
+              },
+              "convention_preparation_portage_lots_et_aide_au_financement": {
+                "type": "switch",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": []
+              },
+              "concession_preparation_portage_lots_et_aide_au_financement": {
+                "type": "switch",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": []
+              },
+              "ofs_preparation_portage_lots_et_aide_au_financement": {
+                "type": "switch",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": []
+              },
+              "brs_preparation_portage_lots_et_aide_au_financement": {
+                "type": "switch",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": []
+              },
+              "autre_structure_preparation_portage_lots_et_aide_au_financement": {
+                "type": "textArea",
+                "lg": 12,
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": []
+              },
+              "groupement_preparation_portage_lots_et_aide_au_financement": {
+                "type": "switch",
+                "multiple": false,
+                "scopes": ["copro"],
+                "value": []
+              },
+              "structure_porteuse_group": {
+                "type": "group",
+                "multiple": true,
+                "scopes": ["copro"],
+                "value": [
+                  {
+                    "structure_porteuse": {
+                      "type": "select",
+                      "multiple": false,
+                      "endpoint": "/referential/enums/?enums=SupportingStructure",
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "coordonnees_tel_structure_porteuse": {
+                      "type": "phone",
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    },
+                    "coordonnees_mail_structure_porteuse": {
+                      "type": "email",
+                      "rules": "email",
+                      "prepend-inner-icon": "mdi-email",
+                      "email-link": true,
+                      "multiple": false,
+                      "scopes": ["copro"],
+                      "value": []
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "metadata": {
+        "legendes": [],
+        "name": "ACCOMPAGNEMENT_PORTAGE_LOTS_ET_ACTIONS_RELOGEMENT",
+        "order": 4,
+        "status": "",
+        "scopes": ["copro", "building", "lot"],
+        "vertical_dependencies": [
+          "montant_versement_demande_aide_au_portage_ingenierie",
+          "montant_versement_demande_aide_au_portage_travaux",
+          "duree_recherche_relogement_relogement",
+          "nombre_relogements_relogement"
+        ]
+      },
+      "fields": {
+        "default_group": {
+          "type": "group",
+          "multiple": false,
+          "scopes": ["copro", "building", "lot"],
+          "value": [
+            {
+              "achat_t10_group": {
+                "type": "group",
+                "multiple": false,
+                "scopes": ["lot"],
+                "value": [
+                  {
+                    "annee_acquisition_achat_t10": {
+                      "type": "date",
+                      "format": "YYYY",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "prix_achat_au_m2_achat_t10": {
+                      "type": "currency",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    }
+                  }
+                ]
+              },
+              "demande_aide_au_portage_ingenierie_group": {
+                "type": "group",
+                "multiple": false,
+                "scopes": ["copro", "building", "lot"],
+                "value": [
+                  {
+                    "date_demande_aide_au_portage_ingenierie": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "accuse_reception_dossier_demande_aide_au_portage_ingenierie": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "notification_decision_demande_aide_au_portage_ingenierie": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "aide_accordee_demande_aide_au_portage_ingenierie": {
+                      "type": "currency",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "forclusion_demande_aide_au_portage_ingenierie": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "date_versement_demande_aide_au_portage_ingenierie": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "montant_versement_demande_aide_au_portage_ingenierie": {
+                      "type": "currency",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    }
+                  }
+                ]
+              },
+              "demande_aide_au_portage_travaux_group": {
+                "type": "group",
+                "multiple": false,
+                "scopes": ["copro", "building", "lot"],
+                "value": [
+                  {
+                    "date_demande_aide_au_portage_travaux": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "accuse_reception_dossier_demande_aide_au_portage_travaux": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "notification_decision_demande_aide_au_portage_travaux": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "aide_accordee_demande_aide_au_portage_travaux": {
+                      "type": "currency",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "forclusion_demande_aide_au_portage_travaux": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "date_versement_demande_aide_au_portage_travaux": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "montant_versement_demande_aide_au_portage_travaux": {
+                      "type": "currency",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    }
+                  }
+                ]
+              },
+              "relogement_group": {
+                "type": "group",
+                "multiple": false,
+                "scopes": ["copro", "building", "lot"],
+                "value": [
+                  {
+                    "recherche_relogement_relogement": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "relogement_effectif_relogement": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "duree_recherche_relogement_relogement": {
+                      "type": "number",
+                      "suffix": "mois",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "value": []
+                    },
+                    "nombre_relogements_relogement": {
+                      "type": "number",
+                      "multiple": false,
+                      "scopes": ["copro", "building", "lot"],
+                      "hidden": ["lot"],
+                      "default_values": {
+                        "lot": [1]
+                      },
+                      "value": []
+                    }
+                  }
+                ]
+              },
+              "vente_t10_group": {
+                "type": "group",
+                "multiple": false,
+                "scopes": ["copro", "lot"],
+                "value": [
+                  {
+                    "date_vente_t10": {
+                      "type": "date",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "acquereur_vente_t10": {
+                      "type": "select",
+                      "endpoint": "/referential/enums/?enums=BuyerSales",
+                      "multiple": false,
+                      "scopes": ["lot"],
+                      "value": []
+                    },
+                    "prix_vente_au_m2_vente_t10": {
+                      "type": "currency",
+                      "multiple": false,
+                      "scopes": ["copro", "lot"],
+                      "value": []
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "metadata": {
+        "legendes": [],
+        "name": "MISE_A_JOUR_PERIODIQUE_ANALYSE_IMMOBILIERE",
+        "order": 5,
+        "status": "",
+        "scopes": ["copro"]
+      },
+      "fields": {
+        "default_group": {
+          "type": "group",
+          "multiple": false,
+          "scopes": ["copro"],
+          "value": [
+            {
+              "analyse_immobiliere_mise_a_jour_periodique_analyse_immobiliere": {
+                "type": "date",
+                "multiple": true,
+                "scopes": ["copro"],
+                "value": []
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
 }

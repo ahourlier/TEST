@@ -22,11 +22,13 @@ class MissionDetail(BaseMixin, db.Model):
     partners = relationship("Partner", backref="mission_details")
     # marche et facturation
     market_number = Column(String(255), nullable=True)
-    os_signing_date = Column(db.Date, nullable=True)
+    market_notification_date = Column(db.Date, nullable=True)
+    market_price_revision = Column(Boolean(), nullable=True)
     has_sub_contractor = Column(Boolean(), nullable=True)
     billing_type_tf = Column(String(255), nullable=True)
     billing_type_tc = Column(String(255), nullable=True)
     purchase_order_market = Column(Boolean(), nullable=True)
+    invoicing_terms_specifics = Column(String(), nullable=True)
     subcontractor = relationship(
         "Subcontractor",
         secondary=MissionDetailSubcontractor,
