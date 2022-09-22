@@ -1,3 +1,4 @@
+import logging
 import os
 
 from flask_sqlalchemy import Pagination
@@ -205,6 +206,7 @@ class MissionService:
                     sdv2_administratif_folder_id,
                     structure,
                     shared_drive_name,
+                    None,
                 )
 
                 db.session.add(mission)
@@ -252,6 +254,38 @@ class MissionService:
             # If one tries to update entity id, a error must be raised
             if changes.get("id") and changes.get("id") != mission.id:
                 raise InconsistentUpdateIdException()
+
+            if changes.get("mission_type") == App.COPRO:
+                operational_drive_id = changes.get("sdv2_operationel_drive")
+                administrative_drive_id = changes.get("sdv2_administratif_drive")
+                if operational_drive_id and administrative_drive_id:
+                    operational_folders = DriveUtils.list_folders(
+                        operational_drive_id, g.user.email, None
+                    )
+
+                    (
+                        structure,
+                        shared_drive_name,
+                    ) = MissionService.create_operational_drive_structure(
+                        operational_drive_id, operational_folders
+                    )
+                    sdv2_administratif_folder_id = DriveUtils.list_folders(
+                        administrative_drive_id, g.user.email, None
+                    )[0]["id"]
+
+                    MissionService.link_drive_ids(
+                        mission,
+                        operational_drive_id,
+                        administrative_drive_id,
+                        sdv2_administratif_folder_id,
+                        structure,
+                        shared_drive_name,
+                        changes,
+                    )
+
+                    MissionService.associate_google_group(
+                        mission, operational_drive_id, administrative_drive_id, changes
+                    )
             mission.update(changes)
             db.session.commit()
         return mission
@@ -500,23 +534,45 @@ class MissionService:
         sdv2_administratif_folder_id,
         structure,
         shared_drive_name,
+        mission_changes=None,
     ):
-        mission.sdv2_operationel_drive = sdv2_operationel_drive_id
-        mission.sdv2_administratif_drive = sdv2_administratif_drive_id
-        mission.sdv2_operationel_folder = structure[shared_drive_name]
-        mission.sdv2_administratif_folder = sdv2_administratif_folder_id
-        mission.sdv2_suivi_animation_folder = structure["10 Suivi animation"]
-        mission.sdv2_outils_animation_folder = structure["20 Outils animation"]
-        mission.sdv2_equipes_locales_folder = structure["30 Equipe et Local"]
-        mission.sdv2_bdd_folder = structure["40 BDD"]
-        mission.sdv2_exports_folder = structure["_10 Imports"]
-        mission.sdv2_imports_folder = structure["_20 Exports"]
+        if not mission_changes:
+            mission.sdv2_operationel_drive = sdv2_operationel_drive_id
+            mission.sdv2_administratif_drive = sdv2_administratif_drive_id
+            mission.sdv2_operationel_folder = structure[shared_drive_name]
+            mission.sdv2_administratif_folder = sdv2_administratif_folder_id
+            mission.sdv2_suivi_animation_folder = structure["10 Suivi animation"]
+            mission.sdv2_outils_animation_folder = structure["20 Outils animation"]
+            mission.sdv2_equipes_locales_folder = structure["30 Equipe et Local"]
+            mission.sdv2_bdd_folder = structure["40 BDD"]
+            mission.sdv2_exports_folder = structure["_10 Imports"]
+            mission.sdv2_imports_folder = structure["_20 Exports"]
+        else:
+            mission_changes["sdv2_operationel_drive"] = sdv2_operationel_drive_id
+            mission_changes["sdv2_administratif_drive"] = sdv2_administratif_drive_id
+            mission_changes["sdv2_operationel_folder"] = structure[shared_drive_name]
+            mission_changes["sdv2_administratif_folder"] = sdv2_administratif_folder_id
+            mission_changes["sdv2_suivi_animation_folder"] = structure[
+                "10 Suivi animation"
+            ]
+            mission_changes["sdv2_outils_animation_folder"] = structure[
+                "20 Outils animation"
+            ]
+            mission_changes["sdv2_equipes_locales_folder"] = structure[
+                "30 Equipe et Local"
+            ]
+            mission_changes["sdv2_bdd_folder"] = structure["40 BDD"]
+            mission_changes["sdv2_exports_folder"] = structure["_10 Imports"]
+            mission_changes["sdv2_imports_folder"] = structure["_20 Exports"]
 
-    def associate_google_group(mission, operational_drive, administrative_drive):
+    def associate_google_group(
+        mission, operational_drive, administrative_drive, mission_changes=None
+    ):
         client = DirectoryService(os.getenv("TECHNICAL_ACCOUNT_EMAIL")).get()
         group_email = f"{os.getenv('GROUP_EMAIL_ENV_PREFIX', '')}oslov2-mission-{mission.code_name}@{os.getenv('GSUITE_DOMAIN')}"
         group_id = GroupUtils.get_google_group(group_email, client=client)
         if not group_id:
+            logging.info(f"Creating google group with email {group_email}")
             group_id = GroupUtils.create_google_group(
                 email=group_email,
                 name=f"{os.getenv('GROUP_NAME_ENV_PREFIX')}OSLO V2 - Mission {mission.name}",
@@ -569,8 +625,10 @@ class MissionService:
                 raise SharedDriveException(KEY_SHARED_DRIVE_PERMISSION_EXCEPTION)
 
         if group_id:
-            mission.google_group_id = group_id
-            db.session.commit()
+            if mission_changes:
+                mission_changes["google_group_id"] = group_id
+            else:
+                mission.google_group_id = group_id
 
         else:
             raise GoogleGroupsException(KEY_GOOGLE_GROUP_CREATION_EXCEPTION)
