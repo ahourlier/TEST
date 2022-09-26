@@ -503,16 +503,16 @@ class CoproService:
             folder_name, mission.sdv2_suivi_animation_folder, g.user.email, None, False
         )
         folders = {
-            "Environnement urbain et cadre de vie": None,
-            "Situation juridique et foncière": None,
-            "Occupation sociale": None,
-            "Gestion et fonctionnement": None,
-            "Charges": None,
-            "Impayés": None,
-            "Équipements et bâti": None,
-            "Suivi des financements PC et PPIC": None,
-            "Suivi des financements PP": None,
-            "Positionnement immobilier": None,
+            "T1 - Environnement urbain et cadre de vie": None,
+            "T2 - Situation juridique et foncière": None,
+            "T3 - Occupation sociale": None,
+            "T4 - Gestion et fonctionnement": None,
+            "T5 - Charges": None,
+            "T6 - Impayés": None,
+            "T7 - Équipements et bâti": None,
+            "T8 - Suivi des financements PC et PPIC": None,
+            "T9 - Suivi des financements PP": None,
+            "T10 - Positionnement immobilier": None,
         }
         for folder_name in folders:
             folders[folder_name] = DriveUtils.create_folder(
@@ -521,20 +521,22 @@ class CoproService:
         DriveUtils.batch_request(folders, g.user.email)
 
         new_copro.sdv2_environement_urbain_folder_id = folders[
-            "Environnement urbain et cadre de vie"
+            "T1 - Environnement urbain et cadre de vie"
         ]
         new_copro.sdv2_situation_juridique_folder_id = folders[
-            "Situation juridique et foncière"
+            "T2 - Situation juridique et foncière"
         ]
-        new_copro.sdv2_occupation_folder_id = folders["Occupation sociale"]
-        new_copro.sdv2_gestion_folder_id = folders["Gestion et fonctionnement"]
-        new_copro.sdv2_charges_folder_id = folders["Charges"]
-        new_copro.sdv2_impayes_folder_id = folders["Impayés"]
-        new_copro.sdv2_equipements_folder_id = folders["Équipements et bâti"]
+        new_copro.sdv2_occupation_folder_id = folders["T3 - Occupation sociale"]
+        new_copro.sdv2_gestion_folder_id = folders["T4 - Gestion et fonctionnement"]
+        new_copro.sdv2_charges_folder_id = folders["T5 - Charges"]
+        new_copro.sdv2_impayes_folder_id = folders["T6 - Impayés"]
+        new_copro.sdv2_equipements_folder_id = folders["T7 - Équipements et bâti"]
         new_copro.sdv2_suivi_financement_pc_folder_id = folders[
-            "Suivi des financements PC et PPIC"
+            "T8 - Suivi des financements PC et PPIC"
         ]
         new_copro.sdv2_suivi_financement_pp_folder_id = folders[
-            "Suivi des financements PP"
+            "T9 - Suivi des financements PP"
         ]
-        new_copro.sdv2_positionnement_folder_id = folders["Positionnement immobilier"]
+        new_copro.sdv2_positionnement_folder_id = folders[
+            "T10 - Positionnement immobilier"
+        ]
