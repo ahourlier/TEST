@@ -194,7 +194,12 @@ class MissionService:
                 for item in administrative_folders:
                     if item["name"] == shared_drive_name:
                         sdv2_administratif_folder_id = item["id"]
-                if not sdv2_administratif_folder_id:
+                    if item["name"] == "Données de sortie":
+                        sdv2_donnees_sortie_folder_id = item["id"]
+                if (
+                    not sdv2_administratif_folder_id
+                    or not sdv2_donnees_sortie_folder_id
+                ):
                     raise WrongSharedDriveSelectionException()
 
                 (
@@ -214,6 +219,7 @@ class MissionService:
                     operational_drive_id,
                     administrative_drive_id,
                     sdv2_administratif_folder_id,
+                    sdv2_donnees_sortie_folder_id,
                     structure,
                     shared_drive_name,
                     None,
@@ -279,7 +285,12 @@ class MissionService:
                     for item in administrative_folders:
                         if item["name"] == shared_drive_name:
                             sdv2_administratif_folder_id = item["id"]
-                    if not sdv2_administratif_folder_id:
+                        if item["name"] == "Données de sortie":
+                            sdv2_donnees_sortie_folder_id = item["id"]
+                    if (
+                        not sdv2_administratif_folder_id
+                        or not sdv2_donnees_sortie_folder_id
+                    ):
                         raise WrongSharedDriveSelectionException()
 
                     # Check Operational drive structure
@@ -296,6 +307,7 @@ class MissionService:
                         operational_drive_id,
                         administrative_drive_id,
                         sdv2_administratif_folder_id,
+                        sdv2_donnees_sortie_folder_id,
                         structure,
                         shared_drive_name,
                         changes,
@@ -565,6 +577,7 @@ class MissionService:
         sdv2_operationel_drive_id,
         sdv2_administratif_drive_id,
         sdv2_administratif_folder_id,
+        sdv2_donnees_sortie_folder_id,
         structure,
         shared_drive_name,
         mission_changes=None,
@@ -574,6 +587,7 @@ class MissionService:
             mission.sdv2_administratif_drive = sdv2_administratif_drive_id
             mission.sdv2_operationel_folder = structure[shared_drive_name]
             mission.sdv2_administratif_folder = sdv2_administratif_folder_id
+            mission.sdv2_donnees_sortie_folder = sdv2_donnees_sortie_folder_id
             mission.sdv2_suivi_animation_folder = structure["10 Suivi animation"]
             mission.sdv2_outils_animation_folder = structure["20 Outils animation"]
             mission.sdv2_equipes_locales_folder = structure["30 Equipe et Local"]
@@ -585,6 +599,9 @@ class MissionService:
             mission_changes["sdv2_administratif_drive"] = sdv2_administratif_drive_id
             mission_changes["sdv2_operationel_folder"] = structure[shared_drive_name]
             mission_changes["sdv2_administratif_folder"] = sdv2_administratif_folder_id
+            mission_changes[
+                "sdv2_donnees_sortie_folder"
+            ] = sdv2_donnees_sortie_folder_id
             mission_changes["sdv2_suivi_animation_folder"] = structure[
                 "10 Suivi animation"
             ]

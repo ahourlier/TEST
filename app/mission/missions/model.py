@@ -64,6 +64,7 @@ class Mission(SoftDeletableMixin, BaseMixin, db.Model):
     sdv2_bdd_folder = db.Column(String(255), nullable=True)
     sdv2_exports_folder = db.Column(String(255), nullable=True)
     sdv2_imports_folder = db.Column(String(255), nullable=True)
+    sdv2_donnees_sortie_folder = db.Column(String(255), nullable=True)
     referents = relationship("Referent", cascade="all, delete")
     # individual
     ca_requester = db.Column(Boolean, nullable=True, default=False)

@@ -235,7 +235,8 @@ class CoproService:
         if cles_repartition:
             CleRepartitionService.handle_keys(new_copro.id, cles_repartition)
 
-        CoproService.create_copro_drive_structure_and_link(new_copro, mission)
+        if mission.sdv2_suivi_animation_folder:
+            CoproService.create_copro_drive_structure_and_link(new_copro, mission)
         db.session.commit()
         return new_copro
 
@@ -519,6 +520,8 @@ class CoproService:
                 folder_name, copro_folder_id, g.user.email, None, True
             )
         DriveUtils.batch_request(folders, g.user.email)
+
+        new_copro.sdv2_root_thematic_folder_id = copro_folder_id
 
         new_copro.sdv2_environement_urbain_folder_id = folders[
             "T1 - Environnement urbain et cadre de vie"
