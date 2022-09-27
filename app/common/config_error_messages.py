@@ -599,5 +599,5 @@ KEY_SCAN_STILL_RUNNING_EXCEPTION = "SCAN_STILL_RUNNING_EXCEPTION"
 WRONG_IMPORT_TYPE_EXCEPTION = "Wrong import type. Can only import from a scanned file."
 KEY_WRONG_IMPORT_TYPE_EXCEPTION = "WRONG_IMPORT_TYPE_EXCEPTION"
 
-WRONG_SHARED_DRIVE_SELECTION_EXCEPTION = "Selected operational shared drive seems to be wrong. Selected folder should have the same name as shared drive"
+WRONG_SHARED_DRIVE_SELECTION_EXCEPTION = "Selected operational shared drive seems to be wrong. Is shared drive structure correct, or you choosed an already associated shared drive?"
 KEY_WRONG_SHARED_DRIVE_SELECTION_EXCEPTION = "WRONG_SHARED_DRIVE_SELECTION_EXCEPTION"
