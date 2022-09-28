@@ -1,3 +1,4 @@
+import logging
 import os
 
 from flask_sqlalchemy import Pagination
@@ -19,6 +20,7 @@ from app.common.config_error_messages import (
     KEY_SHARED_DRIVE_CREATION_EXCEPTION,
     KEY_SHARED_DRIVE_FOLDER_CREATION_EXCEPTION,
     KEY_GOOGLE_GROUP_CREATION_EXCEPTION,
+    KEY_SHARED_DRIVE_PERMISSION_EXCEPTION,
     KEY_SHARED_DRIVE_RENAME_EXCEPTION,
     KEY_SHARED_DRIVE_COPY_EXCEPTION,
     KEY_GOOGLE_GROUP_VISIBILITY_CHANGE_EXCEPTION,
@@ -35,7 +37,10 @@ from app.common.tasks import create_task
 from app.common.search import sort_query
 from app.mission.missions import Mission, MissionSchema
 from app.mission.missions.error_handlers import MissionNotFoundException
-from app.mission.missions.exceptions import UnknownMissionTypeException
+from app.mission.missions.exceptions import (
+    UnknownMissionTypeException,
+    WrongSharedDriveSelectionException,
+)
 from app.mission.missions.interface import MissionInterface
 
 from app.admin.clients.referents.service import ReferentService
@@ -77,12 +82,7 @@ MISSION_INIT_QUEUE_NAME = "mission-queue"
 
 MISSION_DELETE_SD_PREFIX = "ZZ - [ARCHIVE]"
 
-MODEL_MAPPING = {
-    "agency": Agency,
-    "antenna": Antenna,
-    "client": Client,
-    "user": User
-}
+MODEL_MAPPING = {"agency": Agency, "antenna": Antenna, "client": Client, "user": User}
 
 
 class MissionService:
@@ -103,7 +103,7 @@ class MissionService:
         from app.mission.teams.service import TeamService
 
         q = Mission.query
-        
+
         if "." in sort_by:
             q = MissionService.sort_from_sub_model(q, sort_by, direction)
         elif sort_by == "mission_managers":
@@ -178,14 +178,56 @@ class MissionService:
                 referents = new_attrs.get("referents")
                 del new_attrs["referents"]
 
-            mission = Mission(**new_attrs, creator=g.user.email)
-            db.session.add(mission)
-            db.session.commit()
+            mission = None
 
-            if mission.mission_type == App.COPRO:
+            if new_attrs["mission_type"] == App.COPRO:
+                operational_drive_id = new_attrs["sdv2_operationel_drive"]
+                administrative_drive_id = new_attrs["sdv2_administratif_drive"]
+
+                administrative_folders = DriveUtils.list_folders(
+                    administrative_drive_id, g.user.email, None
+                )
+                # Check Administratif drive structure
+                shared_drive_name = DriveUtils.get_shared_drive_name(
+                    administrative_drive_id, g.user.email, None
+                )
+                for item in administrative_folders:
+                    if item["name"] == shared_drive_name:
+                        sdv2_administratif_folder_id = item["id"]
+                if not sdv2_administratif_folder_id:
+                    raise WrongSharedDriveSelectionException()
+
+                (
+                    structure,
+                    shared_drive_name,
+                ) = MissionService.create_operational_drive_structure(
+                    operational_drive_id
+                )
+
+                mission = Mission(**new_attrs, creator=g.user.email)
+
+                MissionService.link_drive_ids(
+                    mission,
+                    operational_drive_id,
+                    administrative_drive_id,
+                    sdv2_administratif_folder_id,
+                    structure,
+                    shared_drive_name,
+                    None,
+                )
+
+                db.session.add(mission)
+                db.session.commit()
+                MissionService.associate_google_group(mission)
+
                 mission_details = MissionDetail()
                 mission_details.mission_id = mission.id
                 db.session.add(mission_details)
+                db.session.commit()
+
+            else:
+                mission = Mission(**new_attrs, creator=g.user.email)
+                db.session.add(mission)
                 db.session.commit()
 
             if referents:
@@ -217,6 +259,46 @@ class MissionService:
             # If one tries to update entity id, a error must be raised
             if changes.get("id") and changes.get("id") != mission.id:
                 raise InconsistentUpdateIdException()
+
+            if changes.get("mission_type") == App.COPRO:
+                operational_drive_id = changes.get("sdv2_operationel_drive")
+                administrative_drive_id = changes.get("sdv2_administratif_drive")
+                if operational_drive_id and administrative_drive_id:
+
+                    # Check Administratif drive structure
+                    administrative_folders = DriveUtils.list_folders(
+                        administrative_drive_id, g.user.email, None
+                    )
+
+                    shared_drive_name = DriveUtils.get_shared_drive_name(
+                        administrative_drive_id, g.user.email, None
+                    )
+                    for item in administrative_folders:
+                        if item["name"] == shared_drive_name:
+                            sdv2_administratif_folder_id = item["id"]
+                    if not sdv2_administratif_folder_id:
+                        raise WrongSharedDriveSelectionException()
+
+                    # Check Operational drive structure
+
+                    (
+                        structure,
+                        shared_drive_name,
+                    ) = MissionService.create_operational_drive_structure(
+                        operational_drive_id
+                    )
+
+                    MissionService.link_drive_ids(
+                        mission,
+                        operational_drive_id,
+                        administrative_drive_id,
+                        sdv2_administratif_folder_id,
+                        structure,
+                        shared_drive_name,
+                        changes,
+                    )
+
+                    MissionService.associate_google_group(mission, changes)
             mission.update(changes)
             db.session.commit()
         return mission
@@ -418,3 +500,186 @@ class MissionService:
         sort_by = values[len(values) - 1]
         query = query.join(sub_model, isouter=True)
         return sort_query(query, sort_by, direction, sub_model)
+
+    def create_operational_drive_structure(sdv2_operationel_drive_id):
+        operational_folders = DriveUtils.list_folders(
+            sdv2_operationel_drive_id, g.user.email, None
+        )
+
+        MissionService.check_operational_structure_exists(operational_folders)
+
+        shared_drive_name = DriveUtils.get_shared_drive_name(
+            sdv2_operationel_drive_id, g.user.email, None
+        )
+
+        # Check if root folder with same name as shared drive exists
+        found = False
+        for file in operational_folders:
+            if file["name"] == shared_drive_name:
+                found = True
+                operational_folder_id = file["id"]
+                break
+
+        # If not, bad shared drive selection
+        if not found:
+            raise WrongSharedDriveSelectionException()
+
+        folders = {
+            "10 Suivi animation": None,
+            "20 Outils animation": None,
+            "30 Equipe et Local": None,
+            "40 BDD": None,
+            "_10 Imports": None,
+            "_20 Exports": None,
+        }
+        for folder_name in folders.keys():
+            if folder_name == "_10 Imports" or folder_name == "_20 Exports":
+                folders[folder_name] = DriveUtils.create_folder(
+                    folder_name, folders["40 BDD"], g.user.email, None, False
+                )
+            else:
+                folders[folder_name] = DriveUtils.create_folder(
+                    folder_name, operational_folder_id, g.user.email, None, False
+                )
+
+        folders[shared_drive_name] = operational_folder_id
+        return folders, shared_drive_name
+
+    def check_operational_structure_exists(operational_folders):
+        matches = [
+            "10 Suivi animation",
+            "20 Outils animation",
+            "30 Equipe et Local",
+            "40 BDD",
+        ]
+        folders = [folder["name"] for folder in operational_folders]
+
+        if all(match in folders for match in matches):
+            raise WrongSharedDriveSelectionException()
+
+    def link_drive_ids(
+        mission,
+        sdv2_operationel_drive_id,
+        sdv2_administratif_drive_id,
+        sdv2_administratif_folder_id,
+        structure,
+        shared_drive_name,
+        mission_changes=None,
+    ):
+        if not mission_changes:
+            mission.sdv2_operationel_drive = sdv2_operationel_drive_id
+            mission.sdv2_administratif_drive = sdv2_administratif_drive_id
+            mission.sdv2_operationel_folder = structure[shared_drive_name]
+            mission.sdv2_administratif_folder = sdv2_administratif_folder_id
+            mission.sdv2_suivi_animation_folder = structure["10 Suivi animation"]
+            mission.sdv2_outils_animation_folder = structure["20 Outils animation"]
+            mission.sdv2_equipes_locales_folder = structure["30 Equipe et Local"]
+            mission.sdv2_bdd_folder = structure["40 BDD"]
+            mission.sdv2_exports_folder = structure["_10 Imports"]
+            mission.sdv2_imports_folder = structure["_20 Exports"]
+        else:
+            mission_changes["sdv2_operationel_drive"] = sdv2_operationel_drive_id
+            mission_changes["sdv2_administratif_drive"] = sdv2_administratif_drive_id
+            mission_changes["sdv2_operationel_folder"] = structure[shared_drive_name]
+            mission_changes["sdv2_administratif_folder"] = sdv2_administratif_folder_id
+            mission_changes["sdv2_suivi_animation_folder"] = structure[
+                "10 Suivi animation"
+            ]
+            mission_changes["sdv2_outils_animation_folder"] = structure[
+                "20 Outils animation"
+            ]
+            mission_changes["sdv2_equipes_locales_folder"] = structure[
+                "30 Equipe et Local"
+            ]
+            mission_changes["sdv2_bdd_folder"] = structure["40 BDD"]
+            mission_changes["sdv2_exports_folder"] = structure["_10 Imports"]
+            mission_changes["sdv2_imports_folder"] = structure["_20 Exports"]
+
+    def associate_google_group(mission, mission_changes=None):
+        client = DirectoryService(os.getenv("TECHNICAL_ACCOUNT_EMAIL")).get()
+        group_email = f"{os.getenv('GROUP_EMAIL_ENV_PREFIX', '')}oslov2-mission-{mission.code_name}@{os.getenv('GSUITE_DOMAIN')}"
+        group_id = GroupUtils.get_google_group(group_email, client=client)
+        if not group_id:
+            logging.info(f"Creating google group with email {group_email}")
+            group_id = GroupUtils.create_google_group(
+                email=group_email,
+                name=f"{os.getenv('GROUP_NAME_ENV_PREFIX')}OSLO V2 - Mission {mission.name}",
+                client=client,
+            )
+            # Set permissions on drives for created mission group
+            permission = DriveUtils.insert_permission(
+                mission.sdv2_operationel_drive,
+                "fileOrganizer",
+                "group",
+                group_email,
+                g.user.email,
+                None,
+            )
+            if not permission:
+                raise SharedDriveException(KEY_SHARED_DRIVE_PERMISSION_EXCEPTION)
+
+            permission = DriveUtils.insert_permission(
+                mission.sdv2_administratif_drive,
+                "fileOrganizer",
+                "group",
+                group_email,
+                g.user.email,
+                None,
+            )
+            if not permission:
+                raise SharedDriveException(KEY_SHARED_DRIVE_PERMISSION_EXCEPTION)
+
+            # Set permissions on drives for mission creator
+            permission = DriveUtils.insert_permission(
+                mission.sdv2_operationel_drive,
+                "organizer",
+                "user",
+                mission.creator,
+                g.user.email,
+                None,
+            )
+            if not permission:
+                raise SharedDriveException(KEY_SHARED_DRIVE_PERMISSION_EXCEPTION)
+
+            permission = DriveUtils.insert_permission(
+                mission.sdv2_administratif_drive,
+                "organizer",
+                "user",
+                mission.creator,
+                g.user.email,
+                None,
+            )
+            if not permission:
+                raise SharedDriveException(KEY_SHARED_DRIVE_PERMISSION_EXCEPTION)
+
+            # Set permissions on drives for admin group
+            permission = DriveUtils.insert_permission(
+                mission.sdv2_operationel_drive,
+                "organizer",
+                "group",
+                os.getenv("APPLICATION_ADMINS_GOOGLE_GROUP"),
+                g.user.email,
+                None,
+            )
+            if not permission:
+                raise SharedDriveException(KEY_SHARED_DRIVE_PERMISSION_EXCEPTION)
+
+            permission = DriveUtils.insert_permission(
+                mission.sdv2_administratif_drive,
+                "organizer",
+                "group",
+                os.getenv("APPLICATION_ADMINS_GOOGLE_GROUP"),
+                g.user.email,
+                None,
+            )
+            if not permission:
+                raise SharedDriveException(KEY_SHARED_DRIVE_PERMISSION_EXCEPTION)
+
+        if group_id:
+            if mission_changes:
+                mission_changes["google_group_id"] = group_id
+            else:
+                mission.google_group_id = group_id
+
+        else:
+            raise GoogleGroupsException(KEY_GOOGLE_GROUP_CREATION_EXCEPTION)

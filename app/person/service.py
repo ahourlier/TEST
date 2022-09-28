@@ -230,5 +230,7 @@ class PersonService:
         sub_model = MODEL_MAPPING[values[len(values) - 2]]
         sort_by = values[len(values) - 1]
         if sub_model == PhoneNumber:
-            query = query.join(PhoneNumber, Person.id == PhoneNumber.resource_id, isouter=True)
+            query = query.join(
+                PhoneNumber, Person.id == PhoneNumber.resource_id, isouter=True
+            )
         return sort_query(query, sort_by, direction, sub_model)

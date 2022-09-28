@@ -144,6 +144,16 @@ class Copro(HasPhones, SoftDeletableMixin, BaseMixin, db.Model):
     external_spaces = Column(Boolean, nullable=True, default=False)
     nb_aerial_parking_spaces = Column(Integer(), nullable=True)
     nb_underground_parking_spaces = Column(Integer(), nullable=True)
+    sdv2_environement_urbain_folder_id = Column(String(255), nullable=True)
+    sdv2_situation_juridique_folder_id = Column(String(255), nullable=True)
+    sdv2_occupation_folder_id = Column(String(255), nullable=True)
+    sdv2_gestion_folder_id = Column(String(255), nullable=True)
+    sdv2_charges_folder_id = Column(String(255), nullable=True)
+    sdv2_impayes_folder_id = Column(String(255), nullable=True)
+    sdv2_equipements_folder_id = Column(String(255), nullable=True)
+    sdv2_suivi_financement_pc_folder_id = Column(String(255), nullable=True)
+    sdv2_suivi_financement_pp_folder_id = Column(String(255), nullable=True)
+    sdv2_positionnement_folder_id = Column(String(255), nullable=True)
 
     @hybrid_property
     def syndic_manager_phone_number(self):

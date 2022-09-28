@@ -224,6 +224,13 @@
                 "multiple": false,
                 "scopes": ["sc", "copro", "building"],
                 "value": []
+              },
+              "aide_memoire_de_depense_subventionable": {
+                "type": "textArea",
+                "lg": 12,
+                "multiple": false,
+                "scopes": ["sc", "copro", "lot"],
+                "value": []
               }
             }
           ]
@@ -494,7 +501,7 @@
                           "delta_total_engage_total_verse_demande_solde_financeur": {
                             "type": "currency",
                             "formula": "(montant_aide_engage_subventions_demande_aide_financeur + montant_aide_engage_primes_demande_aide_financeur) - montant_verse_demande_solde_financeur",
-                            "multiple": true,
+                            "multiple": false,
                             "scopes": ["sc", "copro", "lot"],
                             "value": []
                           },
@@ -606,25 +613,25 @@
                     },
                     "accuse_reception_prefinanceur_prefinancements_t8": {
                       "type": "date",
-                      "multiple": true,
+                      "multiple": false,
                       "scopes": ["sc", "copro"],
                       "value": []
                     },
                     "notification_decision_prefinanceur_prefinancements_t8": {
                       "type": "date",
-                      "multiple": true,
+                      "multiple": false,
                       "scopes": ["sc", "copro"],
                       "value": []
                     },
                     "numero_convention_decision_prefinanceur_prefinancements_t8": {
                       "type": "string",
-                      "multiple": true,
+                      "multiple": false,
                       "scopes": ["sc", "copro"],
                       "value": []
                     },
                     "montant_accorde_prefinanceur_prefinancements_t8": {
                       "type": "currency",
-                      "multiple": true,
+                      "multiple": false,
                       "scopes": ["sc", "copro"],
                       "value": []
                     },
@@ -918,7 +925,7 @@
     {
       "metadata": {
         "legendes": [],
-        "name": "TAUX_FINANCEMENT",
+        "name": "SYNTHESE_FINANCIERE",
         "order": 5,
         "status": "",
         "scopes": ["sc", "copro"]
@@ -932,7 +939,7 @@
             {
               "taux_financement_sur_depense_subventionnable_pc_plus_ppic": {
                 "type": "number",
-                "formula_todo": "((montant_aide_engage_subventions_demande_aide_financeur + montant_aide_engage_primes_demande_aide_financeur) / (depense_totale_sur_pc_plus_ppic_ttc_campagne_travaux || 1)) * 100",
+                "formula": "((montant_aide_engage_subventions_demande_aide_financeur + montant_aide_engage_primes_demande_aide_financeur) / (depense_totale_sur_pc_plus_ppic_ttc_campagne_travaux || 1)) * 100",
                 "suffix": "%",
                 "multiple": false,
                 "scopes": ["sc", "copro"],
@@ -940,7 +947,7 @@
               },
               "taux_financement_sur_depense_total_pc_plus_ppic": {
                 "type": "number",
-                "formula_todo": "(montant_verse_demande_solde_financeur / (depense_totale_sur_pc_plus_ppic_ttc_campagne_travaux || 1)) * 100",
+                "formula": "(montant_verse_demande_solde_financeur / (depense_totale_sur_pc_plus_ppic_ttc_campagne_travaux || 1)) * 100",
                 "suffix": "%",
                 "multiple": false,
                 "scopes": ["sc", "copro"],
