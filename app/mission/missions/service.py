@@ -203,9 +203,6 @@ class MissionService:
                 ) = MissionService.create_operational_drive_structure(
                     operational_drive_id
                 )
-                sdv2_administratif_folder_id = DriveUtils.list_folders(
-                    administrative_drive_id, g.user.email, None
-                )[0]["id"]
 
                 mission = Mission(**new_attrs, creator=g.user.email)
 
