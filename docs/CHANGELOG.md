@@ -1,3 +1,26 @@
+# [1.4.0-rc.6](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.4.0-rc.5...v1.4.0-rc.6) (2022-09-28)
+
+
+### Bug Fixes
+
+* **drive:** Mission drive updates ([3d2c063](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/3d2c0633cbb174af2423630b1d64d592da98c9a5))
+* **person:** update person 'create' and 'update' parameters treatment ([b6c8dbf](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/b6c8dbf5442ed3d87c7f3b630b8d07d5d769f3c9))
+* **T3:** Change 'date_accord' as date ([eb08e98](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/eb08e98322dd96d9b6c093f3417fbfff25ead3fa))
+* **T4:** add indice_fragilite_coproprietes field to T2 ([056ec73](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/056ec73928a5456514a47d4b65409a5c6cbea377))
+* **T8:** Add field 'Aide-mémoire de la dépense subventionnable' ([210efb1](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/210efb1a06792a90c7dbc8ccec818e66a19523aa))
+* **T8:** Feedback FM ([512de26](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/512de26460f4bc9abdf802a1c4edc85c0bf0b306))
+* **T8:** remove multiple from delta_total ([ed475a7](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/ed475a7053d1c071402fdd2b9bc3fc85dfbf4914))
+
+
+### Features
+
+* **drive:** Add admin group permissions on drives + set mission group as content manager ([550ee0f](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/550ee0f914db12db0909d6a371e257037b0fb6ff))
+* **drive:** copro drive structure creation with batch request ([c4957c6](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/c4957c619cc2631b032f6b0ef510901c772d03b4))
+* **drive:** create copro drive structure when copro is created ([ab2a7dd](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/ab2a7dde5defbdfe77d5165a897ebd4a38bd5f1c))
+* **drive:** Create group on create mission + add permissions to group on drives ([245cf46](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/245cf46d8972c309636538dab7006c247309e0ce))
+* **drive:** create operational structure when mission is created and store folders id ([08080a2](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/08080a289c2f80a290c86482743bd69839759080))
+* **mission:** add drive v2 association on mission update ([c786956](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/commit/c786956ec1c428820d0caac84cf15d6889e20783))
+
 # [1.4.0-rc.5](https://gitlab.com/devoteam-creative-tech/urbanis/oslo/back/compare/v1.4.0-rc.4...v1.4.0-rc.5) (2022-09-08)
 
 
