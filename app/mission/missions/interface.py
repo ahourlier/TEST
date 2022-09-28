@@ -14,5 +14,7 @@ class MissionInterface(TypedDict, total=False):
     agency_id: int
     antenna_id: int
     client_id: int
+    sdv2_operationel_drive: Optional[str]  # Mandatory for COPRO missions
+    sdv2_administratif_drive: Optional[str]  # Mandatory for COPRO missions
     referents: Optional[List[dict]]
     managers: Optional[List[dict]]

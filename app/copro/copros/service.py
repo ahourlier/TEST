@@ -1,4 +1,5 @@
 import base64
+from flask import g
 from typing import List
 from flask_sqlalchemy import Pagination
 from sqlalchemy import or_, and_, func
@@ -11,6 +12,7 @@ from app.cle_repartition.service import CleRepartitionService
 from app.common.address.model import Address
 from app.common.address.service import AddressService
 from app.common.app_name import App
+from app.common.drive_utils import DriveUtils
 from app.common.exceptions import EnumException
 from app.common.search import sort_query
 from app.common.services_utils import ServicesUtils
@@ -233,6 +235,8 @@ class CoproService:
         if cles_repartition:
             CleRepartitionService.handle_keys(new_copro.id, cles_repartition)
 
+        CoproService.create_copro_drive_structure_and_link(new_copro, mission)
+        db.session.commit()
         return new_copro
 
     @staticmethod
@@ -486,3 +490,53 @@ class CoproService:
         sub_model = MODEL_MAPPING[values[0]]
         sort_by = values[1]
         return sort_query(query, sort_by, direction, sub_model)
+
+    def create_copro_drive_structure_and_link(new_copro, mission):
+        folder_name = (
+            new_copro.address_1.city
+            + " - "
+            + new_copro.address_1.number
+            + " "
+            + new_copro.address_1.street
+        )
+        copro_folder_id = DriveUtils.create_folder(
+            folder_name, mission.sdv2_suivi_animation_folder, g.user.email, None, False
+        )
+        folders = {
+            "T1 - Environnement urbain et cadre de vie": None,
+            "T2 - Situation juridique et foncière": None,
+            "T3 - Occupation sociale": None,
+            "T4 - Gestion et fonctionnement": None,
+            "T5 - Charges": None,
+            "T6 - Impayés": None,
+            "T7 - Équipements et bâti": None,
+            "T8 - Suivi des financements PC et PPIC": None,
+            "T9 - Suivi des financements PP": None,
+            "T10 - Positionnement immobilier": None,
+        }
+        for folder_name in folders:
+            folders[folder_name] = DriveUtils.create_folder(
+                folder_name, copro_folder_id, g.user.email, None, True
+            )
+        DriveUtils.batch_request(folders, g.user.email)
+
+        new_copro.sdv2_environement_urbain_folder_id = folders[
+            "T1 - Environnement urbain et cadre de vie"
+        ]
+        new_copro.sdv2_situation_juridique_folder_id = folders[
+            "T2 - Situation juridique et foncière"
+        ]
+        new_copro.sdv2_occupation_folder_id = folders["T3 - Occupation sociale"]
+        new_copro.sdv2_gestion_folder_id = folders["T4 - Gestion et fonctionnement"]
+        new_copro.sdv2_charges_folder_id = folders["T5 - Charges"]
+        new_copro.sdv2_impayes_folder_id = folders["T6 - Impayés"]
+        new_copro.sdv2_equipements_folder_id = folders["T7 - Équipements et bâti"]
+        new_copro.sdv2_suivi_financement_pc_folder_id = folders[
+            "T8 - Suivi des financements PC et PPIC"
+        ]
+        new_copro.sdv2_suivi_financement_pp_folder_id = folders[
+            "T9 - Suivi des financements PP"
+        ]
+        new_copro.sdv2_positionnement_folder_id = folders[
+            "T10 - Positionnement immobilier"
+        ]
